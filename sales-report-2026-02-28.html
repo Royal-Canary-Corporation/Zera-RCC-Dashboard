@@ -7,134 +7,157 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Segoe UI', Calibri, sans-serif; background:#fff; color:#1a1a2e; padding:28px 36px; width:960px; }
+body { font-family:'Segoe UI', Calibri, sans-serif; background:#fff; color:#1a1a2e; padding:28px 36px; width:1020px; }
 
-/* HEADER */
-.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:12px; border-bottom:2px solid #1a1a2e; }
-.header-title { font-size:18px; font-weight:700; color:#1a1a2e; letter-spacing:.3px; }
-.header-title span { color:#1a1a2e; }
-.header-rate { font-size:12px; color:#444; font-weight:500; }
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid #1a1a2e; }
+.header-title { font-size:17px; font-weight:700; color:#1a1a2e; }
+.header-rate { font-size:12px; color:#444; }
 
-/* SECTION */
-.section { margin-bottom:24px; }
-.section-title { font-size:13px; font-weight:700; color:#8b0000; margin-bottom:10px; text-transform:uppercase; letter-spacing:.3px; }
+.section { margin-bottom:20px; }
+.section-title { font-size:12px; font-weight:700; color:#8b0000; margin-bottom:8px; text-transform:uppercase; letter-spacing:.4px; }
 
-/* CHART CARD */
-.chart-card { background:#fff; border:1px solid #e8e8e8; border-radius:4px; padding:16px 16px 0; }
-.chart-wrap { position:relative; height:240px; }
+/* CHART WRAPPER — includes chart + meta in one block */
+.report-block { border:1px solid #d8d8d8; border-radius:4px; overflow:hidden; }
 
-/* LEGEND (MTD only) */
-.legend-row { display:flex; gap:20px; justify-content:flex-end; margin-bottom:8px; font-size:11px; color:#333; }
+/* Chart area */
+.chart-area { padding:12px 16px 0; background:#fff; }
+.chart-wrap { position:relative; height:220px; }
+
+/* Legend */
+.legend-row { display:flex; gap:20px; justify-content:flex-end; margin-bottom:6px; font-size:11px; color:#333; }
 .leg { display:flex; align-items:center; gap:5px; }
 .leg-box { width:12px; height:12px; border-radius:2px; }
 
-/* METADATA ROWS */
-.meta-table { width:100%; border-collapse:collapse; margin-top:0; }
-.meta-table td { font-size:10.5px; text-align:center; padding:4px 3px; border:1px solid #e0e0e0; white-space:nowrap; }
-.meta-table td:first-child { text-align:left; font-weight:600; color:#333; padding-left:6px; width:140px; font-size:10px; }
-.cell-green { background:#d4edda; color:#155724; font-weight:600; }
-.cell-red { background:#fde8e8; color:#7b0000; font-weight:600; }
-.cell-grey { background:#f4f4f4; color:#555; }
+/* META TABLE — key: label col + 8 equal data cols */
+/* Chart.js with barPercentage=0.55, categoryPercentage=0.8 on 8 bars:
+   Chart padding-left ≈ 40px (y-axis), padding-right ≈ 10px
+   Usable width = canvas_width - 50px, each bar group = usable/8
+   We replicate this as: label(100px) + repeat(8, 1fr) inside the chart area width */
+.meta-table {
+  display:grid;
+  border-top:1px solid #d8d8d8;
+}
+.meta-row {
+  display:grid;
+  grid-template-columns: 100px repeat(8, 1fr);
+  border-bottom:1px solid #e8e8e8;
+}
+.meta-row:last-child { border-bottom:none; }
+.meta-label {
+  font-size:9.5px; font-weight:600; color:#333;
+  padding:5px 6px; background:#fafafa;
+  border-right:1px solid #d8d8d8;
+  display:flex; align-items:center; line-height:1.3;
+}
+.meta-cell {
+  font-size:10px; font-weight:700;
+  text-align:center; padding:5px 2px;
+  border-right:1px solid #ececec;
+  display:flex; align-items:center; justify-content:center;
+  white-space:nowrap;
+}
+.meta-cell:last-child { border-right:none; }
+.cell-green { background:#d4edda; color:#155724; }
+.cell-red   { background:#fde8e8; color:#7b0000; }
+.cell-grey  { background:#f4f4f4; color:#555; font-weight:500; }
 
-/* FOOTER */
-.footer { background:#f5f5f5; border-radius:4px; padding:10px 16px; margin-top:16px; }
-.footer-line { font-size:11.5px; margin-bottom:4px; display:flex; align-items:flex-start; gap:8px; }
-.footer-line:last-child { margin-bottom:0; }
-.dot-green { color:#155724; font-size:14px; line-height:1; }
-.dot-red { color:#7b0000; font-size:14px; line-height:1; }
-.footer-green { color:#155724; font-weight:500; }
-.footer-red { color:#7b0000; font-weight:500; }
-
-/* DATA SOURCE NOTE */
-.datasource { font-size:10px; color:#888; margin-bottom:14px; padding:6px 10px; background:#f9f9f9; border-left:3px solid #1a1a2e; border-radius:2px; }
+.datasource { font-size:10px; color:#888; margin-bottom:12px; padding:5px 10px; background:#f9f9f9; border-left:3px solid #1a1a2e; border-radius:2px; }
 .datasource strong { color:#444; }
+
+.footer { background:#f5f5f5; border-radius:4px; padding:10px 14px; margin-top:14px; }
+.footer-line { font-size:11px; margin-bottom:4px; display:flex; align-items:flex-start; gap:7px; }
+.footer-line:last-child { margin-bottom:0; }
+.dot-green { color:#155724; font-size:13px; }
+.dot-red   { color:#7b0000; font-size:13px; }
+.footer-green { color:#155724; font-weight:500; }
+.footer-red   { color:#7b0000; font-weight:500; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-title">RCC GROUP &nbsp;|&nbsp; SALES REPORT &nbsp;|&nbsp; February 2026</div>
   <div class="header-rate">Exchange Rate: USD/VND = 26,800</div>
 </div>
 
-<!-- DATA SOURCE NOTE -->
 <div class="datasource">
-  <strong>📂 Data source (auto-selected):</strong> RCC SharePoint → Le-Meridien-Saigon/Daily/2026-02/ →
-  <strong>2026-02-28.xlsx</strong> (latest file, modified 06/03/2026) &nbsp;|&nbsp;
-  Sheet: <em>Sheet1</em> (summary), <em>Report</em> (actuals vs targets)
+  <strong>📂 Data source (auto-selected):</strong>
+  SharePoint → Le-Meridien-Saigon/Daily/2026-02/ → <strong>2026-02-28.xlsx</strong>
+  (latest, modified 06/03/2026) &nbsp;|&nbsp; Sheets: <em>Sheet1</em> + <em>Report</em>
 </div>
 
-<!-- SECTION 1: YTD -->
+<!-- ═══ SECTION 1: YTD ═══ -->
 <div class="section">
   <div class="section-title">1. SALES &nbsp;|&nbsp; YTD &nbsp;|&nbsp; February 2026</div>
-  <div class="chart-card">
-    <div class="chart-wrap"><canvas id="ytdChart"></canvas></div>
+  <div class="report-block">
+    <div class="chart-area">
+      <div class="chart-wrap"><canvas id="ytdChart"></canvas></div>
+    </div>
+    <div class="meta-table" id="ytdMeta">
+      <div class="meta-row">
+        <div class="meta-label">Expected date to reach Dubai Target</div>
+        <div class="meta-cell cell-green">4/30/2027</div>
+        <div class="meta-cell cell-red">4/2/2028</div>
+        <div class="meta-cell cell-red">1/7/2027</div>
+        <div class="meta-cell cell-red">1/25/2027</div>
+        <div class="meta-cell cell-green">2/2/2027</div>
+        <div class="meta-cell cell-red">4/5/2027</div>
+        <div class="meta-cell cell-green">2/20/2027</div>
+        <div class="meta-cell cell-green">10/6/2026</div>
+      </div>
+      <div class="meta-row">
+        <div class="meta-label">vs. YTD Target</div>
+        <div class="meta-cell cell-red">-20.8%</div>
+        <div class="meta-cell cell-red">-51.3%</div>
+        <div class="meta-cell cell-red">-2.1%</div>
+        <div class="meta-cell cell-red">-6.1%</div>
+        <div class="meta-cell cell-green">+19.0%</div>
+        <div class="meta-cell cell-red">-6.9%</div>
+        <div class="meta-cell cell-green">+7.5%</div>
+        <div class="meta-cell cell-green">+24.4%</div>
+      </div>
+    </div>
   </div>
-  <!-- Meta table YTD -->
-  <table class="meta-table" style="border-top:none;">
-    <tr>
-      <td>Expected date to reach Dubai Target</td>
-      <td class="cell-green">4/30/2027</td>
-      <td class="cell-red">4/2/2028</td>
-      <td class="cell-red">1/7/2027</td>
-      <td class="cell-red">1/25/2027</td>
-      <td class="cell-green">2/2/2027</td>
-      <td class="cell-red">4/5/2027</td>
-      <td class="cell-green">2/20/2027</td>
-      <td class="cell-green">10/6/2026</td>
-    </tr>
-    <tr>
-      <td>vs. YTD Target</td>
-      <td class="cell-red">-20.8%</td>
-      <td class="cell-red">-51.3%</td>
-      <td class="cell-red">-2.1%</td>
-      <td class="cell-red">-6.1%</td>
-      <td class="cell-green">+19.0%</td>
-      <td class="cell-red">-6.9%</td>
-      <td class="cell-green">+7.5%</td>
-      <td class="cell-green">+24.4%</td>
-    </tr>
-  </table>
 </div>
 
-<!-- SECTION 2: MTD -->
+<!-- ═══ SECTION 2: MTD ═══ -->
 <div class="section">
   <div class="section-title">2. SALES &nbsp;|&nbsp; MTD &nbsp;|&nbsp; February 2026</div>
-  <div class="chart-card">
-    <div class="legend-row">
-      <div class="leg"><div class="leg-box" style="background:#1a1a2e"></div> % Actual vs. Target</div>
-      <div class="leg"><div style="width:24px;height:2px;background:#8b0000;border-top:2px solid #8b0000"></div> &nbsp;% Target (100%)</div>
+  <div class="report-block">
+    <div class="chart-area">
+      <div class="legend-row">
+        <div class="leg"><div class="leg-box" style="background:#1a1a2e"></div> % Actual vs. Target</div>
+        <div class="leg"><div style="width:22px;height:2px;border-top:2px solid #8b0000;margin-top:1px"></div>&nbsp;% Target (100%)</div>
+      </div>
+      <div class="chart-wrap"><canvas id="mtdChart"></canvas></div>
     </div>
-    <div class="chart-wrap"><canvas id="mtdChart"></canvas></div>
+    <div class="meta-table" id="ytdMeta">
+      <div class="meta-row">
+        <div class="meta-label">Operational Day Left</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+        <div class="meta-cell cell-grey">0 days</div>
+      </div>
+      <div class="meta-row">
+        <div class="meta-label">vs. MTD Target</div>
+        <div class="meta-cell cell-red">-40.7%</div>
+        <div class="meta-cell cell-red">-76.6%</div>
+        <div class="meta-cell cell-red">-2.5%</div>
+        <div class="meta-cell cell-red">-16.5%</div>
+        <div class="meta-cell cell-green">+35.7%</div>
+        <div class="meta-cell cell-red">-17.4%</div>
+        <div class="meta-cell cell-green">+8.2%</div>
+        <div class="meta-cell cell-green">+42.2%</div>
+      </div>
+    </div>
   </div>
-  <table class="meta-table" style="border-top:none;">
-    <tr>
-      <td>Operational Day Left</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-      <td class="cell-grey">0 days</td>
-    </tr>
-    <tr>
-      <td>vs. MTD Target</td>
-      <td class="cell-red">-40.7%</td>
-      <td class="cell-red">-76.6%</td>
-      <td class="cell-red">-2.5%</td>
-      <td class="cell-red">-16.5%</td>
-      <td class="cell-green">+35.7%</td>
-      <td class="cell-red">-17.4%</td>
-      <td class="cell-green">+8.2%</td>
-      <td class="cell-green">+42.2%</td>
-    </tr>
-  </table>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-line">
     <span class="dot-green">●</span>
@@ -147,132 +170,113 @@ body { font-family:'Segoe UI', Calibri, sans-serif; background:#fff; color:#1a1a
 </div>
 
 <script>
-const BUs = ['Royal Canary','La Victoire','Riverbank Place','Rooms','Latest Recipe','Barson','AKUNA','Banquet/Catering'];
-
-// YTD: % of actual vs YTD Dubai target (from Sheet1 col C)
+const BUs = ['Royal Canary','La Victoire','Riverbank Place','Rooms','Latest Recipe','Barson','AKUNA','Banquet/\nCatering'];
 const ytdPct = [11.8, 7.2, 15.8, 15.1, 14.8, 12.8, 14.2, 21.1];
-// MTD: % actual vs MTD target
 const mtdPct = [58.1, 23.4, 97.5, 83.5, 135.7, 82.6, 108.2, 142.2];
+const navy = '#1a1a2e', red = '#8b0000';
 
-const navyDark = '#1a1a2e';
-const navyMid  = '#2e4a7a';
+// After charts render, sync meta-table left padding to match chart y-axis width
+function syncMetaPadding(chartInst, metaTableEl) {
+  const meta0 = chartInst.getDatasetMeta(0);
+  if (!meta0.data.length) return;
+  const canvas = chartInst.canvas;
+  // leftmost bar center x
+  const firstBarX = meta0.data[0].x;
+  const lastBarX  = meta0.data[meta0.data.length - 1].x;
+  // chart area spans from firstBarX to lastBarX
+  // y-axis label width = firstBarX - half_bar_spacing
+  const chartArea = chartInst.chartArea;
+  const yAxisWidth = chartArea.left; // px from canvas left to chart area left
 
-// Chart defaults
-const commonOptions = (isYTD) => ({
+  // Set label column = yAxisWidth px so data cols start aligned with chart area
+  const rows = metaTableEl.querySelectorAll('.meta-row');
+  rows.forEach(row => {
+    row.style.gridTemplateColumns = yAxisWidth + 'px repeat(8, 1fr)';
+  });
+}
+
+const commonOpts = (maxY) => ({
   responsive: true,
   maintainAspectRatio: false,
+  layout: { padding: { right: 10 } },
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#fff',
-      borderColor: '#ccc',
-      borderWidth: 1,
-      titleColor: '#1a1a2e',
-      bodyColor: '#444',
-      callbacks: {
-        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`
-      }
+      backgroundColor:'#fff', borderColor:'#ccc', borderWidth:1,
+      titleColor:'#1a1a2e', bodyColor:'#555',
+      callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%` }
     }
   },
   scales: {
     x: {
-      ticks: { color: '#1a1a2e', font: { size: 10, weight:'600' }, maxRotation: 0 },
-      grid: { display: false },
-      border: { color: '#ccc' }
+      ticks: { color:'#1a1a2e', font:{ size:9.5, weight:'600' }, maxRotation:0 },
+      grid: { display:false }, border: { color:'#ccc' }
     },
     y: {
-      min: 0,
-      max: isYTD ? 30 : 170,
-      ticks: { color: '#666', font: { size: 9 }, callback: v => v + '%' },
-      grid: { color: '#f0f0f0' },
-      border: { color: '#ccc' }
+      min:0, max:maxY,
+      ticks: { color:'#888', font:{size:9}, callback: v => v+'%' },
+      grid: { color:'#f0f0f0' }, border: { color:'#ccc' }
     }
   }
 });
 
-// ── YTD CHART ────────────────────────────────────────────────────────────────
-new Chart(document.getElementById('ytdChart'), {
-  type: 'bar',
-  data: {
+// ── YTD
+const ytdChartInst = new Chart(document.getElementById('ytdChart'), {
+  type:'bar',
+  data:{
     labels: BUs,
-    datasets: [{
-      label: '% YTD Achievement',
+    datasets:[{
+      label:'% YTD vs Dubai Target',
       data: ytdPct,
-      backgroundColor: ['#b0b8c8', navyMid, navyDark, navyDark, '#3a6bbf', navyDark, navyDark, navyDark],
-      borderRadius: 2,
-      barPercentage: 0.55,
-      categoryPercentage: 0.8,
+      backgroundColor:['#9aaabb','#2e4a7a',navy,navy,'#3a6bbf',navy,navy,navy],
+      borderRadius:2, barPercentage:0.55, categoryPercentage:0.8,
     }]
   },
-  options: {
-    ...commonOptions(true),
-    plugins: {
-      ...commonOptions(true).plugins,
-      datalabels: false,
-    },
-    animation: {
-      onComplete: function() {
-        const ctx = this.ctx;
-        this.data.datasets.forEach((dataset, i) => {
-          const meta = this.getDatasetMeta(i);
-          meta.data.forEach((bar, index) => {
-            const val = dataset.data[index];
-            ctx.fillStyle = '#8b0000';
-            ctx.font = 'bold 10px Segoe UI';
-            ctx.textAlign = 'center';
-            ctx.fillText(val.toFixed(1) + '%', bar.x, bar.y - 5);
-          });
+  options:{
+    ...commonOpts(28),
+    animation:{
+      onComplete(){
+        const ctx=this.ctx, meta=this.getDatasetMeta(0);
+        meta.data.forEach((bar,i)=>{
+          ctx.fillStyle=red; ctx.font='bold 10px Segoe UI'; ctx.textAlign='center';
+          ctx.fillText(ytdPct[i].toFixed(1)+'%', bar.x, bar.y-5);
         });
+        syncMetaPadding(this, document.getElementById("ytdMeta")'));
       }
     }
   }
 });
 
-// ── MTD CHART ────────────────────────────────────────────────────────────────
-new Chart(document.getElementById('mtdChart'), {
-  type: 'bar',
-  data: {
+// ── MTD
+const mtdChartInst = new Chart(document.getElementById('mtdChart'), {
+  type:'bar',
+  data:{
     labels: BUs,
-    datasets: [
+    datasets:[
       {
-        type: 'bar',
-        label: '% Actual vs. Target',
-        data: mtdPct,
-        backgroundColor: navyDark,
-        borderRadius: 2,
-        barPercentage: 0.55,
-        categoryPercentage: 0.8,
-        order: 2,
+        type:'bar', label:'% Actual vs. Target', data:mtdPct,
+        backgroundColor:navy, borderRadius:2,
+        barPercentage:0.55, categoryPercentage:0.8, order:2,
       },
       {
-        type: 'line',
-        label: '% Target (100%)',
+        type:'line', label:'% Target (100%)',
         data: new Array(8).fill(100),
-        borderColor: '#8b0000',
-        borderWidth: 2,
-        pointStyle: 'circle',
-        pointRadius: 4,
-        pointBackgroundColor: '#8b0000',
-        fill: false,
-        tension: 0,
-        showLine: true,
-        order: 1,
+        borderColor:red, borderWidth:2,
+        pointStyle:'circle', pointRadius:4, pointBackgroundColor:red,
+        fill:false, tension:0, showLine:true, order:1,
       }
     ]
   },
-  options: {
-    ...commonOptions(false),
-    animation: {
-      onComplete: function() {
-        const ctx = this.ctx;
-        const meta = this.getDatasetMeta(0);
-        meta.data.forEach((bar, index) => {
-          const val = mtdPct[index];
-          ctx.fillStyle = navyDark;
-          ctx.font = 'bold 10px Segoe UI';
-          ctx.textAlign = 'center';
-          ctx.fillText(val.toFixed(1) + '%', bar.x, bar.y - 5);
+  options:{
+    ...commonOpts(170),
+    animation:{
+      onComplete(){
+        const ctx=this.ctx, meta=this.getDatasetMeta(0);
+        meta.data.forEach((bar,i)=>{
+          ctx.fillStyle=navy; ctx.font='bold 10px Segoe UI'; ctx.textAlign='center';
+          ctx.fillText(mtdPct[i].toFixed(1)+'%', bar.x, bar.y-5);
         });
+        syncMetaPadding(this, document.getElementById("mtdMeta")'));
       }
     }
   }
