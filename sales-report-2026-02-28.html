@@ -4,283 +4,256 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RCC GROUP | SALES REPORT | February 2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Segoe UI', Calibri, sans-serif; background:#fff; color:#1a1a2e; padding:28px 36px; width:1020px; }
+body { font-family:'Segoe UI',Calibri,sans-serif; background:#fff; color:#1a1a2e; padding:28px 32px; width:1100px; }
 
-.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:2px solid #1a1a2e; }
-.header-title { font-size:17px; font-weight:700; color:#1a1a2e; }
-.header-rate { font-size:12px; color:#444; }
+/* HEADER */
+.header { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:10px; border-bottom:2.5px solid #1a1a2e; margin-bottom:10px; }
+.header h1 { font-size:17px; font-weight:700; color:#1a1a2e; }
+.header .rate { font-size:11px; color:#444; }
 
-.section { margin-bottom:20px; }
-.section-title { font-size:12px; font-weight:700; color:#8b0000; margin-bottom:8px; text-transform:uppercase; letter-spacing:.4px; }
+/* DATASOURCE */
+.ds { font-size:9.5px; color:#777; background:#f9f9f9; border-left:3px solid #1a1a2e; padding:4px 10px; margin-bottom:12px; border-radius:2px; }
 
-/* CHART WRAPPER — includes chart + meta in one block */
-.report-block { border:1px solid #d8d8d8; border-radius:4px; overflow:hidden; }
+/* SECTION */
+.section { margin-bottom:18px; }
+.section-title { font-size:11px; font-weight:700; color:#8b0000; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
 
-/* Chart area */
-.chart-area { padding:12px 16px 0; background:#fff; }
-.chart-wrap { position:relative; height:220px; }
+/* CHART BLOCK */
+.chart-block { border:1px solid #ddd; border-radius:4px; overflow:hidden; }
 
-/* Legend */
-.legend-row { display:flex; gap:20px; justify-content:flex-end; margin-bottom:6px; font-size:11px; color:#333; }
+/* SVG chart area */
+.chart-svg-wrap { padding:10px 10px 0; background:#fff; }
+
+/* BU NAME ROW — sits between chart and meta */
+.bu-row { display:grid; grid-template-columns: 90px repeat(8,1fr); border-top:1px solid #ddd; background:#eef2ff; }
+.bu-row .label-cell { font-size:8px; font-weight:700; color:#333; padding:4px 5px; display:flex; align-items:center; justify-content:center; text-align:center; border-right:1px solid #ddd; background:#e8edf5; line-height:1.3; }
+.bu-row .bu-cell { font-size:8.5px; font-weight:700; color:#1a1a2e; text-align:center; padding:5px 3px; border-right:1px solid #dde; line-height:1.3; display:flex; align-items:center; justify-content:center; }
+.bu-row .bu-cell:last-child { border-right:none; }
+
+/* META ROW */
+.meta-row { display:grid; grid-template-columns: 90px repeat(8,1fr); border-top:1px solid #e8e8e8; }
+.meta-row .label-cell { font-size:8px; font-weight:700; color:#333; padding:5px 5px; background:#fafafa; border-right:1px solid #ccc; display:flex; align-items:center; line-height:1.3; }
+.meta-row .val { font-size:9px; font-weight:700; text-align:center; padding:6px 3px; border-right:1px solid #ece; display:flex; align-items:center; justify-content:center; }
+.meta-row .val:last-child { border-right:none; }
+.green { background:#d4edda; color:#155724; }
+.red   { background:#fde8e8; color:#7b0000; }
+.grey  { background:#f4f4f4; color:#555; font-weight:500; }
+
+/* LEGEND */
+.legend { display:flex; gap:16px; justify-content:flex-end; padding:6px 12px 0; font-size:10px; color:#333; }
 .leg { display:flex; align-items:center; gap:5px; }
-.leg-box { width:12px; height:12px; border-radius:2px; }
+.leg-box { width:11px; height:11px; border-radius:2px; }
+.leg-line { width:22px; height:2px; background:#8b0000; }
 
-/* META TABLE — key: label col + 8 equal data cols */
-/* Chart.js with barPercentage=0.55, categoryPercentage=0.8 on 8 bars:
-   Chart padding-left ≈ 40px (y-axis), padding-right ≈ 10px
-   Usable width = canvas_width - 50px, each bar group = usable/8
-   We replicate this as: label(100px) + repeat(8, 1fr) inside the chart area width */
-.meta-table {
-  display:grid;
-  border-top:1px solid #d8d8d8;
-}
-.meta-row {
-  display:grid;
-  grid-template-columns: 100px repeat(8, 1fr);
-  border-bottom:1px solid #e8e8e8;
-}
-.meta-row:last-child { border-bottom:none; }
-.meta-label {
-  font-size:9.5px; font-weight:600; color:#333;
-  padding:5px 6px; background:#fafafa;
-  border-right:1px solid #d8d8d8;
-  display:flex; align-items:center; line-height:1.3;
-}
-.meta-cell {
-  font-size:10px; font-weight:700;
-  text-align:center; padding:5px 2px;
-  border-right:1px solid #ececec;
-  display:flex; align-items:center; justify-content:center;
-  white-space:nowrap;
-}
-.meta-cell:last-child { border-right:none; }
-.cell-green { background:#d4edda; color:#155724; }
-.cell-red   { background:#fde8e8; color:#7b0000; }
-.cell-grey  { background:#f4f4f4; color:#555; font-weight:500; }
-
-.datasource { font-size:10px; color:#888; margin-bottom:12px; padding:5px 10px; background:#f9f9f9; border-left:3px solid #1a1a2e; border-radius:2px; }
-.datasource strong { color:#444; }
-
-.footer { background:#f5f5f5; border-radius:4px; padding:10px 14px; margin-top:14px; }
-.footer-line { font-size:11px; margin-bottom:4px; display:flex; align-items:flex-start; gap:7px; }
-.footer-line:last-child { margin-bottom:0; }
-.dot-green { color:#155724; font-size:13px; }
-.dot-red   { color:#7b0000; font-size:13px; }
-.footer-green { color:#155724; font-weight:500; }
-.footer-red   { color:#7b0000; font-weight:500; }
+/* FOOTER */
+.footer { background:#f5f5f5; border-radius:4px; padding:9px 14px; margin-top:14px; }
+.footer p { font-size:10px; margin-bottom:4px; }
+.footer p:last-child { margin-bottom:0; }
+.fg { color:#155724; } .fr { color:#7b0000; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-title">RCC GROUP &nbsp;|&nbsp; SALES REPORT &nbsp;|&nbsp; February 2026</div>
-  <div class="header-rate">Exchange Rate: USD/VND = 26,800</div>
+  <h1>RCC GROUP &nbsp;|&nbsp; SALES REPORT &nbsp;|&nbsp; February 2026</h1>
+  <div class="rate">Exchange Rate: USD/VND = 26,800</div>
 </div>
+<div class="ds">Data source (auto): SharePoint → Le-Meridien-Saigon/Daily/2026-02/2026-02-28.xlsx &nbsp;(latest, modified 06/03/2026)</div>
 
-<div class="datasource">
-  <strong>📂 Data source (auto-selected):</strong>
-  SharePoint → Le-Meridien-Saigon/Daily/2026-02/ → <strong>2026-02-28.xlsx</strong>
-  (latest, modified 06/03/2026) &nbsp;|&nbsp; Sheets: <em>Sheet1</em> + <em>Report</em>
-</div>
-
-<!-- ═══ SECTION 1: YTD ═══ -->
+<!-- ══ SECTION 1: YTD ══ -->
 <div class="section">
   <div class="section-title">1. SALES &nbsp;|&nbsp; YTD &nbsp;|&nbsp; February 2026</div>
-  <div class="report-block">
-    <div class="chart-area">
-      <div class="chart-wrap"><canvas id="ytdChart"></canvas></div>
+  <div class="chart-block">
+    <div class="chart-svg-wrap">
+      <!-- SVG bar chart: 8 bars, % values -->
+      <svg width="100%" viewBox="0 0 1020 200" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <!-- Y axis labels -->
+        <text x="30" y="18" font-size="9" fill="#888" text-anchor="middle">25%</text>
+        <text x="30" y="58" font-size="9" fill="#888" text-anchor="middle">20%</text>
+        <text x="30" y="98" font-size="9" fill="#888" text-anchor="middle">15%</text>
+        <text x="30" y="138" font-size="9" fill="#888" text-anchor="middle">10%</text>
+        <text x="30" y="178" font-size="9" fill="#888" text-anchor="middle">5%</text>
+        <!-- Grid lines -->
+        <line x1="48" y1="14" x2="1015" y2="14" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="54" x2="1015" y2="54" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="94" x2="1015" y2="94" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="134" x2="1015" y2="134" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="174" x2="1015" y2="174" stroke="#f0f0f0" stroke-width="1"/>
+        <!-- X axis baseline -->
+        <line x1="48" y1="190" x2="1015" y2="190" stroke="#ccc" stroke-width="1"/>
+        <!-- Bars: each BU column width=(1015-48)/8 ≈ 120.9, center at 48+60.5, 48+181.3, ... -->
+        <!-- Scale: max=25%, chart height=176px (14 to 190). 1% = 7.04px -->
+        <!-- Royal Canary 11.8% → height=83.1, y=190-83.1=106.9. color=#9aaabb -->
+        <rect x="73"  y="107" width="55" height="83"  fill="#9aaabb" rx="2"/>
+        <text x="100" y="100" font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">11.8%</text>
+        <!-- La Victoire 7.2% → h=50.7, y=139.3. color=#2e4a7a -->
+        <rect x="194" y="139" width="55" height="51"  fill="#2e4a7a" rx="2"/>
+        <text x="221" y="132" font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">7.2%</text>
+        <!-- Riverbank Place 15.8% → h=111.2, y=78.8 -->
+        <rect x="315" y="79"  width="55" height="111" fill="#1a1a2e" rx="2"/>
+        <text x="342" y="72"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">15.8%</text>
+        <!-- Rooms 15.1% → h=106.3, y=83.7 -->
+        <rect x="436" y="84"  width="55" height="106" fill="#1a1a2e" rx="2"/>
+        <text x="463" y="77"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">15.1%</text>
+        <!-- Latest Recipe 14.8% → h=104.2, y=85.8. color=#3a6bbf -->
+        <rect x="557" y="86"  width="55" height="104" fill="#3a6bbf" rx="2"/>
+        <text x="584" y="79"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">14.8%</text>
+        <!-- Barson 12.8% → h=90.1, y=99.9 -->
+        <rect x="678" y="100" width="55" height="90"  fill="#1a1a2e" rx="2"/>
+        <text x="705" y="93"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">12.8%</text>
+        <!-- AKUNA 14.2% → h=99.9, y=90.1 -->
+        <rect x="799" y="90"  width="55" height="100" fill="#1a1a2e" rx="2"/>
+        <text x="826" y="83"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">14.2%</text>
+        <!-- Banquet 21.1% → h=148.5, y=41.5 -->
+        <rect x="920" y="42"  width="55" height="148" fill="#1a1a2e" rx="2"/>
+        <text x="947" y="35"  font-size="9" fill="#8b0000" font-weight="bold" text-anchor="middle">21.1%</text>
+      </svg>
     </div>
-    <div class="meta-table" id="ytdMeta">
-      <div class="meta-row">
-        <div class="meta-label">Expected date to reach Dubai Target</div>
-        <div class="meta-cell cell-green">4/30/2027</div>
-        <div class="meta-cell cell-red">4/2/2028</div>
-        <div class="meta-cell cell-red">1/7/2027</div>
-        <div class="meta-cell cell-red">1/25/2027</div>
-        <div class="meta-cell cell-green">2/2/2027</div>
-        <div class="meta-cell cell-red">4/5/2027</div>
-        <div class="meta-cell cell-green">2/20/2027</div>
-        <div class="meta-cell cell-green">10/6/2026</div>
-      </div>
-      <div class="meta-row">
-        <div class="meta-label">vs. YTD Target</div>
-        <div class="meta-cell cell-red">-20.8%</div>
-        <div class="meta-cell cell-red">-51.3%</div>
-        <div class="meta-cell cell-red">-2.1%</div>
-        <div class="meta-cell cell-red">-6.1%</div>
-        <div class="meta-cell cell-green">+19.0%</div>
-        <div class="meta-cell cell-red">-6.9%</div>
-        <div class="meta-cell cell-green">+7.5%</div>
-        <div class="meta-cell cell-green">+24.4%</div>
-      </div>
+    <!-- BU Names -->
+    <div class="bu-row">
+      <div class="label-cell">Business<br>Unit</div>
+      <div class="bu-cell">Royal Canary</div>
+      <div class="bu-cell">La Victoire</div>
+      <div class="bu-cell">Riverbank Place</div>
+      <div class="bu-cell">Rooms</div>
+      <div class="bu-cell">Latest Recipe</div>
+      <div class="bu-cell">Barson</div>
+      <div class="bu-cell">AKUNA</div>
+      <div class="bu-cell">Banquet/<br>Catering</div>
+    </div>
+    <!-- Meta row 1: ETA -->
+    <div class="meta-row">
+      <div class="label-cell">Expected date<br>to reach<br>Dubai Target</div>
+      <div class="val green">4/30/2027</div>
+      <div class="val red">4/2/2028</div>
+      <div class="val red">1/7/2027</div>
+      <div class="val red">1/25/2027</div>
+      <div class="val green">2/2/2027</div>
+      <div class="val red">4/5/2027</div>
+      <div class="val green">2/20/2027</div>
+      <div class="val green">10/6/2026</div>
+    </div>
+    <!-- Meta row 2: vs YTD -->
+    <div class="meta-row">
+      <div class="label-cell">vs. YTD Target</div>
+      <div class="val red">-20.8%</div>
+      <div class="val red">-51.3%</div>
+      <div class="val red">-2.1%</div>
+      <div class="val red">-6.1%</div>
+      <div class="val green">+19.0%</div>
+      <div class="val red">-6.9%</div>
+      <div class="val green">+7.5%</div>
+      <div class="val green">+24.4%</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SECTION 2: MTD ═══ -->
+<!-- ══ SECTION 2: MTD ══ -->
 <div class="section">
   <div class="section-title">2. SALES &nbsp;|&nbsp; MTD &nbsp;|&nbsp; February 2026</div>
-  <div class="report-block">
-    <div class="chart-area">
-      <div class="legend-row">
-        <div class="leg"><div class="leg-box" style="background:#1a1a2e"></div> % Actual vs. Target</div>
-        <div class="leg"><div style="width:22px;height:2px;border-top:2px solid #8b0000;margin-top:1px"></div>&nbsp;% Target (100%)</div>
-      </div>
-      <div class="chart-wrap"><canvas id="mtdChart"></canvas></div>
+  <div class="chart-block">
+    <div class="legend">
+      <div class="leg"><div class="leg-box" style="background:#1a1a2e"></div> % Actual vs. Target</div>
+      <div class="leg"><div class="leg-line"></div>&nbsp;% Target (100%)</div>
     </div>
-    <div class="meta-table" id="ytdMeta">
-      <div class="meta-row">
-        <div class="meta-label">Operational Day Left</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-        <div class="meta-cell cell-grey">0 days</div>
-      </div>
-      <div class="meta-row">
-        <div class="meta-label">vs. MTD Target</div>
-        <div class="meta-cell cell-red">-40.7%</div>
-        <div class="meta-cell cell-red">-76.6%</div>
-        <div class="meta-cell cell-red">-2.5%</div>
-        <div class="meta-cell cell-red">-16.5%</div>
-        <div class="meta-cell cell-green">+35.7%</div>
-        <div class="meta-cell cell-red">-17.4%</div>
-        <div class="meta-cell cell-green">+8.2%</div>
-        <div class="meta-cell cell-green">+42.2%</div>
-      </div>
+    <div class="chart-svg-wrap">
+      <!-- SVG: max 160%, height 200px. 1%=1.175px. baseline y=190. 100%=y=73 -->
+      <svg width="100%" viewBox="0 0 1020 210" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <!-- Y grid -->
+        <text x="30" y="18"  font-size="9" fill="#888" text-anchor="middle">160%</text>
+        <text x="30" y="54"  font-size="9" fill="#888" text-anchor="middle">120%</text>
+        <text x="30" y="90"  font-size="9" fill="#888" text-anchor="middle">80%</text>
+        <text x="30" y="126" font-size="9" fill="#888" text-anchor="middle">40%</text>
+        <text x="30" y="162" font-size="9" fill="#888" text-anchor="middle">0%</text>
+        <line x1="48" y1="14"  x2="1015" y2="14"  stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="50"  x2="1015" y2="50"  stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="86"  x2="1015" y2="86"  stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="122" x2="1015" y2="122" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="158" x2="1015" y2="158" stroke="#f0f0f0" stroke-width="1"/>
+        <line x1="48" y1="194" x2="1015" y2="194" stroke="#ccc"    stroke-width="1"/>
+        <!-- Target line at 100% → y = 158 - (100*1.175) = 158-117.5 = 40.5 ≈ 41 -->
+        <line x1="48" y1="41" x2="1015" y2="41" stroke="#8b0000" stroke-width="2"/>
+        <circle cx="100" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="221" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="342" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="463" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="584" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="705" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="826" cy="41" r="4" fill="#8b0000"/>
+        <circle cx="947" cy="41" r="4" fill="#8b0000"/>
+        <!-- Bars: scale 1%=1.47px (194px total, 0-160 range, so 194/160=1.2125 px/%) -->
+        <!-- Royal Canary 58.1% h=70.4 y=123.6→124 -->
+        <rect x="73"  y="124" width="55" height="70"  fill="#1a1a2e" rx="2"/>
+        <text x="100" y="117" font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">58.1%</text>
+        <!-- La Victoire 23.4% h=28.4 y=165.6→166 -->
+        <rect x="194" y="166" width="55" height="28"  fill="#1a1a2e" rx="2"/>
+        <text x="221" y="159" font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">23.4%</text>
+        <!-- Riverbank 97.5% h=118.2 y=75.8→76 -->
+        <rect x="315" y="76"  width="55" height="118" fill="#1a1a2e" rx="2"/>
+        <text x="342" y="69"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">97.5%</text>
+        <!-- Rooms 83.5% h=101.2 y=92.8→93 -->
+        <rect x="436" y="93"  width="55" height="101" fill="#1a1a2e" rx="2"/>
+        <text x="463" y="86"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">83.5%</text>
+        <!-- Latest Recipe 135.7% h=164.5 y=29.5→30 -->
+        <rect x="557" y="30"  width="55" height="164" fill="#1a1a2e" rx="2"/>
+        <text x="584" y="23"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">135.7%</text>
+        <!-- Barson 82.6% h=100.1 y=93.9→94 -->
+        <rect x="678" y="94"  width="55" height="100" fill="#1a1a2e" rx="2"/>
+        <text x="705" y="87"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">82.6%</text>
+        <!-- AKUNA 108.2% h=131.1 y=62.9→63 -->
+        <rect x="799" y="63"  width="55" height="131" fill="#1a1a2e" rx="2"/>
+        <text x="826" y="56"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">108.2%</text>
+        <!-- Banquet 142.2% h=172.4 y=21.6→22 -->
+        <rect x="920" y="22"  width="55" height="172" fill="#1a1a2e" rx="2"/>
+        <text x="947" y="15"  font-size="9" fill="#1a1a2e" font-weight="bold" text-anchor="middle">142.2%</text>
+      </svg>
+    </div>
+    <!-- BU Names -->
+    <div class="bu-row">
+      <div class="label-cell">Business<br>Unit</div>
+      <div class="bu-cell">Royal Canary</div>
+      <div class="bu-cell">La Victoire</div>
+      <div class="bu-cell">Riverbank Place</div>
+      <div class="bu-cell">Rooms</div>
+      <div class="bu-cell">Latest Recipe</div>
+      <div class="bu-cell">Barson</div>
+      <div class="bu-cell">AKUNA</div>
+      <div class="bu-cell">Banquet/<br>Catering</div>
+    </div>
+    <!-- Meta row 1: Operational Days -->
+    <div class="meta-row">
+      <div class="label-cell">Operational<br>Day Left</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+      <div class="val grey">0 days</div>
+    </div>
+    <!-- Meta row 2: vs MTD -->
+    <div class="meta-row">
+      <div class="label-cell">vs. MTD Target</div>
+      <div class="val red">-40.7%</div>
+      <div class="val red">-76.6%</div>
+      <div class="val red">-2.5%</div>
+      <div class="val red">-16.5%</div>
+      <div class="val green">+35.7%</div>
+      <div class="val red">-17.4%</div>
+      <div class="val green">+8.2%</div>
+      <div class="val green">+42.2%</div>
     </div>
   </div>
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
-  <div class="footer-line">
-    <span class="dot-green">●</span>
-    <span class="footer-green">Vượt MTD Target: Latest Recipe (+35.7%) &nbsp;|&nbsp; AKUNA (+8.2%) &nbsp;|&nbsp; Banquet/Catering (+42.2%)</span>
-  </div>
-  <div class="footer-line">
-    <span class="dot-red">●</span>
-    <span class="footer-red">Dưới MTD Target: Royal Canary (-40.7%) &nbsp;|&nbsp; La Victoire (-76.6%) &nbsp;|&nbsp; Rooms (-16.5%) &nbsp;|&nbsp; Barson (-17.4%)</span>
-  </div>
+  <p class="fg">● &nbsp;Vượt MTD Target: &nbsp;Latest Recipe (+35.7%) &nbsp;|&nbsp; AKUNA (+8.2%) &nbsp;|&nbsp; Banquet/Catering (+42.2%)</p>
+  <p class="fr">● &nbsp;Dưới MTD Target: &nbsp;Royal Canary (-40.7%) &nbsp;|&nbsp; La Victoire (-76.6%) &nbsp;|&nbsp; Rooms (-16.5%) &nbsp;|&nbsp; Barson (-17.4%)</p>
 </div>
 
-<script>
-const BUs = ['Royal Canary','La Victoire','Riverbank Place','Rooms','Latest Recipe','Barson','AKUNA','Banquet/\nCatering'];
-const ytdPct = [11.8, 7.2, 15.8, 15.1, 14.8, 12.8, 14.2, 21.1];
-const mtdPct = [58.1, 23.4, 97.5, 83.5, 135.7, 82.6, 108.2, 142.2];
-const navy = '#1a1a2e', red = '#8b0000';
-
-// After charts render, sync meta-table left padding to match chart y-axis width
-function syncMetaPadding(chartInst, metaTableEl) {
-  const meta0 = chartInst.getDatasetMeta(0);
-  if (!meta0.data.length) return;
-  const canvas = chartInst.canvas;
-  // leftmost bar center x
-  const firstBarX = meta0.data[0].x;
-  const lastBarX  = meta0.data[meta0.data.length - 1].x;
-  // chart area spans from firstBarX to lastBarX
-  // y-axis label width = firstBarX - half_bar_spacing
-  const chartArea = chartInst.chartArea;
-  const yAxisWidth = chartArea.left; // px from canvas left to chart area left
-
-  // Set label column = yAxisWidth px so data cols start aligned with chart area
-  const rows = metaTableEl.querySelectorAll('.meta-row');
-  rows.forEach(row => {
-    row.style.gridTemplateColumns = yAxisWidth + 'px repeat(8, 1fr)';
-  });
-}
-
-const commonOpts = (maxY) => ({
-  responsive: true,
-  maintainAspectRatio: false,
-  layout: { padding: { right: 10 } },
-  plugins: {
-    legend: { display: false },
-    tooltip: {
-      backgroundColor:'#fff', borderColor:'#ccc', borderWidth:1,
-      titleColor:'#1a1a2e', bodyColor:'#555',
-      callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%` }
-    }
-  },
-  scales: {
-    x: {
-      ticks: { color:'#1a1a2e', font:{ size:9.5, weight:'600' }, maxRotation:0 },
-      grid: { display:false }, border: { color:'#ccc' }
-    },
-    y: {
-      min:0, max:maxY,
-      ticks: { color:'#888', font:{size:9}, callback: v => v+'%' },
-      grid: { color:'#f0f0f0' }, border: { color:'#ccc' }
-    }
-  }
-});
-
-// ── YTD
-const ytdChartInst = new Chart(document.getElementById('ytdChart'), {
-  type:'bar',
-  data:{
-    labels: BUs,
-    datasets:[{
-      label:'% YTD vs Dubai Target',
-      data: ytdPct,
-      backgroundColor:['#9aaabb','#2e4a7a',navy,navy,'#3a6bbf',navy,navy,navy],
-      borderRadius:2, barPercentage:0.55, categoryPercentage:0.8,
-    }]
-  },
-  options:{
-    ...commonOpts(28),
-    animation:{
-      onComplete(){
-        const ctx=this.ctx, meta=this.getDatasetMeta(0);
-        meta.data.forEach((bar,i)=>{
-          ctx.fillStyle=red; ctx.font='bold 10px Segoe UI'; ctx.textAlign='center';
-          ctx.fillText(ytdPct[i].toFixed(1)+'%', bar.x, bar.y-5);
-        });
-        syncMetaPadding(this, document.getElementById("ytdMeta")'));
-      }
-    }
-  }
-});
-
-// ── MTD
-const mtdChartInst = new Chart(document.getElementById('mtdChart'), {
-  type:'bar',
-  data:{
-    labels: BUs,
-    datasets:[
-      {
-        type:'bar', label:'% Actual vs. Target', data:mtdPct,
-        backgroundColor:navy, borderRadius:2,
-        barPercentage:0.55, categoryPercentage:0.8, order:2,
-      },
-      {
-        type:'line', label:'% Target (100%)',
-        data: new Array(8).fill(100),
-        borderColor:red, borderWidth:2,
-        pointStyle:'circle', pointRadius:4, pointBackgroundColor:red,
-        fill:false, tension:0, showLine:true, order:1,
-      }
-    ]
-  },
-  options:{
-    ...commonOpts(170),
-    animation:{
-      onComplete(){
-        const ctx=this.ctx, meta=this.getDatasetMeta(0);
-        meta.data.forEach((bar,i)=>{
-          ctx.fillStyle=navy; ctx.font='bold 10px Segoe UI'; ctx.textAlign='center';
-          ctx.fillText(mtdPct[i].toFixed(1)+'%', bar.x, bar.y-5);
-        });
-        syncMetaPadding(this, document.getElementById("mtdMeta")'));
-      }
-    }
-  }
-});
-</script>
 </body>
 </html>
