@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCC Revenue Dashboard — Feb 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; background:#0f1117; color:#e2e8f0; padding:28px 32px; }
+
+/* Header */
+.header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; }
+.header-left h1 { font-size:20px; font-weight:700; color:#f8fafc; }
+.header-left p { font-size:12px; color:#64748b; margin-top:4px; }
+.report-meta { text-align:right; font-size:12px; color:#64748b; }
+.report-meta strong { color:#94a3b8; display:block; font-size:13px; }
+
+/* Summary KPI strip */
+.kpi-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+.kpi { background:#1e293b; border-radius:10px; padding:14px 18px; border:1px solid #334155; }
+.kpi-label { font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:.5px; }
+.kpi-val { font-size:22px; font-weight:700; margin-top:4px; }
+.kpi-sub { font-size:11px; margin-top:2px; }
+.green { color:#34d399; } .red { color:#f87171; } .yellow { color:#fbbf24; }
+
+/* Chart sections */
+.section { margin-bottom:32px; }
+.section-title { font-size:14px; font-weight:700; color:#cbd5e1; margin-bottom:6px; padding-left:4px; border-left:3px solid #3b82f6; padding-left:10px; }
+.section-sub { font-size:12px; color:#64748b; margin-bottom:16px; padding-left:13px; }
+
+.chart-card { background:#1e293b; border-radius:12px; padding:24px 24px 16px; border:1px solid #334155; }
+.chart-wrap { position:relative; height:300px; }
+
+/* Flag row */
+.flag-row { display:flex; margin-top:12px; padding:0 4px; }
+.flag-cell {
+  flex:1;
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  padding:5px 2px;
+  border-radius:4px;
+  margin:0 1px;
+}
+.flag-green { background:#052e16; color:#34d399; }
+.flag-yellow { background:#422006; color:#fbbf24; }
+.flag-red { background:#450a0a; color:#f87171; }
+.flag-na { background:#1e293b; color:#475569; }
+
+.pct-row { display:flex; margin-top:4px; padding:0 4px; }
+.pct-cell { flex:1; text-align:center; font-size:10px; color:#64748b; margin:0 1px; }
+
+/* Legend */
+.legend { display:flex; gap:18px; margin-bottom:14px; font-size:12px; }
+.leg { display:flex; align-items:center; gap:6px; }
+.leg-dot { width:10px; height:10px; border-radius:2px; }
+
+/* Footer */
+.footer { margin-top:20px; font-size:11px; color:#334155; text-align:right; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>RCC Revenue Dashboard</h1>
+    <p>Le Meridien Saigon — Actual vs Target</p>
+  </div>
+  <div class="report-meta">
+    <strong>Report Date: 28/02/2026</strong>
+    USD/VND: 26,800 &nbsp;|&nbsp; Source: RCC SharePoint
+  </div>
+</div>
+
+<!-- KPI Strip -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-label">Total MTD Actual</div>
+    <div class="kpi-val">42.6 tỷ</div>
+    <div class="kpi-sub red">vs Target 73.4 tỷ &nbsp;(-41.9%)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Total YTD Actual</div>
+    <div class="kpi-val">130.8 tỷ</div>
+    <div class="kpi-sub red">vs Target 167.0 tỷ &nbsp;(-21.8%)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">BUs On/Above Target (MTD)</div>
+    <div class="kpi-val green">3 / 12</div>
+    <div class="kpi-sub yellow">Latest Recipe, Banquet, AKUNA ✅</div>
+  </div>
+</div>
+
+<!-- MTD Chart -->
+<div class="section">
+  <div class="section-title">MTD — Doanh Thu Tháng 2/2026</div>
+  <div class="section-sub">Actual vs Target (tỷ VND) · Flag: 🟢 ≥100% · 🟡 80-99% · 🔴 &lt;80%</div>
+  <div class="chart-card">
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:#3b82f6"></div> Actual</div>
+      <div class="leg"><div class="leg-dot" style="background:#334155;border:1px solid #60a5fa"></div> Target</div>
+    </div>
+    <div class="chart-wrap"><canvas id="mtdChart"></canvas></div>
+    <!-- Flag row MTD -->
+    <div class="flag-row" id="mtdFlags"></div>
+    <div class="pct-row" id="mtdPcts"></div>
+  </div>
+</div>
+
+<!-- YTD Chart -->
+<div class="section">
+  <div class="section-title">YTD — Doanh Thu Tích Lũy (Jan–Feb 2026)</div>
+  <div class="section-sub">Actual vs Target (tỷ VND) · Flag: 🟢 ≥100% · 🟡 80-99% · 🔴 &lt;80%</div>
+  <div class="chart-card">
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:#8b5cf6"></div> Actual</div>
+      <div class="leg"><div class="leg-dot" style="background:#334155;border:1px solid #a78bfa"></div> Target</div>
+    </div>
+    <div class="chart-wrap"><canvas id="ytdChart"></canvas></div>
+    <div class="flag-row" id="ytdFlags"></div>
+    <div class="pct-row" id="ytdPcts"></div>
+  </div>
+</div>
+
+<div class="footer">Generated by Zera · Royal Canary Corporation · 10/03/2026</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const BUs = ['Rooms','MVI','Banquet','Latest\nRecipe','Barson','AKUNA','In-room\nDining','La\nVictoire','Art\nCacao','Speakeasy','Mini\nBar','Other'];
+const BUs_short = ['Rooms','MVI','Banquet','L.Recipe','Barson','AKUNA','IRD','La Vict.','Art Cacao','Speakeasy','Mini Bar','Other'];
+
+const mtd_actual = [827771918, 524390989, 114660000, 347130825, 21422780, -2200000, 5568289, -77877, 0, 0, -42465000, -538969041];
+const mtd_target = [1062040944, 357300466, 60781311, 101843056, 44840386, 72929479, 13796514, 46229, 9629174, 1442379, 1726463, 34919633];
+
+const ytd_actual = [24823784088, 9753974311, 2419451889, 3869650624, 1036643586, 1578609500, 345603128, 302744, 85039250, 20833333, 0, 339729831];
+const ytd_target = [29737146440, 10004413058, 1701876698, 2851605582, 1255530809, 1458589571, 386302382, 1294426, 269616859, 40386621, 48340953, 977749718];
+
+// Convert to tỷ VND (billions)
+const B = 1e9;
+const mtdA = mtd_actual.map(v => +(v/B).toFixed(3));
+const mtdT = mtd_target.map(v => +(v/B).toFixed(3));
+const ytdA = ytd_actual.map(v => +(v/B).toFixed(3));
+const ytdT = ytd_target.map(v => +(v/B).toFixed(3));
+
+// ── FLAGS ────────────────────────────────────────────────────────────────────
+function getFlag(actual, target) {
+  if (target <= 0) return 'na';
+  const pct = actual / target;
+  if (pct >= 1.0) return 'green';
+  if (pct >= 0.8) return 'yellow';
+  return 'red';
+}
+function getPct(actual, target) {
+  if (target <= 0) return 'N/A';
+  return (actual / target * 100).toFixed(0) + '%';
+}
+
+function renderFlags(containerId, actuals, targets) {
+  const flagRow = document.getElementById(containerId);
+  const pctId = containerId.replace('Flags','Pcts');
+  const pctRow = document.getElementById(pctId);
+  actuals.forEach((a, i) => {
+    const flag = getFlag(a, targets[i]);
+    const pct = getPct(a, targets[i]);
+    const fc = document.createElement('div');
+    fc.className = `flag-cell flag-${flag}`;
+    fc.textContent = flag === 'green' ? '🟢' : flag === 'yellow' ? '🟡' : flag === 'na' ? '—' : '🔴';
+    flagRow.appendChild(fc);
+
+    const pc = document.createElement('div');
+    pc.className = 'pct-cell';
+    pc.textContent = pct;
+    pctRow.appendChild(pc);
+  });
+}
+
+renderFlags('mtdFlags', mtdA, mtdT);
+renderFlags('ytdFlags', ytdA, ytdT);
+
+// ── CHART CONFIG ─────────────────────────────────────────────────────────────
+const commonScales = (maxVal) => ({
+  x: {
+    ticks: { color: '#94a3b8', font: { size: 10 }, maxRotation: 0 },
+    grid: { display: false },
+    border: { color: '#334155' }
+  },
+  y: {
+    ticks: { color: '#94a3b8', font: { size: 10 }, callback: v => v.toFixed(1) + 'B' },
+    grid: { color: '#1e293b' },
+    border: { color: '#334155' },
+    max: maxVal
+  }
+});
+
+const commonPlugins = {
+  legend: { display: false },
+  tooltip: {
+    backgroundColor: '#1e293b',
+    borderColor: '#334155',
+    borderWidth: 1,
+    titleColor: '#f8fafc',
+    bodyColor: '#94a3b8',
+    callbacks: {
+      label: ctx => {
+        const val = ctx.raw;
+        const label = ctx.dataset.label;
+        return ` ${label}: ${val.toFixed(2)}B VND`;
+      }
+    }
+  }
+};
+
+// MTD Chart
+const mtdMax = Math.max(...mtdT) * 1.15;
+new Chart(document.getElementById('mtdChart'), {
+  type: 'bar',
+  data: {
+    labels: BUs_short,
+    datasets: [
+      {
+        label: 'Actual',
+        data: mtdA,
+        backgroundColor: mtdA.map((a,i) => {
+          const f = getFlag(a, mtdT[i]);
+          return f === 'green' ? '#059669' : f === 'yellow' ? '#d97706' : '#dc2626';
+        }),
+        borderRadius: 5,
+        barPercentage: 0.45,
+        categoryPercentage: 0.8,
+      },
+      {
+        label: 'Target',
+        data: mtdT,
+        backgroundColor: '#1e3a5f',
+        borderColor: '#3b82f6',
+        borderWidth: 1,
+        borderRadius: 5,
+        barPercentage: 0.45,
+        categoryPercentage: 0.8,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: commonPlugins,
+    scales: commonScales(mtdMax > 0 ? mtdMax : 0.2)
+  }
+});
+
+// YTD Chart
+const ytdMax = Math.max(...ytdT) * 1.15;
+new Chart(document.getElementById('ytdChart'), {
+  type: 'bar',
+  data: {
+    labels: BUs_short,
+    datasets: [
+      {
+        label: 'Actual',
+        data: ytdA,
+        backgroundColor: ytdA.map((a,i) => {
+          const f = getFlag(a, ytdT[i]);
+          return f === 'green' ? '#059669' : f === 'yellow' ? '#d97706' : '#dc2626';
+        }),
+        borderRadius: 5,
+        barPercentage: 0.45,
+        categoryPercentage: 0.8,
+      },
+      {
+        label: 'Target',
+        data: ytdT,
+        backgroundColor: '#2d1f5e',
+        borderColor: '#8b5cf6',
+        borderWidth: 1,
+        borderRadius: 5,
+        barPercentage: 0.45,
+        categoryPercentage: 0.8,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: commonPlugins,
+    scales: commonScales(ytdMax > 0 ? ytdMax : 5)
+  }
+});
+</script>
+</body>
+</html>
