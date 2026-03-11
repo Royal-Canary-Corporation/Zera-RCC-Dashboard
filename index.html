@@ -7,30 +7,39 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Segoe UI',sans-serif; background:#f8fafc; color:#1e293b; padding:40px; }
-h1 { font-size:24px; font-weight:700; color:#0f172a; margin-bottom:6px; }
-.sub { font-size:13px; color:#64748b; margin-bottom:32px; }
-.tag { display:inline-block; background:#dbeafe; border:1px solid #bfdbfe; border-radius:6px; padding:3px 10px; font-size:12px; color:#1d4ed8; margin-bottom:12px; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
-.card { background:#fff; border-radius:12px; padding:20px; border:1px solid #e2e8f0; text-decoration:none; display:block; transition:border-color .2s; box-shadow:0 1px 3px rgba(0,0,0,.05); }
+h1 { font-size:22px; font-weight:700; color:#0f172a; margin-bottom:4px; }
+.sub { font-size:13px; color:#64748b; margin-bottom:28px; }
+.tag { display:inline-block; background:#dbeafe; border:1px solid #bfdbfe; border-radius:6px; padding:3px 10px; font-size:12px; color:#1d4ed8; margin-bottom:10px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+.card { background:#fff; border-radius:10px; padding:18px; border:1px solid #e2e8f0; text-decoration:none; display:block; transition:border-color .2s; box-shadow:0 1px 3px rgba(0,0,0,.05); }
 .card:hover { border-color:#3b82f6; }
+.card-tag { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; color:#3b82f6; margin-bottom:6px; }
 .card-title { font-size:14px; font-weight:600; color:#0f172a; margin-bottom:6px; }
-.card-desc { font-size:12px; color:#64748b; }
-.card-date { font-size:11px; color:#3b82f6; margin-top:10px; }
+.card-desc { font-size:12px; color:#64748b; line-height:1.5; }
+.card-date { font-size:11px; color:#94a3b8; margin-top:10px; }
 </style>
 </head>
 <body>
 <div class="tag">Royal Canary Corporation</div>
 <h1>Zera RCC Dashboard</h1>
-<p class="sub">Báo cáo & Phân tích dữ liệu — Le Meridien Saigon</p>
+<p class="sub">Le Meridien Saigon — Báo cáo & Phân tích dữ liệu</p>
 <div class="grid">
+  <a href="sales-report-2026-02-28.html" class="card">
+    <div class="card-tag">⭐ Latest</div>
+    <div class="card-title">📊 Sales Report — Feb 2026</div>
+    <div class="card-desc">YTD & MTD actual vs Dubai target. 8 BUs, target line đỏ, expected date to reach target. Replicated từ BOD format.</div>
+    <div class="card-date">11/03/2026</div>
+  </a>
   <a href="revenue-dashboard-2026-02-28.html" class="card">
-    <div class="card-title">📊 Revenue Dashboard — Feb 2026</div>
-    <div class="card-desc">MTD & YTD actual vs target theo từng BU. Target hiển thị đường ngang, flag màu RAG.</div>
+    <div class="card-tag">Revenue</div>
+    <div class="card-title">📈 Revenue Dashboard — Feb 2026</div>
+    <div class="card-desc">MTD & YTD doanh thu (tỷ VND) theo BU. Light theme, RAG flags.</div>
     <div class="card-date">10/03/2026</div>
   </a>
   <a href="rooms-analysis-jan-feb-2026.html" class="card">
-    <div class="card-title">🛏️ Rooms Analysis — Jan vs Feb 2026</div>
-    <div class="card-desc">Occupancy, Sold Rooms, RevPAR, Rooms Sales. So sánh Jan vs Feb với charts chi tiết.</div>
+    <div class="card-tag">Rooms</div>
+    <div class="card-title">🛏️ Rooms Analysis — Jan vs Feb</div>
+    <div class="card-desc">Occupancy, RevPAR, Sold Rooms so sánh Jan vs Feb 2026.</div>
     <div class="card-date">10/03/2026</div>
   </a>
 </div>
