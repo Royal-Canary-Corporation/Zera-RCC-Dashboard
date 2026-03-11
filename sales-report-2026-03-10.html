@@ -3,219 +3,231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RCC Sales Dashboard — March 10, 2026</title>
+<title>RCC Sales Report — March 10, 2026</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; color: #1a1a2e; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #1a1a2e; }
 
-  .header {
-    background: #1a2744; color: white; text-align: center;
-    padding: 18px 20px 12px;
-  }
-  .header h1 { font-size: 1.3em; font-weight: 700; letter-spacing: 0.5px; }
-  .header p { font-size: 0.82em; color: #aaaacc; margin-top: 4px; }
+.header {
+  padding: 14px 20px 8px;
+  border-bottom: 1px solid #ccc;
+}
+.header .title { font-size: 1.25em; font-weight: 700; color: #1a1a2e; }
+.header .meta { font-size: 0.78em; color: #777; margin-top: 3px; }
+.header .exrate { float: right; font-size: 0.82em; color: #555; font-weight: 600; margin-top: 2px;}
 
-  .section-label {
-    background: #dce3ef; color: #1a2744;
-    font-size: 0.92em; font-weight: 700;
-    padding: 8px 16px;
-    margin-top: 4px;
-  }
+.section-title {
+  font-size: 0.95em; font-weight: 700; color: #1a2744;
+  border-bottom: 2px solid #1a2744;
+  padding: 10px 16px 5px;
+  margin-top: 10px;
+}
 
-  .chart-wrap { padding: 16px 16px 0; background: white; }
+.chart-area { padding: 10px 16px 4px; position: relative; }
+canvas { width: 100% !important; }
 
-  canvas { display: block; width: 100%; }
+/* Meta table */
+.meta-wrap { padding: 0 16px 0; margin-bottom: 4px; }
+.meta-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.78em; }
+.meta-table td {
+  border: 1px solid #ddd;
+  padding: 5px 3px;
+  text-align: center; vertical-align: middle;
+  overflow: hidden;
+}
+.meta-table .lbl {
+  background: #f0f0f0; font-weight: 700;
+  text-align: right; padding-right: 8px;
+  width: 110px; white-space: nowrap; font-size: 0.88em; color: #333;
+}
+.bu-cell { background: #e8edf5 !important; font-weight: 700 !important; color: #1a2744 !important; }
+.pos { background: #a8d5b5; color: #155724; font-weight: 700; }
+.neg { background: #f5b8b8; color: #7b0000; font-weight: 700; }
+.neu { background: #e8e8e8; color: #444; }
 
-  .meta-table {
-    width: 100%; border-collapse: collapse;
-    font-size: 0.78em;
-    margin-bottom: 8px;
-  }
-  .meta-table td {
-    border: 1px solid #cccccc;
-    padding: 5px 4px;
-    text-align: center;
-    vertical-align: middle;
-  }
-  .meta-table td.label-cell {
-    background: #e8edf5; font-weight: 700;
-    text-align: right; padding-right: 8px;
-    width: 120px; white-space: nowrap;
-    color: #1a1a2e;
-  }
-  .meta-table td.bu-cell {
-    background: #dce3ef; font-weight: 700;
-    color: #1a2744;
-  }
-  .meta-table tr:nth-child(even) td:not(.label-cell) { background: #f0f4fa; }
-  .meta-table tr:nth-child(odd) td:not(.label-cell) { background: white; }
-  .meta-table .bu-row td { background: #dce3ef !important; font-weight: 700; color: #1a2744; }
-
-  .pos { color: #2e7d32; font-weight: 700; }
-  .neg { color: #e53935; font-weight: 700; }
-
-  .footer {
-    background: #1a2744; color: #aaaacc;
-    font-size: 0.75em; padding: 10px 16px;
-    margin-top: 8px;
-  }
-  .footer p { margin: 2px 0; }
+.footer {
+  padding: 10px 16px;
+  border-top: 1px solid #ccc;
+  margin-top: 8px;
+  font-size: 0.82em;
+}
+.footer .pos-line { color: #155724; margin-bottom: 3px; }
+.footer .neg-line { color: #7b0000; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>ROYAL CANARY CORP — DAILY SALES DASHBOARD</h1>
-  <p>Report Date: March 10, 2026 &nbsp;|&nbsp; Le Méridien Saigon</p>
+  <span class="exrate">Exchange Rate: USD/VND = 26,800</span>
+  <div class="title">RCC GROUP &nbsp;|&nbsp; SALES REPORT &nbsp;|&nbsp; March 2026</div>
+  <div class="meta">Data source (auto): SharePoint → Le-Meridien-Saigon/Daily/2026-03/2026-03-10.xlsx</div>
 </div>
 
-<!-- YTD Section -->
-<div class="section-label">▶ &nbsp;YTD PERFORMANCE vs. DUBAI TARGET</div>
-<div class="chart-wrap">
-  <canvas id="ytdChart" height="200"></canvas>
-</div>
-
-<table class="meta-table" id="ytdMeta">
-  <tbody>
-    <tr class="bu-row">
-      <td class="label-cell">Business Unit</td>
-      <td class="bu-cell">Royal<br>Canary</td>
-      <td class="bu-cell">La<br>Victoire</td>
-      <td class="bu-cell">MVI</td>
-      <td class="bu-cell">Rooms</td>
-      <td class="bu-cell">Latest<br>Recipe</td>
-      <td class="bu-cell">Barson</td>
-      <td class="bu-cell">AKUNA</td>
-      <td class="bu-cell">Banquet/<br>Catering</td>
-    </tr>
-    <tr>
-      <td class="label-cell">Expected Date<br>to Dubai Target</td>
-      <td>3/22/2027</td><td>10/22/2027</td><td>10/28/2026</td><td>1/7/2027</td>
-      <td>1/23/2027</td><td>3/26/2027</td><td>3/10/2027</td><td>10/10/2026</td>
-    </tr>
-    <tr>
-      <td class="label-cell">vs. YTD Target</td>
-      <td class="neg">-14.7%</td><td class="neg">-37.7%</td>
-      <td class="pos">+22.8%</td><td class="neg">-4.3%</td>
-      <td class="pos">+16.1%</td><td class="neg">-7.5%</td>
-      <td class="pos">+1.1%</td><td class="pos">+24.5%</td>
-    </tr>
-  </tbody>
+<!-- YTD -->
+<div class="section-title">1. SALES &nbsp;|&nbsp; YTD &nbsp;|&nbsp; March 2026</div>
+<div class="chart-area"><canvas id="ytdChart"></canvas></div>
+<div class="meta-wrap">
+<table class="meta-table">
+  <tr>
+    <td class="lbl">Business Unit</td>
+    <td class="bu-cell">Royal<br>Canary</td><td class="bu-cell">La<br>Victoire</td>
+    <td class="bu-cell">Riverbank<br>Place</td><td class="bu-cell">Rooms</td>
+    <td class="bu-cell">Latest<br>Recipe</td><td class="bu-cell">Barson</td>
+    <td class="bu-cell">AKUNA</td><td class="bu-cell">Banquet/<br>Catering</td>
+  </tr>
+  <tr>
+    <td class="lbl">Expected date<br>to reach<br>Dubai Target</td>
+    <td>3/22/2027</td><td>10/22/2027</td><td>10/28/2026</td><td>1/7/2027</td>
+    <td>1/23/2027</td><td>3/26/2027</td><td>3/10/2027</td><td>10/10/2026</td>
+  </tr>
+  <tr>
+    <td class="lbl">vs. YTD Target</td>
+    <td class="neg">-14.7%</td><td class="neg">-37.7%</td>
+    <td class="pos">+22.8%</td><td class="neg">-4.3%</td>
+    <td class="pos">+16.1%</td><td class="neg">-7.5%</td>
+    <td class="pos">+1.1%</td><td class="pos">+24.5%</td>
+  </tr>
 </table>
-
-<!-- MTD Section -->
-<div class="section-label">▶ &nbsp;MTD PERFORMANCE vs. TARGET</div>
-<div class="chart-wrap">
-  <canvas id="mtdChart" height="200"></canvas>
 </div>
 
-<table class="meta-table" id="mtdMeta">
-  <tbody>
-    <tr class="bu-row">
-      <td class="label-cell">Business Unit</td>
-      <td class="bu-cell">Royal<br>Canary</td>
-      <td class="bu-cell">La<br>Victoire</td>
-      <td class="bu-cell">MVI</td>
-      <td class="bu-cell">Rooms</td>
-      <td class="bu-cell">Latest<br>Recipe</td>
-      <td class="bu-cell">Barson</td>
-      <td class="bu-cell">AKUNA</td>
-      <td class="bu-cell">Banquet/<br>Catering</td>
-    </tr>
-    <tr>
-      <td class="label-cell">Operational<br>Days Left</td>
-      <td>21</td><td>21</td><td>21</td><td>21</td>
-      <td>21</td><td>21</td><td>21</td><td>21</td>
-    </tr>
-    <tr>
-      <td class="label-cell">vs. MTD Target</td>
-      <td class="neg">-80.6%</td><td class="neg">-40.5%</td>
-      <td class="pos">+287.3%</td><td class="neg">-95.7%</td>
-      <td class="neg">-96.5%</td><td class="neg">-110.6%</td>
-      <td class="neg">-132.3%</td><td class="neg">-75.0%</td>
-    </tr>
-  </tbody>
+<!-- MTD -->
+<div class="section-title">2. SALES &nbsp;|&nbsp; MTD &nbsp;|&nbsp; March 2026</div>
+<div class="chart-area"><canvas id="mtdChart"></canvas></div>
+<div class="meta-wrap">
+<table class="meta-table">
+  <tr>
+    <td class="lbl">Business Unit</td>
+    <td class="bu-cell">Royal<br>Canary</td><td class="bu-cell">La<br>Victoire</td>
+    <td class="bu-cell">Riverbank<br>Place</td><td class="bu-cell">Rooms</td>
+    <td class="bu-cell">Latest<br>Recipe</td><td class="bu-cell">Barson</td>
+    <td class="bu-cell">AKUNA</td><td class="bu-cell">Banquet/<br>Catering</td>
+  </tr>
+  <tr>
+    <td class="lbl">Operational<br>Day Left</td>
+    <td class="neu">21 days</td><td class="neu">21 days</td><td class="neu">21 days</td><td class="neu">21 days</td>
+    <td class="neu">21 days</td><td class="neu">21 days</td><td class="neu">21 days</td><td class="neu">21 days</td>
+  </tr>
+  <tr>
+    <td class="lbl">vs. MTD Target</td>
+    <td class="pos">+19.4%</td><td class="pos">+59.5%</td>
+    <td class="pos">+187.3%</td><td class="pos">+4.3%</td>
+    <td class="pos">+3.5%</td><td class="neg">-10.6%</td>
+    <td class="neg">-32.3%</td><td class="pos">+25.0%</td>
+  </tr>
 </table>
+</div>
 
 <div class="footer">
-  <p>• YTD Target based on Dubai Full-Year Target &nbsp;|&nbsp; MTD Target = Monthly Budget &nbsp;|&nbsp; Green = above target &nbsp;|&nbsp; Red = below target</p>
-  <p>Generated by Zera &nbsp;|&nbsp; 10-Mar-2026</p>
+  <div class="pos-line">● Vượt MTD Target: &nbsp; Royal Canary (+19.4%) | La Victoire (+59.5%) | Riverbank Place (+187.3%) | Rooms (+4.3%) | Latest Recipe (+3.5%) | Banquet/Catering (+25.0%)</div>
+  <div class="neg-line">● Dưới MTD Target: &nbsp; Barson (-10.6%) | AKUNA (-32.3%)</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-const BUS = ['Royal\nCanary','La\nVictoire','MVI','Rooms','Latest\nRecipe','Barson','AKUNA','Banquet/\nCatering'];
-const BUS_LABELS = BUS.map(b => b.split('\n'));
-
+const BU_LABELS = [
+  ['Royal','Canary'],['La','Victoire'],['Riverbank','Place'],['Rooms'],
+  ['Latest','Recipe'],['Barson'],['AKUNA'],['Banquet/','Catering']
+];
 const NAVY = '#1a2744';
-const RED = '#e53935';
-const GREEN = '#2e7d32';
+const RED  = '#cc0000';
+const GREEN= '#155724';
 
-// YTD Chart
+Chart.defaults.font.family = "'Segoe UI', Arial, sans-serif";
+
+// YTD
 new Chart(document.getElementById('ytdChart'), {
   type: 'bar',
   data: {
-    labels: BUS_LABELS,
+    labels: BU_LABELS,
     datasets: [{
-      label: '% of Dubai Target YTD',
       data: [11.8, 7.2, 15.8, 15.1, 14.8, 12.8, 14.2, 21.1],
-      backgroundColor: NAVY,
-      borderRadius: 3,
+      backgroundColor: NAVY, borderRadius: 2,
     }]
   },
   options: {
-    responsive: true,
-    animation: false,
-    plugins: { legend: { display: false },
-      datalabels: { display: false } },
+    responsive: true, animation: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y + '%' } },
+      datalabels: false
+    },
     scales: {
       x: { ticks: { font: { size: 10 } } },
       y: {
-        title: { display: true, text: '% of Dubai Target', font: { size: 10 } },
-        max: 30
+        max: 28, ticks: { callback: v => v + '%', font: { size: 10 } },
+        grid: { color: '#e0e0e0' }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'redLabels',
+    afterDatasetsDraw(chart) {
+      const ctx2 = chart.ctx;
+      chart.data.datasets[0].data.forEach((val, i) => {
+        const meta = chart.getDatasetMeta(0);
+        const bar = meta.data[i];
+        ctx2.save();
+        ctx2.fillStyle = RED;
+        ctx2.font = 'bold 11px Segoe UI';
+        ctx2.textAlign = 'center';
+        ctx2.fillText(val + '%', bar.x, bar.y - 5);
+        ctx2.restore();
+      });
+    }
+  }]
 });
 
-// MTD Chart
-const mtdCompletion = [119.4, 159.5, 287.3, 104.3, 103.5, 89.4, 67.7, 125.0];
-const mtdColors = mtdCompletion.map(v => v >= 100 ? GREEN : NAVY);
-
+// MTD
+const mtdData = [119.4, 159.5, 287.3, 104.3, 103.5, 89.4, 67.7, 125.0];
 new Chart(document.getElementById('mtdChart'), {
   type: 'bar',
   data: {
-    labels: BUS_LABELS,
+    labels: BU_LABELS,
     datasets: [
       {
-        label: '% of MTD Target',
-        data: mtdCompletion,
-        backgroundColor: mtdColors,
-        borderRadius: 3,
+        label: '% Actual vs. Target',
+        data: mtdData,
+        backgroundColor: NAVY, borderRadius: 2, order: 2,
       },
       {
-        label: '100% Target',
+        label: '% Target (100%)',
         data: Array(8).fill(100),
         type: 'line',
-        borderColor: RED,
-        borderWidth: 2,
-        pointRadius: 0,
-        fill: false,
+        borderColor: RED, borderWidth: 2.5,
+        pointBackgroundColor: RED, pointRadius: 5,
+        fill: false, order: 1,
       }
     ]
   },
   options: {
-    responsive: true,
-    animation: false,
-    plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } },
+    responsive: true, animation: false,
+    plugins: {
+      legend: { position: 'top', labels: { font: { size: 10 }, boxWidth: 14 } },
+    },
     scales: {
       x: { ticks: { font: { size: 10 } } },
       y: {
-        title: { display: true, text: '% of MTD Target', font: { size: 10 } },
-        max: 320
+        max: 320, ticks: { callback: v => v + '%', font: { size: 10 } },
+        grid: { color: '#e0e0e0' }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'redLabels',
+    afterDatasetsDraw(chart) {
+      const ctx2 = chart.ctx;
+      const meta = chart.getDatasetMeta(0);
+      mtdData.forEach((val, i) => {
+        const bar = meta.data[i];
+        ctx2.save();
+        ctx2.fillStyle = RED;
+        ctx2.font = 'bold 11px Segoe UI';
+        ctx2.textAlign = 'center';
+        ctx2.fillText(val + '%', bar.x, bar.y - 5);
+        ctx2.restore();
+      });
+    }
+  }]
 });
 </script>
 </body>
