@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCC Power BI Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1a1d2e 0%, #16213e 100%);
+      border-bottom: 1px solid #2a2d3e;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #c9a84c, #e8c96a);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #1a1d2e;
+    }
+
+    .header-title h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .header-title p {
+      font-size: 11px;
+      color: #888;
+      margin-top: 1px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(39, 174, 96, 0.15);
+      border: 1px solid rgba(39, 174, 96, 0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: #27ae60;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #27ae60;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .timestamp {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .report-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #reportFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: #0f1117;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid #2a2d3e;
+      border-top-color: #c9a84c;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .error-overlay {
+      position: absolute;
+      inset: 0;
+      background: #0f1117;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 10;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .error-icon { font-size: 40px; }
+
+    .error-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e74c3c;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #888;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .retry-btn {
+      margin-top: 8px;
+      padding: 8px 24px;
+      background: #c9a84c;
+      color: #1a1d2e;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .retry-btn:hover { opacity: 0.85; }
+
+    footer {
+      background: #1a1d2e;
+      border-top: 1px solid #2a2d3e;
+      padding: 6px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #555;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo">RCC</div>
+    <div class="header-title">
+      <h1>Royal Canary Corp — Power BI Dashboard</h1>
+      <p>La Victoire Hotel · Live Report</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span id="statusText">Connecting…</span>
+    </div>
+    <span class="timestamp" id="clock"></span>
+  </div>
+</header>
+
+<div class="report-container">
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingMsg">Authenticating with Power BI…</div>
+  </div>
+
+  <div class="error-overlay" id="errorOverlay">
+    <div class="error-icon">⚠️</div>
+    <div class="error-title">Unable to load report</div>
+    <div class="error-msg" id="errorMsg"></div>
+    <button class="retry-btn" onclick="init()">Retry</button>
+  </div>
+
+  <div id="embedContainer" style="width:100%;height:100%;"></div>
+</div>
+
+<footer>
+  <span>Royal Canary Corporation © 2026</span>
+  <span id="reportInfo">Report ID: 84e44d37-9922-4a17-aaae-30bea1288a0b</span>
+</footer>
+
+<script>
+  // ── Config ────────────────────────────────────────────────────────────────
+  const CONFIG = {
+    tenantId:    '9e7ad80a-3510-4291-8108-f4da12e8e35d',
+    clientId:    'f59c96e3-b802-4cf4-9bd4-3a9817b55e05',
+    clientSecret:'41d9b450-6cf2-4627-82da-a6bfb8ca699a',
+    workspaceId: '109eff3f-c15c-4a00-be45-758b4ceb4ecd',
+    reportId:    '84e44d37-9922-4a17-aaae-30bea1288a0b',
+    datasetId:   'de552778-616b-436c-9d00-0a11820ad3b0',
+    defaultPage: 'ReportSectione5aa6bcf502835ae669a',
+  };
+
+  // ── Clock ─────────────────────────────────────────────────────────────────
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh',
+        year:'numeric', month:'2-digit', day:'2-digit',
+        hour:'2-digit', minute:'2-digit' });
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function setStatus(text, ok = true) {
+    const el = document.getElementById('statusText');
+    el.textContent = text;
+    el.parentElement.style.color = ok ? '#27ae60' : '#e74c3c';
+    el.parentElement.style.borderColor = ok ? 'rgba(39,174,96,0.3)' : 'rgba(231,76,60,0.3)';
+    el.parentElement.style.background  = ok ? 'rgba(39,174,96,0.15)' : 'rgba(231,76,60,0.15)';
+    el.previousElementSibling.style.background = ok ? '#27ae60' : '#e74c3c';
+  }
+
+  function setLoading(msg) {
+    document.getElementById('loadingMsg').textContent = msg;
+    document.getElementById('loadingOverlay').style.display = 'flex';
+    document.getElementById('errorOverlay').style.display   = 'none';
+  }
+
+  function showError(msg) {
+    document.getElementById('errorMsg').textContent = msg;
+    document.getElementById('loadingOverlay').style.display = 'none';
+    document.getElementById('errorOverlay').style.display   = 'flex';
+    setStatus('Error', false);
+  }
+
+  function hideLoading() {
+    document.getElementById('loadingOverlay').style.display = 'none';
+  }
+
+  // ── Token via Azure AD (client credentials) ───────────────────────────────
+  async function getAccessToken() {
+    const url = `https://login.microsoftonline.com/${CONFIG.tenantId}/oauth2/v2.0/token`;
+    const body = new URLSearchParams({
+      grant_type:    'client_credentials',
+      client_id:     CONFIG.clientId,
+      client_secret: CONFIG.clientSecret,
+      scope:         'https://analysis.windows.net/powerbi/api/.default',
+    });
+
+    const res = await fetch(url, { method: 'POST', body });
+    if (!res.ok) throw new Error(`AAD token error: ${res.status} ${await res.text()}`);
+    const data = await res.json();
+    return data.access_token;
+  }
+
+  // ── Embed token via Power BI REST ─────────────────────────────────────────
+  async function getEmbedToken(accessToken) {
+    const url = `https://api.powerbi.com/v1.0/myorg/groups/${CONFIG.workspaceId}/reports/${CONFIG.reportId}/GenerateToken`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify({ accessLevel: 'View' }),
+    });
+    if (!res.ok) throw new Error(`Embed token error: ${res.status} ${await res.text()}`);
+    const data = await res.json();
+    return data.token;
+  }
+
+  // ── Embed report ──────────────────────────────────────────────────────────
+  async function init() {
+    try {
+      setLoading('Authenticating with Azure AD…');
+      setStatus('Connecting…');
+
+      const accessToken = await getAccessToken();
+
+      setLoading('Generating embed token…');
+      const embedToken = await getEmbedToken(accessToken);
+
+      setLoading('Loading Power BI report…');
+
+      const embedUrl =
+        `https://app.powerbi.com/reportEmbed` +
+        `?reportId=${CONFIG.reportId}` +
+        `&groupId=${CONFIG.workspaceId}`;
+
+      const models = window['powerbi-client'].models;
+
+      const embedConfig = {
+        type:        'report',
+        id:          CONFIG.reportId,
+        embedUrl,
+        accessToken: embedToken,
+        tokenType:   models.TokenType.Embed,
+        settings: {
+          panes: {
+            filters:    { visible: true },
+            pageNavigation: { visible: true },
+          },
+          background: models.BackgroundType.Transparent,
+        },
+        pageName: CONFIG.defaultPage,
+      };
+
+      const container = document.getElementById('embedContainer');
+      const report = window.powerbi.embed(container, embedConfig);
+
+      report.on('loaded', () => {
+        hideLoading();
+        setStatus('Live', true);
+      });
+
+      report.on('error', e => {
+        showError(`Power BI error: ${JSON.stringify(e.detail)}`);
+      });
+
+    } catch (err) {
+      console.error(err);
+      showError(err.message ||
+        'Could not load the report. Check credentials and service principal permissions.');
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
