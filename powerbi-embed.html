@@ -238,12 +238,8 @@
 <script>
   // ── Config ────────────────────────────────────────────────────────────────
   const CONFIG = {
-    tenantId:    '9e7ad80a-3510-4291-8108-f4da12e8e35d',
-    clientId:    'f59c96e3-b802-4cf4-9bd4-3a9817b55e05',
-    clientSecret:'41d9b450-6cf2-4627-82da-a6bfb8ca699a',
-    workspaceId: '109eff3f-c15c-4a00-be45-758b4ceb4ecd',
     reportId:    '84e44d37-9922-4a17-aaae-30bea1288a0b',
-    datasetId:   'de552778-616b-436c-9d00-0a11820ad3b0',
+    workspaceId: '109eff3f-c15c-4a00-be45-758b4ceb4ecd',
     defaultPage: 'ReportSectione5aa6bcf502835ae669a',
   };
 
@@ -285,36 +281,14 @@
     document.getElementById('loadingOverlay').style.display = 'none';
   }
 
-  // ── Token via Azure AD (client credentials) ───────────────────────────────
-  async function getAccessToken() {
-    const url = `https://login.microsoftonline.com/${CONFIG.tenantId}/oauth2/v2.0/token`;
-    const body = new URLSearchParams({
-      grant_type:    'client_credentials',
-      client_id:     CONFIG.clientId,
-      client_secret: CONFIG.clientSecret,
-      scope:         'https://analysis.windows.net/powerbi/api/.default',
-    });
-
-    const res = await fetch(url, { method: 'POST', body });
-    if (!res.ok) throw new Error(`AAD token error: ${res.status} ${await res.text()}`);
-    const data = await res.json();
-    return data.access_token;
-  }
-
-  // ── Embed token via Power BI REST ─────────────────────────────────────────
-  async function getEmbedToken(accessToken) {
-    const url = `https://api.powerbi.com/v1.0/myorg/groups/${CONFIG.workspaceId}/reports/${CONFIG.reportId}/GenerateToken`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type':  'application/json',
-      },
-      body: JSON.stringify({ accessLevel: 'View' }),
-    });
-    if (!res.ok) throw new Error(`Embed token error: ${res.status} ${await res.text()}`);
-    const data = await res.json();
-    return data.token;
+  // ── Fetch embed token from serverless API ────────────────────────────────
+  async function fetchEmbedData() {
+    const res = await fetch('/api/GetEmbedToken');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || `API error: ${res.status}`);
+    }
+    return res.json(); // { embedToken, embedUrl, reportId, workspaceId }
   }
 
   // ── Embed report ──────────────────────────────────────────────────────────
@@ -323,29 +297,21 @@
       setLoading('Authenticating with Azure AD…');
       setStatus('Connecting…');
 
-      const accessToken = await getAccessToken();
-
-      setLoading('Generating embed token…');
-      const embedToken = await getEmbedToken(accessToken);
+      const data = await fetchEmbedData();
 
       setLoading('Loading Power BI report…');
-
-      const embedUrl =
-        `https://app.powerbi.com/reportEmbed` +
-        `?reportId=${CONFIG.reportId}` +
-        `&groupId=${CONFIG.workspaceId}`;
 
       const models = window['powerbi-client'].models;
 
       const embedConfig = {
         type:        'report',
-        id:          CONFIG.reportId,
-        embedUrl,
-        accessToken: embedToken,
+        id:          data.reportId || CONFIG.reportId,
+        embedUrl:    data.embedUrl,
+        accessToken: data.embedToken,
         tokenType:   models.TokenType.Embed,
         settings: {
           panes: {
-            filters:    { visible: true },
+            filters:        { visible: true },
             pageNavigation: { visible: true },
           },
           background: models.BackgroundType.Transparent,
