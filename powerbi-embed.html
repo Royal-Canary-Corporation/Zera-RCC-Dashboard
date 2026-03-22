@@ -283,7 +283,7 @@
 
   // ── Fetch embed token from serverless API ────────────────────────────────
   async function fetchEmbedData() {
-    const res = await fetch('/api/GetEmbedToken');
+    const res = await fetch('https://rcc-pbilv-proxy.vercel.app/api/token');
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || `API error: ${res.status}`);
