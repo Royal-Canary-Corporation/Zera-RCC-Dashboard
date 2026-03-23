@@ -8,21 +8,10 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8F9FA; color: #1A1A2E; }
-
-  .header {
-    background: #001F6B;
-    color: white;
-    padding: 18px 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .header { background: #001F6B; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
   .header h1 { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
   .header .date-info { font-size: 13px; opacity: 0.85; text-align: right; line-height: 1.6; }
-
   .container { max-width: 1280px; margin: 0 auto; padding: 20px 16px; }
-
-  /* KPI Blocks */
   .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
   .kpi-block { background: white; border-radius: 10px; border: 1px solid #DDD; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .kpi-title { background: #001F6B; color: white; text-align: center; padding: 8px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
@@ -34,8 +23,6 @@
   .green { color: #1A7340; }
   .red { color: #C0180A; }
   .neutral { color: #1A1A2E; }
-
-  /* Charts */
   .chart-section { background: white; border-radius: 10px; border: 1px solid #DDD; margin-bottom: 16px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .chart-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .chart-title-badge { background: #001F6B; color: white; padding: 5px 14px; border-radius: 6px; font-size: 14px; font-weight: 700; }
@@ -43,9 +30,7 @@
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
   .chart-wrap { position: relative; height: 270px; }
-
   .footer { text-align: center; font-size: 11px; color: #888; padding: 16px 0 8px; }
-
   @media (max-width: 900px) {
     .kpi-row { grid-template-columns: 1fr; }
     .chart-wrap { height: 260px; }
@@ -68,16 +53,12 @@
 </div>
 
 <div class="container">
-
-  <!-- KPI Blocks -->
   <div class="kpi-row">
     <!-- Daily -->
     <div class="kpi-block">
       <div class="kpi-title">22/03/2026</div>
       <div class="kpi-row-item">
-        <div>
-          <div class="kpi-label">Net Sales</div>
-        </div>
+        <div><div class="kpi-label">Net Sales</div></div>
         <div style="text-align:right">
           <div class="kpi-value green">96,881</div>
         </div>
@@ -103,14 +84,14 @@
         <div><div class="kpi-label">Net Sales</div></div>
         <div style="text-align:right">
           <div class="kpi-value green">1,129,121</div>
-          <div class="kpi-sub green">vs Target: +361,390 (+47.1%)</div>
+          <div class="kpi-sub green">vs Target: +47,318 (+4.4%)</div>
         </div>
       </div>
       <div class="kpi-row-item">
         <div><div class="kpi-label">Turnover</div></div>
         <div style="text-align:right">
           <div class="kpi-value red">41,821,395</div>
-          <div class="kpi-sub red">vs Target: -7,161,776 (-14.6%)</div>
+          <div class="kpi-sub red">vs Target: -27,200,346 (-39.4%)</div>
         </div>
       </div>
       <div class="kpi-row-item">
@@ -128,14 +109,14 @@
         <div><div class="kpi-label">Net Sales</div></div>
         <div style="text-align:right">
           <div class="kpi-value red">2,347,228</div>
-          <div class="kpi-sub red">vs Target: -1,162,125 (-33.1%)</div>
+          <div class="kpi-sub red">vs Target: -1,236,296 (-34.5%)</div>
         </div>
       </div>
       <div class="kpi-row-item">
         <div><div class="kpi-label">Turnover</div></div>
         <div style="text-align:right">
           <div class="kpi-value red">164,772,750</div>
-          <div class="kpi-sub red">vs Target: -57,405,236 (-25.8%)</div>
+          <div class="kpi-sub red">vs Target: -57,426,981 (-25.8%)</div>
         </div>
       </div>
       <div class="kpi-row-item">
@@ -147,14 +128,14 @@
     </div>
   </div>
 
-  <!-- Chart 1: Daily Net Sales March -->
+  <!-- Chart 1: Daily Net Sales -->
   <div class="chart-section">
     <div class="chart-header">
       <span class="chart-title-badge">Net Sales | Daily | March</span>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#001F6B"></div> Net Sales (+)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#C0180A"></div> Net Sales (−)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#C0180A;border-radius:50%"></div><span style="color:#C0180A">── Guest Count</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0180A"></div> Net Sales (&minus;)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0180A;border-radius:50%"></div><span style="color:#C0180A">&#8212; Guest Count</span></div>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="chart1"></canvas></div>
@@ -184,111 +165,99 @@
     <div class="chart-wrap"><canvas id="chart3"></canvas></div>
   </div>
 
-  <div class="footer">La Victoire · Royal Canary Corp · Generated 23/03/2026</div>
+  <div class="footer">La Victoire &middot; Royal Canary Corp &middot; Generated 23/03/2026</div>
 </div>
 
 <script>
 const BLUE = '#001F6B', RED = '#C0180A', GREY = '#6B7280', GREEN = '#1A7340';
 
-// ── Chart 1: Daily March ──────────────────────────────────────────────────
+// Chart 1: Daily
 const marchData = [
-  {day:1,ns:-39264,hc:134},{day:2,ns:139051,hc:104},{day:3,ns:48416,hc:106},
-  {day:4,ns:-13263,hc:92},{day:5,ns:66912,hc:98},{day:6,ns:149285,hc:115},
-  {day:7,ns:71869,hc:115},{day:8,ns:116064,hc:112},{day:9,ns:159406,hc:101},
-  {day:10,ns:21267,hc:99},{day:11,ns:-80174,hc:99},{day:12,ns:-14893,hc:110},
-  {day:13,ns:55056,hc:106},{day:14,ns:107396,hc:142},{day:15,ns:74482,hc:93},
-  {day:16,ns:-1912,hc:90},{day:17,ns:137867,hc:84},{day:18,ns:31598,hc:81},
-  {day:19,ns:-24255,hc:94},{day:20,ns:37293,hc:94},{day:21,ns:-7923,hc:142},
-  {day:22,ns:96881,hc:114}
+  {day:1,ns:-39263.51,hc:134},
+  {day:2,ns:139050.87,hc:104},
+  {day:3,ns:48416.19,hc:106},
+  {day:4,ns:-13263.04,hc:92},
+  {day:5,ns:66912.14,hc:98},
+  {day:6,ns:-22704.73,hc:115},
+  {day:7,ns:197096.90,hc:115},
+  {day:8,ns:139048.62,hc:112},
+  {day:9,ns:52876.82,hc:101},
+  {day:10,ns:-11597.24,hc:99},
+  {day:11,ns:60559.73,hc:99},
+  {day:12,ns:191933.24,hc:110},
+  {day:13,ns:-2308.98,hc:106},
+  {day:14,ns:45947.31,hc:142},
+  {day:15,ns:47938.00,hc:93},
+  {day:16,ns:-18950.52,hc:90},
+  {day:17,ns:113835.18,hc:84},
+  {day:18,ns:31597.94,hc:81},
+  {day:19,ns:-24254.82,hc:94},
+  {day:20,ns:37293.06,hc:94},
+  {day:21,ns:-7923.31,hc:142},
+  {day:22,ns:96881.21,hc:114}
 ];
-
 const labels1 = Array.from({length:31}, (_,i) => i+1);
 const barColors = labels1.map(d => {
   const r = marchData.find(x => x.day === d);
   if (!r) return 'transparent';
   return r.ns >= 0 ? BLUE : RED;
 });
-const nsValues = labels1.map(d => {
-  const r = marchData.find(x => x.day === d);
-  return r ? r.ns : null;
-});
-const hcValues = labels1.map(d => {
-  const r = marchData.find(x => x.day === d);
-  return r ? r.hc : null;
-});
+const nsValues = labels1.map(d => { const r = marchData.find(x => x.day === d); return r ? r.ns : null; });
+const hcValues = labels1.map(d => { const r = marchData.find(x => x.day === d); return r ? r.hc : null; });
 
 const ctx1 = document.getElementById('chart1').getContext('2d');
 new Chart(ctx1, {
   data: {
     labels: labels1,
     datasets: [
-      {
-        type: 'bar', label: 'Net Sales', data: nsValues,
-        backgroundColor: barColors, borderWidth: 0, yAxisID: 'y',
-        spanGaps: false,
-      },
-      {
-        type: 'line', label: 'Guest Count', data: hcValues,
-        borderColor: RED, backgroundColor: 'transparent',
-        borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: RED,
-        tension: 0.4, yAxisID: 'y2', spanGaps: true,
-      }
+      { type:'bar', label:'Net Sales', data:nsValues, backgroundColor:barColors, borderWidth:0, yAxisID:'y', spanGaps:false },
+      { type:'line', label:'Guest Count', data:hcValues, borderColor:RED, backgroundColor:'transparent', borderWidth:2.5, pointRadius:3, pointBackgroundColor:RED, tension:0.4, yAxisID:'y2', spanGaps:true }
     ]
   },
   options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: {
-      callbacks: {
-        label: ctx => {
-          const v = ctx.raw;
-          if (v === null) return null;
-          if (ctx.dataset.label === 'Guest Count') return `Guest Count: ${v}`;
-          return `Net Sales: ${v >= 0 ? '' : '-'}${Math.abs(v).toLocaleString()}`;
-        }
-      }
-    }},
-    scales: {
-      x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-      y: { grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 },
-        callback: v => v >= 1000 || v <= -1000 ? (v/1000).toFixed(0)+'K' : v } },
-      y2: { position: 'right', grid: { display: false },
-        ticks: { font: { size: 11 } }, title: { display: true, text: 'Guest Count', font: { size: 11 } } }
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => {
+      const v = ctx.raw;
+      if (v === null) return null;
+      if (ctx.dataset.label === 'Guest Count') return `Guest Count: ${v}`;
+      return `Net Sales: ${v>=0?'':'-'}${Math.abs(v).toLocaleString()}`;
+    }}} },
+    scales:{
+      x: { grid:{display:false}, ticks:{font:{size:11}} },
+      y: { grid:{color:'#EEEEEE'}, ticks:{font:{size:11}, callback: v => v>=1000||v<=-1000?(v/1000).toFixed(0)+'K':v} },
+      y2: { position:'right', grid:{display:false}, ticks:{font:{size:11}}, title:{display:true, text:'Guest Count', font:{size:11}} }
     }
   }
 });
 
-// ── Chart 2 & 3: Monthly ──────────────────────────────────────────────────
+// Chart 2 & 3
 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const ggrAct  = [915362,302744,1129121,null,null,null,null,null,null,null,null,null];
+const ggrAct  = [915362.31,302744.48,1129121.06,null,null,null,null,null,null,null,null,null];
 const ggrTgt  = [1207295,1294426,1081803,1025665,1268398,1323668,1245769,1409782,1740836,1635869,1760861,1874932];
-const tAct    = [81671212,41280143,41821395,null,null,null,null,null,null,null,null,null];
+const tAct    = [81671211.62,41280142.71,41821395.48,null,null,null,null,null,null,null,null,null];
 const tTgt    = [76588995,76588995,69021741,69021741,76036143,78570681,80141752,80141752,91697379,91697379,91900452,91900452];
 
 function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
   const ctx = document.getElementById(canvasId).getContext('2d');
-
   const plugin = {
     id: 'pctBadge',
     afterDraw(chart) {
-      const {ctx: c, scales: {x, y}, chartArea} = chart;
-      months.forEach((m, i) => {
+      const {ctx:c, scales:{x,y}, chartArea} = chart;
+      months.forEach((m,i) => {
         if (actData[i] === null) return;
         const pct = actData[i] / tgtData[i] * 100;
         const color = pct >= 100 ? GREEN : RED;
         const meta0 = chart.getDatasetMeta(0);
         const barEl = meta0.data[i];
         const xPos = barEl.x;
-        // Place badge below x-axis tick labels, inside canvas
         const yPos = chartArea.bottom + 32;
         const txt = pct.toFixed(1) + '%';
         const tw = c.measureText(txt).width + 10;
         c.save();
-        // Badge background
         c.fillStyle = '#F0F0F0';
         c.beginPath();
         c.roundRect(xPos - tw/2, yPos - 9, tw, 18, 4);
         c.fill();
-        // Text
         c.font = 'bold 10.5px Segoe UI, Arial';
         c.fillStyle = color;
         c.textAlign = 'center';
@@ -298,42 +267,27 @@ function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
       });
     }
   };
-
   new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: months,
-      datasets: [
-        { label: 'Actual', data: actData, backgroundColor: BLUE, borderRadius: 3 },
-        { label: 'Target', data: tgtData, backgroundColor: tgtColor, borderRadius: 3 },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      layout: { padding: { bottom: 28 } },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${fmt(ctx.raw)}` } }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { font: { size: 11 } }
-        },
-        y: {
-          grid: { color: '#EEEEEE' },
-          ticks: { font: { size: 11 },
-            callback: v => v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1000 ? (v/1000).toFixed(0)+'K' : v },
-          min: 0
-        }
+    type:'bar',
+    data:{ labels:months, datasets:[
+      {label:'Actual', data:actData, backgroundColor:BLUE, borderRadius:3},
+      {label:'Target', data:tgtData, backgroundColor:tgtColor, borderRadius:3}
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{bottom:28}},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label: ctx => `${ctx.dataset.label}: ${fmt(ctx.raw)}`}} },
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{size:11}}},
+        y:{grid:{color:'#EEEEEE'}, ticks:{font:{size:11}, callback: v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'K':v}, min:0}
       }
     },
-    plugins: [plugin]
+    plugins:[plugin]
   });
 }
 
-makeMonthlyChart('chart2', ggrAct, ggrTgt, RED, v => v === null ? '—' : v.toLocaleString(undefined,{maximumFractionDigits:0}));
-makeMonthlyChart('chart3', tAct,   tTgt,   GREY, v => v === null ? '—' : (v/1e6).toFixed(2)+'M');
+makeMonthlyChart('chart2', ggrAct, ggrTgt, RED, v => v===null?'—':v.toLocaleString(undefined,{maximumFractionDigits:0}));
+makeMonthlyChart('chart3', tAct, tTgt, GREY, v => v===null?'—':(v/1e6).toFixed(2)+'M');
 </script>
 </body>
 </html>
