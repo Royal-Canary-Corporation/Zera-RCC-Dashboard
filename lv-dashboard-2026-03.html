@@ -29,28 +29,16 @@
   .chart-legend { display: flex; gap: 16px; font-size: 12px; margin-left: auto; }
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
-  .chart-wrap { position: relative; height: 320px; }
+  .chart-wrap { position: relative; height: 270px; }
   .footer { text-align: center; font-size: 11px; color: #888; padding: 16px 0 8px; }
   @media (max-width: 900px) {
     .kpi-row { grid-template-columns: 1fr; }
-    .chart-wrap { height: 300px; }
+    .chart-wrap { height: 260px; }
     .header { flex-direction: column; align-items: flex-start; gap: 6px; }
     .header h1 { font-size: 20px; }
     .header .date-info { font-size: 12px; }
     .chart-header { flex-wrap: wrap; gap: 6px; }
     .chart-legend { margin-left: 0; }
-    .kpi-value { font-size: 14px; }
-    .kpi-sub { font-size: 10px; }
-    .chart-title-badge { font-size: 12px; padding: 4px 10px; }
-  }
-  @media (max-width: 480px) {
-    .container { padding: 12px 10px; }
-    .chart-section { padding: 12px 10px; }
-    .chart-wrap { height: 280px; }
-    .kpi-title { font-size: 11px; padding: 6px 8px; }
-    .kpi-label { font-size: 11px; }
-    .kpi-value { font-size: 13px; }
-    .kpi-row-item { padding: 8px 10px; }
   }
 </style>
 </head>
@@ -262,19 +250,15 @@ function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
         const meta0 = chart.getDatasetMeta(0);
         const barEl = meta0.data[i];
         const xPos = barEl.x;
-        const yPos = chartArea.bottom + 54;
+        const yPos = chartArea.bottom + 32;
         const txt = pct.toFixed(1) + '%';
+        const tw = c.measureText(txt).width + 10;
         c.save();
-        c.font = 'bold 11px Segoe UI, Arial';
-        const tw = c.measureText(txt).width + 12;
-        c.fillStyle = '#EBEBEB';
+        c.fillStyle = '#F0F0F0';
         c.beginPath();
-        if (c.roundRect) {
-          c.roundRect(xPos - tw/2, yPos - 10, tw, 20, 4);
-        } else {
-          c.rect(xPos - tw/2, yPos - 10, tw, 20);
-        }
+        c.roundRect(xPos - tw/2, yPos - 9, tw, 18, 4);
         c.fill();
+        c.font = 'bold 10.5px Segoe UI, Arial';
         c.fillStyle = color;
         c.textAlign = 'center';
         c.textBaseline = 'middle';
@@ -291,18 +275,10 @@ function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{bottom:56}},
+      layout:{padding:{bottom:28}},
       plugins:{ legend:{display:false}, tooltip:{callbacks:{label: ctx => `${ctx.dataset.label}: ${fmt(ctx.raw)}`}} },
       scales:{
-        x:{
-          grid:{display:false},
-          ticks:{
-            font:{size:11},
-            maxRotation: 45,
-            minRotation: 0,
-            autoSkip: false
-          }
-        },
+        x:{grid:{display:false}, ticks:{font:{size:11}}},
         y:{grid:{color:'#EEEEEE'}, ticks:{font:{size:11}, callback: v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'K':v}, min:0}
       }
     },
