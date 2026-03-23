@@ -42,14 +42,18 @@
   .chart-legend { display: flex; gap: 16px; font-size: 12px; margin-left: auto; }
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
-  .chart-wrap { position: relative; height: 240px; }
+  .chart-wrap { position: relative; height: 270px; }
 
   .footer { text-align: center; font-size: 11px; color: #888; padding: 16px 0 8px; }
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     .kpi-row { grid-template-columns: 1fr; }
-    .chart-wrap { height: 200px; }
+    .chart-wrap { height: 260px; }
+    .header { flex-direction: column; align-items: flex-start; gap: 6px; }
     .header h1 { font-size: 20px; }
+    .header .date-info { font-size: 12px; }
+    .chart-header { flex-wrap: wrap; gap: 6px; }
+    .chart-legend { margin-left: 0; }
   }
 </style>
 </head>
@@ -262,16 +266,11 @@ const tTgt    = [76588995,76588995,69021741,69021741,76036143,78570681,80141752,
 
 function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
   const ctx = document.getElementById(canvasId).getContext('2d');
-  const pctLabels = months.map((m,i) => {
-    if (actData[i] === null) return null;
-    return (actData[i] / tgtData[i] * 100).toFixed(1) + '%';
-  });
 
   const plugin = {
     id: 'pctBadge',
     afterDraw(chart) {
-      const {ctx: c, scales: {x, y}} = chart;
-      const ds = chart.data.datasets;
+      const {ctx: c, scales: {x, y}, chartArea} = chart;
       months.forEach((m, i) => {
         if (actData[i] === null) return;
         const pct = actData[i] / tgtData[i] * 100;
@@ -279,12 +278,22 @@ function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
         const meta0 = chart.getDatasetMeta(0);
         const barEl = meta0.data[i];
         const xPos = barEl.x;
-        const yBot = y.getPixelForValue(y.min) + 22;
+        // Place badge below x-axis tick labels, inside canvas
+        const yPos = chartArea.bottom + 32;
+        const txt = pct.toFixed(1) + '%';
+        const tw = c.measureText(txt).width + 10;
         c.save();
-        c.font = 'bold 11px Segoe UI, Arial';
+        // Badge background
+        c.fillStyle = '#F0F0F0';
+        c.beginPath();
+        c.roundRect(xPos - tw/2, yPos - 9, tw, 18, 4);
+        c.fill();
+        // Text
+        c.font = 'bold 10.5px Segoe UI, Arial';
         c.fillStyle = color;
         c.textAlign = 'center';
-        c.fillText(pct.toFixed(1) + '%', xPos, yBot + 8);
+        c.textBaseline = 'middle';
+        c.fillText(txt, xPos, yPos);
         c.restore();
       });
     }
@@ -301,15 +310,22 @@ function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
     },
     options: {
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { bottom: 28 } },
       plugins: {
         legend: { display: false },
         tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${fmt(ctx.raw)}` } }
       },
       scales: {
-        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-        y: { grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 },
-          callback: v => v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1000 ? (v/1000).toFixed(0)+'K' : v },
-          min: 0 }
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 } }
+        },
+        y: {
+          grid: { color: '#EEEEEE' },
+          ticks: { font: { size: 11 },
+            callback: v => v >= 1e6 ? (v/1e6).toFixed(1)+'M' : v >= 1000 ? (v/1000).toFixed(0)+'K' : v },
+          min: 0
+        }
       }
     },
     plugins: [plugin]
