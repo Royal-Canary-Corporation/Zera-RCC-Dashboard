@@ -405,66 +405,59 @@ function makePctPlugin() {
     id: 'pct',
     afterDatasetsDraw(chart) {
       const { ctx, chartArea, scales } = chart;
-      const actDs = chart.data.datasets[0];
-      const tgtDs = chart.data.datasets[1];
-      const act = actDs.data;
-      const tgt = tgtDs.data;
+      const act = chart.data.datasets[0].data;
+      const tgt = chart.data.datasets[1].data;
 
       const cw = chartArea.right - chartArea.left;
-      // Pixel width per bar group (12 months)
       const slotW = cw / 12;
-      // Font size: fit inside slot, min 8, max 11
-      const fontSize = Math.max(8, Math.min(11, Math.floor(slotW / 5.5)));
+      const fontSize = Math.max(9, Math.min(12, Math.floor(slotW / 5)));
 
-      MONTHS_LABEL.forEach((m, i) => {
-        if (!act[i]) return;
+      MONTHS_LABEL.forEach((_, i) => {
+        if (!act[i] || !tgt[i]) return;
         const pct = act[i] / tgt[i] * 100;
         const color = pct >= 100 ? GREEN : RED;
-        const txt = pct.toFixed(0) + '%';  // drop decimal to save space
+        const bg    = pct >= 100 ? '#E8F5E9' : '#FFEBEE';
+        const txt   = pct.toFixed(0) + '%';
 
-        // Get actual bar element (dataset 0 = Actual bar)
-        const meta = chart.getDatasetMeta(0);
-        const barEl = meta.data[i];
-        if (!barEl) return;
+        // Find the TOP of both bars → place badge above the taller one
+        const metaAct = chart.getDatasetMeta(0);
+        const metaTgt = chart.getDatasetMeta(1);
+        const barAct  = metaAct.data[i];
+        const barTgt  = metaTgt.data[i];
+        if (!barAct || !barTgt) return;
 
-        const barX = barEl.x;
-        const barTop = barEl.y;
-        const barBottom = barEl.base;
-        const barH = barBottom - barTop;
+        // Use midpoint X between the two bars
+        const x = (barAct.x + barTgt.x) / 2;
+        // Top of whichever bar is taller
+        const topY = Math.min(barAct.y, barTgt.y);
 
         ctx.save();
         ctx.font = `bold ${fontSize}px Segoe UI, sans-serif`;
-        const tw = ctx.measureText(txt).width + 6;
-        const th = fontSize + 5;
+        const tw = ctx.measureText(txt).width + 10;
+        const th = fontSize + 7;
+        const bx = x - tw / 2;
+        const by = topY - th - 4;   // always above both bars
 
-        // Strategy 1: if bar tall enough → print inside bar (white text)
-        if (barH >= th + 4) {
-          ctx.fillStyle = 'rgba(255,255,255,0.92)';
-          const badgeY = barTop + 4;
-          if (ctx.roundRect) ctx.roundRect(barX - tw/2, badgeY, tw, th, 3);
-          else ctx.rect(barX - tw/2, badgeY, tw, th);
-          ctx.fill();
-          ctx.fillStyle = color;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'top';
-          ctx.fillText(txt, barX, badgeY + 2);
-        } else {
-          // Strategy 2: bar too short → print just above the bar
-          const badgeY = barTop - th - 3;
-          ctx.fillStyle = '#F5F5F5';
-          if (ctx.roundRect) ctx.roundRect(barX - tw/2, badgeY, tw, th, 3);
-          else ctx.rect(barX - tw/2, badgeY, tw, th);
-          ctx.fill();
-          ctx.strokeStyle = color + '55';
-          ctx.lineWidth = 1;
-          if (ctx.roundRect) ctx.roundRect(barX - tw/2, badgeY, tw, th, 3);
-          else ctx.rect(barX - tw/2, badgeY, tw, th);
-          ctx.stroke();
-          ctx.fillStyle = color;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'top';
-          ctx.fillText(txt, barX, badgeY + 2);
-        }
+        // Badge background
+        ctx.fillStyle = bg;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(bx, by, tw, th, 4);
+        else ctx.rect(bx, by, tw, th);
+        ctx.fill();
+
+        // Badge border
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(bx, by, tw, th, 4);
+        else ctx.rect(bx, by, tw, th);
+        ctx.stroke();
+
+        // Text
+        ctx.fillStyle = color;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(txt, x, by + th / 2);
         ctx.restore();
       });
     }
@@ -483,15 +476,8 @@ function renderChart2(d) {
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{bottom:4}},
-      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx => {
-        if (ctx.datasetIndex === 0 && ctx.raw) {
-          const tgt = chart2.data.datasets[1].data[ctx.dataIndex];
-          const pct = (ctx.raw / tgt * 100).toFixed(1);
-          return [`Actual: ${ctx.raw.toLocaleString(undefined,{maximumFractionDigits:0})}`, `vs Target: ${pct}%`];
-        }
-        return ctx.dataset.label+': '+(ctx.raw===null?'—':ctx.raw.toLocaleString(undefined,{maximumFractionDigits:0}));
-      }}} },
+      layout:{padding:{top:24, bottom:4}},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx => ctx.dataset.label+': '+(ctx.raw===null?'—':ctx.raw.toLocaleString(undefined,{maximumFractionDigits:0}))}} },
       scales:{ x:{grid:{display:false},ticks:{font:{size:11}}}, y:{min:0,grid:{color:'#EEE'},ticks:{font:{size:11},callback:v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}} }
     },
     plugins:[makePctPlugin()]
@@ -510,7 +496,7 @@ function renderChart3(d) {
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
-      layout:{padding:{bottom:4}},
+      layout:{padding:{top:24, bottom:4}},
       plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx => ctx.dataset.label+': '+(ctx.raw===null?'—':(ctx.raw/1e6).toFixed(2)+'M')}} },
       scales:{ x:{grid:{display:false},ticks:{font:{size:11}}}, y:{min:0,grid:{color:'#EEE'},ticks:{font:{size:11},callback:v=>v>=1e9?(v/1e9).toFixed(1)+'B':v>=1e6?(v/1e6).toFixed(0)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v}} }
     },
