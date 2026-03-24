@@ -80,13 +80,13 @@
   }
   .kpi-row {
     padding: 9px 14px; border-bottom: 1px solid #F0F0F0;
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 8px;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
   }
   .kpi-row:last-child { border-bottom: none; }
-  .kpi-label { font-size: .82rem; color: #555; white-space: nowrap; }
-  .kpi-right { text-align: right; }
-  .kpi-value { font-size: 1rem; font-weight: 700; line-height: 1.2; }
-  .kpi-delta { font-size: .72rem; margin-top: 2px; }
+  .kpi-label { font-size: .82rem; color: #555; white-space: nowrap; text-align: left; flex: 1; }
+  .kpi-right { text-align: right; flex-shrink: 0; }
+  .kpi-value { font-size: 1rem; font-weight: 700; line-height: 1.2; text-align: right; }
+  .kpi-delta { font-size: .72rem; margin-top: 2px; text-align: right; }
 
   /* Charts */
   .chart-section {
