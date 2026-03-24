@@ -359,7 +359,10 @@ function renderDashboard(dateStr) {
 
 /* ── Chart 1: Daily ── */
 function renderChart1(d, dateStr) {
-  const labels = Array.from({length: 31}, (_, i) => i+1);
+  // Dynamic days: use actual days in the month
+  const [y, mo] = dateStr.split('-').map(Number);
+  const daysInMonth = new Date(y, mo, 0).getDate();
+  const labels = Array.from({length: daysInMonth}, (_, i) => i+1);
   const ns = labels.map(day => {
     const r = d.daily_month.find(x => x.day === day);
     return r ? r.ns : null;
@@ -379,8 +382,14 @@ function renderChart1(d, dateStr) {
     { type:'line', label:'Guests', data:hc, borderColor:'#9ca3af', backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:'#9ca3af', tension:.3, yAxisID:'y2', spanGaps:true, order:0 }
   ];
 
-  if (chart1) { chart1.data.datasets[0].data = ns; chart1.data.datasets[0].backgroundColor = colors;
-                 chart1.data.datasets[1].data = hc; chart1.update(); return; }
+  if (chart1) {
+    chart1.data.labels = labels;
+    chart1.data.datasets[0].data = ns;
+    chart1.data.datasets[0].backgroundColor = colors;
+    chart1.data.datasets[1].data = hc;
+    chart1.update();
+    return;
+  }
 
   chart1 = new Chart(document.getElementById('chart1'), {
     data: { labels, datasets },
