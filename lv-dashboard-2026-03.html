@@ -192,7 +192,7 @@
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#001F6B"></div> (+)</div>
         <div class="legend-item"><div class="legend-dot" style="background:#C0180A"></div> (&minus;)</div>
-        <div class="legend-item"><div class="legend-line" style="background:#C0180A"></div> Guests</div>
+        <div class="legend-item"><div class="legend-line" style="background:#9ca3af"></div> Guests</div>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="chart1"></canvas></div>
@@ -375,8 +375,8 @@ function renderChart1(d, dateStr) {
   });
 
   const datasets = [
-    { type:'bar', label:'Net Sales', data:ns, backgroundColor:colors, borderWidth:0, yAxisID:'y', spanGaps:false },
-    { type:'line', label:'Guests', data:hc, borderColor:RED, backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:RED, tension:.3, yAxisID:'y2', spanGaps:true }
+    { type:'bar', label:'Net Sales', data:ns, backgroundColor:colors, borderWidth:0, yAxisID:'y', spanGaps:false, order:1 },
+    { type:'line', label:'Guests', data:hc, borderColor:'#9ca3af', backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:'#9ca3af', tension:.3, yAxisID:'y2', spanGaps:true, order:0 }
   ];
 
   if (chart1) { chart1.data.datasets[0].data = ns; chart1.data.datasets[0].backgroundColor = colors;
