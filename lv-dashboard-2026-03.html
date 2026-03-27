@@ -2,352 +2,296 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1400">
-<title>La Victoire Dashboard | March 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Victoire — Dashboard March 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #F4F6F9; font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a2e; }
-  .wrapper { max-width: 1400px; margin: 0 auto; padding: 20px; }
-
-  /* HEADER */
-  .header { background: #001F6B; color: white; padding: 18px 28px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-  .header-left { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
-  .header-sub { font-size: 13px; opacity: 0.75; margin-top: 4px; }
-  .header-right { text-align: right; font-size: 13px; opacity: 0.8; }
-  .header-right .date-main { font-size: 16px; font-weight: 600; opacity: 1; }
-
-  /* KPI SECTION */
-  .kpi-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
-  .kpi-card { background: white; border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-top: 3px solid #001F6B; }
-  .kpi-title { font-size: 11px; font-weight: 700; color: #001F6B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-  .kpi-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
-  .kpi-label { font-size: 12px; color: #555; flex: 1; }
-  .kpi-val { font-size: 15px; font-weight: 700; color: #1a1a2e; flex-shrink: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #F8F9FA; color: #1A1A2E; }
+  .header { background: #001F6B; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+  .header .date-info { font-size: 13px; opacity: 0.85; text-align: right; line-height: 1.6; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 20px 16px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  .kpi-block { background: white; border-radius: 10px; border: 1px solid #DDD; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .kpi-title { background: #001F6B; color: white; text-align: center; padding: 8px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
+  .kpi-row-item { padding: 10px 14px; border-bottom: 1px solid #F0F0F0; display: flex; justify-content: space-between; align-items: flex-end; }
+  .kpi-row-item:last-child { border-bottom: none; }
+  .kpi-label { font-size: 13px; color: #555; font-weight: 500; }
+  .kpi-value { font-size: 16px; font-weight: 700; }
   .kpi-sub { font-size: 11px; margin-top: 2px; text-align: right; }
-  .kpi-divider { border: none; border-top: 1px solid #f0f0f0; margin: 7px 0; }
-
-  /* CHARTS */
-  .charts-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  .chart-card { background: white; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .chart-title { font-size: 12px; font-weight: 700; color: #001F6B; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
-  .chart-wrap { position: relative; height: 260px; }
-  .chart-wrap.tall { height: 220px; }
-
-  /* FOOTER */
-  .footer { text-align: center; margin-top: 16px; font-size: 11px; color: #999; }
+  .green { color: #1A7340; }
+  .red { color: #C0180A; }
+  .neutral { color: #1A1A2E; }
+  .chart-section { background: white; border-radius: 10px; border: 1px solid #DDD; margin-bottom: 16px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .chart-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .chart-title-badge { background: #001F6B; color: white; padding: 5px 14px; border-radius: 6px; font-size: 14px; font-weight: 700; }
+  .chart-legend { display: flex; gap: 16px; font-size: 12px; margin-left: auto; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+  .chart-wrap { position: relative; height: 270px; }
+  .footer { text-align: center; font-size: 11px; color: #888; padding: 16px 0 8px; }
+  @media (max-width: 900px) {
+    .kpi-row { grid-template-columns: 1fr; }
+    .chart-wrap { height: 260px; }
+    .header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .header h1 { font-size: 20px; }
+    .header .date-info { font-size: 12px; }
+    .chart-header { flex-wrap: wrap; gap: 6px; }
+    .chart-legend { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
-<div class="wrapper">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      LA VICTOIRE
-      <div class="header-sub">Performance Dashboard · March 2026</div>
-    </div>
-    <div class="header-right">
-      <div class="date-main">Data: 2026-03-25</div>
-      <div>Generated by Zera · RCC Group</div>
-    </div>
+<div class="header">
+  <h1>La Victoire</h1>
+  <div class="date-info">
+    Data as of 26/03/2026<br>
+    MTD: 01/03/2026 – 26/03/2026 &nbsp;·&nbsp; YTD: 01/01/2026 – 26/03/2026
   </div>
+</div>
 
-  <!-- KPI CARDS -->
-  <div class="kpi-section">
-
-    <!-- DAILY -->
-    <div class="kpi-card">
-      <div class="kpi-title">Daily · 2026-03-25</div>
-      <div class="kpi-row">
-        <span class="kpi-label">Net Sales (USD)</span>
-        <span class="kpi-val">$90.6K</span>
+<div class="container">
+  <div class="kpi-row">
+    <!-- Daily -->
+    <div class="kpi-block">
+      <div class="kpi-title">26/03/2026</div>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Net Sales</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value green">91,450</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#00a651">+159.6% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Turnover (USD)</span>
-        <span class="kpi-val">$2.49M</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Turnover</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value green">2,749,741</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#00a651">+11.8% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Guest Count</span>
-        <span class="kpi-val">94</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Guest Count</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value neutral">93</div>
+        </div>
       </div>
     </div>
 
     <!-- MTD -->
-    <div class="kpi-card">
-      <div class="kpi-title">MTD · March 2026</div>
-      <div class="kpi-row">
-        <span class="kpi-label">Net Sales (USD)</span>
-        <span class="kpi-val">$1.19M</span>
+    <div class="kpi-block">
+      <div class="kpi-title">Month-to-Date (March)</div>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Net Sales</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value green">1,280,502</div>
+          <div class="kpi-sub green">vs Target: +198,699 (+18.4%)</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#00a651">+9.9% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Turnover (USD)</span>
-        <span class="kpi-val">$50.66M</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Turnover</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value red">53,407,345</div>
+          <div class="kpi-sub red">vs Target: -15,614,396 (-22.6%)</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#C0180A">-26.6% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Guest Count</span>
-        <span class="kpi-val">2,598</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Guest Count</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value neutral">2,691</div>
+        </div>
       </div>
     </div>
 
     <!-- YTD -->
-    <div class="kpi-card">
-      <div class="kpi-title">YTD · Jan–Mar 2026</div>
-      <div class="kpi-row">
-        <span class="kpi-label">Net Sales (USD)</span>
-        <span class="kpi-val">$2.41M</span>
+    <div class="kpi-block">
+      <div class="kpi-title">Year-to-Date (2026)</div>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Net Sales</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value red">2,498,608</div>
+          <div class="kpi-sub red">vs Target: -1,084,916 (-30.3%)</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#C0180A">-28.7% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Turnover (USD)</span>
-        <span class="kpi-val">$173.61M</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Turnover</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value red">176,358,700</div>
+          <div class="kpi-sub red">vs Target: -45,841,031 (-20.6%)</div>
+        </div>
       </div>
-      <div class="kpi-sub"><span style="color:#C0180A">-16.9% vs Tgt</span></div>
-      <hr class="kpi-divider">
-      <div class="kpi-row">
-        <span class="kpi-label">Guest Count</span>
-        <span class="kpi-val">8,785</span>
+      <div class="kpi-row-item">
+        <div><div class="kpi-label">Guest Count</div></div>
+        <div style="text-align:right">
+          <div class="kpi-value neutral">8,878</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- CHARTS -->
-  <div class="charts-grid">
-
-    <!-- C1: Daily Net Sales -->
-    <div class="chart-card">
-      <div class="chart-title">Net Sales | Daily | March 2026</div>
-      <div class="chart-wrap tall">
-        <canvas id="c1"></canvas>
+  <!-- Chart 1: Daily Net Sales -->
+  <div class="chart-section">
+    <div class="chart-header">
+      <span class="chart-title-badge">Net Sales | Daily | March</span>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#001F6B"></div> Net Sales (+)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0180A"></div> Net Sales (&minus;)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0180A;border-radius:50%"></div><span style="color:#C0180A">&#8212; Guest Count</span></div>
       </div>
     </div>
-
-    <!-- C2: Monthly Net Sales -->
-    <div class="chart-card">
-      <div class="chart-title">Net Sales | Monthly 2026 — Actual vs Target</div>
-      <div class="chart-wrap tall">
-        <canvas id="c2"></canvas>
-      </div>
-    </div>
-
-    <!-- C3: Monthly Turnover -->
-    <div class="chart-card">
-      <div class="chart-title">Turnover | Monthly 2026 — Actual vs Target</div>
-      <div class="chart-wrap tall">
-        <canvas id="c3"></canvas>
-      </div>
-    </div>
-
+    <div class="chart-wrap"><canvas id="chart1"></canvas></div>
   </div>
 
-  <div class="footer">La Victoire · Le Meridien Saigon · Data as of 2026-03-25 · Generated by Zera AI</div>
+  <!-- Chart 2: Net Sales Monthly -->
+  <div class="chart-section">
+    <div class="chart-header">
+      <span class="chart-title-badge">Net Sales</span>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#001F6B"></div> Actual</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0180A"></div> Target</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+  </div>
+
+  <!-- Chart 3: Turnover Monthly -->
+  <div class="chart-section">
+    <div class="chart-header">
+      <span class="chart-title-badge">Turnover</span>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#001F6B"></div> Actual</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6B7280"></div> Target</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+  </div>
+
+  <div class="footer">La Victoire &middot; Royal Canary Corp &middot; Generated 27/03/2026</div>
 </div>
 
 <script>
-const NAVY = '#001F6B';
-const RED  = '#C0180A';
-const GREY = '#9ca3af';
+const BLUE = '#001F6B', RED = '#C0180A', GREY = '#6B7280', GREEN = '#1A7340';
 
-// C1 — Daily Net Sales (bars) + Guest Count (line)
-const c1Labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
-const c1Act    = [-39263.51, 139050.87, 48416.19, -13263.04, 66912.14, -22704.73, 197096.9, 126398.61, 52876.82, -11597.24, 60559.73, 191933.24, -14091.99, 45947.31, -80656, -18950.52, 113835.18, 31597.94, -24254.82, 37293.06, -7923.31, 96881.21, 112088.51, 10265.58, 90603.48, 0, 0, 0, 0, 0, 0];
-const c1Tgt    = [34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88];
-const c1HC     = [134, 104, 106, 92, 98, 115, 115, 112, 101, 99, 99, 110, 106, 142, 93, 90, 84, 81, 94, 94, 142, 114, 88, 91, 94, 0, 0, 0, 0, 0, 0];
+// Chart 1: Daily
+const marchData = [
+  {day:1,ns:-39263.51,hc:134},
+  {day:2,ns:139050.87,hc:104},
+  {day:3,ns:48416.19,hc:106},
+  {day:4,ns:-13263.04,hc:92},
+  {day:5,ns:66912.14,hc:98},
+  {day:6,ns:-22704.73,hc:115},
+  {day:7,ns:197096.90,hc:115},
+  {day:8,ns:126398.61,hc:112},
+  {day:9,ns:52876.82,hc:101},
+  {day:10,ns:-11597.24,hc:99},
+  {day:11,ns:60559.73,hc:99},
+  {day:12,ns:191933.24,hc:110},
+  {day:13,ns:-14091.99,hc:106},
+  {day:14,ns:45947.31,hc:142},
+  {day:15,ns:-80656.00,hc:93},
+  {day:16,ns:-18950.52,hc:90},
+  {day:17,ns:113835.18,hc:84},
+  {day:18,ns:31597.94,hc:81},
+  {day:19,ns:-24254.82,hc:94},
+  {day:20,ns:37293.06,hc:94},
+  {day:21,ns:-7923.31,hc:142},
+  {day:22,ns:96881.21,hc:114},
+  {day:23,ns:112088.51,hc:88},
+  {day:24,ns:10265.58,hc:91},
+  {day:25,ns:90603.48,hc:94},
+  {day:26,ns:91449.97,hc:93}
+];
+const labels1 = Array.from({length:31}, (_,i) => i+1);
+const barColors = labels1.map(d => {
+  const r = marchData.find(x => x.day === d);
+  if (!r) return 'transparent';
+  return r.ns >= 0 ? BLUE : RED;
+});
+const nsValues = labels1.map(d => { const r = marchData.find(x => x.day === d); return r ? r.ns : null; });
+const hcValues = labels1.map(d => { const r = marchData.find(x => x.day === d); return r ? r.hc : null; });
 
-const c1Colors = c1Act.map(v => v >= 0 ? NAVY : RED);
-
-new Chart(document.getElementById('c1'), {
+const ctx1 = document.getElementById('chart1').getContext('2d');
+new Chart(ctx1, {
   data: {
-    labels: c1Labels,
+    labels: labels1,
     datasets: [
-      {
-        type: 'bar',
-        label: 'Net Sales',
-        data: c1Act,
-        backgroundColor: c1Colors,
-        order: 1,
-        yAxisID: 'y',
-      },
-      {
-        type: 'line',
-        label: 'Guest Count',
-        data: c1HC,
-        borderColor: GREY,
-        backgroundColor: 'transparent',
-        borderWidth: 3,
-        pointRadius: 4,
-        pointBackgroundColor: 'white',
-        pointBorderColor: GREY,
-        pointBorderWidth: 2,
-        order: 0,
-        yAxisID: 'y2',
-        tension: 0.3,
-      }
+      { type:'bar', label:'Net Sales', data:nsValues, backgroundColor:barColors, borderWidth:0, yAxisID:'y', spanGaps:false },
+      { type:'line', label:'Guest Count', data:hcValues, borderColor:RED, backgroundColor:'transparent', borderWidth:2.5, pointRadius:3, pointBackgroundColor:RED, tension:0.4, yAxisID:'y2', spanGaps:true }
     ]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { display: true, position: 'top', labels: { font: { size: 11 } } },
-      tooltip: { callbacks: {
-        label: ctx => {
-          if (ctx.datasetIndex === 0) return 'Net Sales: $' + ctx.parsed.y.toLocaleString('en-US', {maximumFractionDigits:0});
-          return 'Guests: ' + ctx.parsed.y;
-        }
-      } }
-    },
-    scales: {
-      y: {
-        position: 'left',
-        ticks: { callback: v => v >= 1000 ? '$' + (v/1000).toFixed(0) + 'K' : '$' + v, font: { size: 10 } },
-        grid: { color: '#f0f0f0' }
-      },
-      y2: {
-        position: 'right',
-        ticks: { callback: v => v, font: { size: 10 } },
-        grid: { drawOnChartArea: false },
-        title: { display: true, text: 'Guests', font: { size: 10 } }
-      },
-      x: { ticks: { font: { size: 10 } } }
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => {
+      const v = ctx.raw;
+      if (v === null) return null;
+      if (ctx.dataset.label === 'Guest Count') return `Guest Count: ${v}`;
+      return `Net Sales: ${v>=0?'':'-'}${Math.abs(v).toLocaleString()}`;
+    }}} },
+    scales:{
+      x: { grid:{display:false}, ticks:{font:{size:11}} },
+      y: { grid:{color:'#EEEEEE'}, ticks:{font:{size:11}, callback: v => v>=1000||v<=-1000?(v/1000).toFixed(0)+'K':v} },
+      y2: { position:'right', grid:{display:false}, ticks:{font:{size:11}}, title:{display:true, text:'Guest Count', font:{size:11}} }
     }
   }
 });
 
-// C2 — Monthly Net Sales
-const moLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const moGGRAct = [915362.0, 302744.0, 1421756.77, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-const moGGRTgt = [1207295.0, 1294426.0, 1081803.34, 1025665.0, 1310368.0, 1321868.0, 1285228.0, 1410018.0, 1740836.0, 1686367.0, 1760862.0, 1875262.0];
-const c2Pct    = [75.8, 23.4, 131.4, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// Chart 2 & 3
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const ggrAct  = [915362.31,302744.48,1280501.58,null,null,null,null,null,null,null,null,null];
+const ggrTgt  = [1207295,1294426,1081803,1025665,1268398,1323668,1245769,1409782,1740836,1635869,1760861,1874932];
+const tAct    = [81671211.62,41280142.71,53407345.47,null,null,null,null,null,null,null,null,null];
+const tTgt    = [76588995,76588995,69021741,69021741,76036143,78570681,80141752,80141752,91697379,91697379,91900452,91900452];
 
-new Chart(document.getElementById('c2'), {
-  type: 'bar',
-  data: {
-    labels: moLabels,
-    datasets: [
-      {
-        label: 'Actual',
-        data: moGGRAct,
-        backgroundColor: moGGRAct.map((v,i) => v > 0 ? (v >= moGGRTgt[i] ? NAVY : RED) : '#e0e0e0'),
-        order: 1,
-      },
-      {
-        label: 'Target',
-        data: moGGRTgt,
-        backgroundColor: 'transparent',
-        borderColor: RED,
-        borderWidth: 2,
-        type: 'bar',
-        order: 2,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'top', labels: { font: { size: 11 } } },
-      tooltip: { callbacks: {
-        label: ctx => '$' + (ctx.parsed.y/1000).toFixed(0) + 'K'
-      } }
-    },
-    scales: {
-      y: { ticks: { callback: v => '$' + (v/1000000).toFixed(1) + 'M', font: { size: 10 } }, grid: { color: '#f0f0f0' } },
-      x: { ticks: { font: { size: 10 } } }
-    }
-  },
-  plugins: [{
+function makeMonthlyChart(canvasId, actData, tgtData, tgtColor, fmt) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  const plugin = {
     id: 'pctBadge',
     afterDraw(chart) {
-      const ctx = chart.ctx;
-      const meta = chart.getDatasetMeta(0);
-      meta.data.forEach((bar, i) => {
-        if (c2Pct[i] > 0) {
-          const pct = c2Pct[i].toFixed(1) + '%';
-          const color = c2Pct[i] >= 100 ? '#00a651' : RED;
-          ctx.save();
-          ctx.fillStyle = color;
-          ctx.font = 'bold 10px Segoe UI, Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText(pct, bar.x, bar.y - 4);
-          ctx.restore();
-        }
+      const {ctx:c, scales:{x,y}, chartArea} = chart;
+      months.forEach((m,i) => {
+        if (actData[i] === null) return;
+        const pct = actData[i] / tgtData[i] * 100;
+        const color = pct >= 100 ? GREEN : RED;
+        const meta0 = chart.getDatasetMeta(0);
+        const barEl = meta0.data[i];
+        const xPos = barEl.x;
+        const yPos = chartArea.bottom + 32;
+        const txt = pct.toFixed(1) + '%';
+        const tw = c.measureText(txt).width + 10;
+        c.save();
+        c.fillStyle = '#F0F0F0';
+        c.beginPath();
+        c.roundRect(xPos - tw/2, yPos - 9, tw, 18, 4);
+        c.fill();
+        c.font = 'bold 10.5px Segoe UI, Arial';
+        c.fillStyle = color;
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        c.fillText(txt, xPos, yPos);
+        c.restore();
       });
     }
-  }]
-});
-
-// C3 — Monthly Turnover
-const moTurnAct = [81671212.0, 41280143.0, 35024240.82, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-const moTurnTgt = [76588995.0, 76588995.0, 69021741.0, 69021741.0, 78570681.0, 78570681.0, 80140975.0, 80140975.0, 91697379.0, 91697379.0, 91900452.0, 91900452.0];
-const c3Pct     = [106.6, 53.9, 50.7, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-new Chart(document.getElementById('c3'), {
-  type: 'bar',
-  data: {
-    labels: moLabels,
-    datasets: [
-      {
-        label: 'Actual',
-        data: moTurnAct,
-        backgroundColor: moTurnAct.map((v,i) => v > 0 ? (v >= moTurnTgt[i] ? NAVY : RED) : '#e0e0e0'),
-        order: 1,
-      },
-      {
-        label: 'Target',
-        data: moTurnTgt,
-        backgroundColor: 'transparent',
-        borderColor: GREY,
-        borderWidth: 2,
-        type: 'bar',
-        order: 2,
+  };
+  new Chart(ctx, {
+    type:'bar',
+    data:{ labels:months, datasets:[
+      {label:'Actual', data:actData, backgroundColor:BLUE, borderRadius:3},
+      {label:'Target', data:tgtData, backgroundColor:tgtColor, borderRadius:3}
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{bottom:28}},
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label: ctx => `${ctx.dataset.label}: ${fmt(ctx.raw)}`}} },
+      scales:{
+        x:{grid:{display:false}, ticks:{font:{size:11}}},
+        y:{grid:{color:'#EEEEEE'}, ticks:{font:{size:11}, callback: v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'K':v}, min:0}
       }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: true, position: 'top', labels: { font: { size: 11 } } },
-      tooltip: { callbacks: {
-        label: ctx => '$' + (ctx.parsed.y/1000000).toFixed(2) + 'M'
-      } }
     },
-    scales: {
-      y: { ticks: { callback: v => '$' + (v/1000000).toFixed(0) + 'M', font: { size: 10 } }, grid: { color: '#f0f0f0' } },
-      x: { ticks: { font: { size: 10 } } }
-    }
-  },
-  plugins: [{
-    id: 'pctBadge3',
-    afterDraw(chart) {
-      const ctx = chart.ctx;
-      const meta = chart.getDatasetMeta(0);
-      meta.data.forEach((bar, i) => {
-        if (c3Pct[i] > 0) {
-          const pct = c3Pct[i].toFixed(1) + '%';
-          const color = c3Pct[i] >= 100 ? '#00a651' : RED;
-          ctx.save();
-          ctx.fillStyle = color;
-          ctx.font = 'bold 10px Segoe UI, Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText(pct, bar.x, bar.y - 4);
-          ctx.restore();
-        }
-      });
-    }
-  }]
-});
+    plugins:[plugin]
+  });
+}
+
+makeMonthlyChart('chart2', ggrAct, ggrTgt, RED, v => v===null?'—':v.toLocaleString(undefined,{maximumFractionDigits:0}));
+makeMonthlyChart('chart3', tAct, tTgt, GREY, v => v===null?'—':(v/1e6).toFixed(2)+'M');
 </script>
 </body>
 </html>
