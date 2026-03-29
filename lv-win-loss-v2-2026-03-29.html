@@ -95,8 +95,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-
 .sec-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
 
 /* Tab panels */
-.tab-panel { display: block; visibility: hidden; height: 0; overflow: hidden; }
-.tab-panel.active { display: block; visibility: visible; height: auto; overflow: visible; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
 footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--border); margin-top: 8px; }
 </style>
@@ -109,7 +109,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div class="sub">Gaming Date: 29/03/2026 &nbsp;|&nbsp; Turnover · Machine Win/Loss · Jackpot &nbsp;|&nbsp; Le Méridien Saigon</div>
   </div>
   <div class="header-right">
-    <div class="date-badge">Updated: 29/03/2026 09:53</div>
+    <div class="date-badge">Updated: 29/03/2026 09:57</div>
     <div class="live-dot"></div>
   </div>
 </div>
@@ -631,19 +631,14 @@ new Chart(document.getElementById('chartMTDJP'),{
 });
 
 // ── Tab switch ──
-const _allCharts = {};
-const _origRegister = Chart.prototype.constructor;
 function switchTab(id, el) {
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   el.classList.add('active');
-  // Resize all charts in the newly active tab
   setTimeout(()=>{
-    Chart.instances && Object.values(Chart.instances).forEach(c=>{
-      try{ c.resize(); c.update(); }catch(e){}
-    });
-  }, 50);
+    Object.values(Chart.instances).forEach(c=>{try{c.resize();c.update();}catch(e){}});
+  },80);
 }
 </script>
 </body>
