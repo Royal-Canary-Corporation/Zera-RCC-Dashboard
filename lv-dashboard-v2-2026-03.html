@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Victoire — Dashboard v2 · March 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root {
+  --navy:#001F6B; --red:#C0180A; --gold:#C9A84C; --green:#1a7a3a;
+  --bg:#F0F4F9; --card:#FFFFFF; --border:#DDE3EE;
+  --text:#1a2235; --muted:#64748b; --accent:#2563eb;
+  --navy-light:rgba(0,31,107,0.08); --gold-light:rgba(201,168,76,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+
+/* ── Header ── */
+header{
+  background:linear-gradient(135deg,#001F6B 0%,#003399 60%,#0a2d8a 100%);
+  color:#fff;padding:24px 32px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 16px rgba(0,31,107,.35);
+}
+header h1{
+  font-size:1.55rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+}
+header .subtitle{font-size:.82rem;opacity:.75;margin-top:4px;letter-spacing:.5px}
+.live-badge{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  border-radius:20px;padding:6px 14px;font-size:.78rem;
+}
+.live-dot{
+  width:8px;height:8px;background:#4ade80;border-radius:50%;
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.date-badge{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;padding:4px 12px;font-size:.75rem;margin-top:6px;
+  display:inline-block;
+}
+
+/* ── Container ── */
+.container{max-width:1400px;margin:0 auto;padding:24px 20px}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:24px}
+.tab{
+  padding:10px 22px;cursor:pointer;font-weight:600;font-size:.88rem;
+  border:none;background:none;color:var(--muted);
+  border-bottom:3px solid transparent;margin-bottom:-2px;
+  border-radius:6px 6px 0 0;transition:all .2s;
+}
+.tab:hover{color:var(--navy);background:var(--navy-light)}
+.tab.active{color:var(--navy);border-bottom-color:var(--navy);background:var(--navy-light)}
+
+.tab-panel{display:block;visibility:hidden;height:0;overflow:hidden;position:absolute}
+.tab-panel.active{display:block;visibility:visible;height:auto;overflow:visible;position:relative}
+
+/* ── KPI Cards ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.kpi-card{
+  background:var(--card);border-radius:12px;padding:20px;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.kpi-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--navy);
+}
+.kpi-card.gold::before{background:var(--gold)}
+.kpi-card.green::before{background:var(--green)}
+.kpi-card.red::before{background:var(--red)}
+.kpi-card.accent::before{background:var(--accent)}
+.kpi-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+.kpi-val{font-size:1.85rem;font-weight:800;color:var(--navy);line-height:1.1}
+.kpi-sub{font-size:.78rem;color:var(--muted);margin-top:6px}
+.kpi-pct{
+  display:inline-block;margin-top:8px;padding:3px 10px;border-radius:20px;
+  font-size:.8rem;font-weight:700;
+}
+.kpi-pct.positive{background:#dcfce7;color:#166534}
+.kpi-pct.negative{background:#fee2e2;color:#991b1b}
+.kpi-pct.neutral{background:#f1f5f9;color:var(--muted)}
+
+/* ── Stats Row ── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;
+}
+.stat-card{
+  background:var(--card);border-radius:10px;padding:16px;
+  border:1px solid var(--border);text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.04);
+}
+.stat-val{font-size:1.4rem;font-weight:800;color:var(--navy)}
+.stat-label{font-size:.72rem;color:var(--muted);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── Gauge / Progress ── */
+.gauge-section{background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.gauge-title{font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:16px}
+.gauge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.gauge-item{}
+.gauge-label{font-size:.78rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.gauge-sub{font-size:.7rem;color:var(--muted);margin-top:4px}
+.gauge-pct{font-size:1.1rem;font-weight:800;color:var(--navy);float:right;margin-top:-2px}
+.progress-bar{background:#e2e8f0;border-radius:99px;height:10px;overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;border-radius:99px;transition:width .6s ease}
+.progress-fill.navy{background:linear-gradient(90deg,var(--navy),var(--accent))}
+.progress-fill.gold{background:linear-gradient(90deg,var(--gold),#f59e0b)}
+.progress-fill.green{background:linear-gradient(90deg,var(--green),#22c55e)}
+.clearfix::after{content:'';display:table;clear:both}
+
+/* ── Chart Cards ── */
+.chart-card{background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.chart-title{font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:4px}
+.chart-sub{font-size:.75rem;color:var(--muted);margin-bottom:16px}
+.chart-full canvas{width:100%!important}
+.chart-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
+.chart-grid .chart-card{margin-bottom:0}
+
+/* ── Insight Cards ── */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.insight-card{background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.insight-card.strengths{border-top:4px solid var(--green)}
+.insight-card.watch{border-top:4px solid var(--gold)}
+.insight-title{font-weight:800;font-size:.9rem;margin-bottom:12px}
+.insight-card.strengths .insight-title{color:var(--green)}
+.insight-card.watch .insight-title{color:#92400e}
+.insight-card ul{list-style:none;padding:0}
+.insight-card li{
+  padding:8px 0 8px 20px;position:relative;font-size:.83rem;
+  border-bottom:1px solid var(--border);line-height:1.5;
+}
+.insight-card li:last-child{border-bottom:none}
+.insight-card.strengths li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.insight-card.watch li::before{content:'⚠';position:absolute;left:0;font-size:.7rem}
+
+/* ── Footer ── */
+footer{
+  text-align:center;padding:20px;font-size:.72rem;color:var(--muted);
+  border-top:1px solid var(--border);margin-top:32px;
+}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .gauge-grid{grid-template-columns:1fr 1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .insight-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .kpi-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .gauge-grid{grid-template-columns:1fr}
+  header{flex-direction:column;gap:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+  <div>
+    <div style="font-size:.75rem;opacity:.6;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">Royal Canary Corp</div>
+    <h1>La Victoire Casino Hotel</h1>
+    <div class="subtitle">Performance Dashboard · March 2026</div>
+    <span class="date-badge">As of 03/26 · 26/31 days tracked</span>
+  </div>
+  <div style="text-align:right">
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      Live Data
+    </div>
+    <div style="font-size:.7rem;opacity:.55;margin-top:8px">Generated 29/03/2026 10:26</div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ── Tabs ── -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('overview',this)">📊 Overview</button>
+  <button class="tab" onclick="switchTab('netsales',this)">💵 Net Sales</button>
+  <button class="tab" onclick="switchTab('turnover',this)">💰 Turnover</button>
+  <button class="tab" onclick="switchTab('insights',this)">🔍 Insights</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 1: OVERVIEW
+══════════════════════════════════════════════════════ -->
+<div id="tab-overview" class="tab-panel active">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+
+    <div class="kpi-card green">
+      <div class="kpi-label">Net Sales · Daily (03/26)</div>
+      <div class="kpi-val">$91.4K</div>
+      <div class="kpi-sub">Target $34.9K</div>
+      <span class="kpi-pct positive">▲ 162.1%</span>
+    </div>
+
+    <div class="kpi-card green">
+      <div class="kpi-label">Net Sales · MTD (26 days)</div>
+      <div class="kpi-val">$1.28M</div>
+      <div class="kpi-sub">Target $907.3K</div>
+      <span class="kpi-pct positive">▲ 41.1%</span>
+    </div>
+
+    <div class="kpi-card red">
+      <div class="kpi-label">Turnover · MTD</div>
+      <div class="kpi-val">₫53.4M</div>
+      <div class="kpi-sub">Target ₫57.9M</div>
+      <span class="kpi-pct negative">▼ 7.7%</span>
+    </div>
+
+    <div class="kpi-card gold">
+      <div class="kpi-label">Turnover · Daily (03/26)</div>
+      <div class="kpi-val">₫2.7M</div>
+      <div class="kpi-sub">Target ₫2.2M</div>
+      <span class="kpi-pct positive">▲ 23.5%</span>
+    </div>
+
+    <div class="kpi-card accent">
+      <div class="kpi-label">Guest Count · Daily</div>
+      <div class="kpi-val">93</div>
+      <div class="kpi-sub">MTD Total: 2,691 guests</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-label">Days Remaining</div>
+      <div class="kpi-val">5</div>
+      <div class="kpi-sub">26/31 days tracked</div>
+      <span class="kpi-pct neutral">84% complete</span>
+    </div>
+
+  </div>
+
+  <!-- Progress Gauges -->
+  <div class="gauge-section">
+    <div class="gauge-title">MTD Progress vs Target</div>
+    <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px">As of 03/26 · 26 days</div>
+    <div class="gauge-grid">
+
+      <div class="gauge-item">
+        <div class="clearfix">
+          <div class="gauge-label">Net Sales (USD)</div>
+          <div class="gauge-pct">141.1%</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill navy" style="width:100.0%"></div></div>
+        <div class="gauge-sub">$1.28M · Tgt $907.3K</div>
+      </div>
+
+      <div class="gauge-item">
+        <div class="clearfix">
+          <div class="gauge-label">Turnover (VND)</div>
+          <div class="gauge-pct">92.3%</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill gold" style="width:92.3%"></div></div>
+        <div class="gauge-sub">₫53.4M · Tgt ₫57.9M</div>
+      </div>
+
+      <div class="gauge-item">
+        <div class="clearfix">
+          <div class="gauge-label">Month Forecast (NS)</div>
+          <div class="gauge-pct" style="color:var(--green)">On Track ✓</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill green" style="width:100.0%"></div></div>
+        <div class="gauge-sub">Forecast $1.53M · Full mo tgt $1.08M</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main Chart: NS daily + guest count -->
+  <div class="chart-card chart-full">
+    <div class="chart-title">Net Sales (USD) — Daily vs Target · March 2026</div>
+    <div class="chart-sub">Bars = daily actual · Line = guest count (right axis) · Red dashed = daily target</div>
+    <canvas id="chartOverviewNS" height="100"></canvas>
+  </div>
+
+  <!-- Turnover Chart -->
+  <div class="chart-card chart-full">
+    <div class="chart-title">Turnover (VND) — Daily · March 2026</div>
+    <div class="chart-sub">Bars = daily actual (navy positive, red negative) · Dashed = daily target</div>
+    <canvas id="chartOverviewTurn" height="90"></canvas>
+  </div>
+
+</div><!-- /tab-overview -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 2: NET SALES
+══════════════════════════════════════════════════════ -->
+<div id="tab-netsales" class="tab-panel">
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-val">$91.4K</div>
+      <div class="stat-label">Last Day NS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">$1.28M</div>
+      <div class="stat-label">MTD NS</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:var(--green)">▲41.1%</div>
+      <div class="stat-label">vs MTD Target</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">$34.9K</div>
+      <div class="stat-label">Daily Target</div>
+    </div>
+  </div>
+
+  <div class="chart-card chart-full">
+    <div class="chart-title">Net Sales (USD) — Full March 2026 Detail</div>
+    <div class="chart-sub">Positive days navy · Negative days red · Target dashed line</div>
+    <canvas id="chartNSDetail" height="100"></canvas>
+  </div>
+
+  <div class="chart-card chart-full">
+    <div class="chart-title">Net Sales — Cumulative MTD vs Target Trajectory</div>
+    <div class="chart-sub">Running total vs if-on-target line</div>
+    <canvas id="chartNSCumul" height="90"></canvas>
+  </div>
+
+</div><!-- /tab-netsales -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 3: TURNOVER
+══════════════════════════════════════════════════════ -->
+<div id="tab-turnover" class="tab-panel">
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-val">₫2.7M</div>
+      <div class="stat-label">Last Day Turn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">₫53.4M</div>
+      <div class="stat-label">MTD Turn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" style="color:var(--red)">▼7.7%</div>
+      <div class="stat-label">vs MTD Target</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">₫2.2M</div>
+      <div class="stat-label">Daily Target</div>
+    </div>
+  </div>
+
+  <div class="chart-card chart-full">
+    <div class="chart-title">Turnover (VND) — Full March 2026</div>
+    <div class="chart-sub">Daily turnover vs target</div>
+    <canvas id="chartTurnDetail" height="100"></canvas>
+  </div>
+
+  <div class="chart-card chart-full">
+    <div class="chart-title">Turnover — Daily vs Target Comparison</div>
+    <div class="chart-sub">Each day: actual bar vs target line</div>
+    <canvas id="chartTurnVsTgt" height="90"></canvas>
+  </div>
+
+</div><!-- /tab-turnover -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     TAB 4: INSIGHTS
+══════════════════════════════════════════════════════ -->
+<div id="tab-insights" class="tab-panel">
+
+  <div class="insight-grid">
+    <div class="insight-card strengths">
+      <div class="insight-title">✅ Strengths</div>
+      <ul><li>Net Sales MTD at 141.1% of target — significantly ahead</li><li>Last 5 days all positive NS: consistent recovery trend</li><li>Full month NS target ($1.08M) on track to be exceeded</li></ul>
+    </div>
+    <div class="insight-card watch">
+      <div class="insight-title">⚠️ Watch Points</div>
+      <ul><li>Turnover at 92.3% — below MTD target (₫4.5M gap)</li><li>9 negative NS days this month — volatility remains</li><li>5 remaining days need ₫3.12M/day avg to close Turnover gap</li></ul>
+    </div>
+  </div>
+
+  <div class="chart-card chart-full">
+    <div class="chart-title">Daily NS vs Guest Count Correlation</div>
+    <div class="chart-sub">Do higher guest counts drive higher net sales?</div>
+    <canvas id="chartScatter" height="90"></canvas>
+  </div>
+
+</div><!-- /tab-insights -->
+
+</div><!-- /container -->
+
+<footer>
+  La Victoire Casino Hotel · Royal Canary Corporation · March 2026 Performance Dashboard
+  <br>Generated by Zera AI · 29/03/2026 10:26 ICT
+</footer>
+
+<script>
+// ─── Data ────────────────────────────────────────────────────────────────────
+const labelsAll    = ["03/01", "03/02", "03/03", "03/04", "03/05", "03/06", "03/07", "03/08", "03/09", "03/10", "03/11", "03/12", "03/13", "03/14", "03/15", "03/16", "03/17", "03/18", "03/19", "03/20", "03/21", "03/22", "03/23", "03/24", "03/25", "03/26", "03/27", "03/28", "03/29", "03/30", "03/31"];
+const labelsAct    = ["03/01", "03/02", "03/03", "03/04", "03/05", "03/06", "03/07", "03/08", "03/09", "03/10", "03/11", "03/12", "03/13", "03/14", "03/15", "03/16", "03/17", "03/18", "03/19", "03/20", "03/21", "03/22", "03/23", "03/24", "03/25", "03/26"];
+const nsBars       = [-39263.51, 139050.87, 48416.19, -13263.04, 66912.14, -22704.73, 197096.9, 126398.61, 52876.82, -11597.24, 60559.73, 191933.24, -14091.99, 45947.31, -80656.0, -18950.52, 113835.18, 31597.94, -24254.82, 37293.06, -7923.31, 96881.21, 112088.51, 10265.58, 90603.48, 91449.97, null, null, null, null, null];
+const nsBarsColors = ["rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)"];
+const nsTgtAll     = [34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, null, null, null, null, null];
+const hcLine       = [134, 104, 106, 92, 98, 115, 115, 112, 101, 99, 99, 110, 106, 142, 93, 90, 84, 81, 94, 94, 142, 114, 88, 91, 94, 93, null, null, null, null, null];
+const turnBars     = [2.067, 1.967, 2.208, 1.011, 2.464, 3.519, 2.866, 1.826, 1.206, 0.855, 1.635, 3.725, 2.225, 1.797, 1.2, 1.102, 1.627, 0.955, 1.058, 0.975, 2.595, 2.936, 2.994, 3.352, 2.489, 2.75, null, null, null, null, null];
+const turnColors   = ["rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)"];
+const turnTgtAll   = [2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, null, null, null, null, null];
+const cumulNS      = [-39.26, 99.79, 148.2, 134.94, 201.85, 179.15, 376.24, 502.64, 555.52, 543.92, 604.48, 796.42, 782.32, 828.27, 747.62, 728.66, 842.5, 874.1, 849.84, 887.14, 879.21, 976.09, 1088.18, 1098.45, 1189.05, 1280.5, null, null, null, null, null];
+const cumulTgt     = [34.9, 69.79, 104.69, 139.59, 174.48, 209.38, 244.28, 279.18, 314.07, 348.97, 383.87, 418.76, 453.66, 488.56, 523.45, 558.35, 593.25, 628.14, 663.04, 697.94, 732.83, 767.73, 802.63, 837.53, 872.42, 907.32, null, null, null, null, null];
+const scatterPts   = [{"x": 134, "y": -39263.51}, {"x": 104, "y": 139050.87}, {"x": 106, "y": 48416.19}, {"x": 92, "y": -13263.04}, {"x": 98, "y": 66912.14}, {"x": 115, "y": -22704.73}, {"x": 115, "y": 197096.9}, {"x": 112, "y": 126398.61}, {"x": 101, "y": 52876.82}, {"x": 99, "y": -11597.24}, {"x": 99, "y": 60559.73}, {"x": 110, "y": 191933.24}, {"x": 106, "y": -14091.99}, {"x": 142, "y": 45947.31}, {"x": 93, "y": -80656.0}, {"x": 90, "y": -18950.52}, {"x": 84, "y": 113835.18}, {"x": 81, "y": 31597.94}, {"x": 94, "y": -24254.82}, {"x": 94, "y": 37293.06}, {"x": 142, "y": -7923.31}, {"x": 114, "y": 96881.21}, {"x": 88, "y": 112088.51}, {"x": 91, "y": 10265.58}, {"x": 94, "y": 90603.48}, {"x": 93, "y": 91449.97}];
+const nsActBars    = [-39263.51, 139050.87, 48416.19, -13263.04, 66912.14, -22704.73, 197096.9, 126398.61, 52876.82, -11597.24, 60559.73, 191933.24, -14091.99, 45947.31, -80656.0, -18950.52, 113835.18, 31597.94, -24254.82, 37293.06, -7923.31, 96881.21, 112088.51, 10265.58, 90603.48, 91449.97];
+const nsActColors  = ["rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(192,24,10,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)"];
+const nsActTgt     = [34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88, 34896.88];
+const turnActBars  = [2.067, 1.967, 2.208, 1.011, 2.464, 3.519, 2.866, 1.826, 1.206, 0.855, 1.635, 3.725, 2.225, 1.797, 1.2, 1.102, 1.627, 0.955, 1.058, 0.975, 2.595, 2.936, 2.994, 3.352, 2.489, 2.75];
+const turnActColors= ["rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)", "rgba(0,31,107,0.85)"];
+const turnActTgt   = [2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227, 2.227];
+
+// ─── Tab switch ───────────────────────────────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+  setTimeout(() => {
+    document.querySelectorAll('#tab-' + id + ' canvas').forEach(canvas => {
+      const chart = Chart.getChart(canvas);
+      if (chart) { chart.resize(); chart.update(); }
+    });
+  }, 80);
+}
+
+// ─── Shared options ───────────────────────────────────────────────────────────
+Chart.register(ChartDataLabels);
+const fontFamily = "'Segoe UI', system-ui, sans-serif";
+const tickColor  = '#64748b';
+const gridColor  = 'rgba(0,0,0,0.05)';
+
+function baseOpts(extra) {
+  return Object.assign({
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      tooltip: { callbacks: {} },
+      datalabels: { display: false }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 10 } }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 } }, grid: { color: gridColor } }
+    }
+  }, extra);
+}
+
+// ─── Chart 1: Overview NS + Guest Count ──────────────────────────────────────
+new Chart(document.getElementById('chartOverviewNS'), {
+  type: 'bar',
+  data: {
+    labels: labelsAll,
+    datasets: [
+      {
+        label: 'Net Sales (USD)',
+        data: nsBars,
+        backgroundColor: nsBarsColors,
+        borderRadius: 3,
+        order: 2,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Daily Target',
+        data: nsTgtAll,
+        type: 'line',
+        borderColor: '#C0180A',
+        borderDash: [6, 3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        order: 1,
+        yAxisID: 'y',
+        spanGaps: false
+      },
+      {
+        label: 'Guest Count',
+        data: hcLine,
+        type: 'line',
+        borderColor: '#C9A84C',
+        backgroundColor: 'rgba(201,168,76,0.15)',
+        borderWidth: 2,
+        pointRadius: 2,
+        pointBackgroundColor: '#C9A84C',
+        fill: false,
+        order: 0,
+        yAxisID: 'y1',
+        spanGaps: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) {
+            if (ctx.dataset.yAxisID === 'y1') return 'Guests: ' + (ctx.raw||0);
+            return ctx.dataset.label + ': $' + (ctx.raw||0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
+          }
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 9 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'K' }, grid: { color: gridColor }, title: { display: true, text: 'Net Sales (USD)', font: { size: 10 } } },
+      y1: { type: 'linear', position: 'right', ticks: { color: '#C9A84C', font: { size: 10 } }, grid: { drawOnChartArea: false }, title: { display: true, text: 'Guest Count', font: { size: 10 }, color: '#C9A84C' } }
+    }
+  }
+});
+
+// ─── Chart 2: Overview Turnover ───────────────────────────────────────────────
+new Chart(document.getElementById('chartOverviewTurn'), {
+  type: 'bar',
+  data: {
+    labels: labelsAll,
+    datasets: [
+      {
+        label: 'Turnover (₫M)',
+        data: turnBars,
+        backgroundColor: turnColors,
+        borderRadius: 3,
+        order: 2
+      },
+      {
+        label: 'Daily Target',
+        data: turnTgtAll,
+        type: 'line',
+        borderColor: '#C9A84C',
+        borderDash: [6, 3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        order: 1,
+        spanGaps: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.dataset.label + ': ₫' + (ctx.raw||0).toLocaleString() + 'M'
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 9 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '₫' + v.toFixed(1) + 'M' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// ─── Chart 3: NS Detail (Tab 2) ───────────────────────────────────────────────
+new Chart(document.getElementById('chartNSDetail'), {
+  type: 'bar',
+  data: {
+    labels: labelsAct,
+    datasets: [
+      {
+        label: 'Net Sales (USD)',
+        data: nsActBars,
+        backgroundColor: nsActColors,
+        borderRadius: 4,
+        order: 2
+      },
+      {
+        label: 'Daily Target',
+        data: nsActTgt,
+        type: 'line',
+        borderColor: '#C0180A',
+        borderDash: [6, 3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.dataset.label + ': $' + (ctx.raw||0).toLocaleString(undefined, {minimumFractionDigits:0})
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 10 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '$' + (v/1000).toFixed(0) + 'K' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// ─── Chart 4: NS Cumulative (Tab 2) ──────────────────────────────────────────
+new Chart(document.getElementById('chartNSCumul'), {
+  type: 'line',
+  data: {
+    labels: labelsAll,
+    datasets: [
+      {
+        label: 'Cumulative NS Actual ($K)',
+        data: cumulNS,
+        borderColor: '#001F6B',
+        backgroundColor: 'rgba(0,31,107,0.1)',
+        borderWidth: 2.5,
+        pointRadius: 2,
+        fill: true,
+        spanGaps: false
+      },
+      {
+        label: 'Target Trajectory ($K)',
+        data: cumulTgt,
+        borderColor: '#C0180A',
+        borderDash: [6, 3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        spanGaps: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.dataset.label + ': $' + (ctx.raw||0).toFixed(1) + 'K'
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 9 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '$' + v.toFixed(0) + 'K' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// ─── Chart 5: Turnover Detail (Tab 3) ────────────────────────────────────────
+new Chart(document.getElementById('chartTurnDetail'), {
+  type: 'bar',
+  data: {
+    labels: labelsAct,
+    datasets: [
+      {
+        label: 'Turnover (₫M)',
+        data: turnActBars,
+        backgroundColor: turnActColors,
+        borderRadius: 4,
+        order: 2
+      },
+      {
+        label: 'Daily Target',
+        data: turnActTgt,
+        type: 'line',
+        borderColor: '#C9A84C',
+        borderDash: [6, 3],
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ₫' + (ctx.raw||0).toLocaleString() + 'M' } }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 10 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '₫' + v.toFixed(1) + 'M' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// ─── Chart 6: Turnover vs Target (Tab 3) ─────────────────────────────────────
+new Chart(document.getElementById('chartTurnVsTgt'), {
+  type: 'bar',
+  data: {
+    labels: labelsAct,
+    datasets: [
+      {
+        label: 'Actual (₫M)',
+        data: turnActBars,
+        backgroundColor: 'rgba(0,31,107,0.75)',
+        borderRadius: 4
+      },
+      {
+        label: 'Target (₫M)',
+        data: turnActTgt,
+        backgroundColor: 'rgba(201,168,76,0.45)',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ₫' + (ctx.raw||0).toLocaleString() + 'M' } }
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 10 }, maxRotation: 45 }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 10 }, callback: v => '₫' + v.toFixed(1) + 'M' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// ─── Chart 7: Scatter NS vs Guests (Tab 4) ───────────────────────────────────
+new Chart(document.getElementById('chartScatter'), {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'NS vs Guest Count',
+      data: scatterPts,
+      backgroundColor: 'rgba(0,31,107,0.5)',
+      borderColor: '#001F6B',
+      pointRadius: 5,
+      pointHoverRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { labels: { font: { family: fontFamily, size: 11 }, color: tickColor }, position: 'top' },
+      datalabels: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `Guests: ${ctx.raw.x} · NS: $${(ctx.raw.y||0).toLocaleString(undefined,{minimumFractionDigits:0})}`
+        }
+      }
+    },
+    scales: {
+      x: { title: { display: true, text: 'Guest Count', font: { size: 11 } }, ticks: { color: tickColor }, grid: { color: gridColor } },
+      y: { title: { display: true, text: 'Net Sales (USD)', font: { size: 11 } }, ticks: { color: tickColor, callback: v => '$' + (v/1000).toFixed(0) + 'K' }, grid: { color: gridColor } }
+    }
+  }
+});
+</script>
+</body>
+</html>
