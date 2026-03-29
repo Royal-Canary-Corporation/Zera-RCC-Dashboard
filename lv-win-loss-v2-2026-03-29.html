@@ -109,7 +109,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div class="sub">Gaming Date: 29/03/2026 &nbsp;|&nbsp; Turnover · Machine Win/Loss · Jackpot &nbsp;|&nbsp; Le Méridien Saigon</div>
   </div>
   <div class="header-right">
-    <div class="date-badge">Updated: 29/03/2026 09:35</div>
+    <div class="date-badge">Updated: 29/03/2026 09:41</div>
     <div class="live-dot"></div>
   </div>
 </div>
@@ -506,7 +506,7 @@ new Chart(document.getElementById('chartTurnDonut'),{
 
 // ── Donut: Win/Loss ──
 const donutWinAbs = donutWin.map(Math.abs);
-const donutWinBg  = donutWin.map((v,i)=>v>=0?GT_COLORS[i]:'rgba(192,24,10,0.85)');
+const donutWinBg  = GT_COLORS; // always brand colors — +/- shown via data labels
 function fmtMK(v){return Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+(v/1e3).toFixed(0)+'K';}
 new Chart(document.getElementById('chartWinDonut'),{
   type:'doughnut',
