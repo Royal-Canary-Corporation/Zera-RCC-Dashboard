@@ -109,7 +109,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div class="sub">Gaming Date: 29/03/2026 &nbsp;|&nbsp; Turnover · Machine Win/Loss · Jackpot &nbsp;|&nbsp; Le Méridien Saigon</div>
   </div>
   <div class="header-right">
-    <div class="date-badge">Updated: 29/03/2026 10:20</div>
+    <div class="date-badge">Updated: 29/03/2026 12:07</div>
     <div class="live-dot"></div>
   </div>
 </div>
@@ -138,7 +138,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div style="text-align:center;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);padding:4px 0">MACHINE WIN / LOSS</div>
     <div style="text-align:center;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);padding:4px 0">JACKPOT</div>
   </div>
-  <div class="kpi-grid">
+  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
     <div class="kpi-card navy">
       <div class="kpi-label">Turnover · Last Hour</div>
       <div class="kpi-val">$283</div>
@@ -171,21 +171,6 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
       <div class="kpi-sub"><span class="time-label">29/03/2026</span></div>
     </div>
 
-    <div class="kpi-card navy">
-      <div class="kpi-label">Turnover · MTD</div>
-      <div class="kpi-val">$55.99M</div>
-      <div class="kpi-sub"><span class="time-label">01-29/03</span></div>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">Win/Loss · MTD</div>
-      <div class="kpi-val pos">+$2.71M</div>
-      <div class="kpi-sub"><span class="time-label">01-29/03</span></div>
-    </div>
-    <div class="kpi-card gold">
-      <div class="kpi-label">Jackpot · MTD</div>
-      <div class="kpi-val">$0</div>
-      <div class="kpi-sub"><span class="time-label">01-29/03</span></div>
-    </div>
   </div>
 
   <!-- By Game Type -->
@@ -425,7 +410,7 @@ const mtdWin   = [16910.0, 176474.0, 104651.0, 19085.0, 141956.0, 58002.0, 24536
 const mtdJP    = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 const donutTurn= [714.0, 8943.0, 1173.0];
 const donutWin = [-476.0, 2593.0, -249.0];
-const curPos   = 3;
+const curPos   = 5;
 const GT_COLORS= [NAVY, BLUE, PURPLE];
 const GT_LABELS= ['Roulette','Slot','Table'];
 
