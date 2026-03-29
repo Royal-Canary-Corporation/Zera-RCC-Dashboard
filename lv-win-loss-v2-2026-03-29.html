@@ -109,7 +109,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div class="sub">Gaming Date: 29/03/2026 &nbsp;|&nbsp; Turnover · Machine Win/Loss · Jackpot &nbsp;|&nbsp; Le Méridien Saigon</div>
   </div>
   <div class="header-right">
-    <div class="date-badge">Updated: 29/03/2026 09:57</div>
+    <div class="date-badge">Updated: 29/03/2026 10:00</div>
     <div class="live-dot"></div>
   </div>
 </div>
@@ -427,7 +427,7 @@ const mtdWin   = [16910.0, 176474.0, 104651.0, 19085.0, 141956.0, 58002.0, 24536
 const mtdJP    = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 const donutTurn= [714.0, 8943.0, 1173.0];
 const donutWin = [-476.0, 2593.0, -249.0];
-const curPos   = 2;
+const curPos   = 3;
 const GT_COLORS= [NAVY, BLUE, PURPLE];
 const GT_LABELS= ['Roulette','Slot','Table'];
 
@@ -631,13 +631,18 @@ new Chart(document.getElementById('chartMTDJP'),{
 });
 
 // ── Tab switch ──
+const _charts=[];
+const _origChart=Chart;
 function switchTab(id, el) {
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   el.classList.add('active');
   setTimeout(()=>{
-    Object.values(Chart.instances).forEach(c=>{try{c.resize();c.update();}catch(e){}});
+    document.querySelectorAll('#tab-'+id+' canvas').forEach(canvas=>{
+      const chart=Chart.getChart(canvas);
+      if(chart){chart.resize();chart.update();}
+    });
   },80);
 }
 </script>
