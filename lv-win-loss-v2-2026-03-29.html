@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Victoire — Win/Loss Dashboard v2 · 29/03/2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <style>
 :root {
   --navy: #001F6B;
@@ -107,7 +109,7 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
     <div class="sub">Gaming Date: 29/03/2026 &nbsp;|&nbsp; Turnover · Machine Win/Loss · Jackpot &nbsp;|&nbsp; Le Méridien Saigon</div>
   </div>
   <div class="header-right">
-    <div class="date-badge">Updated: 29/03/2026 09:27</div>
+    <div class="date-badge">Updated: 29/03/2026 09:31</div>
     <div class="live-dot"></div>
   </div>
 </div>
@@ -285,37 +287,6 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
       </div>
     </div>
   </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden">
-        <div style="background:#6d28d9;color:white;font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 16px">Table</div>
-        <table style="width:100%;border-collapse:collapse;font-size:11px">
-          <thead><tr style="background:#f8fafc">
-            <th style="padding:6px 10px;text-align:left;font-size:9px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.8px">Metric</th>
-            <th style="padding:6px 8px;text-align:right;font-size:9px;color:var(--muted);font-weight:600">Last Hour</th>
-            <th style="padding:6px 8px;text-align:right;font-size:9px;color:var(--muted);font-weight:600">Today</th>
-            <th style="padding:6px 8px;text-align:right;font-size:9px;color:var(--muted);font-weight:600">MTD</th>
-          </tr></thead>
-          <tbody>
-          <tr style="border-top:1px solid var(--border)">
-            <td style="padding:8px 10px;color:var(--muted);font-size:10px">Turnover</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#6d28d9">$166</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#6d28d9">$1.2K</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#6d28d9">$6.06M</td>
-          </tr>
-          <tr style="border-top:1px solid var(--border);background:#fafbfc">
-            <td style="padding:8px 10px;color:var(--muted);font-size:10px">Win/Loss</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700" class="neg">$-99</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700" class="neg">$-249</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700" class="neg">$-1.29M</td>
-          </tr>
-          <tr style="border-top:1px solid var(--border)">
-            <td style="padding:8px 10px;color:var(--muted);font-size:10px">Jackpot</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#b45309">$0</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#b45309">$0</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:#b45309">$0</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 
@@ -461,9 +432,10 @@ const GT_LABELS= ['Roulette','Slot','Table'];
 
 const gridColor = 'rgba(0,0,0,0.06)';
 const tick = {color:'#64748b', font:{size:10}};
+Chart.register(ChartDataLabels);
 const baseOpts = {
   responsive:true, maintainAspectRatio:false,
-  plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1B2A4A',titleColor:'#fff',bodyColor:'#cbd5e1',borderColor:'#2d4a7a',borderWidth:1}},
+  plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1B2A4A',titleColor:'#fff',bodyColor:'#cbd5e1',borderColor:'#2d4a7a',borderWidth:1},datalabels:{display:false}},
   scales:{x:{grid:{color:gridColor},ticks:tick},y:{grid:{color:gridColor},ticks:tick}}
 };
 
@@ -518,7 +490,18 @@ new Chart(document.getElementById('chartWinHour'),{
 new Chart(document.getElementById('chartTurnDonut'),{
   type:'doughnut',
   data:{labels:GT_LABELS,datasets:[{data:donutTurn,backgroundColor:GT_COLORS,borderWidth:2,borderColor:'#fff',hoverOffset:8}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:true,position:'right',labels:{color:'#475569',font:{size:10},boxWidth:12,padding:8}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${(ctx.raw/1000).toFixed(0)}K`}}}}
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#475569',font:{size:10},boxWidth:12,padding:8}},
+    tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${(ctx.raw/1000).toFixed(1)}K`}},
+    datalabels:{color:'#fff',font:{weight:'bold',size:10},
+      formatter:(v,ctx)=>{
+        const total=ctx.chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
+        const pct=v/total*100;
+        return pct>7?(v/1000).toFixed(1)+'K':'';
+      }
+    }
+    }
+  }
 });
 
 // ── Donut: Win/Loss ──
@@ -528,7 +511,21 @@ function fmtMK(v){return Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+(v/1e3)
 new Chart(document.getElementById('chartWinDonut'),{
   type:'doughnut',
   data:{labels:GT_LABELS,datasets:[{data:donutWinAbs,backgroundColor:donutWinBg,borderWidth:2,borderColor:'#fff',hoverOffset:8}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:true,position:'right',labels:{color:'#475569',font:{size:10},boxWidth:12,padding:8}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${(donutWin[ctx.dataIndex]/1000).toFixed(0)}K`}}}}
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{display:true,position:'right',labels:{color:'#475569',font:{size:10},boxWidth:12,padding:8}},
+    tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${(donutWin[ctx.dataIndex]/1000).toFixed(1)}K`}},
+    datalabels:{color:'#fff',font:{weight:'bold',size:10},
+      formatter:(v,ctx)=>{
+        const raw=donutWin[ctx.dataIndex];
+        const total=donutWinAbs.reduce((a,b)=>a+b,0);
+        const pct=v/total*100;
+        if(pct<=7) return '';
+        const s=raw>=0?'+':'-';
+        return s+(Math.abs(raw)/1000).toFixed(1)+'K';
+      }
+    }
+    }
+  }
 });
 
 // ── Turnover tab: bar ──
