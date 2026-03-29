@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMSG — Dashboard v2 · March 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy: #001F6B;
+  --red: #C0180A;
+  --gold: #C9A84C;
+  --green: #1a7a3a;
+  --bg: #F0F4F9;
+  --card: #FFFFFF;
+  --card2: #F8FAFC;
+  --border: #DDE3EE;
+  --text: #1a2235;
+  --muted: #64748b;
+  --accent: #2563eb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; font-size: 13px; min-height: 100vh; }
+.header { background: linear-gradient(135deg, #001240 0%, #001F6B 100%); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+.header-left h1 { font-size: 15px; font-weight: 700; letter-spacing: 2px; color: white; }
+.header-left .sub { font-size: 10px; color: #94a3b8; margin-top: 3px; letter-spacing: 1px; }
+.header-right { display: flex; gap: 12px; align-items: center; }
+.date-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 14px; font-size: 11px; color: #94a3b8; }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.tabs { display: flex; gap: 2px; padding: 12px 32px 0; background: #E8EEF6; border-bottom: 1px solid var(--border); }
+.tab { padding: 8px 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; border-radius: 6px 6px 0 0; color: var(--muted); border: 1px solid transparent; border-bottom: none; transition: all .2s; }
+.tab.active { background: var(--card); color: var(--navy); border-color: var(--border); font-weight: 700; }
+.tab:hover:not(.active) { color: var(--text); background: rgba(0,31,107,0.05); }
+.container { padding: 24px 32px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; position: relative; overflow: hidden; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.kpi-card.up::before { background: linear-gradient(90deg, var(--green), #34d399); }
+.kpi-card.down::before { background: linear-gradient(90deg, var(--red), #f87171); }
+.kpi-card.neutral::before { background: linear-gradient(90deg, var(--gold), #fbbf24); }
+.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
+.kpi-val { font-size: 24px; font-weight: 700; color: var(--navy); line-height: 1; }
+.kpi-val.small { font-size: 18px; }
+.kpi-sub { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.kpi-tgt { font-size: 10px; color: var(--muted); }
+.kpi-pct { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.pct-up { background: rgba(26,122,58,.12); color: #15803d; }
+.pct-down { background: rgba(192,24,10,.12); color: #b91c1c; }
+.sec-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sec-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
+.sec-badge { font-size: 10px; color: var(--muted); }
+.chart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.chart-title { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.chart-sub { font-size: 10px; color: var(--muted); margin-bottom: 16px; }
+.chart-wrap { position: relative; }
+.chart-full { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+.gauge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.gauge-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.gauge-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+.progress-fill.green { background: linear-gradient(90deg, #1a7a3a, #4ade80); }
+.progress-fill.red { background: linear-gradient(90deg, #7f1d1d, #f87171); }
+.progress-fill.gold { background: linear-gradient(90deg, #78350f, #fbbf24); }
+.gauge-vals { display: flex; justify-content: space-between; font-size: 10px; }
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; text-align: center; }
+.stat-num { font-size: 18px; font-weight: 700; }
+.stat-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--border); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.insight-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.insight-card h4 { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+.insight-item { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; color: #94a3b8; }
+.insight-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+table.summary { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.summary th { background: var(--bg); color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+table.summary td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+table.summary tr:hover td { background: rgba(0,31,107,0.03); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>LE MÉRIDIEN SAIGON  ·  PERFORMANCE DASHBOARD</h1>
+    <div class="sub">March 2026 &nbsp;|&nbsp; Data as of 2026-03-26 · 26 MTD days &nbsp;|&nbsp; All BUs in VND</div>
+  </div>
+  <div class="header-right">
+    <div class="date-badge">Last updated: 29/03/2026 11:26</div>
+    <div class="live-dot"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview', this)">Overview</div>
+  <div class="tab" onclick="switchTab('mtd', this)">MTD</div>
+  <div class="tab" onclick="switchTab('ytd', this)">YTD</div>
+  <div class="tab" onclick="switchTab('insights', this)">Insights</div>
+</div>
+
+<div class="container">
+
+<!-- ════════════════ TAB 1: OVERVIEW ════════════════ -->
+<div id="tab-overview" class="tab-panel active">
+
+  <div class="sec-hdr">
+    <div class="sec-title">MTD Achievement per Business Unit</div>
+    <div class="sec-badge">As of 2026-03-26 · 26 days tracked</div>
+  </div>
+  <div class="kpi-grid">
+
+    <div class="kpi-card up" style="border-top: 3px solid #001F6B">
+      <div class="kpi-label">Royal Canary (La Victoire) · MTD</div>
+      <div class="kpi-val small">₫34.32B</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫24.32B</span>
+        <span class="kpi-pct pct-up">141.1%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card up" style="border-top: 3px solid #2563eb">
+      <div class="kpi-label">Rooms · MTD</div>
+      <div class="kpi-val small">₫41.53B</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫39.30B</span>
+        <span class="kpi-pct pct-up">105.7%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card neutral" style="border-top: 3px solid #16a34a">
+      <div class="kpi-label">Latest Recipe · MTD</div>
+      <div class="kpi-val small">₫4.09B</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫4.39B</span>
+        <span class="kpi-pct pct-down">93.1%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card up" style="border-top: 3px solid #dc2626">
+      <div class="kpi-label">Barson · MTD</div>
+      <div class="kpi-val small">₫1.53B</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫1.44B</span>
+        <span class="kpi-pct pct-up">106.4%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card down" style="border-top: 3px solid #9333ea">
+      <div class="kpi-label">AKUNA · MTD</div>
+      <div class="kpi-val small">₫1.82B</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫2.53B</span>
+        <span class="kpi-pct pct-down">72.1%</span>
+      </div>
+    </div>
+
+    <div class="kpi-card down" style="border-top: 3px solid #d97706">
+      <div class="kpi-label">Catering & Banquet · MTD</div>
+      <div class="kpi-val small">₫46.8M</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target ₫118.3M</span>
+        <span class="kpi-pct pct-down">39.5%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-hdr">
+    <div class="sec-title">Progress Gauges</div>
+    <div class="sec-badge">Month: 26/31 days (84%)</div>
+  </div>
+  <div class="gauge-grid">
+
+    <div class="gauge-card">
+      <div class="gauge-label">Overall MTD Achievement</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100.0%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#4ade80;font-weight:700">115.6%</span>
+        
+      </div>
+    </div>
+
+    <div class="gauge-card">
+      <div class="gauge-label">Overall YTD Achievement</div>
+      <div class="progress-bar"><div class="progress-fill gold" style="width:88.4%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#fbbf24;font-weight:700">88.4%</span>
+        
+      </div>
+    </div>
+
+    <div class="gauge-card">
+      <div class="gauge-label">Month Progress (March)</div>
+      <div class="progress-bar"><div class="progress-fill gold" style="width:83.9%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#fbbf24;font-weight:700">83.9%</span>
+        <span style="color:var(--muted)">26/31 days</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">MTD % Achievement per Business Unit</div>
+    <div class="chart-sub">Horizontal bars · Red dashed line = 100% target</div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartMTDPct"></canvas></div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">YTD % Achievement per Business Unit</div>
+    <div class="chart-sub">Horizontal bars · Red dashed line = 100% target</div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartYTDPct"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════ TAB 2: MTD ════════════════ -->
+<div id="tab-mtd" class="tab-panel">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" style="color:#15803d">₫83.34B</div><div class="stat-lbl">Total MTD Actual</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">₫72.09B</div><div class="stat-lbl">Total MTD Target</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#15803d">115.6%</div><div class="stat-lbl">Overall MTD %</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">26</div><div class="stat-lbl">Days Tracked (Mar)</div></div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">MTD Actual vs Target per Business Unit (VND Millions)</div>
+    <div class="chart-sub">Grouped bars · Navy = Actual · Light blue = Target</div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartMTDBar"></canvas></div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">MTD % Achievement per Business Unit</div>
+    <div class="chart-sub">Horizontal bars · Red dashed = 100% target line</div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartMTDPct2"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════ TAB 3: YTD ════════════════ -->
+<div id="tab-ytd" class="tab-panel">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" style="color:#b45309">₫201.71B</div><div class="stat-lbl">Total YTD Actual</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">₫228.16B</div><div class="stat-lbl">Total YTD Target</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#b45309">88.4%</div><div class="stat-lbl">Overall YTD %</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">85</div><div class="stat-lbl">YTD Days Tracked</div></div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">YTD Actual vs Target per Business Unit (VND Millions)</div>
+    <div class="chart-sub">Grouped bars · Navy = Actual · Light blue = Target</div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartYTDBar"></canvas></div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">YTD % Achievement per Business Unit</div>
+    <div class="chart-sub">Horizontal bars · Red dashed = 100% target line</div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartYTDPct2"></canvas></div>
+  </div>
+</div>
+
+<!-- ════════════════ TAB 4: INSIGHTS ════════════════ -->
+<div id="tab-insights" class="tab-panel">
+  <div class="insight-grid">
+    <div class="insight-card">
+      <h4 style="color:#4ade80">✓ Strengths</h4>
+      <div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Overall hotel MTD at 115.6% — strong performance</div><div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Royal Canary (La Victoire): MTD at 141.1% — on/above target</div><div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Rooms: MTD at 105.7% — on/above target</div><div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Barson: MTD at 106.4% — on/above target</div>
+    </div>
+    <div class="insight-card">
+      <h4 style="color:#fbbf24">⚠ Watch Points</h4>
+      <div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>Latest Recipe: MTD at 93.1% — needs attention</div><div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>AKUNA: MTD at 72.1% — needs attention</div><div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>Catering & Banquet: MTD at 39.5% — needs attention</div><div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>YTD overall at 88.4% — cumulative gap to close</div><div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>5 days remaining in March — maintain momentum</div>
+    </div>
+  </div>
+
+  <div class="chart-full">
+    <div class="chart-title">Summary — MTD vs YTD Achievement by Business Unit</div>
+    <div class="chart-sub">Business unit performance overview</div>
+    <table class="summary">
+      <thead>
+        <tr>
+          <th>Business Unit</th>
+          <th>MTD %</th>
+          <th>YTD %</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+      <td style="font-weight:600;color:#001F6B">Royal Canary (La Victoire)</td>
+      <td style="color:#15803d;font-weight:700">141.1%</td>
+      <td style="color:#b91c1c;font-weight:700">73.3%</td>
+      <td><span style="color:#15803d;font-weight:700">✅ On Track</span></td>
+    </tr>
+<tr>
+      <td style="font-weight:600;color:#2563eb">Rooms</td>
+      <td style="color:#15803d;font-weight:700">105.7%</td>
+      <td style="color:#b45309;font-weight:700">98.0%</td>
+      <td><span style="color:#15803d;font-weight:700">✅ On Track</span></td>
+    </tr>
+<tr>
+      <td style="font-weight:600;color:#16a34a">Latest Recipe</td>
+      <td style="color:#b45309;font-weight:700">93.1%</td>
+      <td style="color:#15803d;font-weight:700">109.3%</td>
+      <td><span style="color:#b45309;font-weight:700">⚠ Monitor</span></td>
+    </tr>
+<tr>
+      <td style="font-weight:600;color:#dc2626">Barson</td>
+      <td style="color:#15803d;font-weight:700">106.4%</td>
+      <td style="color:#b45309;font-weight:700">97.7%</td>
+      <td><span style="color:#15803d;font-weight:700">✅ On Track</span></td>
+    </tr>
+<tr>
+      <td style="font-weight:600;color:#9333ea">AKUNA</td>
+      <td style="color:#b91c1c;font-weight:700">72.1%</td>
+      <td style="color:#b45309;font-weight:700">94.5%</td>
+      <td><span style="color:#b91c1c;font-weight:700">❌ Behind</span></td>
+    </tr>
+<tr>
+      <td style="font-weight:600;color:#d97706">Catering & Banquet</td>
+      <td style="color:#b91c1c;font-weight:700">39.5%</td>
+      <td style="color:#b91c1c;font-weight:700">36.3%</td>
+      <td><span style="color:#b91c1c;font-weight:700">❌ Behind</span></td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>Le Méridien Saigon · LMSG Performance Dashboard v2 · Data as of 2026-03-26 · March 2026 · Zera RCC · Royal Canary Corporation</footer>
+
+<script>
+const buLabels = ["Royal Canary (La Victoire)", "Rooms", "Latest Recipe", "Barson", "AKUNA", "Catering & Banquet"];
+const buColors = ["#001F6B", "#2563eb", "#16a34a", "#dc2626", "#9333ea", "#d97706"];
+
+const mtdAct = [34317.44, 41532.14, 4089.18, 1529.11, 1822.36, 46.76];
+const mtdTgt = [24316.15, 39300.37, 4390.82, 1437.14, 2528.22, 118.32];
+const mtdPct = [141.1, 105.7, 93.1, 106.4, 72.1, 39.5];
+const ytdAct = [66962.7, 111164.01, 12754.92, 4073.35, 6527.35, 225.2];
+const ytdTgt = [91362.24, 113424.63, 11674.25, 4170.17, 6903.99, 619.79];
+const ytdPct = [73.3, 98.0, 109.3, 97.7, 94.5, 36.3];
+
+const grid = {color:'rgba(0,0,0,0.06)'};
+const tick  = {color:'#64748b',font:{size:10}};
+
+const tooltipPlugin = {
+  backgroundColor: '#1B2A4A',
+  titleColor: '#ffffff',
+  bodyColor: '#cbd5e1',
+  borderColor: '#2d4a7a',
+  borderWidth: 1
+};
+
+// ── Horizontal pct bar chart (reusable factory) ───────────────────────────────
+function makePctChart(canvasId, pctData, colors) {
+  new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: buLabels,
+      datasets: [{
+        label: '% Achievement',
+        data: pctData,
+        backgroundColor: colors.map((c,i) => pctData[i] >= 100 ? 'rgba(26,122,58,0.75)' : (pctData[i] >= 80 ? 'rgba(201,168,76,0.75)' : 'rgba(192,24,10,0.75)')),
+        borderColor: colors.map((c,i) => pctData[i] >= 100 ? '#15803d' : (pctData[i] >= 80 ? '#b45309' : '#b91c1c')),
+        borderWidth: 1,
+        borderRadius: 4,
+        indexAxis: 'y'
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {display: false},
+        tooltip: tooltipPlugin,
+        annotation: {}
+      },
+      scales: {
+        x: {
+          grid,
+          ticks: {...tick, callback: v => v + '%'},
+          min: 0
+        },
+        y: {grid: {display: false}, ticks: tick}
+      }
+    },
+    plugins: [{
+      id: 'refLine',
+      afterDraw(chart) {
+        const {ctx, chartArea: {top, bottom}, scales: {x}} = chart;
+        const x100 = x.getPixelForValue(100);
+        if (x100 >= x.left && x100 <= x.right) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x100, top);
+          ctx.lineTo(x100, bottom);
+          ctx.strokeStyle = '#C0180A';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([6, 3]);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }]
+  });
+}
+
+// ── Grouped bar chart (reusable factory) ─────────────────────────────────────
+function makeGroupedBar(canvasId, actData, tgtData, colors) {
+  new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: buLabels,
+      datasets: [
+        {
+          label: 'Actual',
+          data: actData,
+          backgroundColor: colors.map(c => c + 'CC'),
+          borderColor: colors,
+          borderWidth: 1,
+          borderRadius: 4
+        },
+        {
+          label: 'Target',
+          data: tgtData,
+          backgroundColor: 'rgba(148,163,184,0.3)',
+          borderColor: 'rgba(148,163,184,0.8)',
+          borderWidth: 1,
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {display: true, labels: {color: '#475569', font: {size: 10}}},
+        tooltip: tooltipPlugin
+      },
+      scales: {
+        x: {grid, ticks: tick},
+        y: {
+          grid,
+          ticks: {...tick, callback: v => '₫' + (v >= 1000 ? (v/1000).toFixed(0) + 'B' : v.toFixed(0) + 'M')}
+        }
+      }
+    }
+  });
+}
+
+// ── Render all charts ─────────────────────────────────────────────────────────
+makePctChart('chartMTDPct',  mtdPct, buColors);
+makePctChart('chartYTDPct',  ytdPct, buColors);
+makePctChart('chartMTDPct2', mtdPct, buColors);
+makePctChart('chartYTDPct2', ytdPct, buColors);
+
+makeGroupedBar('chartMTDBar', mtdAct, mtdTgt, buColors);
+makeGroupedBar('chartYTDBar', ytdAct, ytdTgt, buColors);
+
+// ── Tab switcher with chart resize fix ───────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+  setTimeout(() => {
+    document.querySelectorAll('#tab-' + id + ' canvas').forEach(canvas => {
+      const chart = Chart.getChart(canvas);
+      if (chart) { chart.resize(); chart.update(); }
+    });
+  }, 80);
+}
+</script>
+</body>
+</html>
