@@ -107,6 +107,44 @@ footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px
 .insight-card h4 { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
 .insight-item { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; color: #94a3b8; }
 .insight-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 480px) {
+  body { font-size: 11px; padding: 0; }
+  .container { padding: 0 8px 12px; }
+  .header { padding: 10px 12px; }
+  .header-left h1 { font-size: 12px; letter-spacing: 1px; }
+  .header-left .sub { font-size: 9px; }
+  .date-badge { font-size: 9px; padding: 4px 8px; }
+  .tabs { padding: 0 8px; gap: 4px; overflow-x: auto; flex-wrap: nowrap; }
+  .tab { padding: 6px 10px; font-size: 9px; white-space: nowrap; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .kpi-card { padding: 10px 10px; }
+  .kpi-label { font-size: 8px; margin-bottom: 4px; }
+  .kpi-val { font-size: clamp(13px, 4vw, 18px) !important; }
+  .kpi-val.small { font-size: clamp(11px, 3.5vw, 15px) !important; }
+  .kpi-pct { font-size: 9px; padding: 1px 5px; }
+  .kpi-tgt { font-size: 9px; }
+  .chart-grid { grid-template-columns: 1fr; gap: 10px; }
+  .chart-card, .chart-full { padding: 12px 10px; }
+  .chart-title { font-size: 10px; }
+  .gauge-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .gauge-card { padding: 10px 8px; }
+  .gauge-label { font-size: 8px; }
+  .gauge-vals { font-size: 8px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card { padding: 10px 8px; }
+  .stat-num { font-size: 14px; }
+  .stat-lbl { font-size: 8px; }
+  .sec-header { flex-wrap: wrap; gap: 4px; }
+  .sec-title { font-size: 9px; }
+}
+@media (max-width: 360px) {
+  .kpi-val { font-size: 12px !important; }
+  .kpi-val.small { font-size: 11px !important; }
+  .gauge-grid { grid-template-columns: 1fr 1fr; }
+}
+
 </style>
 </head>
 <body>
