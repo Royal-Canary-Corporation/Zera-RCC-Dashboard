@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Victoire — Dashboard v2 (Improved · Light)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy: #001F6B;
+  --red: #C0180A;
+  --gold: #C9A84C;
+  --green: #1a7a3a;
+  --bg: #F0F4F9;
+  --card: #FFFFFF;
+  --card2: #F8FAFC;
+  --border: #DDE3EE;
+  --text: #1a2235;
+  --muted: #64748b;
+  --accent: #2563eb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; font-size: 13px; min-height: 100vh; }
+
+/* Header */
+.header { background: linear-gradient(135deg, #001240 0%, #001F6B 100%); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+.header-left h1 { font-size: 15px; font-weight: 700; letter-spacing: 2px; color: white; }
+.header-left .sub { font-size: 10px; color: #94a3b8; margin-top: 3px; letter-spacing: 1px; }
+.header-right { display: flex; gap: 12px; align-items: center; }
+.date-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 14px; font-size: 11px; color: #94a3b8; }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* Tabs */
+.tabs { display: flex; gap: 2px; padding: 12px 32px 0; background: #E8EEF6; border-bottom: 1px solid var(--border); }
+.tab { padding: 8px 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; border-radius: 6px 6px 0 0; color: var(--muted); border: 1px solid transparent; border-bottom: none; transition: all .2s; }
+.tab.active { background: var(--card); color: var(--navy); border-color: var(--border); font-weight: 700; }
+.tab:hover:not(.active) { color: var(--text); background: rgba(0,31,107,0.05); }
+
+/* Container */
+.container { padding: 24px 32px; }
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; position: relative; overflow: hidden; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.kpi-card.up::before { background: linear-gradient(90deg, var(--green), #34d399); }
+.kpi-card.down::before { background: linear-gradient(90deg, var(--red), #f87171); }
+.kpi-card.neutral::before { background: linear-gradient(90deg, var(--gold), #fbbf24); }
+.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
+.kpi-val { font-size: 24px; font-weight: 700; color: var(--navy); line-height: 1; }
+.kpi-val.small { font-size: 18px; }
+.kpi-sub { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.kpi-tgt { font-size: 10px; color: var(--muted); }
+.kpi-pct { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.pct-up { background: rgba(26,122,58,.12); color: #15803d; }
+.pct-down { background: rgba(192,24,10,.12); color: #b91c1c; }
+.kpi-spark { position: absolute; bottom: 0; right: 0; opacity: .15; }
+
+/* Section header */
+.sec-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sec-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
+.sec-badge { font-size: 10px; color: var(--muted); }
+
+/* Chart cards */
+.chart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.chart-title { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.chart-sub { font-size: 10px; color: var(--muted); margin-bottom: 16px; }
+.chart-wrap { position: relative; }
+
+/* Toggle buttons */
+.toggle-group { display: flex; gap: 4px; margin-bottom: 12px; }
+.toggle-btn { padding: 4px 12px; font-size: 10px; font-weight: 600; border-radius: 4px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .15s; }
+.toggle-btn.active { background: var(--navy); color: white; border-color: var(--accent); }
+
+/* Monthly chart full width */
+.chart-full { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+
+/* Gauge / Progress */
+.gauge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.gauge-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.gauge-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+.progress-fill.green { background: linear-gradient(90deg, #1a7a3a, #4ade80); }
+.progress-fill.red { background: linear-gradient(90deg, #7f1d1d, #f87171); }
+.progress-fill.gold { background: linear-gradient(90deg, #78350f, #fbbf24); }
+.gauge-vals { display: flex; justify-content: space-between; font-size: 10px; }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card { background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; text-align: center; }
+.stat-num { font-size: 18px; font-weight: 700; }
+.stat-lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+/* Footer */
+footer { text-align: center; padding: 16px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--border); }
+
+/* Tab panels */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Insights */
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.insight-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.insight-card h4 { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+.insight-item { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; color: #94a3b8; }
+.insight-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>LA VICTOIRE &nbsp;·&nbsp; PERFORMANCE DASHBOARD</h1>
+    <div class="sub">April 2026 &nbsp;|&nbsp; Data as of 07/04 · 7 days actual &nbsp;|&nbsp; Le Méridien Saigon</div>
+  </div>
+  <div class="header-right">
+    <div class="date-badge">Last updated: 26/03/2026 07:15</div>
+    <div class="live-dot"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview', this)">Overview</div>
+  <div class="tab" onclick="switchTab('net-sales', this)">Net Sales</div>
+  <div class="tab" onclick="switchTab('turnover', this)">Turnover</div>
+  <div class="tab" onclick="switchTab('insights', this)">Insights</div>
+</div>
+
+<!-- OVERVIEW TAB -->
+<div class="container">
+<div id="tab-overview" class="tab-panel active">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card up">
+      <div class="kpi-label">Net Sales · Daily (07/04)</div>
+      <div class="kpi-val">$90,603</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target $34,897</span>
+        <span class="kpi-pct pct-up">+259.6%</span>
+      </div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Net Sales · MTD (7 days)</div>
+      <div class="kpi-val">$1.42M</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target $558K</span>
+        <span class="kpi-pct pct-up">+254.6%</span>
+      </div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Net Sales · YTD (Mar)</div>
+      <div class="kpi-val">$1.42M</div>
+      <div class="kpi-sub"><span class="kpi-tgt">March cumulative (29 days)</span></div>
+    </div>
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Turnover · MTD</div>
+      <div class="kpi-val small">$35,024,241</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target $35,624,124</span>
+        <span class="kpi-pct pct-down">98.3%</span>
+      </div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Turnover · YTD (2026)</div>
+      <div class="kpi-val small">$180,892,005</div>
+      <div class="kpi-sub"><span class="kpi-tgt">01/01 → 29/03 · 88 days</span></div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Turnover · Daily (07/04)</div>
+      <div class="kpi-val small">$2,489,421</div>
+      <div class="kpi-sub">
+        <span class="kpi-tgt">Target $2,226,508</span>
+        <span class="kpi-pct pct-up">+111.8%</span>
+      </div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Guest Count · Daily</div>
+      <div class="kpi-val">94</div>
+      <div class="kpi-sub"><span class="kpi-tgt">MTD Total: 1,633 guests</span></div>
+    </div>
+    <div class="kpi-card up">
+      <div class="kpi-label">Guest Count · YTD (2026)</div>
+      <div class="kpi-val">1,560</div>
+      <div class="kpi-sub"><span class="kpi-tgt">Unique members · 01/01 → 29/03</span></div>
+    </div>
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Days remaining in March</div>
+      <div class="kpi-val">6</div>
+      <div class="kpi-sub"><span class="kpi-tgt">7/30 days tracked</span></div>
+    </div>
+  </div>
+
+  <!-- Progress gauges -->
+  <div class="sec-hdr"><div class="sec-title">MTD Progress vs Target</div><div class="sec-badge">As of 07/04 · 7 days</div></div>
+  <div class="gauge-grid">
+    <div class="gauge-card">
+      <div class="gauge-label">Net Sales (USD)</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#4ade80;font-weight:700">$1,421,757</span>
+        <span style="color:var(--muted)">Tgt $558,350</span>
+        <span style="color:#4ade80;font-weight:700">254.6%</span>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-label">Turnover (VND)</div>
+      <div class="progress-bar"><div class="progress-fill gold" style="width:98.3%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#fbbf24;font-weight:700">$35.0M</span>
+        <span style="color:var(--muted)">Tgt $35.6M</span>
+        <span style="color:#fbbf24;font-weight:700">98.3%</span>
+      </div>
+    </div>
+    <div class="gauge-card">
+      <div class="gauge-label">Month Forecast (NS)</div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+      <div class="gauge-vals">
+        <span style="color:#4ade80;font-weight:700">On Track</span>
+        <span style="color:var(--muted)">Full month tgt $1.08M</span>
+        <span style="color:#4ade80;font-weight:700">✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main chart -->
+  <div class="chart-full">
+    <div class="chart-title">Net Sales (USD) — Daily vs Target · April 2026</div>
+    <div class="chart-sub">Bars = daily actual · Line = guest count (right axis) · Red dashed = daily target</div>
+    <div class="chart-wrap" style="height:260px">
+      <canvas id="chartMain"></canvas>
+    </div>
+  </div>
+
+  <!-- Turnover chart -->
+  <div class="chart-full">
+    <div class="chart-title">Turnover (VND) — Daily · April 2026</div>
+    <div class="chart-sub">Bars = daily actual (navy positive, red negative) · Dashed = daily target</div>
+    <div class="chart-wrap" style="height:220px">
+      <canvas id="chartTurn"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- NET SALES TAB -->
+<div id="tab-net-sales" class="tab-panel">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" style="color:#15803d">$90,603</div><div class="stat-lbl">Last Day NS</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#15803d">$1.42M</div><div class="stat-lbl">MTD NS</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#b45309">254.6%</div><div class="stat-lbl">vs MTD Target</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">$34,897</div><div class="stat-lbl">Daily Target</div></div>
+  </div>
+  <div class="chart-full">
+    <div class="chart-title">Net Sales (USD) — Full March Detail</div>
+    <div class="chart-sub">Positive days navy · Negative days red · Target dashed line</div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartNS2"></canvas></div>
+  </div>
+  <div class="chart-full">
+    <div class="chart-title">Net Sales — Cumulative MTD vs Target Trajectory</div>
+    <div class="chart-sub">Running total vs if-on-target line</div>
+    <div class="chart-wrap" style="height:220px"><canvas id="chartNSCum"></canvas></div>
+  </div>
+</div>
+
+<!-- TURNOVER TAB -->
+<div id="tab-turnover" class="tab-panel">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" style="color:#15803d">$2.49M</div><div class="stat-lbl">Last Day Turn</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#b45309">$35.0M</div><div class="stat-lbl">MTD Turn</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#b45309">98.3%</div><div class="stat-lbl">vs MTD Target</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:#64748b">$2.23M</div><div class="stat-lbl">Daily Target</div></div>
+  </div>
+  <div class="chart-full">
+    <div class="chart-title">Turnover (VND) — Full March</div>
+    <div class="chart-sub">Daily turnover vs target</div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartTurn2"></canvas></div>
+  </div>
+</div>
+
+<!-- INSIGHTS TAB -->
+<div id="tab-insights" class="tab-panel">
+  <div class="insight-grid">
+    <div class="insight-card">
+      <h4 style="color:#4ade80">✅ Strengths</h4>
+      <div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Net Sales MTD at 254.6% of target — significantly ahead</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Last 5 days all positive NS: consistent recovery trend</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>25/03: $90,603 NS — best single day of month</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#15803d"></div>Full month NS target ($1.08M) already exceeded on day 16</div>
+    </div>
+    <div class="insight-card">
+      <h4 style="color:#fbbf24">⚠️ Watch Points</h4>
+      <div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>Turnover at 98.3% — slightly below MTD target ($600K gap)</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>7 negative NS days in March — volatility remains high</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>Peak days (12, 22, 23, 24) drive disproportionate NS</div>
+      <div class="insight-item"><div class="insight-dot" style="background:#b45309"></div>6 remaining days must maintain $97K/day average to close Turnover gap</div>
+    </div>
+  </div>
+  <div class="chart-full">
+    <div class="chart-title">Daily NS vs Guest Count Correlation</div>
+    <div class="chart-sub">Do higher guest counts drive higher net sales?</div>
+    <div class="chart-wrap" style="height:240px"><canvas id="chartInsight"></canvas></div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<footer>La Victoire · Le Méridien Saigon · Dashboard v2 (Improved) · Data: SharePoint RCC · April 2026 · Zera RCC</footer>
+
+<script>
+const NAVY='#001F6B', RED='#C0180A', GOLD='rgba(201,168,76,0.8)', GREEN='#1a7a3a';
+const nsAct=[22834.96, -69509.15, -25045.26, 112232.06, 165602.36, 33469.15, -10949.66, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+const turnAct=[1893183.41, 2802130.14, 2378986.86, 1660538.14, 2904061.48, 1291471.41, 151629.53, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+const gcAct=[77, 82, 106, 115, 104, 81, 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const nsTgt=Array(30).fill(34188.84467363174);
+const turnTgt=Array(30).fill(2300724.683490811);
+const labels=Array.from({length:31},(_,i)=>String(i+1));
+
+const grid={color:'rgba(0,0,0,0.06)'};
+const tick={color:'#64748b',font:{size:10}};
+const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#1B2A4A',titleColor:'#ffffff',bodyColor:'#cbd5e1',borderColor:'#2d4a7a',borderWidth:1}},scales:{x:{grid,ticks:tick},y:{grid,ticks:tick}}};
+
+// Chart 1 — Main NS + GC
+const c1=document.getElementById('chartMain').getContext('2d');
+new Chart(c1,{type:'bar',data:{labels,datasets:[
+  {label:'Net Sales (USD)',data:nsAct,backgroundColor:nsAct.map(v=>v>=0?'rgba(0,31,107,0.85)':RED),borderRadius:2,order:2},
+  {label:'GC',data:gcAct,type:'line',yAxisID:'y2',borderColor:'rgba(148,163,184,0.7)',pointRadius:2,pointBackgroundColor:'#94a3b8',tension:.4,borderWidth:1.5,order:1},
+  {label:'Target',data:nsTgt,type:'line',borderColor:RED,borderDash:[4,4],pointRadius:0,borderWidth:1,order:0}
+]},options:{...baseOpts,scales:{x:{grid,ticks:tick},y:{grid,ticks:{...tick,callback:v=>'$'+Math.round(v/1000)+'K'}},y2:{position:'right',grid:{display:false},ticks:{...tick,callback:v=>v+'gc'}}}}});
+
+// Chart 2 — Turnover
+const c2=document.getElementById('chartTurn').getContext('2d');
+new Chart(c2,{type:'bar',data:{labels,datasets:[
+  {label:'Turnover',data:turnAct,backgroundColor:turnAct.map(v=>v>0?'rgba(0,31,107,0.7)':'rgba(192,24,10,0.7)'),borderRadius:2},
+  {label:'Target',data:turnTgt,type:'line',borderColor:GOLD,borderDash:[4,4],pointRadius:0,borderWidth:1.5}
+]},options:{...baseOpts,scales:{x:{grid,ticks:tick},y:{grid,ticks:{...tick,callback:v=>'$'+(v/1000000).toFixed(1)+'M'}}}}});
+
+// Chart NS Tab
+const cns=document.getElementById('chartNS2').getContext('2d');
+new Chart(cns,{type:'bar',data:{labels,datasets:[
+  {label:'NS',data:nsAct,backgroundColor:nsAct.map(v=>v>0?'rgba(0,63,163,0.85)':RED),borderRadius:3},
+  {label:'Tgt',data:nsTgt,type:'line',borderColor:'rgba(201,168,76,0.8)',borderDash:[5,5],pointRadius:0,borderWidth:1.5}
+]},options:{...baseOpts,scales:{x:{grid,ticks:tick},y:{grid,ticks:{...tick,callback:v=>'$'+v.toLocaleString()}}}}});
+
+// Cumulative chart
+const cumAct=[], cumTgt=[];
+let sa=0,st=0;
+for(let i=0;i<25;i++){sa+=nsAct[i]; st+=nsTgt[i]; cumAct.push(+sa.toFixed(2)); cumTgt.push(+st.toFixed(2));}
+const cCum=document.getElementById('chartNSCum').getContext('2d');
+new Chart(cCum,{type:'line',data:{labels:labels.slice(0,25),datasets:[
+  {label:'Actual Cumulative',data:cumAct,borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,0.08)',fill:true,tension:.4,pointRadius:2},
+  {label:'Target Trajectory',data:cumTgt,borderColor:GOLD,borderDash:[5,5],pointRadius:0,tension:.4}
+]},options:{...baseOpts,plugins:{...baseOpts.plugins,legend:{display:true,labels:{color:'#475569',font:{size:10}}}},scales:{x:{grid,ticks:tick},y:{grid,ticks:{...tick,callback:v=>'$'+Math.round(v/1000)+'K'}}}}});
+
+// Turnover tab chart
+const cT2=document.getElementById('chartTurn2').getContext('2d');
+new Chart(cT2,{type:'bar',data:{labels,datasets:[
+  {label:'Turnover',data:turnAct,backgroundColor:'rgba(0,31,107,0.8)',borderRadius:3},
+  {label:'Target',data:turnTgt,type:'line',borderColor:GOLD,borderDash:[5,5],pointRadius:0,borderWidth:2}
+]},options:{...baseOpts,scales:{x:{grid,ticks:tick},y:{grid,ticks:{...tick,callback:v=>'$'+(v/1000000).toFixed(1)+'M'}}}}});
+
+// Insight scatter — NS vs GC
+const cI=document.getElementById('chartInsight').getContext('2d');
+const scatter=nsAct.slice(0,25).map((v,i)=>({x:gcAct[i],y:v})).filter(p=>p.x>0);
+new Chart(cI,{type:'scatter',data:{datasets:[{label:'Day',data:scatter,backgroundColor:'rgba(59,130,246,0.6)',pointRadius:5}]},options:{...baseOpts,scales:{x:{...baseOpts.scales?.x,title:{display:true,text:'Guest Count',color:'#64748b'},ticks:tick,grid},y:{...baseOpts.scales?.y,title:{display:true,text:'Net Sales (USD)',color:'#64748b'},ticks:{...tick,callback:v=>'$'+Math.round(v/1000)+'K'},grid}}}});
+
+// Tab switching
+function switchTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
