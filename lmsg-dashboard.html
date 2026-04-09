@@ -1,77 +1,110 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>RCC Dashboard — Le Meridien Saigon</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Calibri,Arial,sans-serif;background:#EFEFEF;padding:20px;color:#222;font-size:12px}
-.page{background:#fff;max-width:1100px;margin:0 auto;padding:24px 28px;box-shadow:0 2px 16px rgba(0,0,0,.12)}
-.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #1B2A4A}
-.pt{font-size:20px;font-weight:700;color:#1B2A4A}.ps{font-size:11px;color:#666;margin-top:3px}
-.badge{display:inline-block;padding:2px 8px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:.05em;margin-right:4px;margin-top:6px}
-.rd{text-align:right;font-size:11px;color:#444}.rd strong{font-size:15px;color:#1B2A4A;display:block}.rd span{font-size:10px;color:#888}
-.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
-.kpi{border:1px solid #E0E0E0;padding:10px 12px;border-radius:3px}
-.kl{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
-.kv{font-size:18px;font-weight:700;color:#1B2A4A}.ks{font-size:10px;font-weight:700;margin-top:3px}
-.spk{margin-bottom:18px}.stit{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-.srow{display:flex;align-items:flex-end;gap:6px;height:80px;border-bottom:1px solid #E0E0E0;padding-bottom:4px}
+:root{--navy:#1B2A4A;--red:#8B0000;--green:#2D5A2D;--bg:#EFEFEF;--card:#fff;--border:#E0E0E0}
+body{font-family:Calibri,Arial,sans-serif;background:var(--bg);padding:12px;color:#222;font-size:14px;-webkit-text-size-adjust:100%}
+.page{background:var(--card);width:100%;max-width:900px;margin:0 auto;padding:16px;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+
+/* Header */
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--navy);flex-wrap:wrap;gap:8px}
+.pt{font-size:clamp(14px,4vw,20px);font-weight:700;color:var(--navy)}
+.ps{font-size:clamp(10px,2.5vw,11px);color:#666;margin-top:2px}
+.badges{margin-top:4px;display:flex;gap:4px;flex-wrap:wrap}
+.badge{display:inline-block;padding:2px 7px;border-radius:2px;font-size:clamp(8px,2vw,9px);font-weight:700;letter-spacing:.04em}
+.rd{text-align:right;font-size:clamp(10px,2.5vw,11px);color:#444;white-space:nowrap}
+.rd strong{font-size:clamp(12px,3.5vw,15px);color:var(--navy);display:block}
+.rd span{font-size:clamp(9px,2vw,10px);color:#888}
+
+/* KPI cards */
+.krow{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+@media(min-width:600px){.krow{grid-template-columns:repeat(4,1fr)}}
+.kpi{border:1px solid var(--border);padding:10px;border-radius:4px}
+.kl{font-size:clamp(9px,2vw,10px);color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.kv{font-size:clamp(15px,4vw,19px);font-weight:700;color:var(--navy);line-height:1.1}
+.ks{font-size:clamp(9px,2vw,10px);font-weight:700;margin-top:3px}
+
+/* Sparkline */
+.spk{margin-bottom:14px}
+.stit{font-size:clamp(9px,2.5vw,10px);color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.srow{display:flex;align-items:flex-end;gap:4px;height:70px;border-bottom:1px solid var(--border);padding-bottom:4px}
 .sc{display:flex;flex-direction:column;align-items:center;flex:1}
-.sb{width:100%;background:#1B2A4A;border-radius:2px 2px 0 0;min-height:3px}
-.sl{font-size:9px;color:#888;margin-top:3px}.sv{font-size:8px;color:#aaa}
-.sec{margin-bottom:20px}
-.sh{background:#1B2A4A;color:#fff;font-size:11px;font-weight:700;padding:5px 10px;display:inline-block}
-.sn{font-size:9px;color:#888;font-style:italic;margin:4px 0 6px}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th{background:#F5F5F5;color:#555;font-size:9px;text-transform:uppercase;letter-spacing:.04em;padding:5px 6px;border:1px solid #E0E0E0;text-align:center;white-space:nowrap}
-th.l{text-align:left}
-td{border:1px solid #E8E8E8;padding:4px 6px;vertical-align:middle}
-tr.dr:hover td{background:#FAFAFA}
-.dname{font-weight:600;color:#1B2A4A;white-space:nowrap;min-width:130px}
-.num{text-align:right;white-space:nowrap}.gap{font-size:10px}
-.bar-td{padding:4px 8px;min-width:220px}
-.bw{display:flex;align-items:center}
-.bt{position:relative;width:160px;height:14px;background:#D3D3D3;border-radius:2px;overflow:visible;display:inline-block}
-.bf{position:absolute;left:0;top:0;height:14px;background:#1B2A4A;border-radius:2px 0 0 2px}
-.dl{position:absolute;top:-3px;bottom:-3px;width:2px;background:#8B0000;z-index:2}
-.bp{font-size:9px;color:#555;margin-left:6px}
-.lgd{display:flex;gap:16px;font-size:9px;color:#666;margin-bottom:6px;justify-content:flex-end}
+.sb{width:100%;background:var(--navy);border-radius:2px 2px 0 0;min-height:3px}
+.sl{font-size:clamp(8px,2vw,9px);color:#888;margin-top:2px}
+.sv{font-size:clamp(7px,1.8vw,8px);color:#aaa}
+
+/* Section */
+.sec{margin-bottom:16px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:6px}
+.sh{background:var(--navy);color:#fff;font-size:clamp(10px,2.5vw,11px);font-weight:700;padding:5px 10px;display:inline-block;border-radius:2px}
+.sn{font-size:clamp(9px,2vw,10px);color:#888;font-style:italic;margin:3px 0 6px}
+.lgd{display:flex;gap:12px;font-size:clamp(8px,2vw,9px);color:#666}
 .lg{display:flex;align-items:center;gap:4px}
-.lb{width:10px;height:10px;border-radius:1px}.ll{width:20px;height:2px;background:#8B0000}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
-.mi{border:1px solid #E0E0E0;padding:10px;border-radius:3px;text-align:center}
-.mil{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
-.miv{font-size:16px;font-weight:700;color:#1B2A4A}.mis{font-size:9px;color:#666;margin-top:2px}
-.footer{margin-top:16px;text-align:center;font-size:9px;color:#AAAAAA;border-top:1px solid #E0E0E0;padding-top:10px}
-hr{border:none;border-top:1px solid #E8E8E8;margin:16px 0}
-.footnote{font-size:9px;color:#999;margin-top:6px;font-style:italic}
+.lb{width:10px;height:10px;border-radius:1px}.ll{width:16px;height:2px;background:var(--red)}
+
+/* Table responsive */
+.tbl-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:clamp(10px,2.5vw,11px);min-width:420px}
+th{background:#F5F5F5;color:#555;font-size:clamp(8px,2vw,9px);text-transform:uppercase;letter-spacing:.03em;padding:5px 5px;border:1px solid var(--border);text-align:center;white-space:nowrap}
+th.l{text-align:left}
+td{border:1px solid #E8E8E8;padding:4px 5px;vertical-align:middle}
+tr.dr:hover td{background:#FAFAFA}
+.dname{font-weight:600;color:var(--navy);white-space:nowrap}
+.num{text-align:right;white-space:nowrap}
+
+/* Progress bar */
+.bar-td{padding:3px 6px}
+.bw{display:flex;align-items:center;gap:4px}
+.bt{position:relative;width:100px;height:12px;background:#D3D3D3;border-radius:2px;overflow:visible;display:inline-block;flex-shrink:0}
+@media(min-width:600px){.bt{width:130px}}
+.bf{position:absolute;left:0;top:0;height:12px;background:var(--navy);border-radius:2px 0 0 2px}
+.dl{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--red);z-index:2}
+.bp{font-size:clamp(8px,2vw,9px);color:#555;white-space:nowrap}
+
+/* Metrics grid */
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+@media(max-width:400px){.mgrid{grid-template-columns:repeat(1,1fr)}}
+.mi{border:1px solid var(--border);padding:8px;border-radius:4px;text-align:center}
+.mil{font-size:clamp(8px,2vw,9px);color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.miv{font-size:clamp(14px,3.5vw,17px);font-weight:700;color:var(--navy)}
+.mis{font-size:clamp(8px,2vw,9px);color:#666;margin-top:2px}
+
+.footnote{font-size:clamp(8px,2vw,9px);color:#999;margin-top:5px;font-style:italic}
+hr{border:none;border-top:1px solid #E8E8E8;margin:12px 0}
+.footer{margin-top:12px;text-align:center;font-size:clamp(8px,2vw,9px);color:#AAAAAA;border-top:1px solid #E0E0E0;padding-top:8px}
 </style></head><body>
 <div class="page">
+
 <div class="ph">
   <div>
     <div class="pt">RCC Dashboard — Le Meridien Saigon</div>
     <div class="ps">Sales Performance Report · April 2026</div>
-    <span class="badge" style="background:#1B2A4A;color:#fff">RCC CONFIDENTIAL</span>
-    <span class="badge" style="background:#8B0000;color:#fff">BOD ONLY</span>
+    <div class="badges">
+      <span class="badge" style="background:#1B2A4A;color:#fff">RCC CONFIDENTIAL</span>
+      <span class="badge" style="background:#8B0000;color:#fff">BOD ONLY</span>
+    </div>
   </div>
-  <div class="rd">Report Date<strong>07/04/2026</strong><span>USD/VND: 26,800 · MTD: 7/30 days (23.3%)</span></div>
+  <div class="rd">Report Date<strong>07/04/2026</strong><span>USD/VND: 26,800</span><span>MTD: 7/30 days (23.3%)</span></div>
 </div>
 
 <div class="krow">
   <div class="kpi" style="background:#EFF7EF">
     <div class="kl">Hotel MTD Actual</div>
     <div class="kv">80.4B</div>
-    <div class="ks" style="color:#2D5A2D">428.6% of pro-rata target</div>
+    <div class="ks" style="color:#2D5A2D">428.6% of pro-rata</div>
   </div>
   <div class="kpi" style="background:#EFF7EF">
     <div class="kl">La Victoire MTD</div>
-    <div class="kv">439,643K USD</div>
-    <div class="ks" style="color:#2D5A2D">183.7% of pro-rata target</div>
+    <div class="kv">439,643K</div>
+    <div class="ks" style="color:#2D5A2D">183.7% of pro-rata</div>
   </div>
   <div class="kpi" style="background:#FFF5F5">
     <div class="kl">Rooms MTD</div>
     <div class="kv">7.1B</div>
-    <div class="ks" style="color:#C41E3A">80.0% of pro-rata target</div>
+    <div class="ks" style="color:#C41E3A">80.0% of pro-rata</div>
   </div>
   <div class="kpi" style="background:#F0F8FF">
     <div class="kl">Occupancy Daily</div>
@@ -83,203 +116,72 @@ hr{border:none;border-top:1px solid #E8E8E8;margin:16px 0}
 <div class="spk">
   <div class="stit">Monthly Revenue Trend — Hotel Total</div>
   <div class="srow">
-    <div class="sc"><div class="sb" style="height:59px"></div><div class="sl">Jan</div><div class="sv">88.2B</div></div>
-    <div class="sc"><div class="sb" style="height:28px"></div><div class="sl">Feb</div><div class="sv">42.6B</div></div>
+    <div class="sc"><div class="sb" style="height:56px"></div><div class="sl">Jan</div><div class="sv">88.2B</div></div>
+    <div class="sc"><div class="sb" style="height:29px"></div><div class="sl">Feb</div><div class="sv">42.6B</div></div>
     <div class="sc"><div class="sb" style="height:70px"></div><div class="sl">Mar</div><div class="sv">104.1B</div></div>
-    <div class="sc"><div class="sb" style="height:54px;opacity:0.45;background:#4B6A9A"></div><div class="sl">Apr MTD</div><div class="sv">80.4B</div></div>
+    <div class="sc"><div class="sb" style="height:55px;opacity:0.45;background:#4B6A9A"></div><div class="sl">Apr MTD</div><div class="sv">80.4B</div></div>
   </div>
 </div>
 
 <div class="sec">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+  <div class="sec-head">
     <div class="sh">1. SALES | MTD | April 2026</div>
-    <div class="lgd"><div class="lg"><div class="lb" style="background:#1B2A4A"></div>% vs Pro-rata</div><div class="lg"><div class="ll"></div>Day Elapsed (23.3%)</div></div>
+    <div class="lgd">
+      <div class="lg"><div class="lb" style="background:#1B2A4A"></div>% vs Pro-rata</div>
+      <div class="lg"><div class="ll"></div>Day elapsed</div>
+    </div>
   </div>
-  <div class="sn">MTD Target = April full target × 7/30 (pro-rata). ≥100% = on/above pace. ▌ = day elapsed line.</div>
+  <div class="sn">MTD Target = April full target × 7/30 (pro-rata). ≥100% = on/above pace.</div>
+  <div class="tbl-wrap">
   <table>
-    <thead><tr><th class="l">Business Unit</th><th>Pro-rata Target</th><th>MTD Actual</th><th>Progress vs Pace</th><th>% vs Pace</th><th>Days Left</th><th>Gap</th></tr></thead>
-    <tbody><tr class="dr">
-      <td class="dname">Hotel Total</td>
-      <td class="num">18.8B</td>
-      <td class="num">80.4B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:160px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">428.6%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#2D5A2D">+61.6B</td>
-    </tr><tr class="dr">
-      <td class="dname">Rooms</td>
-      <td class="num">8.9B</td>
-      <td class="num">7.1B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:42px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">80.0%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">80.0%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#C41E3A">1.8B</td>
-    </tr><tr class="dr">
-      <td class="dname">Latest Recipe</td>
-      <td class="num">1.1B</td>
-      <td class="num">4.6B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:160px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">428.6%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#2D5A2D">+3.5B</td>
-    </tr><tr class="dr">
-      <td class="dname">AKUNA</td>
-      <td class="num">636M</td>
-      <td class="num">2.7B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:160px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">428.6%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#2D5A2D">+2.1B</td>
-    </tr><tr class="dr">
-      <td class="dname">Barson</td>
-      <td class="num">392M</td>
-      <td class="num">1.7B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:160px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">428.6%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#2D5A2D">+1.3B</td>
-    </tr><tr class="dr">
-      <td class="dname">Banquet/Catering</td>
-      <td class="num">828M</td>
-      <td class="num">3.5B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:160px"></div><div class="dl" style="left:37px"></div></div>
-          <span class="bp">428.6%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td>
-      <td class="num">23</td>
-      <td class="num gap" style="color:#2D5A2D">+2.7B</td>
-    </tr></tbody>
+    <thead><tr><th class="l">BU</th><th>Pro-rata Tgt</th><th>MTD Actual</th><th>Progress</th><th>% Pace</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr class="dr"><td class="dname">Hotel Total</td><td class="num">18.8B</td><td class="num">80.4B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:100px"></div><div class="dl" style="left:23px"></div></div><span class="bp">428.6%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td><td class="num" style="color:#2D5A2D">+61.6B</td></tr>
+      <tr class="dr"><td class="dname">Rooms</td><td class="num">8.9B</td><td class="num">7.1B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:27px"></div><div class="dl" style="left:23px"></div></div><span class="bp">80.0%</span></div></td><td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">80.0%</td><td class="num" style="color:#C41E3A">−1.8B</td></tr>
+      <tr class="dr"><td class="dname">Latest Recipe</td><td class="num">1.1B</td><td class="num">4.6B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:100px"></div><div class="dl" style="left:23px"></div></div><span class="bp">428.6%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td><td class="num" style="color:#2D5A2D">+3.5B</td></tr>
+      <tr class="dr"><td class="dname">AKUNA</td><td class="num">636M</td><td class="num">2.7B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:100px"></div><div class="dl" style="left:23px"></div></div><span class="bp">428.6%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td><td class="num" style="color:#2D5A2D">+2.1B</td></tr>
+      <tr class="dr"><td class="dname">Barson</td><td class="num">392M</td><td class="num">1.7B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:100px"></div><div class="dl" style="left:23px"></div></div><span class="bp">428.6%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td><td class="num" style="color:#2D5A2D">+1.3B</td></tr>
+      <tr class="dr"><td class="dname">Banquet/Catering</td><td class="num">828M</td><td class="num">3.5B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:100px"></div><div class="dl" style="left:23px"></div></div><span class="bp">428.6%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">428.6%</td><td class="num" style="color:#2D5A2D">+2.7B</td></tr>
+    </tbody>
   </table>
-  <div class="footnote">● On/above pace: Hotel Total, Latest Recipe, AKUNA, Barson, Banquet/Catering &nbsp;|&nbsp; ● Below pace: Rooms</div>
+  </div>
+  <div class="footnote">● Above pace: Hotel Total, Latest Recipe, AKUNA, Barson, Banquet/Catering &nbsp;|&nbsp; ● Below pace: Rooms</div>
 </div>
 
 <div class="sec">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+  <div class="sec-head">
     <div class="sh">2. SALES | YTD | 2026</div>
-    <div class="lgd"><div class="lg"><div class="lb" style="background:#1B2A4A"></div>% vs Pro-rata</div><div class="lg"><div class="ll"></div>Day Elapsed (26.6%)</div></div>
+    <div class="lgd">
+      <div class="lg"><div class="lb" style="background:#1B2A4A"></div>% vs Pro-rata</div>
+      <div class="lg"><div class="ll"></div>Day elapsed</div>
+    </div>
   </div>
   <div class="sn">YTD Target = Annual target × 97/365 (pro-rata). ≥100% = on/above pace.</div>
+  <div class="tbl-wrap">
   <table>
-    <thead><tr><th class="l">Business Unit</th><th>Pro-rata Target</th><th>YTD Actual</th><th>Progress vs Pace</th><th>% vs Pace</th><th>Days Left</th><th>Gap</th></tr></thead>
-    <tbody><tr class="dr">
-      <td class="dname">Hotel Total</td>
-      <td class="num">294.3B</td>
-      <td class="num">250.7B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:45px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">85.2%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">85.2%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#C41E3A">43.6B</td>
-    </tr><tr class="dr">
-      <td class="dname">Rooms</td>
-      <td class="num">122.4B</td>
-      <td class="num">124.1B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:54px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">101.4%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">101.4%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#2D5A2D">+1.7B</td>
-    </tr><tr class="dr">
-      <td class="dname">Latest Recipe</td>
-      <td class="num">15.6B</td>
-      <td class="num">14.5B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:49px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">93.3%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">93.3%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#C41E3A">1.0B</td>
-    </tr><tr class="dr">
-      <td class="dname">AKUNA</td>
-      <td class="num">8.8B</td>
-      <td class="num">7.6B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:46px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">86.7%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">86.7%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#C41E3A">1.2B</td>
-    </tr><tr class="dr">
-      <td class="dname">Barson</td>
-      <td class="num">5.3B</td>
-      <td class="num">4.5B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:45px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">85.7%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">85.7%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#C41E3A">753M</td>
-    </tr><tr class="dr">
-      <td class="dname">Banquet/Catering</td>
-      <td class="num">12.0B</td>
-      <td class="num">16.5B</td>
-      <td class="bar-td">
-        <div class="bw">
-          <div class="bt"><div class="bf" style="width:73px"></div><div class="dl" style="left:42px"></div></div>
-          <span class="bp">137.8%</span>
-        </div>
-      </td>
-      <td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">137.8%</td>
-      <td class="num">268</td>
-      <td class="num gap" style="color:#2D5A2D">+4.5B</td>
-    </tr></tbody>
+    <thead><tr><th class="l">BU</th><th>Pro-rata Tgt</th><th>YTD Actual</th><th>Progress</th><th>% Pace</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr class="dr"><td class="dname">Hotel Total</td><td class="num">294.3B</td><td class="num">250.7B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:39px"></div><div class="dl" style="left:44px"></div></div><span class="bp">85.2%</span></div></td><td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">85.2%</td><td class="num" style="color:#C41E3A">−43.6B</td></tr>
+      <tr class="dr"><td class="dname">Rooms</td><td class="num">122.4B</td><td class="num">124.1B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:47px"></div><div class="dl" style="left:44px"></div></div><span class="bp">101.4%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">101.4%</td><td class="num" style="color:#2D5A2D">+1.7B</td></tr>
+      <tr class="dr"><td class="dname">Latest Recipe</td><td class="num">15.6B</td><td class="num">14.5B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:42px"></div><div class="dl" style="left:44px"></div></div><span class="bp">93.3%</span></div></td><td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">93.3%</td><td class="num" style="color:#C41E3A">−1.0B</td></tr>
+      <tr class="dr"><td class="dname">AKUNA</td><td class="num">8.8B</td><td class="num">7.6B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:40px"></div><div class="dl" style="left:44px"></div></div><span class="bp">86.7%</span></div></td><td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">86.7%</td><td class="num" style="color:#C41E3A">−1.2B</td></tr>
+      <tr class="dr"><td class="dname">Barson</td><td class="num">5.3B</td><td class="num">4.5B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:39px"></div><div class="dl" style="left:44px"></div></div><span class="bp">85.7%</span></div></td><td class="num" style="color:#C41E3A;background:#FFF0F0;font-weight:700">85.7%</td><td class="num" style="color:#C41E3A">−753M</td></tr>
+      <tr class="dr"><td class="dname">Banquet/Catering</td><td class="num">12.0B</td><td class="num">16.5B</td><td class="bar-td"><div class="bw"><div class="bt"><div class="bf" style="width:63px"></div><div class="dl" style="left:44px"></div></div><span class="bp">137.8%</span></div></td><td class="num" style="color:#2D5A2D;background:#EFF7EF;font-weight:700">137.8%</td><td class="num" style="color:#2D5A2D">+4.5B</td></tr>
+    </tbody>
   </table>
-  <div class="footnote">● On/above pace: Rooms, Banquet/Catering &nbsp;|&nbsp; ● Below pace: Hotel Total, Latest Recipe, AKUNA, Barson</div>
+  </div>
+  <div class="footnote">● Above pace: Rooms, Banquet/Catering &nbsp;|&nbsp; ● Below pace: Hotel Total, Latest Recipe, AKUNA, Barson</div>
 </div>
 
 <div class="sec">
-  <div class="sh">3. KEY PERFORMANCE METRICS | MTD | April 2026</div>
+  <div class="sh" style="margin-bottom:8px">3. KEY METRICS | MTD | April 2026</div>
   <div class="mgrid">
-    <div class="mi"><div class="mil">Occupancy (Daily)</div><div class="miv">79.9%</div><div class="mis">Target 84.1% · MTD 70.9% · YTD 79.5%</div></div>
-    <div class="mi"><div class="mil">RevPAR (Daily)</div><div class="miv">4M</div><div class="mis">Target 4M · MTD 3M · YTD 4M</div></div>
-    <div class="mi"><div class="mil">Sold Rooms (Daily)</div><div class="miv">275</div><div class="mis">Target 288 · MTD 1707 · YTD 26,533</div></div>
+    <div class="mi"><div class="mil">Occupancy Daily</div><div class="miv">79.9%</div><div class="mis">Target 84.1%</div><div class="mis">MTD 70.9% · YTD 79.5%</div></div>
+    <div class="mi"><div class="mil">RevPAR Daily</div><div class="miv">4M</div><div class="mis">Target 4M</div><div class="mis">MTD 3M · YTD 4M</div></div>
+    <div class="mi"><div class="mil">Sold Rooms Daily</div><div class="miv">275</div><div class="mis">Target 288</div><div class="mis">MTD 1,707 · YTD 26,533</div></div>
   </div>
 </div>
+
 <hr>
-<div class="footer">RCC Dashboard · Le Meridien Saigon · 07/04/2026 · Pro-rata method: target × days_elapsed/total_days · Data: SharePoint → Zera · RCC CONFIDENTIAL</div>
+<div class="footer">RCC Dashboard · Le Meridien Saigon · 07/04/2026 · Data: SharePoint → Zera · RCC CONFIDENTIAL</div>
 </div></body></html>
