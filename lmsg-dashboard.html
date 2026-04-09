@@ -28,9 +28,9 @@ body{font-family:Calibri,Arial,sans-serif;background:var(--bg);padding:12px;colo
 .ks{font-size:clamp(9px,2vw,10px);font-weight:700;margin-top:6px;line-height:1.5}
 
 /* Sparkline */
-.spk{margin-bottom:28px}
+.spk{margin-bottom:28px;display:flex;flex-direction:column;gap:0}
 .stit{font-size:clamp(9px,2.5vw,10px);color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.srow{display:flex;align-items:flex-end;gap:4px;height:80px;border-bottom:1px solid var(--border);padding-bottom:6px;margin-top:4px}
+.srow{display:flex;align-items:flex-end;gap:6px;height:90px;border-bottom:1px solid var(--border);padding-bottom:6px}
 .sc{display:flex;flex-direction:column;align-items:center;flex:1}
 .sb{width:100%;background:var(--navy);border-radius:2px 2px 0 0;min-height:3px}
 .sl{font-size:clamp(8px,2vw,9px);color:#888;margin-top:2px}
@@ -114,11 +114,12 @@ hr{border:none;border-top:1px solid #E8E8E8;margin:12px 0}
 </div>
 
 <div class="spk">
-  <div class="stit">Monthly Revenue Trend — Hotel Total</div>
+  <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.04em;font-family:Calibri,Arial,sans-serif;font-weight:600;line-height:1.4;margin-bottom:20px;">Monthly Revenue Trend — Hotel Total</div>
+  <div style="height:16px"></div>
   <div class="srow">
-    <div class="sc"><div class="sb" style="height:56px"></div><div class="sl">Jan</div><div class="sv">88.2B</div></div>
-    <div class="sc"><div class="sb" style="height:29px"></div><div class="sl">Feb</div><div class="sv">42.6B</div></div>
-    <div class="sc"><div class="sb" style="height:70px"></div><div class="sl">Mar</div><div class="sv">104.1B</div></div>
+    <div class="sc"><div class="sb" style="height:44px"></div><div class="sl">Jan</div><div class="sv">88.2B</div></div>
+    <div class="sc"><div class="sb" style="height:17px"></div><div class="sl">Feb</div><div class="sv">42.6B</div></div>
+    <div class="sc"><div class="sb" style="height:58px"></div><div class="sl">Mar</div><div class="sv">104.1B</div></div>
     <div class="sc"><div class="sb" style="height:55px;opacity:0.45;background:#4B6A9A"></div><div class="sl">Apr MTD</div><div class="sv">80.4B</div></div>
   </div>
 </div>
