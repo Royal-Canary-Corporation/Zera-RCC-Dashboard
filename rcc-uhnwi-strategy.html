@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCC · UHNWI Fill The Gap Strategy</title>
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --navy: #0a0f1e;
+    --navy-mid: #0f1829;
+    --navy-light: #141f33;
+    --navy-border: #1e2a3a;
+    --text: #e8e4d9;
+    --text-muted: #8a8070;
+    --text-dim: #5a6880;
+    --red: #ef4444;
+    --green: #10b981;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --amber: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── NAVIGATION ── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(10,15,30,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--navy-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    width: 32px; height: 32px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+  .nav-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .nav-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+  .nav-pills {
+    display: flex;
+    gap: 4px;
+  }
+  .nav-pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-pill:hover, .nav-pill.active {
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    padding: 80px 0 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  section {
+    padding: 60px 40px;
+    border-bottom: 1px solid var(--navy-border);
+  }
+  section:last-child { border-bottom: none; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 40px 80px;
+    border-bottom: 1px solid var(--navy-border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #f5f0e8;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 550px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+  }
+  .hero-meta-item label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .hero-meta-item span {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f0e8;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* ── METRIC CARDS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .metric-card {
+    background: var(--navy-mid);
+    border-radius: 12px;
+    padding: 24px 20px;
+    border-top: 2px solid var(--gold);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .metric-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .metric-sub {
+    font-size: 10px;
+    color: #3a4a5a;
+    margin-top: 6px;
+  }
+
+  /* ── Q&A TIMELINE ── */
+  .qa-timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .qa-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .qa-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .qa-dot {
+    position: absolute;
+    left: -33px;
+    top: 8px;
+    width: 18px; height: 18px;
+    background: var(--navy-mid);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qa-dot span {
+    font-size: 8px;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .qa-card {
+    background: var(--navy-mid);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .qa-question {
+    background: var(--navy-light);
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold);
+    border-left: 3px solid var(--gold);
+  }
+  .qa-positioning {
+    padding: 10px 20px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+    border-bottom: 1px solid var(--navy-border);
+  }
+  .qa-answer {
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #c8c0b0;
+    line-height: 1.75;
+  }
+  .qa-answer strong { color: var(--text); }
+  .qa-answer .hl { color: var(--gold); font-weight: 600; }
+  .qa-answer .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ── REALITY CHECK ── */
+  .reality-box {
+    background: rgba(26,15,15,0.8);
+    border: 1px solid rgba(90,26,26,0.6);
+    border-left: 3px solid var(--red);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+  .reality-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reality-list {
+    list-style: none;
+  }
+  .reality-list li {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: #c08080;
+    border-bottom: 1px solid rgba(90,26,26,0.3);
+  }
+  .reality-list li:last-child { border-bottom: none; }
+  .reality-list li::before {
+    content: "✗";
+    color: var(--red);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* ── GAP MAP TABLE ── */
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--navy-mid);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .gap-table thead tr {
+    background: var(--navy-light);
+  }
+  .gap-table thead th {
+    padding: 12px 16px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: left;
+    font-weight: 600;
+  }
+  .gap-table tbody tr {
+    border-bottom: 1px solid var(--navy-border);
+    transition: background 0.2s;
+  }
+  .gap-table tbody tr:hover { background: rgba(201,168,76,0.03); }
+  .gap-table tbody tr:last-child { border-bottom: none; }
+  .gap-table tbody td {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #a0b0c0;
+  }
+  .gap-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .gap-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .gap-critical { background: rgba(58,15,15,0.8); color: var(--red); }
+  .gap-high { background: rgba(42,26,10,0.8); color: var(--amber); }
+  .gap-taken { background: rgba(26,26,26,0.8); color: #4a5568; }
+
+  /* ── STRATEGY TRACKS ── */
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .track-card {
+    background: var(--navy-mid);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .track-card:hover { transform: translateY(-3px); }
+  .track-header {
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .track-badge {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .track-a .track-badge { background: var(--gold); color: var(--navy); }
+  .track-b .track-badge { background: var(--blue); color: #fff; }
+  .track-c .track-badge { background: var(--purple); color: #fff; }
+  .track-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0ece4;
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .track-timing {
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .track-body {
+    padding: 0 20px 20px;
+  }
+  .track-desc {
+    font-size: 12.5px;
+    color: #8090a8;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .track-metrics {
+    border-top: 1px solid var(--navy-border);
+    padding-top: 14px;
+  }
+  .track-metric {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 12px;
+  }
+  .track-metric .tm-label { color: var(--text-dim); }
+  .track-metric .tm-val { color: var(--gold); font-weight: 600; }
+
+  /* ── FRAMING CONCLUSION ── */
+  .framing-box {
+    background: linear-gradient(135deg, rgba(15,30,16,0.9), rgba(10,26,15,0.9));
+    border: 1px solid rgba(42,90,42,0.5);
+    border-left: 3px solid var(--green);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .framing-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .framing-text {
+    font-size: 14px;
+    color: #90c8a0;
+    line-height: 1.75;
+  }
+  .framing-text strong { color: #e8f4ec; }
+
+  /* ── ACTION ITEMS ── */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .action-item {
+    background: var(--navy-mid);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+  .action-item:hover { background: rgba(201,168,76,0.06); }
+  .action-num {
+    width: 28px; height: 28px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .action-text {
+    font-size: 13px;
+    color: #a0b0c0;
+    line-height: 1.6;
+  }
+  .action-text strong { color: var(--text); }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--navy-border);
+    font-size: 11px;
+    color: #3a4a5a;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--navy-border), transparent);
+    margin: 48px 0;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .tracks-grid { grid-template-columns: 1fr; }
+    .actions-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+    .nav-pills { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">R</div>
+    <div>
+      <div class="nav-title">Royal Canary Corp</div>
+      <div class="nav-subtitle">STRATEGIC INTELLIGENCE · APRIL 2026</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <a href="#overview" class="nav-pill">Overview</a>
+    <a href="#market" class="nav-pill">Market</a>
+    <a href="#dialogue" class="nav-pill">Dialogue</a>
+    <a href="#reality" class="nav-pill">Reality Check</a>
+    <a href="#strategy" class="nav-pill">Strategy</a>
+    <a href="#actions" class="nav-pill">Actions</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero" id="overview">
+    <div class="hero-eyebrow">Royal Canary Corp · Strategic Intelligence</div>
+    <h1>UHNWI Travel Vietnam<br><span>— Fill The Gap</span></h1>
+    <p class="hero-desc">
+      Phân tích thị trường ultra-luxury travel, reality check asset hiện tại, và 3-track national strategy để RCC capture cơ hội supply gap tại Việt Nam.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Prepared by</label>
+        <span>Zera Strategic Intelligence</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Date</label>
+        <span>April 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Benchmark</label>
+        <span>Aman Portfolio Level</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Classification</label>
+        <span>Confidential · Internal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET SNAPSHOT -->
+  <section id="market">
+    <div class="section-label">Market Snapshot</div>
+    <div class="section-title">Vietnam UHNWI Landscape</div>
+    <p class="section-subtitle">
+      Dữ liệu từ Knight Frank Wealth Report 2024, Ken Research, HVS Asia Pacific 2024 và Altrata World Ultra Wealth Report 2025.
+    </p>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-num">752</div>
+        <div class="metric-label">UHNWIs Vietnam<br>≥ $30M net assets</div>
+        <div class="metric-sub">Source: Knight Frank 2024</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">+30%</div>
+        <div class="metric-label">UHNWI Growth<br>Forecast → 2028</div>
+        <div class="metric-sub">752 → 978 individuals</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">$3.2B</div>
+        <div class="metric-label">Luxury Travel Market<br>Vietnam 2024</div>
+        <div class="metric-sub">Source: Ken Research</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">$3,750</div>
+        <div class="metric-label">Aman Portfolio ADR<br>Per Night (2025/26)</div>
+        <div class="metric-sub">Flagship: $5,400+/đêm</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TAM/SAM/SOM -->
+    <div class="section-label">Market Sizing</div>
+    <div class="section-title">TAM / SAM / SOM — Aman-Level</div>
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-bottom:32px;">
+      <div style="background:var(--navy-mid); border-radius:12px; padding:24px; border-top:2px solid rgba(201,168,76,0.3);">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">TAM</div>
+        <div style="font-size:28px;font-weight:700;color:var(--gold);margin-bottom:8px;">$3.2B</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Toàn bộ luxury travel Vietnam. CAGR 6.9% → 2032.</div>
+      </div>
+      <div style="background:var(--navy-mid); border-radius:12px; padding:24px; border-top:2px solid rgba(201,168,76,0.6);">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">SAM</div>
+        <div style="font-size:28px;font-weight:700;color:var(--gold);margin-bottom:8px;">$150–200M</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Ultra-luxury tier ADR $800+/đêm. Aman-comparable segment.</div>
+      </div>
+      <div style="background:var(--navy-mid); border-radius:12px; padding:24px; border-top:2px solid var(--gold);">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">SOM (3yr)</div>
+        <div style="font-size:28px;font-weight:700;color:var(--gold);margin-bottom:8px;">$5–15M/năm</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">RCC capture 1 property, 3 năm đầu. Conservative estimate.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q&A DIALOGUE -->
+  <section id="dialogue">
+    <div class="section-label">Q&A Dialogue</div>
+    <div class="section-title">Câu Hỏi · Định Vị · Trả Lời</div>
+    <p class="section-subtitle">Toàn bộ cuộc đối thoại chiến lược — từ market sizing đến framing chính xác.</p>
+
+    <div class="qa-timeline">
+
+      <div class="qa-item">
+        <div class="qa-dot"><span>Q1</span></div>
+        <div class="qa-card">
+          <div class="qa-question">Thị trường UHNWI travel Vietnam lớn không? Cơ hội ở đâu?</div>
+          <div class="qa-positioning">Định vị: TAM/SAM/SOM với benchmark Aman-level</div>
+          <div class="qa-answer">
+            Luxury travel Vietnam đạt <strong>$3.2B</strong> (2024). Ultra-luxury segment (ADR $800+, Aman-comparable) ước tính <span class="hl">$150–200M SAM</span>. UHNWI domestic tăng +30% → 2028. Quan trọng hơn: Vietnam hiện chỉ có <span class="hl">1 Aman property</span> (Amanoi, Ninh Thuận) — <strong>HCMC và Hà Nội hoàn toàn trống</strong> ở tier này. Window cơ hội còn 18–36 tháng trước khi Four Seasons HCMC lấp đầy.
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-dot"><span>Q2</span></div>
+        <div class="qa-card">
+          <div class="qa-question">Benchmark Aman-level thì unit economics thực tế như thế nào?</div>
+          <div class="qa-positioning">Định vị: Property-level economics từ Aman portfolio data</div>
+          <div class="qa-answer">
+            Aman portfolio-wide ADR: <strong>$3,750/đêm</strong> (2025/26). Flagship: $5,400+/đêm. Entry: $1,000+/đêm. Amanoi Vietnam: ~$800–2,500/đêm. <span class="hl">Không có loyalty program</span> — "Aman Junkies" tự quay lại vì experience irreplaceable. Revenue potential 1 property 30–50 villas: <strong>$16–35M gross/năm</strong> (1.5–2x room revenue từ F&B + experiences). Supply gap cực kỳ rõ: HCMC 10M dân, trung tâm kinh tế SEA — <span class="badge">ZERO Aman-tier</span>.
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-dot"><span>Q3</span></div>
+        <div class="qa-card">
+          <div class="qa-question">Strategy La Victoire + Le Meridien làm core — có execute được không?</div>
+          <div class="qa-positioning">Định vị: Reality check — constraints thực tế của RCC</div>
+          <div class="qa-answer">
+            <strong>Không execute được.</strong> Le Meridien bị Marriott HMA lock — không thể split/convert management. La Victoire là egaming, không thể upgrade lên live gaming. Egaming không unique — mọi 5-star HCMC đều có, live gaming mới hấp dẫn UHNWI. Le Meridien là Marriott tier 3 — không đủ brand equity để command Aman-level pricing. <span class="hl">Strategy nghe logic nhưng chết ở execution layer.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-dot"><span>Q4</span></div>
+        <div class="qa-card">
+          <div class="qa-question">RCC cần nhìn rộng hơn — fill the gap ở phạm vi quốc gia như thế nào?</div>
+          <div class="qa-positioning">Định vị: National strategy — 3 vectors không bị trói bởi asset hiện tại</div>
+          <div class="qa-answer">
+            RCC có <strong>capital + operating experience + market insight</strong> — deploy vào asset không bị HMA lock. 3 vectors: <span class="hl">(1) Acquire &amp; Reposition</span> distressed 4-star → ultra boutique (Belmond playbook), <span class="hl">(2) Long Stay / Branded Residence</span> cho UHNWI inbound, <span class="hl">(3) Land Bank</span> tại Hạ Long/Phú Quốc + JV với Rosewood/6 Senses. Không bet on 1 property — deploy vào supply gaps thực sự.
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-dot"><span>Q5</span></div>
+        <div class="qa-card">
+          <div class="qa-question">Kết luận framing: Le Meridien và La Victoire đóng vai trò gì?</div>
+          <div class="qa-positioning">Định vị: Strategic framing — agreed với Bach Tran</div>
+          <div class="qa-answer">
+            <strong>Le Meridien và La Victoire là cash cow để fund Tracks A/B/C — không phải growth engine.</strong> Framing này được anh Bach đồng ý và là nền tảng của toàn bộ strategy. Ai lại đi bet on 1 property với 2 constraint lớn? <span class="hl">Window hiện tại: 18–36 tháng</span> trước khi Four Seasons HCMC và competitors fill the gap.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REALITY CHECK -->
+  <section id="reality">
+    <div class="section-label">Reality Check</div>
+    <div class="section-title">Constraints Đã Xác Nhận</div>
+    <p class="section-subtitle">Asset hiện tại của RCC không thể làm growth engine. Đây là baseline để build strategy đúng.</p>
+
+    <div class="reality-box">
+      <div class="reality-title">⚠ Asset Hiện Tại — Không Thể Làm Growth Engine</div>
+      <ul class="reality-list">
+        <li>Le Meridien: Owner nhưng Marriott HMA lock — không thể split hoặc convert management unilaterally</li>
+        <li>La Victoire: Egaming license ceiling — không thể upgrade lên live gaming theo regulation hiện tại</li>
+        <li>Egaming không unique — mọi 5-star hotel tại HCMC đều có egaming; live gaming mới hấp dẫn UHNWI</li>
+        <li>Le Meridien là Marriott tier 3 brand — không đủ brand equity để command Aman-tier pricing ($3,750+/đêm)</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- GAP MAP -->
+    <div class="section-label">National Supply Gap</div>
+    <div class="section-title">Aman-Tier Supply Gap Map</div>
+    <p class="section-subtitle">Đánh giá supply gap ultra-luxury (ADR $800+, Aman-comparable) trên toàn quốc.</p>
+
+    <table class="gap-table">
+      <thead>
+        <tr>
+          <th>Địa Điểm</th>
+          <th>UHNWI Demand</th>
+          <th>Ultra-Luxury Supply</th>
+          <th>Gap</th>
+          <th>RCC Opportunity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>HCMC</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Gần như zero</td>
+          <td><span class="gap-badge gap-critical">CRITICAL</span></td>
+          <td>Primary target — urban boutique 20–50 keys</td>
+        </tr>
+        <tr>
+          <td>Hà Nội</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>Zero</td>
+          <td><span class="gap-badge gap-critical">CRITICAL</span></td>
+          <td>Old Quarter / West Lake acquisition</td>
+        </tr>
+        <tr>
+          <td>Hạ Long</td>
+          <td>⭐⭐⭐</td>
+          <td>Zero urban ultra-luxury</td>
+          <td><span class="gap-badge gap-high">HIGH</span></td>
+          <td>RCC có connections → land bank + JV 6 Senses</td>
+        </tr>
+        <tr>
+          <td>Phú Quốc</td>
+          <td>⭐⭐⭐</td>
+          <td>JW + InterCon, không Aman-tier</td>
+          <td><span class="gap-badge gap-high">HIGH</span></td>
+          <td>North Phú Quốc — underdev, bay views</td>
+        </tr>
+        <tr>
+          <td>Đà Nẵng</td>
+          <td>⭐⭐</td>
+          <td>Oversupplied luxury mid-tier</td>
+          <td>Medium</td>
+          <td>Skip — saturated mid-tier, wrong tier</td>
+        </tr>
+        <tr>
+          <td>Côn Đảo</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>6 Senses đã có</td>
+          <td><span class="gap-badge gap-taken">TAKEN</span></td>
+          <td>Skip — saturated by existing player</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3-TRACK STRATEGY -->
+  <section id="strategy">
+    <div class="section-label">National Strategy</div>
+    <div class="section-title">3-Track Approach</div>
+    <p class="section-subtitle">
+      Parallel tracks — không sequential. Track A generates cash để fund B &amp; C. Không bet on 1 asset hay 1 location.
+    </p>
+
+    <div class="tracks-grid">
+
+      <div class="track-card track-a">
+        <div class="track-header">
+          <div class="track-badge">A</div>
+          <div>
+            <div class="track-name">Long Stay<br>Branded Residence</div>
+            <div class="track-timing">NOW → 18 THÁNG</div>
+          </div>
+        </div>
+        <div class="track-body">
+          <p class="track-desc">Ultra-private serviced residence cho UHNWI inbound — expat executives, family offices. Contract 3–12 tháng. Không phụ thuộc HMA nếu structuring đúng. Launch từ network RCC đang có. Rosewood Hong Kong, The Upper House HK đã proven playbook này.</p>
+          <div class="track-metrics">
+            <div class="track-metric">
+              <span class="tm-label">Capex</span>
+              <span class="tm-val">$1–3M</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Revenue/năm</span>
+              <span class="tm-val">$3–6M</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Time to market</span>
+              <span class="tm-val">9–15 tháng</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Risk</span>
+              <span class="tm-val">Lowest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-card track-b">
+        <div class="track-header">
+          <div class="track-badge">B</div>
+          <div>
+            <div class="track-name">Acquire &<br>Reposition</div>
+            <div class="track-timing">12–36 THÁNG</div>
+          </div>
+        </div>
+        <div class="track-body">
+          <p class="track-desc">Mua distressed 4-star asset (20–50 keys) — strip HMA — reposition thành independent ultra-luxury boutique. Belmond/Rosewood playbook. Vietnam post-COVID có nhiều assets giá 40–60% below replacement cost. Freehold hoặc long leasehold ưu tiên.</p>
+          <div class="track-metrics">
+            <div class="track-metric">
+              <span class="tm-label">Acquisition</span>
+              <span class="tm-val">$10–30M</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Revenue (stabilized)</span>
+              <span class="tm-val">$8–20M/năm</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Exit multiple</span>
+              <span class="tm-val">15–20x EBITDA</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Risk</span>
+              <span class="tm-val">Medium</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-card track-c">
+        <div class="track-header">
+          <div class="track-badge">C</div>
+          <div>
+            <div class="track-name">Land Bank<br>+ Brand JV</div>
+            <div class="track-timing">PARALLEL → 5–7 NĂM</div>
+          </div>
+        </div>
+        <div class="track-body">
+          <p class="track-desc">Secure land tại Hạ Long / Phú Quốc North. Hold — không rush develop. JV với Rosewood (aggressive SEA expansion) hoặc 6 Senses (IHG-backed, wellness-led). Option value cho long-term brand anchor. Land acquisition phải làm NGAY trước khi giá adjust.</p>
+          <div class="track-metrics">
+            <div class="track-metric">
+              <span class="tm-label">Land acquisition</span>
+              <span class="tm-val">$5–20M</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Revenue (mature)</span>
+              <span class="tm-val">$15–35M/năm</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Best JV partner</span>
+              <span class="tm-val">Rosewood / 6 Senses</span>
+            </div>
+            <div class="track-metric">
+              <span class="tm-label">Risk</span>
+              <span class="tm-val">Highest / Longest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- AMAN PLAYBOOK -->
+    <div class="section-label">Aman Playbook</div>
+    <div class="section-title">4 Nguyên Tắc Có Thể Replicate</div>
+    <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:16px;">
+      <div style="background:var(--navy-mid); border-radius:10px; padding:20px; border-left:3px solid var(--gold);">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">1. Zero Marketing</div>
+        <div style="font-size:12px;color:#8090a8;line-height:1.6;">Aman không quảng cáo. RCC cần curate first 20 guests personally. Mỗi guest là ambassador — word of mouth + relationship-driven sales.</div>
+      </div>
+      <div style="background:var(--navy-mid); border-radius:10px; padding:20px; border-left:3px solid var(--gold);">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">2. Privacy là Sản Phẩm</div>
+        <div style="font-size:12px;color:#8090a8;line-height:1.6;">Không Instagram, không press release về guests. UHNWI trả premium cho anonymity. Discretion là core value proposition, không phải amenity.</div>
+      </div>
+      <div style="background:var(--navy-mid); border-radius:10px; padding:20px; border-left:3px solid var(--gold);">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">3. Scarcity = Pricing Power</div>
+        <div style="font-size:12px;color:#8090a8;line-height:1.6;">Low key count (20–50 units). Không loyalty program — không cần. Irreplaceable experience = khách tự quay lại. "Aman Junkies" — proven across 35+ properties.</div>
+      </div>
+      <div style="background:var(--navy-mid); border-radius:10px; padding:20px; border-left:3px solid var(--gold);">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">4. La Victoire Integration</div>
+        <div style="font-size:12px;color:#8090a8;line-height:1.6;">Hospitality + gaming + privacy = unique proposition toàn SEA. Đây là moat thực sự mà không ai có. La Victoire là differentiator, không phải core engine.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAMING -->
+  <section>
+    <div class="section-label">Strategic Framing</div>
+    <div class="section-title">Đã Đồng Ý</div>
+    <div class="framing-box">
+      <div class="framing-label">✓ Framing Confirmed — Bach Tran, April 2026</div>
+      <p class="framing-text">
+        <strong>Le Meridien và La Victoire là cash cow để fund Tracks A/B/C — không phải growth engine.</strong><br><br>
+        RCC không bet on 1 property. RCC deploy capital + operating expertise vào assets không bị HMA lock, tại các địa điểm có supply gap thực sự, với Aman-level service standard. Target inbound từ Singapore UHNWI (gần, visa-free, đã quen Aman), HK/Taiwan wealth (đang diversify khỏi China), và Middle East HNWI (Vietnam đang nổi với segment này).<br><br>
+        <strong>Window hiện tại: 18–36 tháng trước khi Four Seasons HCMC và competitors fill the gap.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ACTIONS -->
+  <section id="actions">
+    <div class="section-label">First Moves</div>
+    <div class="section-title">⚡ Ngay Bây Giờ</div>
+    <p class="section-subtitle">4 actions cụ thể — có thể khởi động trong 90 ngày tới.</p>
+
+    <div class="actions-grid">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-text"><strong>30 ngày:</strong> Audit distressed hotel assets HCMC + Hà Nội — 20–50 keys, no major brand HMA, freehold priority. Identify 3–5 acquisition targets với pricing 40–60% below replacement cost.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-text"><strong>60 ngày:</strong> Structure Long Stay product — legal entity tách khỏi Le Meridien, target 10–15 UHNWI inbound từ Singapore/HK. Soft-launch với network RCC đang có, không cần HMA mới.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-text"><strong>90 ngày:</strong> Secure 1–2 land options tại Hạ Long — không cần close, chỉ cần lock option trước khi thị trường adjust. Leverage RCC connections đã có tại khu vực.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">4</div>
+        <div class="action-text"><strong>Parallel:</strong> Initiate conversation với Rosewood SEA development team — position RCC như preferred local partner tại Vietnam. Rosewood đang aggressive expand SEA — timing tốt nhất.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>ROYAL CANARY CORP · CONFIDENTIAL · INTERNAL USE ONLY</div>
+    <div>Zera Strategic Intelligence · April 2026</div>
+  </div>
+
+</div>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Active nav pill on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const pills = document.querySelectorAll('.nav-pill');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    pills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
