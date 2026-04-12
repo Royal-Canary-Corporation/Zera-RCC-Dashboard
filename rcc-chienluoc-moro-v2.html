@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCC · Chiến Lược Mở Rộng & Mua Lại Tài Sản — Toàn Quốc</title>
+<style>
+  :root {
+    --vang: #c9a84c;
+    --vang-nhat: #e8c96a;
+    --nen: #0a0f1e;
+    --nen-mid: #0f1829;
+    --nen-nhat: #141f33;
+    --vien: #1e2a3a;
+    --chu: #e8e4d9;
+    --chu-mo: #8a8070;
+    --chu-tat: #5a6880;
+    --do: #ef4444;
+    --xanh-la: #10b981;
+    --xanh-duong: #3b82f6;
+    --tim: #8b5cf6;
+    --cam: #f59e0b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--nen);
+    color: var(--chu);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(10,15,30,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--vien);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 100;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo {
+    width: 32px; height: 32px; background: var(--vang);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: var(--nen);
+  }
+  .nav-ten { font-size: 13px; font-weight: 600; }
+  .nav-phu { font-size: 10px; color: var(--chu-mo); letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500;
+    cursor: pointer; text-decoration: none; color: var(--chu-mo);
+    letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(201,168,76,0.15); color: var(--vang);
+  }
+
+  /* PAGE */
+  .trang { padding: 80px 0 60px; max-width: 1200px; margin: 0 auto; }
+  section { padding: 64px 40px; border-bottom: 1px solid var(--vien); }
+  section:last-child { border-bottom: none; }
+
+  /* HERO */
+  .hero {
+    padding: 100px 40px 80px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--vien);
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .tieu-de-nho {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--vang); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .tieu-de-nho::before { content: ''; width: 32px; height: 1px; background: var(--vang); }
+  .hero h1 {
+    font-size: 50px; font-weight: 700; line-height: 1.1;
+    color: #f5f0e8; max-width: 720px; margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--vang); }
+  .hero-mo-ta {
+    font-size: 16px; color: var(--chu-mo); max-width: 560px;
+    line-height: 1.7; margin-bottom: 40px;
+  }
+  .hero-thongtin { display: flex; gap: 32px; flex-wrap: wrap; }
+  .hero-thongtin-item label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--chu-tat); display: block; margin-bottom: 4px;
+  }
+  .hero-thongtin-item span { font-size: 13px; color: var(--chu-mo); }
+
+  /* SECTION HEADER */
+  .nhan-section {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--vang); margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nhan-section::before { content: ''; width: 24px; height: 1px; background: var(--vang); }
+  .ten-section { font-size: 28px; font-weight: 700; color: #f5f0e8; margin-bottom: 8px; }
+  .mo-ta-section { font-size: 14px; color: var(--chu-mo); margin-bottom: 40px; line-height: 1.6; max-width: 640px; }
+
+  /* CARDS SỐ LIỆU */
+  .luoi-so-lieu { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .the-so-lieu {
+    background: var(--nen-mid); border-radius: 12px; padding: 24px 20px;
+    border-top: 2px solid var(--vang); text-align: center;
+    transition: transform 0.2s;
+  }
+  .the-so-lieu:hover { transform: translateY(-2px); }
+  .so-lon { font-size: 30px; font-weight: 700; color: var(--vang); line-height: 1; margin-bottom: 8px; }
+  .nhan-so { font-size: 11px; color: var(--chu-tat); letter-spacing: 1px; text-transform: uppercase; line-height: 1.5; }
+  .ghi-chu-so { font-size: 10px; color: #3a4a5a; margin-top: 6px; }
+
+  /* THÀNH PHỐ TABS */
+  .tabs-thanh-pho { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 8px 20px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--vien); background: var(--nen-mid);
+    color: var(--chu-mo); transition: all 0.2s; letter-spacing: 0.5px;
+  }
+  .tab-btn:hover { border-color: var(--vang); color: var(--vang); }
+  .tab-btn.hien { background: rgba(201,168,76,0.15); border-color: var(--vang); color: var(--vang); }
+
+  .noi-dung-tab { display: none; }
+  .noi-dung-tab.hien { display: block; }
+
+  /* CARD THÀNH PHỐ */
+  .khung-thanh-pho {
+    background: var(--nen-mid); border-radius: 14px; overflow: hidden;
+  }
+  .dau-thanh-pho {
+    padding: 28px 32px; border-bottom: 1px solid var(--vien);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .ten-thanh-pho { font-size: 22px; font-weight: 700; color: #f5f0e8; margin-bottom: 4px; }
+  .mo-ta-thanh-pho { font-size: 13px; color: var(--chu-mo); }
+  .nhan-cap-do {
+    padding: 6px 16px; border-radius: 20px; font-size: 11px;
+    font-weight: 700; letter-spacing: 1px; white-space: nowrap;
+  }
+  .cap-khan { background: rgba(58,15,15,0.8); color: var(--do); }
+  .cap-cao { background: rgba(42,26,10,0.8); color: var(--cam); }
+  .cap-trung { background: rgba(10,26,50,0.8); color: var(--xanh-duong); }
+
+  .than-thanh-pho { padding: 28px 32px; }
+  .luoi-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px; }
+  .luoi-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
+
+  .khoi-noi {
+    background: rgba(20,31,51,0.6); border-radius: 10px; padding: 18px 20px;
+  }
+  .nhan-khoi {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--chu-tat); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .nhan-khoi::before { content: ''; width: 16px; height: 1px; background: var(--vang); flex-shrink: 0; }
+
+  /* SỐ LIỆU THỊ TRƯỜNG */
+  .luoi-chi-so { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .chi-so { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; border-bottom: 1px solid rgba(30,42,58,0.5); }
+  .chi-so:last-child { border-bottom: none; }
+  .chi-so .nhan { color: var(--chu-tat); }
+  .chi-so .tri { color: var(--vang); font-weight: 600; }
+
+  /* ĐỐI THỦ */
+  .danh-sach-doi-thu { display: flex; flex-direction: column; gap: 8px; }
+  .doi-thu-item {
+    display: flex; gap: 10px; align-items: center;
+    padding: 8px 12px; background: rgba(30,42,58,0.4); border-radius: 8px;
+    font-size: 12px;
+  }
+  .doi-thu-ten { color: var(--chu); font-weight: 600; flex: 1; }
+  .doi-thu-gia { color: var(--vang); font-weight: 600; white-space: nowrap; font-size: 11px; }
+  .diem-yeu { font-size: 11px; color: #6080a0; }
+
+  /* CƠ HỘI */
+  .danh-sach-co-hoi { display: flex; flex-direction: column; gap: 8px; }
+  .co-hoi-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 14px; border-radius: 8px; font-size: 12px;
+    border-left: 3px solid var(--vang);
+    background: rgba(201,168,76,0.04);
+  }
+  .co-hoi-so {
+    width: 22px; height: 22px; background: var(--vang); color: var(--nen);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; flex-shrink: 0;
+  }
+  .co-hoi-text { color: #a0b8d0; line-height: 1.5; }
+  .co-hoi-text strong { color: var(--chu); }
+
+  /* CHIẾN LƯỢC TIẾP CẬN */
+  .chien-luoc-box {
+    background: rgba(15,30,16,0.6); border: 1px solid rgba(42,90,42,0.4);
+    border-left: 3px solid var(--xanh-la); border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .chien-luoc-tieu-de {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--xanh-la); margin-bottom: 10px;
+  }
+  .chien-luoc-chi-tiet { font-size: 12px; color: #88c898; line-height: 1.7; }
+  .chien-luoc-chi-tiet strong { color: #c0e8c8; }
+
+  /* BRAND RECOMMENDATION */
+  .brand-box {
+    background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2);
+    border-left: 3px solid var(--xanh-duong); border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .brand-tieu-de {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--xanh-duong); margin-bottom: 10px;
+  }
+  .brand-item {
+    display: flex; gap: 10px; align-items: center; padding: 6px 0;
+    font-size: 12px; border-bottom: 1px solid rgba(59,130,246,0.1);
+  }
+  .brand-item:last-child { border-bottom: none; }
+  .brand-ten { color: var(--chu); font-weight: 600; flex: 1; }
+  .brand-ly-do { color: #7090c0; font-size: 11px; }
+  .brand-kha-nang {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .kha-cao { background: rgba(16,185,129,0.15); color: var(--xanh-la); }
+  .kha-trung { background: rgba(245,158,11,0.15); color: var(--cam); }
+  .kha-thap { background: rgba(107,114,128,0.15); color: #6b7280; }
+
+  /* ĐƯỜNG PHÂN CÁCH */
+  .phan-cach {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--vien), transparent);
+    margin: 28px 0;
+  }
+
+  /* CẢNH BÁO */
+  .hop-canh-bao {
+    background: rgba(26,15,15,0.8); border: 1px solid rgba(90,26,26,0.5);
+    border-left: 3px solid var(--do); border-radius: 10px; padding: 16px 20px;
+  }
+  .hop-canh-bao .tieu { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--do); margin-bottom: 10px; }
+  .hop-canh-bao ul { list-style: none; }
+  .hop-canh-bao ul li { font-size: 12px; color: #c08080; padding: 5px 0; display: flex; gap: 8px; }
+  .hop-canh-bao ul li::before { content: "↗"; color: var(--do); flex-shrink: 0; }
+
+  /* BẢNG SO SÁNH TOÀN QUỐC */
+  .bang-toan-quoc {
+    width: 100%; border-collapse: collapse;
+    background: var(--nen-mid); border-radius: 12px; overflow: hidden;
+  }
+  .bang-toan-quoc thead tr { background: var(--nen-nhat); }
+  .bang-toan-quoc thead th {
+    padding: 12px 16px; font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--chu-tat); text-align: left; font-weight: 600;
+  }
+  .bang-toan-quoc tbody tr { border-bottom: 1px solid var(--vien); transition: background 0.2s; }
+  .bang-toan-quoc tbody tr:hover { background: rgba(201,168,76,0.03); }
+  .bang-toan-quoc tbody tr:last-child { border-bottom: none; }
+  .bang-toan-quoc tbody td { padding: 14px 16px; font-size: 12.5px; color: #a0b0c0; }
+  .bang-toan-quoc tbody td:first-child { font-weight: 700; color: var(--chu); }
+
+  .diem-uu-tien {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  }
+  .uu-1 { background: rgba(58,15,15,0.8); color: var(--do); }
+  .uu-2 { background: rgba(42,26,10,0.8); color: var(--cam); }
+  .uu-3 { background: rgba(10,26,50,0.8); color: var(--xanh-duong); }
+  .uu-4 { background: rgba(26,26,26,0.8); color: #4a5568; }
+
+  /* TIMELINE HÀNH ĐỘNG */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--vang), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 32px; }
+  .tl-dau {
+    position: absolute; left: -32px; top: 4px;
+    width: 20px; height: 20px; background: var(--nen-mid);
+    border: 2px solid var(--vang); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 800; color: var(--vang);
+  }
+  .tl-card { background: var(--nen-mid); border-radius: 10px; overflow: hidden; }
+  .tl-dau-card {
+    background: var(--nen-nhat); padding: 14px 18px;
+    border-left: 3px solid var(--vang);
+    font-size: 13px; font-weight: 600; color: var(--vang);
+  }
+  .tl-than { padding: 14px 18px; font-size: 12.5px; color: #c0b8a8; line-height: 1.7; }
+  .tl-than strong { color: var(--chu); }
+  .tl-than .badge-thanh-pho {
+    display: inline-block; background: rgba(201,168,76,0.1); color: var(--vang);
+    padding: 1px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-right: 4px;
+  }
+
+  /* FOOTER */
+  .chan-trang {
+    padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--vien); font-size: 11px; color: #3a4a5a; letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 768px) {
+    .luoi-so-lieu { grid-template-columns: repeat(2, 1fr); }
+    .luoi-3col { grid-template-columns: 1fr; }
+    .luoi-2col { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 34px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">R</div>
+    <div>
+      <div class="nav-ten">Royal Canary Corp</div>
+      <div class="nav-phu">CHIẾN LƯỢC MỞ RỘNG · THÁNG 4/2026</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#tongquan">Tổng Quan</a>
+    <a href="#thi-truong">Thị Trường</a>
+    <a href="#thanh-pho">Từng Thành Phố</a>
+    <a href="#so-sanh">So Sánh</a>
+    <a href="#hanh-dong">Hành Động</a>
+  </div>
+</nav>
+
+<div class="trang">
+
+  <!-- HERO -->
+  <section class="hero" id="tongquan">
+    <div class="tieu-de-nho">Royal Canary Corp · Phân Tích Chiến Lược</div>
+    <h1>Chiến Lược Mở Rộng<br><span>Mua Lại & Tái Định Vị</span><br>Toàn Quốc</h1>
+    <p class="hero-mo-ta">
+      Phân tích cơ hội mua lại và tái định vị tài sản khách sạn theo từng thành phố trọng điểm tại Việt Nam.
+      Xác định đối thủ, cơ hội còn bỏ ngỏ, chiến lược tiếp cận và khuyến nghị thương hiệu phù hợp.
+    </p>
+    <div class="hero-thongtin">
+      <div class="hero-thongtin-item"><label>Chuẩn bị bởi</label><span>Zera — Tư Vấn Chiến Lược</span></div>
+      <div class="hero-thongtin-item"><label>Thời điểm</label><span>Tháng 4/2026</span></div>
+      <div class="hero-thongtin-item"><label>Tiêu Chuẩn</label><span>Aman Portfolio Level</span></div>
+      <div class="hero-thongtin-item"><label>Phạm Vi</label><span>5 Thành Phố Trọng Điểm</span></div>
+    </div>
+  </section>
+
+  <!-- SỐ LIỆU THỊ TRƯỜNG -->
+  <section id="thi-truong">
+    <div class="nhan-section">Bức Tranh Thị Trường</div>
+    <div class="ten-section">Số Liệu Nền Tảng — Việt Nam 2024–2026</div>
+    <p class="mo-ta-section">Dữ liệu từ Knight Frank Wealth Report 2024, IMARC Group, HVS Asia Pacific 2024, Ken Research và Mordor Intelligence 2025.</p>
+    <div class="luoi-so-lieu" style="margin-bottom:40px;">
+      <div class="the-so-lieu">
+        <div class="so-lon">752</div>
+        <div class="nhan-so">Người siêu giàu<br>tại Việt Nam (≥$30M)</div>
+        <div class="ghi-chu-so">Tăng lên 978 người vào 2028 (+30%)</div>
+      </div>
+      <div class="the-so-lieu">
+        <div class="so-lon">$492M</div>
+        <div class="nhan-so">Quy mô thị trường<br>khách sạn cao cấp 2025</div>
+        <div class="ghi-chu-so">Dự kiến $945M vào 2034 — CAGR 7.5%</div>
+      </div>
+      <div class="the-so-lieu">
+        <div class="so-lon">$3,750</div>
+        <div class="nhan-so">Giá phòng trung bình<br>Aman Portfolio/đêm</div>
+        <div class="ghi-chu-so">Flagship: $5,400+/đêm. Entry: $1,000+/đêm</div>
+      </div>
+      <div class="the-so-lieu">
+        <div class="so-lon">1</div>
+        <div class="nhan-so">Số khách sạn Aman<br>tại Việt Nam hiện tại</div>
+        <div class="ghi-chu-so">Amanoi, Ninh Thuận — mở 2013</div>
+      </div>
+    </div>
+
+    <!-- NGỮ CẢNH CHIẾN LƯỢC -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+      <div style="background:var(--nen-mid); border-radius:12px; padding:24px; border-left:3px solid var(--vang);">
+        <div style="font-size:12px;font-weight:700;color:var(--vang);margin-bottom:12px;letter-spacing:1px;">TẠI SAO ĐÂY LÀ THỜI ĐIỂM</div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+          <li style="font-size:12px;color:#a0b0c0;display:flex;gap:8px;">
+            <span style="color:var(--vang);flex-shrink:0;">→</span>
+            Việt Nam đang mở visa cho 45+ quốc gia — lượng khách UHNWI quốc tế vào tăng mạnh
+          </li>
+          <li style="font-size:12px;color:#a0b0c0;display:flex;gap:8px;">
+            <span style="color:var(--vang);flex-shrink:0;">→</span>
+            Tài sản khách sạn hậu COVID vẫn được định giá thấp 40–60% so với chi phí xây mới
+          </li>
+          <li style="font-size:12px;color:#a0b0c0;display:flex;gap:8px;">
+            <span style="color:var(--vang);flex-shrink:0;">→</span>
+            Four Seasons Hà Nội (2026) và HCMC (pipeline) sắp khai trương — window đang đóng dần
+          </li>
+          <li style="font-size:12px;color:#a0b0c0;display:flex;gap:8px;">
+            <span style="color:var(--vang);flex-shrink:0;">→</span>
+            Rosewood đang tìm kiếm đối tác địa phương tại SEA — thời điểm tiếp cận tốt nhất
+          </li>
+        </ul>
+      </div>
+      <div style="background:var(--nen-mid); border-radius:12px; padding:24px; border-left:3px solid var(--do);">
+        <div style="font-size:12px;font-weight:700;color:var(--do);margin-bottom:12px;letter-spacing:1px;">RỦI RO CẦN QUẢN LÝ</div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+          <li style="font-size:12px;color:#c08080;display:flex;gap:8px;">
+            <span style="color:var(--do);flex-shrink:0;">↑</span>
+            Nguồn cung khách sạn 5 sao HCMC tăng mạnh 2026–2027 — cạnh tranh giá thuê phòng cao
+          </li>
+          <li style="font-size:12px;color:#c08080;display:flex;gap:8px;">
+            <span style="color:var(--do);flex-shrink:0;">↑</span>
+            Chi phí vốn và lãi suất tại Việt Nam vẫn cao — ảnh hưởng đến IRR
+          </li>
+          <li style="font-size:12px;color:#c08080;display:flex;gap:8px;">
+            <span style="color:var(--do);flex-shrink:0;">↑</span>
+            Quy định pháp lý về sở hữu tài sản của tổ chức nước ngoài còn nhiều ràng buộc
+          </li>
+          <li style="font-size:12px;color:#c08080;display:flex;gap:8px;">
+            <span style="color:var(--do);flex-shrink:0;">↑</span>
+            Thị trường UHNWI nội địa còn nhỏ — phụ thuộc nhiều vào khách quốc tế inbound
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHÂN TÍCH TỪNG THÀNH PHỐ -->
+  <section id="thanh-pho">
+    <div class="nhan-section">Phân Tích Chi Tiết</div>
+    <div class="ten-section">Từng Thành Phố Trọng Điểm</div>
+    <p class="mo-ta-section">Phân tích thị trường, đối thủ cạnh tranh, cơ hội còn bỏ ngỏ, chiến lược tiếp cận và khuyến nghị thương hiệu cho từng địa điểm.</p>
+
+    <div class="tabs-thanh-pho">
+      <button class="tab-btn hien" onclick="moTab(this, 'hcmc')">🏙 TP.HCM</button>
+      <button class="tab-btn" onclick="moTab(this, 'hanoi')">🏛 Hà Nội</button>
+      <button class="tab-btn" onclick="moTab(this, 'halong')">⛵ Hạ Long</button>
+      <button class="tab-btn" onclick="moTab(this, 'phuquoc')">🏝 Phú Quốc</button>
+      <button class="tab-btn" onclick="moTab(this, 'danang')">🌊 Đà Nẵng</button>
+    </div>
+
+    <!-- TP.HCM -->
+    <div id="hcmc" class="noi-dung-tab hien">
+      <div class="khung-thanh-pho">
+        <div class="dau-thanh-pho">
+          <div>
+            <div class="ten-thanh-pho">Thành Phố Hồ Chí Minh</div>
+            <div class="mo-ta-thanh-pho">Trung tâm kinh tế — cơ hội lớn nhất, thời gian bị giới hạn nhất</div>
+          </div>
+          <span class="nhan-cap-do cap-khan">ƯU TIÊN SỐ 1 · CẤP BÁCH</span>
+        </div>
+        <div class="than-thanh-pho">
+
+          <div class="luoi-3col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Số Liệu Thị Trường</div>
+              <div class="luoi-chi-so">
+                <div class="chi-so"><span class="nhan">Dân số</span><span class="tri">10+ triệu</span></div>
+                <div class="chi-so"><span class="nhan">ADR 5 sao hiện tại</span><span class="tri">$200–350/đêm</span></div>
+                <div class="chi-so"><span class="nhan">UHNWI mục tiêu</span><span class="tri">~300 người</span></div>
+                <div class="chi-so"><span class="nhan">ADR Aman-tier mục tiêu</span><span class="tri">$1,000–2,500/đêm</span></div>
+                <div class="chi-so"><span class="nhan">Công suất phòng TB</span><span class="tri">65–72% (HVS 2024)</span></div>
+                <div class="chi-so"><span class="nhan">Cửa sổ cơ hội</span><span class="tri">18–24 tháng</span></div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đối Thủ Cạnh Tranh Hiện Tại</div>
+              <div class="danh-sach-doi-thu">
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">The Reverie Saigon</div>
+                  <div class="doi-thu-gia">$400–800/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Park Hyatt Saigon</div>
+                  <div class="doi-thu-gia">$300–600/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">InterContinental Saigon</div>
+                  <div class="doi-thu-gia">$250–500/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Sofitel Saigon Plaza</div>
+                  <div class="doi-thu-gia">$200–400/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Caravelle Saigon</div>
+                  <div class="doi-thu-gia">$200/đêm</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Mối Đe Dọa Sắp Tới</div>
+              <div class="hop-canh-bao" style="background:transparent;border:none;padding:0;">
+                <ul style="padding:0;">
+                  <li style="color:#c08080;font-size:12px;padding:6px 0;display:flex;gap:8px;border-bottom:1px solid rgba(90,26,26,0.2);">
+                    <span style="color:var(--do);">!</span>
+                    <strong style="color:#e0a0a0;">Four Seasons HCMC</strong> — đang trong pipeline, dự kiến 2027–2028. Khi khai trương sẽ định hình lại toàn bộ tier cao cấp
+                  </li>
+                  <li style="color:#c08080;font-size:12px;padding:6px 0;display:flex;gap:8px;">
+                    <span style="color:var(--cam);">!</span>
+                    Nhiều dự án căn hộ dịch vụ cao cấp (Thủ Thiêm) đang mở thêm nguồn cung — cạnh tranh dài hạn
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="phan-cach"></div>
+
+          <div class="luoi-2col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Cơ Hội Còn Bỏ Ngỏ</div>
+              <div class="danh-sach-co-hoi">
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">1</div>
+                  <div class="co-hoi-text"><strong>Không có tài sản boutique Aman-tier nào</strong> tại Quận 1 — đây là khoảng trống rõ ràng nhất trong toàn bộ thị trường HCMC</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">2</div>
+                  <div class="co-hoi-text"><strong>Mua lại khách sạn 4 sao đang gặp khó khăn</strong> tại khu vực Quận 1 / Quận 3 — nhiều tài sản freehold vẫn định giá 40–60% dưới giá xây mới</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">3</div>
+                  <div class="co-hoi-text"><strong>Sản phẩm Long Stay cao cấp</strong> cho giám đốc điều hành nước ngoài và văn phòng gia đình — phân khúc gần như không có đối thủ trực tiếp</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">4</div>
+                  <div class="co-hoi-text"><strong>Kết hợp với La Victoire</strong> — hospitality + gaming + privacy = đề xuất duy nhất tại SEA không ai có thể sao chép trong 3–5 năm tới</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="chien-luoc-box">
+                <div class="chien-luoc-tieu-de">Chiến Lược Tiếp Cận</div>
+                <div class="chien-luoc-chi-tiet">
+                  <strong>Giai đoạn 1 (0–6 tháng):</strong> Rà soát toàn bộ tài sản khách sạn độc lập tại Quận 1, Quận 3 — ưu tiên freehold, 20–50 phòng, không có HMA lớn. Thuê JLL/CBRE tư vấn deal flow.
+                  <br><br>
+                  <strong>Giai đoạn 2 (6–18 tháng):</strong> Mua lại và tái định vị 1 tài sản. Song song, ra mắt sản phẩm Long Stay nhắm vào giám đốc người Singapore/Hồng Kông đang hoạt động tại HCMC.
+                  <br><br>
+                  <strong>Giai đoạn 3:</strong> Xây dựng thương hiệu private club gắn với La Victoire. Mời 20–30 khách UHNWI đầu tiên theo đường giới thiệu cá nhân — không quảng cáo.
+                </div>
+              </div>
+
+              <div class="brand-box">
+                <div class="brand-tieu-de">Khuyến Nghị Thương Hiệu</div>
+                <div class="brand-item">
+                  <div class="brand-ten">Thương hiệu RCC độc lập</div>
+                  <div class="brand-ly-do">Kiểm soát hoàn toàn, không HMA lock, xây dựng định vị riêng</div>
+                  <span class="brand-kha-nang kha-cao">Ưu tiên #1</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">Rosewood (HMA)</div>
+                  <div class="brand-ly-do">Đang mở rộng SEA, phù hợp với định vị ultra-luxury đô thị</div>
+                  <span class="brand-kha-nang kha-trung">Phương án B</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">Autograph Collection (Marriott)</div>
+                  <div class="brand-ly-do">Tận dụng hệ sinh thái Marriott hiện có, ít kiểm soát hơn</div>
+                  <span class="brand-kha-nang kha-thap">Dự phòng</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- HÀ NỘI -->
+    <div id="hanoi" class="noi-dung-tab">
+      <div class="khung-thanh-pho">
+        <div class="dau-thanh-pho">
+          <div>
+            <div class="ten-thanh-pho">Hà Nội</div>
+            <div class="mo-ta-thanh-pho">Thủ đô chính trị — Four Seasons sắp vào, window đang đóng dần</div>
+          </div>
+          <span class="nhan-cap-do cap-khan">ƯU TIÊN SỐ 2 · KHẨN TRƯƠNG</span>
+        </div>
+        <div class="than-thanh-pho">
+
+          <div class="luoi-3col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Số Liệu Thị Trường</div>
+              <div class="luoi-chi-so">
+                <div class="chi-so"><span class="nhan">Tăng trưởng ADR 2024</span><span class="tri">+7.6% (HVS)</span></div>
+                <div class="chi-so"><span class="nhan">Tăng trưởng RevPAR 2024</span><span class="tri">+16.6% (HVS)</span></div>
+                <div class="chi-so"><span class="nhan">UHNWI mục tiêu</span><span class="tri">~200 người nội địa</span></div>
+                <div class="chi-so"><span class="nhan">ADR 5 sao hiện tại</span><span class="tri">$180–350/đêm</span></div>
+                <div class="chi-so"><span class="nhan">Cửa sổ cơ hội</span><span class="tri">24–36 tháng</span></div>
+                <div class="chi-so"><span class="nhan">Tiềm năng ADR mục tiêu</span><span class="tri">$800–1,500/đêm</span></div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đối Thủ Cạnh Tranh Hiện Tại</div>
+              <div class="danh-sach-doi-thu">
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Sofitel Legend Metropole</div>
+                  <div class="doi-thu-gia">$300–700/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">JW Marriott Hanoi</div>
+                  <div class="doi-thu-gia">$250–500/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Lotte Hotel Hanoi</div>
+                  <div class="doi-thu-gia">$200–400/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">InterContinental Hanoi</div>
+                  <div class="doi-thu-gia">$200–400/đêm</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đối Thủ Sắp Vào</div>
+              <div class="hop-canh-bao" style="background:transparent;border:none;padding:0;">
+                <ul style="padding:0;">
+                  <li style="color:#c08080;font-size:12px;padding:6px 0;display:flex;gap:8px;border-bottom:1px solid rgba(90,26,26,0.2);">
+                    <span style="color:var(--do);">!</span>
+                    <strong style="color:#e0a0a0;">Four Seasons Hà Nội tại Hồ Hoàn Kiếm</strong> — khai trương 2026 (xác nhận). Sẽ trở thành chuẩn mực mới của thị trường
+                  </li>
+                  <li style="color:#c08080;font-size:12px;padding:6px 0;display:flex;gap:8px;">
+                    <span style="color:var(--cam);">!</span>
+                    Nhiều thương hiệu quốc tế đang tìm hiểu thị trường Hà Nội — 12–18 tháng tới sẽ có thêm thông báo
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="phan-cach"></div>
+
+          <div class="luoi-2col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Cơ Hội Còn Bỏ Ngỏ</div>
+              <div class="danh-sach-co-hoi">
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">1</div>
+                  <div class="co-hoi-text"><strong>Phố Cổ / Tây Hồ</strong> — chưa có tài sản ultra-boutique (10–20 phòng) với trải nghiệm thực sự riêng tư và gắn với văn hóa Hà Nội</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">2</div>
+                  <div class="co-hoi-text"><strong>Vị trí ven hồ Tây</strong> — địa điểm lý tưởng cho khu nghỉ dưỡng đô thị kiểu Aman, gần khu ngoại giao, view hồ độc quyền</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">3</div>
+                  <div class="co-hoi-text"><strong>Khách UHNWI nội địa Hà Nội</strong> — tầng lớp doanh nhân và quan chức cấp cao đang thiếu một điểm đến đẳng cấp ngay tại thành phố</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="chien-luoc-box">
+                <div class="chien-luoc-tieu-de">Chiến Lược Tiếp Cận</div>
+                <div class="chien-luoc-chi-tiet">
+                  <strong>Hành động ngay:</strong> Xác định tài sản khu vực Tây Hồ / Ba Đình có khả năng mua lại trước khi Four Seasons khai trương và định hình lại kỳ vọng giá.
+                  <br><br>
+                  <strong>Chiến lược dài hạn:</strong> Phát triển tài sản độc lập với bản sắc Hà Nội mạnh — kiến trúc kết hợp di sản, phục vụ riêng tư, không phòng theo phong cách khách sạn thông thường.
+                  <br><br>
+                  <strong>Kênh tiếp cận:</strong> Quan hệ cá nhân với cộng đồng doanh nhân Hà Nội và các nhà ngoại giao. Không quảng cáo công khai.
+                </div>
+              </div>
+
+              <div class="brand-box">
+                <div class="brand-tieu-de">Khuyến Nghị Thương Hiệu</div>
+                <div class="brand-item">
+                  <div class="brand-ten">Thương hiệu RCC độc lập</div>
+                  <div class="brand-ly-do">Phù hợp nhất — tính biểu tượng Hà Nội cần bản sắc riêng</div>
+                  <span class="brand-kha-nang kha-cao">Ưu tiên #1</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">Rosewood</div>
+                  <div class="brand-ly-do">Phong cách phù hợp, đang mở rộng SEA aggressively</div>
+                  <span class="brand-kha-nang kha-trung">Phương án B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- HẠ LONG -->
+    <div id="halong" class="noi-dung-tab">
+      <div class="khung-thanh-pho">
+        <div class="dau-thanh-pho">
+          <div>
+            <div class="ten-thanh-pho">Hạ Long — Quảng Ninh</div>
+            <div class="mo-ta-thanh-pho">Di sản UNESCO — khoảng trống ultra-luxury lớn, RCC có lợi thế địa phương</div>
+          </div>
+          <span class="nhan-cap-do cap-cao">ƯU TIÊN SỐ 3 · TIỀM NĂNG CAO</span>
+        </div>
+        <div class="than-thanh-pho">
+
+          <div class="luoi-3col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đặc Điểm Thị Trường</div>
+              <div class="luoi-chi-so">
+                <div class="chi-so"><span class="nhan">Di sản</span><span class="tri">UNESCO World Heritage</span></div>
+                <div class="chi-so"><span class="nhan">Khách quốc tế 2024</span><span class="tri">Phục hồi mạnh</span></div>
+                <div class="chi-so"><span class="nhan">Ultra-luxury urban</span><span class="tri">KHÔNG CÓ</span></div>
+                <div class="chi-so"><span class="nhan">ADR mục tiêu</span><span class="tri">$800–2,000/đêm</span></div>
+                <div class="chi-so"><span class="nhan">RCC đã có kết nối</span><span class="tri">Dự án Tuần Châu</span></div>
+                <div class="chi-so"><span class="nhan">Loại hình phù hợp</span><span class="tri">Overwater/Bay View Villa</span></div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đối Thủ Cạnh Tranh Hiện Tại</div>
+              <div class="danh-sach-doi-thu">
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Vinpearl Ha Long Bay Resort</div>
+                  <div class="doi-thu-gia">$150–300/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">FLC Ha Long Bay</div>
+                  <div class="doi-thu-gia">$100–200/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Du thuyền cao cấp</div>
+                  <div class="doi-thu-gia">$300–600/đêm</div>
+                </div>
+              </div>
+              <div style="margin-top:10px;padding:10px;background:rgba(16,185,129,0.08);border-radius:6px;font-size:11px;color:#88c898;">
+                ✓ Tất cả đối thủ đều ở tầm 4 sao hoặc thấp hơn — <strong>KHÔNG CÓ đối thủ Aman-tier tại Hạ Long</strong>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Lợi Thế RCC</div>
+              <div class="danh-sach-co-hoi" style="margin-top:0;">
+                <div class="co-hoi-item" style="border-left-color:var(--xanh-la);">
+                  <div class="co-hoi-so" style="background:var(--xanh-la);">✓</div>
+                  <div class="co-hoi-text">RCC đã có quan hệ tại khu vực qua dự án Tuần Châu — lợi thế đất đai và kết nối chính quyền địa phương</div>
+                </div>
+                <div class="co-hoi-item" style="border-left-color:var(--xanh-la);">
+                  <div class="co-hoi-so" style="background:var(--xanh-la);">✓</div>
+                  <div class="co-hoi-text">Địa hình đặc biệt (vịnh, đảo nhỏ) rất phù hợp mô hình resort riêng biệt kiểu Amanpuri hay Six Senses</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phan-cach"></div>
+
+          <div class="luoi-2col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Cơ Hội Còn Bỏ Ngỏ</div>
+              <div class="danh-sach-co-hoi">
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">1</div>
+                  <div class="co-hoi-text"><strong>Mô hình đảo riêng tư</strong> — 15–25 villa trên đảo nhỏ, bay-view độc quyền, hoàn toàn không có đối thủ trực tiếp ở tier này</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">2</div>
+                  <div class="co-hoi-text"><strong>JV với 6 Senses hoặc Aman</strong> — cả hai đang tìm kiếm địa điểm đặc biệt tại SEA. Hạ Long đủ điều kiện về cảnh quan và UNESCO status</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">3</div>
+                  <div class="co-hoi-text"><strong>Khách hàng mục tiêu</strong> — du khách giàu có từ Hàn Quốc, Nhật Bản, Trung Quốc đại lục đang tìm kiếm trải nghiệm UNESCO độc quyền</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="chien-luoc-box">
+                <div class="chien-luoc-tieu-de">Chiến Lược Tiếp Cận</div>
+                <div class="chien-luoc-chi-tiet">
+                  <strong>Ngay lập tức:</strong> Thông qua kết nối Tuần Châu, rà soát quỹ đất ven vịnh còn có khả năng phát triển resort độc lập quy mô nhỏ (dưới 30 villa).
+                  <br><br>
+                  <strong>6–12 tháng:</strong> Khóa quyền chọn đất trước khi thị trường điều chỉnh. Đồng thời tiếp cận đội phát triển khu vực SEA của 6 Senses (IHG) để thăm dò khả năng JV.
+                  <br><br>
+                  <strong>Mô hình kinh doanh:</strong> Cho thuê trọn gói theo tuần, tập trung vào nhóm khách gia đình giàu có châu Á thay vì khách lẻ.
+                </div>
+              </div>
+
+              <div class="brand-box">
+                <div class="brand-tieu-de">Khuyến Nghị Thương Hiệu</div>
+                <div class="brand-item">
+                  <div class="brand-ten">6 Senses (IHG)</div>
+                  <div class="brand-ly-do">Wellness + thiên nhiên = phù hợp hoàn hảo với bối cảnh Hạ Long</div>
+                  <span class="brand-kha-nang kha-cao">Ưu tiên #1</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">Aman</div>
+                  <div class="brand-ly-do">Đã có Amanoi VN — có thể quan tâm nếu site đặc biệt</div>
+                  <span class="brand-kha-nang kha-trung">Khó nhưng đáng thử</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">RCC Private Island</div>
+                  <div class="brand-ly-do">Độc lập hoàn toàn, xây dựng thương hiệu riêng biệt từ đầu</div>
+                  <span class="brand-kha-nang kha-trung">Phương án C</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PHÚ QUỐC -->
+    <div id="phuquoc" class="noi-dung-tab">
+      <div class="khung-thanh-pho">
+        <div class="dau-thanh-pho">
+          <div>
+            <div class="ten-thanh-pho">Phú Quốc</div>
+            <div class="mo-ta-thanh-pho">Đảo đang bùng nổ — phía Nam bão hòa, phía Bắc còn bỏ ngỏ</div>
+          </div>
+          <span class="nhan-cap-do cap-cao">ƯU TIÊN SỐ 4 · TIỀM NĂNG CAO</span>
+        </div>
+        <div class="than-thanh-pho">
+
+          <div class="luoi-3col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Bức Tranh Thị Trường</div>
+              <div class="luoi-chi-so">
+                <div class="chi-so"><span class="nhan">Phía Nam (bão hòa)</span><span class="tri">JW, Regent, IHG đã có</span></div>
+                <div class="chi-so"><span class="nhan">Phía Bắc (khoảng trống)</span><span class="tri">Gần như chưa phát triển</span></div>
+                <div class="chi-so"><span class="nhan">Park Hyatt Phú Quốc</span><span class="tri">Khai trương 2025</span></div>
+                <div class="chi-so"><span class="nhan">ADR mục tiêu Aman-tier</span><span class="tri">$1,000–3,000/đêm</span></div>
+                <div class="chi-so"><span class="nhan">Khách mục tiêu</span><span class="tri">Quốc tế inbound</span></div>
+                <div class="chi-so"><span class="nhan">Visa</span><span class="tri">Free cho 45+ quốc gia</span></div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Đối Thủ Cạnh Tranh (Phía Nam)</div>
+              <div class="danh-sach-doi-thu">
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Regent Phu Quoc</div>
+                  <div class="doi-thu-gia">$400–800/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Park Hyatt Phu Quoc</div>
+                  <div class="doi-thu-gia">$350–700/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">InterContinental Phu Quoc</div>
+                  <div class="doi-thu-gia">$300–600/đêm</div>
+                </div>
+                <div class="doi-thu-item">
+                  <div class="doi-thu-ten">Vinpearl Phú Quốc (nhiều cơ sở)</div>
+                  <div class="doi-thu-gia">$100–300/đêm</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Khoảng Trống Phía Bắc</div>
+              <div style="padding:10px;background:rgba(16,185,129,0.08);border-radius:6px;font-size:12px;color:#88c898;line-height:1.6;">
+                Toàn bộ khu vực phía Bắc đảo Phú Quốc gần như chưa phát triển du lịch cao cấp.
+                Địa hình hoang sơ, vịnh đẹp, xa trung tâm — phù hợp hoàn hảo với mô hình ultra-private resort kiểu Aman.
+                <br><br>
+                <strong style="color:#c0e8c8;">Đây chính là "Amanpuri cơ hội" của Việt Nam — trước khi ai đó mua trước.</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="phan-cach"></div>
+
+          <div class="luoi-2col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Cơ Hội Còn Bỏ Ngỏ</div>
+              <div class="danh-sach-co-hoi">
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">1</div>
+                  <div class="co-hoi-text"><strong>Mua đất phía Bắc Phú Quốc</strong> ngay bây giờ — giá chênh lệch rất lớn so với phía Nam, nhưng cảnh quan tương đương hoặc đẹp hơn</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">2</div>
+                  <div class="co-hoi-text"><strong>Mô hình "Aman Phú Quốc"</strong> — 20–30 villa riêng biệt, bãi biển riêng, không có hàng xóm. Sẽ là cơ sở đẳng cấp nhất Phú Quốc khi hoàn thành</div>
+                </div>
+                <div class="co-hoi-item">
+                  <div class="co-hoi-so">3</div>
+                  <div class="co-hoi-text"><strong>Khách mục tiêu quốc tế</strong> — Singapore, Úc, Trung Đông đang tìm kiếm điểm đến biển SEA cao cấp ngoài Bali và Phuket</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="chien-luoc-box">
+                <div class="chien-luoc-tieu-de">Chiến Lược Tiếp Cận</div>
+                <div class="chien-luoc-chi-tiet">
+                  <strong>Ưu tiên hàng đầu:</strong> Khóa quyền chọn đất phía Bắc Phú Quốc — cụ thể khu vực Gành Dầu hoặc Bãi Thơm với view vịnh. Không cần phát triển ngay, chỉ cần nắm đất.
+                  <br><br>
+                  <strong>Đối tác JV:</strong> Tiếp cận Aman Resorts hoặc 6 Senses — cả hai đang cần site đặc biệt tại Việt Nam. RCC đóng vai trò landowner, đối tác đóng vai trò brand + operator.
+                  <br><br>
+                  <strong>Timeline thực tế:</strong> Đất → JV → Phát triển → Khai trương mất 5–7 năm. Nhưng giá trị đất tăng ngay khi có thông báo JV với thương hiệu lớn.
+                </div>
+              </div>
+
+              <div class="brand-box">
+                <div class="brand-tieu-de">Khuyến Nghị Thương Hiệu</div>
+                <div class="brand-item">
+                  <div class="brand-ten">Aman Resorts</div>
+                  <div class="brand-ly-do">Site đặc biệt + đã có Amanoi VN — có thể tái mở đàm phán</div>
+                  <span class="brand-kha-nang kha-trung">Mục tiêu lý tưởng</span>
+                </div>
+                <div class="brand-item">
+                  <div class="brand-ten">Six Senses</div>
+                  <div class="brand-ly-do">Wellness + biển = phù hợp nhất, IHG backing tạo điều kiện đàm phán</div>
+                  <span class="brand-kha-nang kha-cao">Thực tế nhất</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ĐÀ NẴNG -->
+    <div id="danang" class="noi-dung-tab">
+      <div class="khung-thanh-pho">
+        <div class="dau-thanh-pho">
+          <div>
+            <div class="ten-thanh-pho">Đà Nẵng</div>
+            <div class="mo-ta-thanh-pho">Thị trường bão hòa tầm trung — không phù hợp chiến lược Aman-tier</div>
+          </div>
+          <span class="nhan-cap-do cap-trung">THEO DÕI · KHÔNG ƯU TIÊN</span>
+        </div>
+        <div class="than-thanh-pho">
+
+          <div class="luoi-2col">
+            <div class="khoi-noi">
+              <div class="nhan-khoi">Thực Trạng Thị Trường</div>
+              <div class="danh-sach-doi-thu">
+                <div class="doi-thu-item"><div class="doi-thu-ten">Hyatt Regency Da Nang</div><div class="doi-thu-gia">$200–400/đêm</div></div>
+                <div class="doi-thu-item"><div class="doi-thu-ten">InterContinental Da Nang (Sơn Trà)</div><div class="doi-thu-gia">$300–700/đêm</div></div>
+                <div class="doi-thu-item"><div class="doi-thu-ten">Pullman Danang Beach Resort</div><div class="doi-thu-gia">$150–300/đêm</div></div>
+                <div class="doi-thu-item"><div class="doi-thu-ten">Premier Village Da Nang</div><div class="doi-thu-gia">$200–500/đêm</div></div>
+                <div class="doi-thu-item"><div class="doi-thu-ten">Thịnh cường: 20+ khách sạn 5 sao</div><div class="doi-thu-gia">Cạnh tranh giá gay gắt</div></div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="hop-canh-bao">
+                <div class="tieu">Vì Sao Không Ưu Tiên</div>
+                <ul>
+                  <li>Thị trường đã bão hòa ở phân khúc luxury 4–5 sao — hơn 20 khách sạn lớn đang cạnh tranh giá</li>
+                  <li>Khó đạt ADR $800+ vì tâm lý thị trường và môi trường cạnh tranh hiện tại</li>
+                  <li>Nguồn khách chủ yếu là khách đại chúng Hàn Quốc, Trung Quốc — không phải UHNWI</li>
+                  <li>InterContinental Sơn Trà đã gần đạt ultra-luxury tier — không còn first-mover advantage</li>
+                </ul>
+              </div>
+              <div class="chien-luoc-box">
+                <div class="chien-luoc-tieu-de">Khi Nào Nên Xem Xét Lại</div>
+                <div class="chien-luoc-chi-tiet">
+                  Nếu RCC tìm được site đặc biệt (đảo riêng, vịnh kín) cách xa trung tâm Đà Nẵng, không cạnh tranh trực tiếp với thị trường hiện tại — thì có thể tái đánh giá. Nhưng không phải ưu tiên trong 3–5 năm tới.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BẢNG SO SÁNH TOÀN QUỐC -->
+  <section id="so-sanh">
+    <div class="nhan-section">Tổng Hợp</div>
+    <div class="ten-section">So Sánh Toàn Quốc — Ma Trận Cơ Hội</div>
+    <p class="mo-ta-section">Xếp hạng theo mức độ ưu tiên, tiềm năng và khả năng thực thi của RCC.</p>
+
+    <table class="bang-toan-quoc" style="margin-bottom:32px;">
+      <thead>
+        <tr>
+          <th>Địa Điểm</th>
+          <th>Mức Độ Ưu Tiên</th>
+          <th>Cơ Hội Chính</th>
+          <th>Đối Thủ Lớn Nhất</th>
+          <th>ADR Mục Tiêu</th>
+          <th>Timeline</th>
+          <th>Thương Hiệu Phù Hợp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TP.HCM</td>
+          <td><span class="diem-uu-tien uu-1">SỐ 1 · CẤP BÁCH</span></td>
+          <td>Boutique ultra-luxury + Long Stay</td>
+          <td>Four Seasons (sắp vào)</td>
+          <td style="color:var(--vang);font-weight:600;">$1,000–2,500/đêm</td>
+          <td>Ngay lập tức</td>
+          <td>RCC độc lập / Rosewood</td>
+        </tr>
+        <tr>
+          <td>Hà Nội</td>
+          <td><span class="diem-uu-tien uu-1">SỐ 2 · KHẨN TRƯƠNG</span></td>
+          <td>Boutique ven hồ Tây / Phố Cổ</td>
+          <td>Four Seasons Hà Nội 2026</td>
+          <td style="color:var(--vang);font-weight:600;">$800–1,500/đêm</td>
+          <td>0–18 tháng</td>
+          <td>RCC độc lập / Rosewood</td>
+        </tr>
+        <tr>
+          <td>Phú Quốc (Bắc)</td>
+          <td><span class="diem-uu-tien uu-2">SỐ 3 · LAND BANK</span></td>
+          <td>Đất biển riêng + JV Aman/6 Senses</td>
+          <td>Regent, Park Hyatt (phía Nam)</td>
+          <td style="color:var(--vang);font-weight:600;">$1,000–3,000/đêm</td>
+          <td>Đất ngay, phát triển 5–7 năm</td>
+          <td>Six Senses / Aman</td>
+        </tr>
+        <tr>
+          <td>Hạ Long</td>
+          <td><span class="diem-uu-tien uu-2">SỐ 4 · JV TIỀM NĂNG</span></td>
+          <td>Đảo riêng tư + JV 6 Senses</td>
+          <td>Vinpearl (mid-tier)</td>
+          <td style="color:var(--vang);font-weight:600;">$800–2,000/đêm</td>
+          <td>Khóa đất ngay, JV 12–24 tháng</td>
+          <td>6 Senses / RCC Private Island</td>
+        </tr>
+        <tr>
+          <td>Đà Nẵng</td>
+          <td><span class="diem-uu-tien uu-4">THEO DÕI</span></td>
+          <td>Chưa rõ — cần site đặc biệt</td>
+          <td>InterContinental, 20+ khách sạn</td>
+          <td style="color:#5a6880;">Không xác định</td>
+          <td>Không ưu tiên</td>
+          <td>Chưa xác định</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- HÀNH ĐỘNG CỤ THỂ -->
+  <section id="hanh-dong">
+    <div class="nhan-section">Lộ Trình Thực Thi</div>
+    <div class="ten-section">⚡ Hành Động Theo Từng Mốc Thời Gian</div>
+    <p class="mo-ta-section">Sắp xếp theo thứ tự ưu tiên và khả năng tác động. Tất cả đều có thể bắt đầu trong 90 ngày.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dau">30</div>
+        <div class="tl-card">
+          <div class="tl-dau-card">Trong 30 Ngày — Rà Soát Tài Sản</div>
+          <div class="tl-than">
+            Thuê JLL hoặc CBRE Việt Nam rà soát toàn bộ tài sản khách sạn độc lập đang rao bán hoặc cần tái cơ cấu tại
+            <span class="badge-thanh-pho">TP.HCM Quận 1/3</span>
+            <span class="badge-thanh-pho">Hà Nội Tây Hồ</span>.
+            Tiêu chí: freehold ưu tiên, 20–50 phòng, <strong>không có HMA với thương hiệu lớn</strong>, giá dưới $25M.
+            Đồng thời bắt đầu rà soát quỹ đất phía Bắc Phú Quốc và khu ven vịnh Hạ Long.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dau">60</div>
+        <div class="tl-card">
+          <div class="tl-dau-card">Trong 60 Ngày — Khởi Động Sản Phẩm Long Stay</div>
+          <div class="tl-than">
+            Thành lập pháp nhân độc lập (tách khỏi Le Meridien) để ra mắt sản phẩm
+            <strong>Long Stay / Branded Residence</strong> tại
+            <span class="badge-thanh-pho">TP.HCM</span>.
+            Mục tiêu: 10–15 căn, hợp đồng 3–12 tháng, giá $5,000–15,000/tháng.
+            Kênh bán: quan hệ cá nhân với cộng đồng doanh nhân Singapore, Hồng Kông đang có mặt tại HCMC.
+            <strong>Không quảng cáo đại trà.</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dau">90</div>
+        <div class="tl-card">
+          <div class="tl-dau-card">Trong 90 Ngày — Khóa Quyền Chọn Đất</div>
+          <div class="tl-than">
+            Thông qua kết nối hiện có tại
+            <span class="badge-thanh-pho">Hạ Long / Tuần Châu</span>,
+            xúc tiến ký hợp đồng quyền chọn với 1–2 lô đất ven vịnh.
+            Không cần thanh toán đầy đủ ngay — chỉ cần <strong>lock option</strong> trước khi thị trường phản ứng với làn sóng đầu tư mới.
+            Song song, liên hệ đội phát triển SEA của 6 Senses để thăm dò khả năng hợp tác.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dau">→</div>
+        <div class="tl-card">
+          <div class="tl-dau-card">Song Song — Tiếp Cận Thương Hiệu Quốc Tế</div>
+          <div class="tl-than">
+            Khởi động cuộc trò chuyện với
+            <strong>Rosewood Hotels</strong> (đội phát triển SEA) và
+            <strong>Six Senses / IHG</strong> —
+            định vị RCC là đối tác địa phương ưu tiên tại Việt Nam.
+            RCC mang đến: đất, quan hệ địa phương, vốn. Đối tác mang đến: thương hiệu, hệ thống vận hành, distribution.
+            <span class="badge-thanh-pho">Hạ Long</span>
+            <span class="badge-thanh-pho">Phú Quốc Bắc</span>
+            là hai địa điểm phù hợp nhất để đề xuất JV.
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dau">12M</div>
+        <div class="tl-card">
+          <div class="tl-dau-card">Trong 12 Tháng — Mua Lại & Bắt Đầu Tái Định Vị</div>
+          <div class="tl-than">
+            Hoàn tất mua lại 1 tài sản tại
+            <span class="badge-thanh-pho">TP.HCM</span>
+            hoặc
+            <span class="badge-thanh-pho">Hà Nội</span>.
+            Bắt đầu thiết kế tái định vị với <strong>4 nguyên tắc Aman</strong>:
+            không quảng cáo, riêng tư là sản phẩm, số phòng ít — giá cao, trải nghiệm không thể thay thế.
+            Mời 20 khách UHNWI đầu tiên thông qua mạng lưới cá nhân — <strong>đây là nền tảng của toàn bộ chiến lược dài hạn.</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="chan-trang">
+    <div>ROYAL CANARY CORP · BÍ MẬT · CHỈ SỬ DỤNG NỘI BỘ</div>
+    <div>Zera Tư Vấn Chiến Lược · Tháng 4/2026</div>
+  </div>
+
+</div>
+
+<script>
+function moTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('hien'));
+  document.querySelectorAll('.noi-dung-tab').forEach(t => t.classList.remove('hien'));
+  btn.classList.add('hien');
+  document.getElementById(tabId).classList.add('hien');
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
