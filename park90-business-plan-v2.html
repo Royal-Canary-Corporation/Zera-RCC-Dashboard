@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Park90 × Barson — Business Plan v2.0</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0e1a;
+  color: #e8eaf0;
+  min-height: 100vh;
+  padding: 40px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.header { text-align: center; margin-bottom: 48px; }
+.header .brand { font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: #c9a84c; margin-bottom: 12px; }
+.header h1 { font-size: 42px; font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 8px; }
+.header .subtitle { font-size: 15px; color: #8892a4; margin-bottom: 16px; }
+.header .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.badge { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+.badge-gold { background: #c9a84c22; border: 1px solid #c9a84c66; color: #c9a84c; }
+.badge-blue { background: #3b82f622; border: 1px solid #3b82f666; color: #60a5fa; }
+.badge-green { background: #10b98122; border: 1px solid #10b98166; color: #34d399; }
+
+/* SECTION */
+.section { margin-bottom: 48px; }
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: #c9a84c; margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 1px solid #c9a84c33;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::before {
+  content: ''; display: inline-block; width: 4px; height: 14px;
+  background: #c9a84c; border-radius: 2px;
+}
+.section-title.amber { color: #f59e0b; border-bottom-color: #f59e0b44; }
+.section-title.amber::before { background: #f59e0b; }
+
+/* EXEC SUMMARY CARDS */
+.exec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 12px; }
+@media(max-width:768px){ .exec-grid { grid-template-columns: repeat(2,1fr); } }
+.exec-card {
+  background: #141928; border: 1px solid #1e2a3d; border-radius: 12px;
+  padding: 22px 18px; position: relative; overflow: hidden;
+}
+.exec-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,#c9a84c,#e8cc7a); }
+.exec-card.blue::before { background:linear-gradient(90deg,#3b82f6,#60a5fa); }
+.exec-card.green::before { background:linear-gradient(90deg,#10b981,#34d399); }
+.exec-card.red::before { background:linear-gradient(90deg,#ef4444,#f87171); }
+.exec-card .label { font-size: 11px; color: #6b7a94; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.exec-card .value { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.exec-card .sub { font-size: 12px; color: #8892a4; }
+
+/* CONDITIONS PRECEDENT */
+.cp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:768px){ .cp-grid { grid-template-columns: 1fr; } }
+.cp-card {
+  background: #1a1408; border: 2px solid #f59e0b66; border-radius: 12px;
+  padding: 20px; position: relative;
+}
+.cp-card::before {
+  content: '⚠️'; position: absolute; top: 16px; right: 16px;
+  font-size: 18px;
+}
+.cp-num { font-size: 11px; color: #f59e0b99; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.cp-title { font-size: 16px; font-weight: 700; color: #fcd34d; margin-bottom: 8px; }
+.cp-desc { font-size: 13px; color: #d4a340; line-height: 1.6; margin-bottom: 12px; }
+.cp-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.cp-tag {
+  font-size: 11px; padding: 3px 10px; border-radius: 10px;
+  background: #f59e0b22; border: 1px solid #f59e0b44; color: #f59e0b;
+  font-weight: 600;
+}
+.cp-status { font-size: 13px; font-weight: 700; color: #fbbf24; margin-top: 10px; }
+.cp-fullwidth { grid-column: 1 / -1; }
+
+/* TIMELINE */
+.timeline { display: flex; gap: 0; align-items: stretch; }
+@media(max-width:768px){ .timeline { flex-direction: column; } }
+.phase {
+  flex: 1; background: #141928; border: 1px solid #1e2a3d; padding: 24px 20px;
+  position: relative;
+}
+.phase:first-child { border-radius: 12px 0 0 12px; }
+.phase:last-child { border-radius: 0 12px 12px 0; }
+.phase::after {
+  content: '▶'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  color: #c9a84c; font-size: 18px; z-index: 2;
+}
+.phase:last-child::after { display: none; }
+.phase-num { font-size: 11px; color: #6b7a94; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.phase-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.phase-budget { font-size: 22px; font-weight: 800; color: #c9a84c; margin-bottom: 12px; }
+.phase ul { list-style: none; }
+.phase ul li { font-size: 13px; color: #8892a4; padding: 3px 0; padding-left: 14px; position: relative; }
+.phase ul li::before { content: '·'; position: absolute; left: 0; color: #c9a84c; }
+.phase.p0 .phase-title { color: #60a5fa; }
+.phase.p1 .phase-title { color: #c9a84c; }
+.phase.p1 .phase-budget { color: #c9a84c; }
+.phase.p2 .phase-title { color: #34d399; }
+.phase.p2 .phase-budget { color: #34d399; }
+.phase-gate {
+  margin-top: 12px; padding: 8px 12px; border-radius: 8px;
+  background: #f59e0b22; border: 1px solid #f59e0b44;
+  font-size: 12px; color: #fbbf24; font-weight: 600;
+}
+
+/* REVENUE MODEL */
+.rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:768px){ .rev-grid { grid-template-columns: 1fr; } }
+.rev-card { background: #141928; border: 1px solid #1e2a3d; border-radius: 10px; padding: 20px; }
+.rev-card h4 { font-size: 13px; color: #c9a84c; margin-bottom: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.rev-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #1e2a3d; font-size: 13px; }
+.rev-row:last-child { border-bottom: none; }
+.rev-row .k { color: #8892a4; }
+.rev-row .v { color: #e8eaf0; font-weight: 500; }
+.rev-row .v.gold { color: #c9a84c; font-weight: 700; }
+.rev-row .v.neg { color: #f87171; }
+
+/* P&L TABLE */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  background: #141928; padding: 12px 16px; text-align: left;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: #6b7a94; border-bottom: 1px solid #1e2a3d;
+}
+thead th.r { text-align: right; }
+thead th.bear { color: #f59e0b; }
+thead th.base { color: #60a5fa; }
+thead th.bull { color: #34d399; }
+tbody tr { border-bottom: 1px solid #1a2030; }
+tbody tr:hover { background: #141928aa; }
+tbody td { padding: 10px 16px; color: #c8d0dc; }
+tbody td.r { text-align: right; font-variant-numeric: tabular-nums; }
+tbody td.neg { color: #f87171; }
+tbody td.pos-a { color: #f59e0b; font-weight: 600; }
+tbody td.pos-b { color: #60a5fa; font-weight: 600; }
+tbody td.pos-c { color: #34d399; font-weight: 600; }
+tbody td.sec { background: #0f1423; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #566070; }
+tbody tr.total td { background: #141928; font-weight: 700; border-top: 2px solid #1e2a3d; }
+tbody tr.total td.r { font-size: 15px; }
+
+/* HEATMAP */
+.heatmap-wrap { overflow-x: auto; margin-bottom: 8px; }
+.hmap { border-collapse: collapse; font-size: 12px; min-width: 600px; width: 100%; }
+.hmap th {
+  padding: 8px 10px; background: #141928; color: #8892a4;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-align: center;
+  border: 1px solid #1e2a3d;
+}
+.hmap th.row-header { text-align: left; min-width: 80px; }
+.hmap td {
+  padding: 7px 8px; text-align: center; font-weight: 600;
+  font-size: 11px; border: 1px solid #0a0e1a;
+  transition: opacity 0.2s;
+}
+.hmap td.row-label { background: #141928; color: #8892a4; font-weight: 700; text-align: left; padding-left: 14px; }
+.hmap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:900px){ .hmap-grid { grid-template-columns: 1fr; } }
+.hmap-title { font-size: 13px; font-weight: 700; color: #c9a84c; margin-bottom: 10px; letter-spacing: 0.5px; }
+.hmap-note { font-size: 11px; color: #566070; margin-top: 6px; }
+
+/* FALLBACK */
+.fb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media(max-width:768px){ .fb-grid { grid-template-columns: 1fr; } }
+.fb-card { border-radius: 12px; padding: 22px; }
+.fb-card.r1 { background: #1a1a08; border: 2px solid #ca8a0466; }
+.fb-card.r2 { background: #1a1008; border: 2px solid #ea580c66; }
+.fb-card.r3 { background: #1a0808; border: 2px solid #dc262666; }
+.fb-ramp { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.fb-card.r1 .fb-ramp { color: #ca8a04; }
+.fb-card.r2 .fb-ramp { color: #ea580c; }
+.fb-card.r3 .fb-ramp { color: #dc2626; }
+.fb-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+.fb-row { font-size: 13px; line-height: 1.7; }
+.fb-row .lbl { color: #6b7a94; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.fb-row .val { color: #d4d8e0; }
+.fb-recovery { font-size: 18px; font-weight: 800; margin-top: 12px; }
+.fb-card.r1 .fb-recovery { color: #fbbf24; }
+.fb-card.r2 .fb-recovery { color: #fb923c; }
+.fb-card.r3 .fb-recovery { color: #f87171; }
+
+/* STRATEGIC RATIONALE */
+.rationale-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media(max-width:768px){ .rationale-grid { grid-template-columns: 1fr; } }
+.rat-card { background: #141928; border: 1px solid #1e2a3d; border-radius: 10px; padding: 18px; }
+.rat-card .icon { font-size: 24px; margin-bottom: 10px; }
+.rat-card h4 { font-size: 13px; font-weight: 700; color: #c9a84c; margin-bottom: 8px; }
+.rat-card p { font-size: 13px; color: #8892a4; line-height: 1.6; }
+
+/* ACTION TABLE */
+.action-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.action-table th {
+  background: #141928; padding: 10px 14px; text-align: left;
+  font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+  color: #6b7a94; border-bottom: 1px solid #1e2a3d;
+}
+.action-table td { padding: 10px 14px; border-bottom: 1px solid #141928; color: #c8d0dc; }
+.action-table tr:hover td { background: #141928aa; }
+.pending { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; background: #f59e0b22; border: 1px solid #f59e0b44; color: #fbbf24; }
+.cp-badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; background: #f59e0b33; color: #fbbf24; margin-right: 4px; }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid #1e2a3d; margin: 48px 0; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 24px 0; color: #566070; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">Royal Canary Corp · Investment Proposal</div>
+  <h1>PARK90 × BARSON</h1>
+  <div class="subtitle">Urban Wine Lounge — Ho Chi Minh City | Business Plan v2.0</div>
+  <div class="badges">
+    <span class="badge badge-gold">April 2026</span>
+    <span class="badge badge-blue">Hospitality × F&B</span>
+    <span class="badge badge-green">Phased Investment</span>
+  </div>
+</div>
+
+<!-- EXEC SUMMARY -->
+<div class="section">
+  <div class="section-title">Executive Summary</div>
+  <div class="exec-grid">
+    <div class="exec-card">
+      <div class="label">Total CAPEX</div>
+      <div class="value">$300K</div>
+      <div class="sub">Phased: $50K → $150K → $100K</div>
+    </div>
+    <div class="exec-card blue">
+      <div class="label">Break-even</div>
+      <div class="value">$80K/mo</div>
+      <div class="sub">~23 covers/evening @ $118 ASP</div>
+    </div>
+    <div class="exec-card green">
+      <div class="label">Target Market</div>
+      <div class="value">18,000+</div>
+      <div class="sub">3,000 HNWI + 15,000 corporate users</div>
+    </div>
+    <div class="exec-card red">
+      <div class="label">Max Downside</div>
+      <div class="value">$150K</div>
+      <div class="sub">Capped via exit strategy & asset recovery</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONDITIONS PRECEDENT -->
+<div class="section">
+  <div class="section-title amber">⚠️ Conditions Precedent — All Must Be Satisfied Before Phase 1 Commit</div>
+  <div class="cp-grid">
+
+    <div class="cp-card">
+      <div class="cp-num">CP1</div>
+      <div class="cp-title">Barson Occupancy & Foot Traffic Audit</div>
+      <div class="cp-desc">Hotel occupancy ≥55% AND ≥200 external walk-in foot traffic per day confirmed via 2-week on-site audit. Validates captive + external demand assumptions.</div>
+      <div class="cp-meta">
+        <span class="cp-tag">Owner: Anh Bach</span>
+        <span class="cp-tag">Before Phase 1</span>
+        <span class="cp-tag">Cost: ~$0 (ask Barson mgmt)</span>
+      </div>
+      <div class="cp-status">⬜ PENDING</div>
+    </div>
+
+    <div class="cp-card">
+      <div class="cp-num">CP2</div>
+      <div class="cp-title">Park90 Distribution Exclusivity Confirmed</div>
+      <div class="cp-desc">Park90 exclusive distribution contract ≥3 years confirmed in writing. Validates the 28% COGS advantage and prevents channel conflict with existing retailers.</div>
+      <div class="cp-meta">
+        <span class="cp-tag">Owner: Anh Quang</span>
+        <span class="cp-tag">Before Phase 1</span>
+        <span class="cp-tag">Legal review required</span>
+      </div>
+      <div class="cp-status">⬜ PENDING</div>
+    </div>
+
+    <div class="cp-card">
+      <div class="cp-num">CP3</div>
+      <div class="cp-title">Head Sommelier Identified & Committed</div>
+      <div class="cp-desc">WSET Level 3+ or equivalent identified, interested, and committed to join before public opening. This is the highest operational risk — no operator capability without this hire.</div>
+      <div class="cp-meta">
+        <span class="cp-tag">Owner: RCC Team</span>
+        <span class="cp-tag">Before Phase 1</span>
+        <span class="cp-tag">Source: Intercontinental/Sofitel alumni</span>
+      </div>
+      <div class="cp-status">⬜ PENDING</div>
+    </div>
+
+    <div class="cp-card">
+      <div class="cp-num">CP4</div>
+      <div class="cp-title">Barson Lease Terms Negotiated</div>
+      <div class="cp-desc">Minimum 3-year lease with exit clause including fit-out buyback or termination cap. Protects $300K CAPEX from lease non-renewal risk. Separate branding/entrance rights required.</div>
+      <div class="cp-meta">
+        <span class="cp-tag">Owner: Anh Bach / Legal</span>
+        <span class="cp-tag">Before Phase 0 commit</span>
+        <span class="cp-tag">Legal counsel required</span>
+      </div>
+      <div class="cp-status">⬜ PENDING</div>
+    </div>
+
+    <div class="cp-card cp-fullwidth">
+      <div class="cp-num">CP5 — GATE CONDITION</div>
+      <div class="cp-title">Phase 0 Soft Launch Validates ≥18 Covers/Evening Average</div>
+      <div class="cp-desc">Phase 0 (3-month invitation-only founding members program, $50K budget) must demonstrate ≥18 covers/evening average across the final 4 weeks before committing the remaining $250K. This is the go/no-go gate for full investment. Founding members program targets 200 members × $500 = $100K pre-revenue to partially offset Phase 0 cost.</div>
+      <div class="cp-meta">
+        <span class="cp-tag">Owner: Anh Bach</span>
+        <span class="cp-tag">End of Month 3</span>
+        <span class="cp-tag">Gate: ≥18 covers/evening avg → GO for Phase 1</span>
+      </div>
+      <div class="cp-status">⬜ PENDING — Evaluated at end of Phase 0</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PHASED TIMELINE -->
+<div class="section">
+  <div class="section-title">Phased Investment Plan</div>
+  <div class="timeline">
+    <div class="phase p0">
+      <div class="phase-num">Phase 0 · Month 1–3</div>
+      <div class="phase-title">Soft Launch</div>
+      <div class="phase-budget">$50K</div>
+      <ul>
+        <li>Invitation-only founding members</li>
+        <li>200 members × $500 = $100K pre-revenue</li>
+        <li>Validate ASP, covers, corporate demand</li>
+        <li>Complete CP1–CP4</li>
+        <li>CP5 evaluation at M3</li>
+      </ul>
+      <div class="phase-gate">🔑 Gate: CP1–4 ✅ before commit</div>
+    </div>
+    <div class="phase p1">
+      <div class="phase-num">Phase 1 · Month 4–6</div>
+      <div class="phase-title">Public Opening</div>
+      <div class="phase-budget">$150K</div>
+      <ul>
+        <li>Full wine inventory build</li>
+        <li>Hire full team (Sommelier + floor staff)</li>
+        <li>Public soft opening</li>
+        <li>Corporate accounts BD push</li>
+        <li>Marketing campaign launch</li>
+      </ul>
+      <div class="phase-gate">🔑 Gate: CP5 ✅ (≥18 covers/eve avg)</div>
+    </div>
+    <div class="phase p2">
+      <div class="phase-num">Phase 2 · Month 7–12</div>
+      <div class="phase-title">Full Operations</div>
+      <div class="phase-budget">$100K</div>
+      <ul>
+        <li>Fit-out upgrades & equipment</li>
+        <li>Private dining / tasting room</li>
+        <li>Events programming full schedule</li>
+        <li>Membership tier expansion</li>
+        <li>Target break-even by M9</li>
+      </ul>
+      <div class="phase-gate">🎯 Target: $80K+/month by M9</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- REVENUE MODEL -->
+<div class="section">
+  <div class="section-title">Revenue Model & Cost Structure</div>
+  <div class="rev-grid">
+    <div class="rev-card">
+      <h4>Revenue Drivers</h4>
+      <div class="rev-row"><span class="k">Evening covers (base)</span><span class="v">23/evening</span></div>
+      <div class="rev-row"><span class="k">Operating days/month</span><span class="v">30 days</span></div>
+      <div class="rev-row"><span class="k">Average Spend per Cover (ASP)</span><span class="v">$118</span></div>
+      <div class="rev-row"><span class="k">Monthly walk-in revenue</span><span class="v">$81,420</span></div>
+      <div class="rev-row"><span class="k">Corporate events (supplemental)</span><span class="v">$15,000+</span></div>
+      <div class="rev-row"><span class="k">Membership fees (founding)</span><span class="v">$100K (Phase 0 one-time)</span></div>
+      <div class="rev-row"><span class="k">Total monthly (base steady-state)</span><span class="v gold">~$96,000</span></div>
+    </div>
+    <div class="rev-card">
+      <h4>Cost Structure</h4>
+      <div class="rev-row"><span class="k">COGS (wine, beverage)</span><span class="v neg">28% of revenue</span></div>
+      <div class="rev-row"><span class="k">Rent / Barson lease</span><span class="v neg">$8,000/mo</span></div>
+      <div class="rev-row"><span class="k">Staff (Sommelier + floor)</span><span class="v neg">$12,000/mo</span></div>
+      <div class="rev-row"><span class="k">Marketing & events</span><span class="v neg">$5,000/mo</span></div>
+      <div class="rev-row"><span class="k">Utilities & consumables</span><span class="v neg">$3,000/mo</span></div>
+      <div class="rev-row"><span class="k">RCC management fee</span><span class="v neg">$2,000/mo</span></div>
+      <div class="rev-row"><span class="k">Depreciation ($300K / 5yr)</span><span class="v neg">$5,000/mo</span></div>
+      <div class="rev-row"><span class="k">Total fixed OpEx</span><span class="v gold">$40,000/mo</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 3-SCENARIO P&L -->
+<div class="section">
+  <div class="section-title">3-Scenario P&L — 12-Month Projection</div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>Line Item</th>
+        <th class="r bear">🔴 Bear Case<br><small>15 cvr · $90 ASP</small></th>
+        <th class="r base">🟡 Base Case<br><small>23 cvr · $118 ASP</small></th>
+        <th class="r bull">🟢 Bull Case<br><small>42 cvr · $130 ASP</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec" colspan="4">Monthly (Steady-State)</td></tr>
+      <tr>
+        <td>Gross Revenue</td>
+        <td class="r">$40,500</td>
+        <td class="r">$81,420</td>
+        <td class="r">$163,800</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px;color:#566070;font-size:12px;">COGS @ 28%</td>
+        <td class="r neg">($11,340)</td>
+        <td class="r neg">($22,798)</td>
+        <td class="r neg">($45,864)</td>
+      </tr>
+      <tr class="total">
+        <td>Gross Profit</td>
+        <td class="r pos-a">$29,160</td>
+        <td class="r pos-b">$58,622</td>
+        <td class="r pos-c">$117,936</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px;color:#566070;font-size:12px;">Fixed OpEx</td>
+        <td class="r neg">($35,000)</td>
+        <td class="r neg">($35,000)</td>
+        <td class="r neg">($35,000)</td>
+      </tr>
+      <tr>
+        <td style="padding-left:28px;color:#566070;font-size:12px;">Depreciation</td>
+        <td class="r neg">($5,000)</td>
+        <td class="r neg">($5,000)</td>
+        <td class="r neg">($5,000)</td>
+      </tr>
+      <tr class="total">
+        <td>EBITDA (pre-depr)</td>
+        <td class="r neg">($5,840)</td>
+        <td class="r pos-b">$23,622</td>
+        <td class="r pos-c">$82,936</td>
+      </tr>
+      <tr class="total">
+        <td><strong>Net Profit / Month</strong></td>
+        <td class="r neg"><strong>($10,840)</strong></td>
+        <td class="r pos-b"><strong>$18,622</strong></td>
+        <td class="r pos-c"><strong>$77,936</strong></td>
+      </tr>
+      <tr><td class="sec" colspan="4">12-Month Cumulative (from Phase 1 month 1)</td></tr>
+      <tr>
+        <td>Cumulative Net (12M)</td>
+        <td class="r neg">($130,080)</td>
+        <td class="r pos-b">$223,464</td>
+        <td class="r pos-c">$935,232</td>
+      </tr>
+      <tr>
+        <td>CAPEX Recovery</td>
+        <td class="r neg">Partial only</td>
+        <td class="r pos-b">~M18 payback</td>
+        <td class="r pos-c">~M7 payback</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SENSITIVITY HEATMAPS -->
+<div class="section">
+  <div class="section-title">Sensitivity Analysis</div>
+  <p style="font-size:13px;color:#6b7a94;margin-bottom:24px;">Monthly Net Profit = (Covers × 30 × ASP × (1 − COGS%)) − $40,000 fixed cost</p>
+
+  <div class="hmap-grid">
+
+    <!-- HEATMAP A -->
+    <div>
+      <div class="hmap-title">Heatmap A — Net Profit by Covers × ASP (COGS = 28%)</div>
+      <div class="heatmap-wrap">
+        <table class="hmap" id="hmapA"></table>
+      </div>
+      <div class="hmap-note">🔴 Loss &nbsp;|&nbsp; 🟡 Near break-even &nbsp;|&nbsp; 🟢 Profitable &nbsp;|&nbsp; 💚 High profit</div>
+    </div>
+
+    <!-- HEATMAP B -->
+    <div>
+      <div class="hmap-title">Heatmap B — Net Profit by Covers × COGS% (ASP = $118)</div>
+      <div class="heatmap-wrap">
+        <table class="hmap" id="hmapB"></table>
+      </div>
+      <div class="hmap-note">Sensitivity to COGS erosion if Park90 exclusivity lost</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- FALL-BACK STRATEGY -->
+<div class="section">
+  <div class="section-title">Fall-Back Strategy — Exit Ramps</div>
+  <div class="fb-grid">
+    <div class="fb-card r1">
+      <div class="fb-ramp">Exit Ramp 1</div>
+      <div class="fb-title">Pivot to Events-Only</div>
+      <div class="fb-row"><span class="lbl">Trigger</span><br><span class="val">Month 4–6: covers avg &lt;15/evening for 6 consecutive weeks</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">Action</span><br><span class="val">Close daily operations. Operate as private event & corporate tasting venue only. 4 events/month × $15K/event.</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">Expected Recovery</span></div>
+      <div class="fb-recovery">$60K/month</div>
+      <div class="fb-row"><span class="val" style="color:#d4a340;">Break-even possible. Minimal staff. Keep lease.</span></div>
+    </div>
+
+    <div class="fb-card r2">
+      <div class="fb-ramp">Exit Ramp 2</div>
+      <div class="fb-title">Sublease + Revenue Share</div>
+      <div class="fb-row"><span class="lbl">Trigger</span><br><span class="val">Month 7–9: events-only not sustainable, or RCC wants to exit operations</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">Action</span><br><span class="val">Sublease concept + fit-out to third-party operator. RCC retains 20% revenue share + brand/IP. Operator takes full P&L risk.</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">CAPEX Recovery Timeline</span></div>
+      <div class="fb-recovery">18–24 months</div>
+      <div class="fb-row"><span class="val" style="color:#fb923c;">Via revenue share stream. Low risk, passive.</span></div>
+    </div>
+
+    <div class="fb-card r3">
+      <div class="fb-ramp">Exit Ramp 3</div>
+      <div class="fb-title">Full Asset Exit</div>
+      <div class="fb-row"><span class="lbl">Trigger</span><br><span class="val">Month 12+: concept not viable, Barson lease issue, or strategic pivot</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">Action</span><br><span class="val">Sell fit-out, equipment, and wine inventory to buyer or at auction. Liquidate all assets. Terminate lease (exit clause required — CP4).</span></div>
+      <br>
+      <div class="fb-row"><span class="lbl">Asset Recovery Estimate</span></div>
+      <div class="fb-recovery">$120–$150K</div>
+      <div class="fb-row"><span class="val" style="color:#f87171;">Max net loss capped at $150K ($300K − $150K recovery)</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- STRATEGIC RATIONALE -->
+<div class="section">
+  <div class="section-title">Strategic Rationale</div>
+  <div class="rationale-grid">
+    <div class="rat-card">
+      <div class="icon">📈</div>
+      <h4>Market Timing</h4>
+      <p>HCMC HNWI count +12% YoY (Knight Frank 2025). Vietnam wine import +18% CAGR 2021–2025. The window is open — early mover advantage in premium urban wine lounge segment.</p>
+    </div>
+    <div class="rat-card">
+      <div class="icon">🍷</div>
+      <h4>Positioning Advantage</h4>
+      <p>Not a "hotel bar" — an "urban wine lounge" with separate branding and entrance. Targets HNWI + corporate entertainment (18,000 potential users), not tourist or casual walk-in.</p>
+    </div>
+    <div class="rat-card">
+      <div class="icon">💰</div>
+      <h4>Park90 COGS Edge</h4>
+      <p>Park90 distributor advantage: –40% COGS via exclusive distribution + prepay discount. Results in 28% COGS vs 35% industry standard. 7-point margin edge = $5,700/month at base case.</p>
+    </div>
+    <div class="rat-card">
+      <div class="icon">⚖️</div>
+      <h4>Legal Structure Separation</h4>
+      <p>Operating entity ≠ Park90 distribution entity. Wine bar buys at market –20% (not –40%). Park90's upside is equity stake + brand showroom for their portfolio. No channel conflict.</p>
+    </div>
+    <div class="rat-card">
+      <div class="icon">🎟️</div>
+      <h4>Founding Members De-risk</h4>
+      <p>Phase 0 invitation-only model: 200 founding members × $500 = $100K pre-revenue. Validates demand before committing Phase 1 capital. Also builds loyal core customer base from day 1.</p>
+    </div>
+    <div class="rat-card">
+      <div class="icon">🔒</div>
+      <h4>Downside Protection</h4>
+      <p>3 structured exit ramps cap maximum loss at $150K on a $300K investment. Phased structure means only $50K at risk until CP5 is validated. Risk-adjusted return profile is favorable.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ACTION ITEMS -->
+<div class="section">
+  <div class="section-title">Action Items — Next Steps</div>
+  <table class="action-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>Owner</th>
+        <th>Timeline</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cp-badge">CP1</span></td>
+        <td>Barson occupancy + foot traffic audit (2-week on-site)</td>
+        <td>Anh Bach</td>
+        <td>Week 1–2</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td><span class="cp-badge">CP2</span></td>
+        <td>Confirm Park90 exclusivity — obtain signed letter of intent / contract</td>
+        <td>Anh Quang</td>
+        <td>Week 1–2</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td><span class="cp-badge">CP3</span></td>
+        <td>Identify & approach Head Sommelier candidate (WSET L3+)</td>
+        <td>RCC / HR</td>
+        <td>Week 2–4</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td><span class="cp-badge">CP4</span></td>
+        <td>Negotiate Barson lease (3yr min, exit clause, separate entrance)</td>
+        <td>Anh Bach / Legal</td>
+        <td>Week 1–3</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Legal entity setup — operator entity separate from Park90 distribution</td>
+        <td>Legal counsel</td>
+        <td>Week 2–4</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Phase 0 budget approval ($50K) and release</td>
+        <td>Anh Quang / RCC</td>
+        <td>Week 2</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Founding Members outreach — curate initial 200-person list, design $500 package</td>
+        <td>Anh Bach</td>
+        <td>Month 1</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Sommelier recruitment campaign (Intercontinental/Sofitel alumni network)</td>
+        <td>RCC / HR</td>
+        <td>Month 1–2</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Phase 0 soft launch — invitation-only operations, track covers/evening weekly</td>
+        <td>Anh Bach (Ops Lead)</td>
+        <td>Month 1–3</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+      <tr>
+        <td><span class="cp-badge">CP5</span></td>
+        <td>Phase 0 gate review — ≥18 covers/evening avg → GO for Phase 1 $150K commit</td>
+        <td>Anh Bach + Anh Quang</td>
+        <td>End of Month 3</td>
+        <td><span class="pending">PENDING</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  Park90 × Barson — Business Plan v2.0 · April 2026 · Royal Canary Corp · Confidential
+</div>
+
+<script>
+// ─── HEATMAP A: Covers × ASP (COGS=28%) ───
+(function() {
+  const covers = [10,15,20,25,30,35,40,45,50];
+  const asps   = [80, 90, 100, 110, 118, 130, 150];
+  const COGS   = 0.28;
+  const FIXED  = 40000;
+
+  function netA(c, asp) {
+    return c * 30 * asp * (1 - COGS) - FIXED;
+  }
+
+  function color(v) {
+    if (v < -20000) return { bg: '#4c0519', text: '#fca5a5' };
+    if (v < 0)      return { bg: '#7f1d1d', text: '#fca5a5' };
+    if (v < 5000)   return { bg: '#451a03', text: '#fde68a' };
+    if (v < 20000)  return { bg: '#713f12', text: '#fde68a' };
+    if (v < 50000)  return { bg: '#14532d', text: '#86efac' };
+    if (v < 100000) return { bg: '#166534', text: '#4ade80' };
+    return              { bg: '#052e16', text: '#22c55e' };
+  }
+
+  const t = document.getElementById('hmapA');
+  let html = '<thead><tr><th class="row-header">Covers/Eve ↓ · ASP →</th>';
+  asps.forEach(a => { html += `<th>$${a}</th>`; });
+  html += '</tr></thead><tbody>';
+
+  covers.forEach(c => {
+    html += `<tr><td class="row-label">${c} covers</td>`;
+    asps.forEach(a => {
+      const v = netA(c, a);
+      const cl = color(v);
+      const label = v >= 0 ? `+$${Math.round(v/1000)}K` : `-$${Math.round(Math.abs(v)/1000)}K`;
+      html += `<td style="background:${cl.bg};color:${cl.text};">${label}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  t.innerHTML = html;
+})();
+
+// ─── HEATMAP B: Covers × COGS% (ASP=$118) ───
+(function() {
+  const covers = [10,15,20,25,30,35,40,45,50];
+  const cogsPcts = [0.28, 0.30, 0.32, 0.35];
+  const ASP  = 118;
+  const FIXED = 40000;
+
+  function netB(c, cogs) {
+    return c * 30 * ASP * (1 - cogs) - FIXED;
+  }
+
+  function color(v) {
+    if (v < -20000) return { bg: '#4c0519', text: '#fca5a5' };
+    if (v < 0)      return { bg: '#7f1d1d', text: '#fca5a5' };
+    if (v < 5000)   return { bg: '#451a03', text: '#fde68a' };
+    if (v < 20000)  return { bg: '#713f12', text: '#fde68a' };
+    if (v < 50000)  return { bg: '#14532d', text: '#86efac' };
+    if (v < 100000) return { bg: '#166534', text: '#4ade80' };
+    return              { bg: '#052e16', text: '#22c55e' };
+  }
+
+  const t = document.getElementById('hmapB');
+  let html = '<thead><tr><th class="row-header">Covers/Eve ↓ · COGS% →</th>';
+  cogsPcts.forEach(p => { html += `<th>${Math.round(p*100)}%</th>`; });
+  html += '</tr></thead><tbody>';
+
+  covers.forEach(c => {
+    html += `<tr><td class="row-label">${c} covers</td>`;
+    cogsPcts.forEach(p => {
+      const v = netB(c, p);
+      const cl = color(v);
+      const label = v >= 0 ? `+$${Math.round(v/1000)}K` : `-$${Math.round(Math.abs(v)/1000)}K`;
+      html += `<td style="background:${cl.bg};color:${cl.text};">${label}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  t.innerHTML = html;
+})();
+</script>
+
+</body>
+</html>
