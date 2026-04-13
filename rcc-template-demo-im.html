@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCC · Investment Memo — Lam Ngọc Villas · Tuần Châu</title>
+<style>
+  /* ═══════════════════════════════════════
+     RCC TEMPLATE: HYBRID
+     Header: Dark Navy · Body: Light/White
+     Dùng cho: Investment Memo, Strategic Presentation, Board Deck
+  ═══════════════════════════════════════ */
+  :root {
+    --navy:       #0d1829;
+    --navy-mid:   #152033;
+    --navy-light: #1e2f47;
+    --vang:       #c9a84c;
+    --vang-nhat:  #e8c96a;
+    --trang:      #ffffff;
+    --xam-nen:    #f6f7f9;
+    --xam-vien:   #e2e6ec;
+    --xam-nhat:   #f0f2f5;
+    --chu-dam:    #0d1829;
+    --chu-tb:     #3a4a5e;
+    --chu-nhat:   #6b7c93;
+    --do:         #c0392b;
+    --xanh-la:    #27ae60;
+    --xanh-duong: #2563eb;
+    --cam:        #e67e22;
+    --accent:     #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: var(--xam-nen);
+    color: var(--chu-dam);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ─── HEADER DARK ─── */
+  .im-header {
+    background: var(--navy);
+    padding: 36px 48px 32px;
+    border-bottom: 3px solid var(--vang);
+  }
+  .im-header-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .im-logo {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .im-logo-box {
+    width: 36px; height: 36px; background: var(--vang);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; color: var(--navy);
+  }
+  .im-logo-text { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; }
+  .im-logo-sub { color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 1px; }
+  .im-badges { display: flex; gap: 8px; align-items: center; }
+  .im-badge {
+    padding: 4px 12px; border-radius: 4px; font-size: 10px;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .badge-conf { background: rgba(201,168,76,0.2); color: var(--vang); border: 1px solid rgba(201,168,76,0.3); }
+  .badge-ver { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+
+  .im-title-block { max-width: 720px; }
+  .im-eyebrow {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--vang); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .im-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--vang); }
+  .im-title {
+    font-size: 32px; font-weight: 700; color: #fff;
+    line-height: 1.15; margin-bottom: 8px;
+  }
+  .im-title span { color: var(--vang); }
+  .im-subtitle { font-size: 14px; color: rgba(255,255,255,0.55); }
+
+  .im-meta-row {
+    display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px; margin-top: 4px;
+  }
+  .im-meta-item {
+    flex: 1; padding-right: 24px; border-right: 1px solid rgba(255,255,255,0.08);
+    margin-right: 24px;
+  }
+  .im-meta-item:last-child { border-right: none; margin-right: 0; }
+  .im-meta-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+  .im-meta-val { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  /* ─── BODY LIGHT ─── */
+  .im-body { padding: 0 48px 48px; background: var(--xam-nen); }
+
+  /* ─── SUMMARY BAR ─── */
+  .summary-bar {
+    background: var(--navy-mid);
+    border-radius: 0 0 12px 12px;
+    padding: 20px 28px;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin-bottom: 32px;
+  }
+  .sum-item {
+    text-align: center; padding: 0 16px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .sum-item:last-child { border-right: none; }
+  .sum-num { font-size: 22px; font-weight: 700; color: var(--vang); line-height: 1; margin-bottom: 4px; }
+  .sum-label { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 28px; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 20px; background: var(--navy);
+    border-radius: 8px 8px 0 0; border-left: 3px solid var(--vang);
+  }
+  .section-num {
+    width: 22px; height: 22px; background: var(--vang);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; color: var(--navy); flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; }
+  .section-body {
+    background: var(--trang); border: 1px solid var(--xam-vien);
+    border-top: none; border-radius: 0 0 8px 8px; padding: 20px 24px;
+  }
+
+  /* ─── GRID ─── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .g2-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  .g1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
+
+  /* ─── CARD NỘI DUNG ─── */
+  .card {
+    background: var(--xam-nhat); border: 1px solid var(--xam-vien);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .card-title {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--chu-nhat); margin-bottom: 12px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card-title::before { content: ''; width: 14px; height: 1px; background: var(--accent); }
+
+  /* ─── BẢNG SỐ LIỆU ─── */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table thead tr { background: var(--navy); }
+  .data-table thead th {
+    padding: 9px 12px; font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    text-align: left; font-weight: 600;
+  }
+  .data-table tbody tr { border-bottom: 1px solid var(--xam-vien); }
+  .data-table tbody tr:last-child { border-bottom: none; }
+  .data-table tbody tr:hover { background: var(--xam-nhat); }
+  .data-table tbody td { padding: 10px 12px; font-size: 12.5px; color: var(--chu-tb); }
+  .data-table tbody td:first-child { font-weight: 600; color: var(--chu-dam); }
+  .data-table tbody td.accent { color: var(--accent); font-weight: 700; }
+  .data-table tbody td.do { color: var(--do); font-weight: 600; }
+  .data-table tbody td.xanh { color: var(--xanh-la); font-weight: 600; }
+
+  /* ─── SỐ LIỆU LỚN ─── */
+  .metric-block { text-align: center; padding: 16px 12px; }
+  .metric-num { font-size: 28px; font-weight: 700; color: var(--chu-dam); line-height: 1; margin-bottom: 4px; }
+  .metric-num.vang { color: var(--accent); }
+  .metric-num.xanh { color: var(--xanh-la); }
+  .metric-num.do { color: var(--do); }
+  .metric-label { font-size: 10px; color: var(--chu-nhat); letter-spacing: 1px; text-transform: uppercase; }
+  .metric-sub { font-size: 11px; color: var(--chu-nhat); margin-top: 3px; }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: var(--xam-vien); margin: 16px 0; }
+
+  /* ─── LIST ─── */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .check-list li { display: flex; gap: 8px; font-size: 12.5px; color: var(--chu-tb); }
+  .check-list li::before { content: '✓'; color: var(--xanh-la); font-weight: 700; flex-shrink: 0; }
+  .risk-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .risk-list li { display: flex; gap: 8px; font-size: 12.5px; color: var(--chu-tb); }
+  .risk-list li::before { content: '↑'; color: var(--do); font-weight: 700; flex-shrink: 0; }
+
+  /* ─── STATUS PILL ─── */
+  .pill {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .pill-xanh { background: rgba(39,174,96,0.12); color: var(--xanh-la); }
+  .pill-do { background: rgba(192,57,43,0.12); color: var(--do); }
+  .pill-vang { background: rgba(201,168,76,0.15); color: #8a6d1e; }
+  .pill-xam { background: var(--xam-vien); color: var(--chu-nhat); }
+
+  /* ─── ACTION BOX ─── */
+  .action-box {
+    background: var(--navy); border-radius: 8px; padding: 18px 22px; margin-top: 28px;
+  }
+  .action-box-title {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--vang); margin-bottom: 14px; font-weight: 700;
+  }
+  .action-items { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .action-item { text-align: center; }
+  .action-step {
+    width: 32px; height: 32px; background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: var(--vang);
+    margin: 0 auto 8px;
+  }
+  .action-text { font-size: 11.5px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .action-text strong { color: rgba(255,255,255,0.9); }
+
+  /* ─── FOOTER ─── */
+  .im-footer {
+    margin: 0 48px; padding: 16px 0;
+    border-top: 1px solid var(--xam-vien);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: var(--chu-nhat); letter-spacing: 0.5px;
+  }
+
+  /* ─── KHUNG BÊN TRÁI CÓ MÀU ─── */
+  .inset { border-left: 3px solid var(--accent); padding-left: 14px; }
+  .inset.do { border-left-color: var(--do); }
+  .inset.xanh { border-left-color: var(--xanh-la); }
+
+  /* ─── SCENARIO TABLE ─── */
+  .scenario-row {
+    display: grid; grid-template-columns: 120px 1fr 1fr 1fr 1fr;
+    gap: 0; border-bottom: 1px solid var(--xam-vien); align-items: center;
+  }
+  .scenario-row:last-child { border-bottom: none; }
+  .scenario-row.head { background: var(--navy); border-radius: 6px 6px 0 0; }
+  .scenario-row.head .sc-cell { color: rgba(255,255,255,0.6); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .scenario-row.highlight { background: rgba(201,168,76,0.06); }
+  .sc-cell { padding: 10px 14px; font-size: 12.5px; }
+  .sc-label { font-weight: 700; color: var(--chu-dam); }
+  .sc-rec {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 768px) {
+    .im-header, .im-body { padding: 24px 20px; }
+    .im-footer { margin: 0 20px; }
+    .summary-bar { grid-template-columns: repeat(3,1fr); }
+    .g2, .g3, .g2-3, .g1-2 { grid-template-columns: 1fr; }
+    .action-items { grid-template-columns: repeat(2,1fr); }
+    .im-title { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER DARK ═══ -->
+<div class="im-header">
+  <div class="im-header-top">
+    <div class="im-logo">
+      <div class="im-logo-box">R</div>
+      <div>
+        <div class="im-logo-text">Royal Canary Corp</div>
+        <div class="im-logo-sub">INVESTMENT MEMO · Prj_TC</div>
+      </div>
+    </div>
+    <div class="im-badges">
+      <span class="im-badge badge-conf">BÍ MẬT</span>
+      <span class="im-badge badge-ver">v1.0 · 08/04/2026</span>
+    </div>
+  </div>
+
+  <div class="im-title-block">
+    <div class="im-eyebrow">Investment Memo</div>
+    <h1 class="im-title">Khu Biệt Thự <span>Lam Ngọc</span><br>Tuần Châu, Hạ Long</h1>
+    <p class="im-subtitle">Đề xuất mua lại, phát triển và vận hành — Phân tích tài chính, rủi ro và chiến lược thương hiệu</p>
+  </div>
+
+  <div class="im-meta-row">
+    <div class="im-meta-item">
+      <div class="im-meta-label">Mã Dự Án</div>
+      <div class="im-meta-val">Prj_TC — Tuần Châu</div>
+    </div>
+    <div class="im-meta-item">
+      <div class="im-meta-label">Loại Tài Sản</div>
+      <div class="im-meta-val">Biệt thự ven vịnh · Luxury Resort</div>
+    </div>
+    <div class="im-meta-item">
+      <div class="im-meta-label">Các Bên Liên Quan</div>
+      <div class="im-meta-val">RCC · Jen Tuần Châu · T&H · Jen Capital</div>
+    </div>
+    <div class="im-meta-item">
+      <div class="im-meta-label">Phụ Trách</div>
+      <div class="im-meta-val">Sơn (Acquisition) · Dung (Finance) · Bach (Sales)</div>
+    </div>
+    <div class="im-meta-item">
+      <div class="im-meta-label">Trạng Thái</div>
+      <div class="im-meta-val" style="color:var(--vang-nhat);">🟡 Đang Đàm Phán</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUMMARY BAR ═══ -->
+<div class="im-body">
+  <div class="summary-bar">
+    <div class="sum-item">
+      <div class="sum-num">$147M</div>
+      <div class="sum-label">GDV · Mid Scenario</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">$50M</div>
+      <div class="sum-label">Biên Lợi Nhuận (34%)</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">$28M</div>
+      <div class="sum-label">Chi Phí Đất Thực Tế</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">15T</div>
+      <div class="sum-label">Tốc Độ Bán Dự Kiến</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">Anantara</div>
+      <div class="sum-label">Thương Hiệu Khuyến Nghị</div>
+    </div>
+  </div>
+
+  <!-- 1. CẤU TRÚC GIAO DỊCH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Cấu Trúc Giao Dịch</div>
+    </div>
+    <div class="section-body">
+      <div class="g2">
+        <div>
+          <div class="card-title">Các Bên Tham Gia</div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Bên</th><th>Vai Trò</th><th>Ghi Chú</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>RCC</td>
+                <td>Bên Mua</td>
+                <td class="xanh">Chủ đạo</td>
+              </tr>
+              <tr>
+                <td>Jen Tuần Châu</td>
+                <td>Bên Nhận Chuyển Tên</td>
+                <td><span class="pill pill-vang">Cần xác nhận</span></td>
+              </tr>
+              <tr>
+                <td>T&H</td>
+                <td>Vận Hành Hạ Tầng Chung</td>
+                <td>Shared infrastructure</td>
+              </tr>
+              <tr>
+                <td>Jen Capital</td>
+                <td>Bên Cho Vay</td>
+                <td>Đảo Ngọc ~$6.75M</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="card-title">Điều Kiện Quan Trọng</div>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+            <div class="inset">
+              <div style="font-size:11px;font-weight:700;color:var(--chu-dam);margin-bottom:3px;">Vay cổ đông Đảo Ngọc (~$6.75M)</div>
+              <div style="font-size:12px;color:var(--chu-tb);">Subordinated loan — sẽ được offset vào giá bán. Ưu tiên xử lý trong đàm phán.</div>
+            </div>
+            <div class="inset">
+              <div style="font-size:11px;font-weight:700;color:var(--chu-dam);margin-bottom:3px;">Escrow $2M có điều kiện</div>
+              <div style="font-size:12px;color:var(--chu-tb);">Giữ lại đến khi hoàn thành phê duyệt pháp lý. Giảm rủi ro regulatory cho RCC.</div>
+            </div>
+            <div class="inset do">
+              <div style="font-size:11px;font-weight:700;color:var(--chu-dam);margin-bottom:3px;">ROFR / Tag-Along Risk</div>
+              <div style="font-size:12px;color:var(--chu-tb);">Cần kiểm tra quyền ưu tiên mua và quyền bán kèm trong hợp đồng gốc.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MÔ HÌNH TÀI CHÍNH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Mô Hình Tài Chính — Sensitivity Analysis</div>
+    </div>
+    <div class="section-body">
+      <div class="g3" style="margin-bottom:20px;">
+        <div class="card">
+          <div class="card-title">Giả Định Đầu Vào</div>
+          <div style="display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--chu-tb);">
+            <div style="display:flex; justify-content:space-between;"><span>Chi phí XD (shell)</span><span style="font-weight:600;">45 tr/m²</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Soft cost</span><span style="font-weight:600;">8%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Contingency</span><span style="font-weight:600;">8%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>LTV</span><span style="font-weight:600;">70%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Lãi suất</span><span style="font-weight:600;">9.5% / 10.5%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>SG&A</span><span style="font-weight:600;">6%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>CIT</span><span style="font-weight:600;">20%</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tiến Độ Thanh Toán</div>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--chu-tb);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Ký HĐ</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div style="width:60px; height:6px; background:var(--xam-vien); border-radius:3px; overflow:hidden;">
+                  <div style="width:30%; height:100%; background:var(--accent);"></div>
+                </div>
+                <span style="font-weight:700;">30%</span>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Khởi công</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div style="width:60px; height:6px; background:var(--xam-vien); border-radius:3px; overflow:hidden;">
+                  <div style="width:25%; height:100%; background:var(--accent);"></div>
+                </div>
+                <span style="font-weight:700;">25%</span>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Cất nóc</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div style="width:60px; height:6px; background:var(--xam-vien); border-radius:3px; overflow:hidden;">
+                  <div style="width:20%; height:100%; background:var(--accent);"></div>
+                </div>
+                <span style="font-weight:700;">20%</span>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Bàn giao</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div style="width:60px; height:6px; background:var(--xam-vien); border-radius:3px; overflow:hidden;">
+                  <div style="width:20%; height:100%; background:var(--accent);"></div>
+                </div>
+                <span style="font-weight:700;">20%</span>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Sổ đỏ</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <div style="width:60px; height:6px; background:var(--xam-vien); border-radius:3px; overflow:hidden;">
+                  <div style="width:5%; height:100%; background:var(--accent);"></div>
+                </div>
+                <span style="font-weight:700;">5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Chi Phí Đất — v1 vs v2</div>
+          <div style="display:flex; flex-direction:column; gap:12px; font-size:12px; color:var(--chu-tb);">
+            <div style="padding:10px; background:var(--xam-vien); border-radius:6px;">
+              <div style="font-size:10px;color:var(--chu-nhat);margin-bottom:4px;">v1 — Giả định ban đầu</div>
+              <div style="font-size:20px; font-weight:700; color:var(--chu-dam);">$8M</div>
+            </div>
+            <div style="padding:10px; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2); border-radius:6px;">
+              <div style="font-size:10px;color:var(--chu-nhat);margin-bottom:4px;">v2 — Chi phí đất thực tế</div>
+              <div style="font-size:20px; font-weight:700; color:var(--do);">$28M</div>
+              <div style="font-size:11px;color:var(--chu-nhat);margin-top:3px;">Margin giảm từ 53% → 34%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENARIO TABLE -->
+      <div style="background:var(--xam-nhat); border:1px solid var(--xam-vien); border-radius:8px; overflow:hidden; margin-top:4px;">
+        <div class="scenario-row head">
+          <div class="sc-cell sc-label" style="color:rgba(255,255,255,0.6);">Kịch bản</div>
+          <div class="sc-cell" style="color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:1px;text-transform:uppercase;">GDV</div>
+          <div class="sc-cell" style="color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:1px;text-transform:uppercase;">Biên LN</div>
+          <div class="sc-cell" style="color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:1px;text-transform:uppercase;">Tốc Độ Bán</div>
+          <div class="sc-cell" style="color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:1px;text-transform:uppercase;">Ghi Chú</div>
+        </div>
+        <div class="scenario-row">
+          <div class="sc-cell sc-label" style="color:var(--do);">Thấp</div>
+          <div class="sc-cell">$110M</div>
+          <div class="sc-cell do">22%</div>
+          <div class="sc-cell">24 tháng</div>
+          <div class="sc-cell"><span class="pill pill-do">Rủi ro cao</span></div>
+        </div>
+        <div class="scenario-row highlight">
+          <div class="sc-cell sc-label" style="color:var(--accent);">Trung bình ★</div>
+          <div class="sc-cell accent">$147M</div>
+          <div class="sc-cell accent">34%</div>
+          <div class="sc-cell accent">15 tháng</div>
+          <div class="sc-cell">
+            <div class="sc-rec">★ Khuyến nghị</div>
+          </div>
+        </div>
+        <div class="scenario-row">
+          <div class="sc-cell sc-label" style="color:var(--xanh-la);">Cao</div>
+          <div class="sc-cell">$185M</div>
+          <div class="sc-cell xanh">48%</div>
+          <div class="sc-cell">10 tháng</div>
+          <div class="sc-cell"><span class="pill pill-xanh">Tốt nhất</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ĐÀM PHÁN & RỦI RO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Chiến Lược Đàm Phán & Rủi Ro</div>
+    </div>
+    <div class="section-body">
+      <div class="g2">
+        <div>
+          <div class="card-title">Lập Luận Đàm Phán Chính</div>
+          <ul class="check-list">
+            <li><strong>Shareholder loan offset</strong> — Vay cổ đông ~$6.75M cần được trừ vào giá bán, không thể tính riêng</li>
+            <li><strong>Land-only risk discount</strong> — Đất chưa có hạ tầng hoàn chỉnh → chiết khấu rủi ro phát triển</li>
+            <li><strong>Escrow $2M</strong> — Giữ lại có điều kiện cho đến khi regulatory approval hoàn tất</li>
+            <li><strong>FX timing</strong> — VND yếu tạo thời điểm thuận lợi để chốt deal bằng USD</li>
+          </ul>
+        </div>
+        <div>
+          <div class="card-title">Rủi Ro Cần Quản Lý</div>
+          <ul class="risk-list">
+            <li><strong>ROFR / Tag-Along</strong> — Kiểm tra quyền ưu tiên mua trong hợp đồng gốc Jen Tuần Châu</li>
+            <li><strong>Pháp lý đất</strong> — GCN QSDĐ có discrepancy cần xử lý với Sở Xây Dựng trước khi chuyển nhượng</li>
+            <li><strong>T&H infrastructure</strong> — Điều khoản dùng chung hạ tầng cần được định nghĩa rõ trong hợp đồng</li>
+            <li><strong>Đào Anh Tuấn (2007–2011)</strong> — Rủi ro góp vốn lịch sử, xác suất thấp nhưng cần kiểm tra</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. THƯƠNG HIỆU & VẬN HÀNH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Chiến Lược Thương Hiệu & Vận Hành</div>
+    </div>
+    <div class="section-body">
+      <div class="g2-3">
+        <div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Thương Hiệu</th><th>Phù Hợp</th><th>Khả Năng JV</th><th>Ghi Chú</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Anantara ★</td>
+                <td class="xanh">Rất cao</td>
+                <td class="xanh">Cao</td>
+                <td><span class="pill pill-xanh">Khuyến nghị</span></td>
+              </tr>
+              <tr>
+                <td>Six Senses</td>
+                <td class="xanh">Cao</td>
+                <td>Trung bình</td>
+                <td>Wellness focus</td>
+              </tr>
+              <tr>
+                <td>Rosewood</td>
+                <td>Trung bình</td>
+                <td>Cao</td>
+                <td>Đang mở rộng SEA</td>
+              </tr>
+              <tr>
+                <td>RCC Độc Lập</td>
+                <td>Thấp</td>
+                <td class="pill pill-xam">—</td>
+                <td>Thiếu brand equity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div class="card">
+            <div class="card-title">Mô Hình Vận Hành</div>
+            <div style="font-size:12px; color:var(--chu-tb); line-height:1.7;">
+              RCC đóng vai trò <strong>landowner + developer</strong>. Anantara hoặc đối tác thương hiệu đóng vai trò <strong>operator + brand</strong> thông qua HMA có kỳ hạn. Doanh thu chia theo tỷ lệ đã thống nhất, không cần RCC vận hành hàng ngày.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Lý Do Chọn Anantara</div>
+            <ul class="check-list" style="font-size:12px;">
+              <li>Đã có nhiều property tại Việt Nam — hiểu thị trường địa phương</li>
+              <li>Phong cách phù hợp với bối cảnh vịnh Hạ Long (Southeast Asian luxury)</li>
+              <li>Điều khoản HMA linh hoạt hơn so với Aman/Six Senses</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. PHÂN CÔNG & BƯỚC TIẾP THEO -->
+  <div class="action-box">
+    <div class="action-box-title">⚡ Bước Tiếp Theo — Phân Công Rõ Ràng</div>
+    <div class="action-items">
+      <div class="action-item">
+        <div class="action-step">S</div>
+        <div class="action-text"><strong>Sơn · Acquisition</strong><br>Xác minh ROFR/Tag-Along trong hợp đồng gốc. Báo cáo trong 7 ngày.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-step">D</div>
+        <div class="action-text"><strong>Dung · Finance</strong><br>Cập nhật mô hình tài chính v2 với chi phí đất $28M. Sensitivity 7 kịch bản.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-step">C</div>
+        <div class="action-text"><strong>Cả · Legal</strong><br>Kiểm tra GCN QSDĐ, rủi ro Đào Anh Tuấn và điều khoản T&H infrastructure.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-step">B</div>
+        <div class="action-text"><strong>Bach · Sales</strong><br>Tiếp cận Anantara SEA development team. Thăm dò điều khoản HMA sơ bộ.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="im-footer">
+  <div>ROYAL CANARY CORP · BÍ MẬT · CHỈ SỬ DỤNG NỘI BỘ · Prj_TC v1.0</div>
+  <div>Tháng 4/2026 · Zera Strategic Intelligence</div>
+</div>
+
+</body>
+</html>
