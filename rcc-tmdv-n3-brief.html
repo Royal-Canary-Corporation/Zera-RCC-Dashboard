@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khu Đất TMDV – N3 · Phước Thiện · Long Bình</title>
+<style>
+:root {
+  --navy: #0d1829;
+  --gold: #c9a84c;
+  --white: #ffffff;
+  --gray-bg: #f4f6f9;
+  --gray-border: #e2e6ec;
+  --text-dark: #0d1829;
+  --text-mid: #3a4a5e;
+  --text-light: #6b7c93;
+  --green: #27ae60;
+  --red: #c0392b;
+  --amber: #e67e22;
+  --blue: #2563eb;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--gray-bg);
+  color: var(--text-dark);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.trang { max-width: 900px; margin: 0 auto; padding: 0 0 60px; }
+
+/* HEADER */
+.header {
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+  padding: 32px 40px 28px;
+}
+.header-eyebrow {
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.header-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.header h1 {
+  font-size: 22px; font-weight: 700; color: #fff;
+  line-height: 1.2; margin-bottom: 6px;
+}
+.header h1 span { color: var(--gold); }
+.header-sub { font-size: 12px; color: rgba(255,255,255,0.45); }
+.header-meta {
+  display: flex; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 16px; margin-top: 20px;
+}
+.meta-item { flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.08); margin-right: 20px; }
+.meta-item:last-child { border-right: none; margin-right: 0; }
+.meta-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
+.meta-val { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+/* BODY */
+.body { padding: 0 40px; }
+
+/* SECTION */
+.sec-hdr {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); padding: 11px 18px;
+  border-left: 4px solid var(--gold);
+  border-radius: 6px 6px 0 0; margin-top: 24px;
+}
+.sec-num {
+  width: 24px; height: 24px; background: var(--gold);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--navy); flex-shrink: 0;
+}
+.sec-title { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
+.sec-body {
+  background: var(--white); border: 1px solid var(--gray-border);
+  border-top: none; border-radius: 0 0 6px 6px; padding: 20px 22px;
+}
+
+/* SOLUTION BOX */
+.solution-box {
+  background: linear-gradient(135deg, #064e3b, #065f46);
+  border-radius: 8px; padding: 22px 26px; margin-bottom: 16px; color: white;
+}
+.sol-nhan { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+.sol-ket { font-size: 20px; font-weight: 800; color: #34d399; margin-bottom: 6px; }
+.sol-mo { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+.sol-items { display: flex; flex-direction: column; gap: 12px; }
+.sol-item {
+  background: rgba(255,255,255,0.08); border-radius: 6px;
+  padding: 14px 16px; border-left: 3px solid #34d399;
+}
+.sol-item-num { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #34d399; margin-bottom: 5px; font-weight: 700; }
+.sol-item-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+.sol-item-desc { font-size: 11.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.sol-item-note { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 6px; font-style: italic; }
+
+/* RISK BOX */
+.risk-box {
+  background: rgba(26,15,15,0.05); border: 1px solid rgba(192,57,43,0.3);
+  border-left: 3px solid var(--red); border-radius: 6px; padding: 14px 18px;
+}
+.risk-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; font-weight: 700; }
+.risk-item { display: flex; gap: 8px; padding: 5px 0; font-size: 12px; color: var(--text-mid); border-bottom: 1px solid rgba(192,57,43,0.1); }
+.risk-item:last-child { border-bottom: none; }
+.risk-item::before { content: '↑'; color: var(--red); flex-shrink: 0; font-weight: 700; }
+
+/* BẢNG */
+.bang { width: 100%; border-collapse: collapse; font-size: 12px; }
+.bang thead tr { background: var(--navy); }
+.bang thead th {
+  padding: 9px 12px; font-size: 10px; letter-spacing: 0.5px;
+  text-transform: uppercase; color: rgba(255,255,255,0.7);
+  text-align: left; font-weight: 600;
+}
+.bang thead th.r { text-align: right; }
+.bang tbody tr { border-bottom: 1px solid var(--gray-border); }
+.bang tbody tr:hover { background: #f8fafc; }
+.bang tbody tr:last-child { border-bottom: none; }
+.bang tbody td { padding: 9px 12px; color: var(--text-mid); }
+.bang tbody td.bold { font-weight: 700; color: var(--text-dark); }
+.bang tbody td.r { text-align: right; }
+.bang tbody td.vang { color: var(--gold); font-weight: 700; }
+.bang tbody td.xanh { color: var(--green); font-weight: 600; }
+.bang tfoot td { background: #f0f2f5; font-weight: 700; color: var(--navy); padding: 9px 12px; border-top: 2px solid var(--navy); }
+.hang-cong { background: #f0f4ff !important; }
+.hang-cong td { color: var(--blue) !important; font-weight: 600; }
+
+/* CARDS */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.card {
+  background: var(--gray-bg); border: 1px solid var(--gray-border);
+  border-radius: 6px; padding: 14px 16px;
+}
+.card-label {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.card-label::before { content: ''; width: 12px; height: 1px; background: var(--gold); }
+.card-num { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.card-sub { font-size: 11px; color: var(--text-light); line-height: 1.5; }
+
+/* GIÁ */
+.gia-block { display: flex; flex-direction: column; gap: 8px; }
+.gia-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-radius: 6px; font-size: 12px;
+}
+.gia-row.trong-qh { background: rgba(37,99,235,0.08); border-left: 3px solid var(--blue); }
+.gia-row.ngoai-qh { background: rgba(107,124,147,0.08); border-left: 3px solid var(--text-light); }
+.gia-ten { color: var(--text-mid); }
+.gia-val { font-weight: 700; color: var(--navy); }
+
+/* INSET */
+.inset { border-left: 3px solid var(--gold); padding-left: 12px; margin-bottom: 10px; }
+.inset.xanh { border-left-color: var(--green); }
+.inset.cam { border-left-color: var(--amber); }
+
+/* FOOTER */
+.footer {
+  background: var(--navy); padding: 16px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.3px;
+  margin-top: 32px;
+}
+
+@media (max-width: 640px) {
+  .header, .body { padding: 20px; }
+  .footer { padding: 16px 20px; flex-direction: column; gap: 6px; text-align: center; }
+  .g2, .g3 { grid-template-columns: 1fr; }
+  .header-meta { flex-direction: column; gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="trang">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">RCC · Báo Cáo Khảo Sát · Nội Bộ</div>
+  <h1>Khu Đất <span>TMDV – N3</span><br>Đường Phước Thiện · Long Bình · TP Thủ Đức</h1>
+  <p class="header-sub">Khảo sát hiện trạng, pháp lý và đề xuất phương án mua</p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <div class="meta-label">Ngày Báo Cáo</div>
+      <div class="meta-val">13/04/2026</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Tổng Diện Tích Quy Hoạch</div>
+      <div class="meta-val">~1.6 ha (16,222 m²)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">DT Cần Mua Thực Tế</div>
+      <div class="meta-val">~19,437 m² (gồm liền thửa)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Phân Loại Quy Hoạch</div>
+      <div class="meta-val">Đất TMDV · TP Thủ Đức đã phê duyệt</div>
+    </div>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- GIẢI PHÁP -->
+<div class="sec-hdr"><div class="sec-num">1</div><div class="sec-title">Giải Pháp Đề Xuất</div></div>
+<div class="sec-body">
+  <div class="solution-box">
+    <div class="sol-nhan">Phương Án Đề Xuất</div>
+    <div class="sol-ket">✅ TRIỂN KHAI SONG SONG</div>
+    <div class="sol-mo">Mua 4 thửa tư nhân (~14,648 m², tổng cần ~19,437 m² gồm liền thửa) đồng thời lập hồ sơ dự án — để tránh rủi ro chủ đầu tư khác được phê duyệt trước. Chi tiết từng thửa xem Bảng 1.</div>
+    <div class="sol-items">
+      <div class="sol-item">
+        <div class="sol-item-num">Việc 1 — Lập & Nộp Hồ Sơ Dự Án</div>
+        <div class="sol-item-title">Xin phê duyệt dự án trên 1.6ha đất TMDV</div>
+        <div class="sol-item-desc">Quy hoạch đã được TP Thủ Đức phê duyệt đúng mục đích → thủ tục xin dự án sẽ được chấp thuận theo quy định. Cần làm sớm để tránh rủi ro chủ đầu tư khác được phê duyệt trước.</div>
+      </div>
+      <div class="sol-item">
+        <div class="sol-item-num">Việc 2 — Lập Team Mua Đất</div>
+        <div class="sol-item-title">Mua 4 thửa tư nhân (thửa 1→4) · ~14,648 m² trong quy hoạch</div>
+        <div class="sol-item-desc">Vai trò mua: nhà đầu tư — nếu có dự án bán lại, nếu không vẫn nắm đất vị trí tốt. Team báo giá từng thửa/từng hộ theo thực tế đàm phán.</div>
+        <div class="sol-item-note">Thửa 5 & 6 (đất UBND phường): không cần mua — phường thu hồi và giao cho chủ đầu tư dự án khi được phê duyệt.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RỦI RO -->
+<div class="sec-hdr"><div class="sec-num">2</div><div class="sec-title">Rủi Ro Cần Biết</div></div>
+<div class="sec-body">
+  <div class="risk-box">
+    <div class="risk-title">Rủi Ro Chính</div>
+    <div class="risk-item">Nếu chậm → chính quyền có thể phê duyệt dự án cho chủ đầu tư khác trước khi mình xin được</div>
+    <div class="risk-item">Khi đó: chỉ còn lựa chọn đàm phán bán lại đất cho chủ đầu tư được phê duyệt — mất quyền chủ động</div>
+    <div class="risk-item">Giải pháp giảm thiểu: lập hồ sơ dự án ngay, song song với việc mua đất — không làm tuần tự</div>
+  </div>
+</div>
+
+<!-- BẢNG CÁC THỬA -->
+<div class="sec-hdr"><div class="sec-num">3</div><div class="sec-title">Bảng 1 — Chi Tiết Các Thửa Đất</div></div>
+<div class="sec-body">
+  <table class="bang">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Thửa</th>
+        <th class="r">DT Toàn Thửa (m²)</th>
+        <th class="r">DT Trong QH (m²)</th>
+        <th class="r">DT Cần Mua (m²)</th>
+        <th>Chủ Đất</th>
+        <th>Hiện Trạng</th>
+        <th>Khả Năng Mua</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">1</td>
+        <td class="bold">113 / TBĐ 110</td>
+        <td class="r">9,049</td>
+        <td class="r">3,970</td>
+        <td class="r vang">5,232</td>
+        <td>4 anh chị em: Thủy, Thu, Lâu, Sang</td>
+        <td>Cho thuê bán hàng ăn & bãi xe · mặt đường Phước Thiện</td>
+        <td><span style="color:var(--green);font-weight:700;">✓ Có thể mua</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2</td>
+        <td class="bold">112 / TBĐ 110</td>
+        <td class="r">933</td>
+        <td class="r">933</td>
+        <td class="r vang">1,021</td>
+        <td>Chưa có thông tin</td>
+        <td>Đất trống</td>
+        <td><span style="color:var(--green);font-weight:700;">✓ Có thể mua</span></td>
+      </tr>
+      <tr>
+        <td class="bold">3</td>
+        <td class="bold">111 / TBĐ 110</td>
+        <td class="r">4,679</td>
+        <td class="r">2,737</td>
+        <td class="r vang">2,737</td>
+        <td>2 con gái ông Phan Văn Tài (đã mất)</td>
+        <td>Ao nuôi cá</td>
+        <td><span style="color:var(--green);font-weight:700;">✓ Có thể mua</span></td>
+      </tr>
+      <tr>
+        <td class="bold">4</td>
+        <td class="bold">105 / TBĐ 110</td>
+        <td class="r">12,372</td>
+        <td class="r">5,487</td>
+        <td class="r vang">5,658</td>
+        <td>Nguyễn Thị Hạnh / Trần Văn Hưởng và các con</td>
+        <td>Ao nuôi cá</td>
+        <td><span style="color:var(--green);font-weight:700;">✓ Có thể mua</span></td>
+      </tr>
+      <tr class="hang-cong">
+        <td class="bold">5</td>
+        <td class="bold">106 / TBĐ 110</td>
+        <td class="r">3,108</td>
+        <td class="r">3,095</td>
+        <td class="r">—</td>
+        <td>UBND Phường Long Bình</td>
+        <td>Ao nuôi cá · cho thuê đấu thầu hàng năm</td>
+        <td><span style="color:var(--blue);font-weight:700;">Đất công · Phường thu hồi</span></td>
+      </tr>
+      <tr class="hang-cong">
+        <td class="bold">6</td>
+        <td class="bold">Rạch dọc N3</td>
+        <td class="r">—</td>
+        <td class="r">—</td>
+        <td class="r">1,681</td>
+        <td>UBND Phường Long Bình</td>
+        <td>1/2 bị chiếm dụng · 1/2 thuộc ranh đường N3</td>
+        <td><span style="color:var(--blue);font-weight:700;">Đất công · Phường giao</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>Tổng</strong></td>
+        <td class="r"><strong>30,141 m²</strong></td>
+        <td class="r"><strong>16,222 m²</strong></td>
+        <td class="r"><strong>19,437 m²</strong></td>
+        <td colspan="3">4 thửa tư nhân + 2 thửa công</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div style="margin-top:10px;font-size:11px;color:var(--text-light);">
+    * DT cần mua = diện tích trong quy hoạch + phần liền thửa cần mua kèm để đảm bảo tính liên thông
+  </div>
+</div>
+
+<!-- GIÁ THỊ TRƯỜNG -->
+<div class="sec-hdr"><div class="sec-num">4</div><div class="sec-title">Giá Tham Chiếu Khu Vực</div></div>
+<div class="sec-body">
+  <div class="g3" style="margin-bottom:16px;">
+    <div>
+      <div class="card-label">Trong dự án đang triển khai (Vin)</div>
+      <div class="gia-block">
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất NN (dân yêu cầu)</span>
+          <span class="gia-val">160–300 tr/m²</span>
+        </div>
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất ở (Vin đã trả)</span>
+          <span class="gia-val">80–150 tr/m²</span>
+        </div>
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất NN (Vin đã trả)</span>
+          <span class="gia-val">51–80 tr/m²</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-label">Trong QH · chưa có dự án (khu này)</div>
+      <div class="gia-block">
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất NN</span>
+          <span class="gia-val">45–50 tr/m²</span>
+        </div>
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất ở trong ngõ</span>
+          <span class="gia-val">65–75 tr/m²</span>
+        </div>
+        <div class="gia-row trong-qh">
+          <span class="gia-ten">Đất ở mặt đường</span>
+          <span class="gia-val">150–200 tr/m²</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-label">Ngoài QH · liền kề</div>
+      <div class="gia-block">
+        <div class="gia-row ngoai-qh">
+          <span class="gia-ten">Đất NN</span>
+          <span class="gia-val">15–30 tr/m²</span>
+        </div>
+        <div class="gia-row ngoai-qh">
+          <span class="gia-ten">Đất ở mặt Phước Thiện</span>
+          <span class="gia-val">120–150 tr/m²</span>
+        </div>
+        <div class="gia-row ngoai-qh">
+          <span class="gia-ten">Đất ở trong ngõ</span>
+          <span class="gia-val">60–70 tr/m²</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#eff6ff;border-radius:6px;padding:12px 16px;font-size:11.5px;color:var(--text-mid);border-left:3px solid var(--blue);">
+    💡 <strong>Lưu ý:</strong> Giá Vingroup & chính quyền đã giải phóng mặt bằng (51–150 tr/m²) là floor reference — nếu dự án bị thu hồi sau này, đây là mức sàn bồi thường tối thiểu.
+  </div>
+</div>
+
+<!-- VỊ TRÍ & PHÁP LÝ -->
+<div class="sec-hdr"><div class="sec-num">5</div><div class="sec-title">Vị Trí & Đánh Giá Pháp Lý</div></div>
+<div class="sec-body">
+  <div class="g2">
+    <div>
+      <div class="card-label" style="margin-bottom:10px;">Lợi Thế Vị Trí</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="inset xanh">
+          <div style="font-size:12px;color:var(--text-dark);">Mặt đường Phước Thiện — đường giao thông lớn</div>
+        </div>
+        <div class="inset xanh">
+          <div style="font-size:12px;color:var(--text-dark);">Mặt sông Đồng Nai</div>
+        </div>
+        <div class="inset xanh">
+          <div style="font-size:12px;color:var(--text-dark);">Cùng phân khu với Vinhomes Grand Park & Masterise</div>
+        </div>
+        <div class="inset xanh">
+          <div style="font-size:12px;color:var(--text-dark);">Hạ tầng giao thông đã hoàn thiện · Khu dân cư đông đúc</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-label" style="margin-bottom:10px;">Pháp Lý</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="inset">
+          <div style="font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Quy hoạch TMDV đã được phê duyệt</div>
+          <div style="font-size:11px;color:var(--text-light);">TP Thủ Đức phê duyệt — nhà đầu tư lập dự án đúng mục đích sẽ được chấp thuận</div>
+        </div>
+        <div class="inset cam">
+          <div style="font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Thửa 3: thừa kế chưa hoàn tất</div>
+          <div style="font-size:11px;color:var(--text-light);">Ông Phan Văn Tài đã mất → 2 con gái kế thừa — cần xử lý thủ tục khai nhận di sản trước khi chuyển nhượng</div>
+        </div>
+        <div class="inset">
+          <div style="font-size:12px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Thửa 1: 4 đồng thừa kế</div>
+          <div style="font-size:11px;color:var(--text-light);">Cần đồng thuận cả 4 anh chị em — xem thêm bảng đính kèm & bản đồ ranh giới</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end body -->
+
+<div class="footer">
+  <div>Royal Canary Corp · Khu Đất TMDV – N3 · Nội Bộ · 13/04/2026</div>
+  <div>Chuẩn bị bởi Zera (RCC AI)</div>
+</div>
+
+</div><!-- end trang -->
+</body>
+</html>
