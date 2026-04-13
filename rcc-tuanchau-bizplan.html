@@ -2,949 +2,338 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kế Hoạch Kinh Doanh — Biệt Thự Lam Ngọc · Tuần Châu</title>
 <style>
-:root {
-  --navy: #0d1829;
-  --navy-mid: #152033;
-  --navy-light: #1e2f47;
-  --gold: #c9a84c;
-  --white: #ffffff;
-  --gray-bg: #f4f6f9;
-  --gray-border: #e2e6ec;
-  --gray-light: #f0f2f5;
-  --text-dark: #0d1829;
-  --text-mid: #3a4a5e;
-  --text-light: #6b7c93;
-  --blue: #2563eb;
-  --green: #27ae60;
-  --red: #c0392b;
-  --amber: #e67e22;
-  --purple: #8b5cf6;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--gray-bg);
-  color: var(--text-dark);
-  font-size: 13px;
-  line-height: 1.6;
-}
-.trang { max-width: 1100px; margin: 0 auto; padding: 0 0 60px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; padding: 20px; width: 800px; }
 
-/* ── HEADER ── */
-.header {
-  background: var(--navy);
-  border-bottom: 3px solid var(--gold);
-  padding: 36px 48px 0;
-  margin-bottom: 28px;
-}
-.header-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 20px;
-}
-.logo { display: flex; align-items: center; gap: 12px; }
-.logo-box {
-  width: 38px; height: 38px; background: var(--gold);
-  border-radius: 7px; display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 800; color: var(--navy);
-}
-.logo-ten { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; }
-.logo-phu { color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 1.5px; }
-.header-badges { display: flex; gap: 8px; align-items: center; flex-direction: column; align-items: flex-end; }
-.badge {
-  padding: 4px 12px; border-radius: 4px; font-size: 10px;
-  font-weight: 700; letter-spacing: 0.5px;
-}
-.badge-mat { background: rgba(201,168,76,0.2); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
-.badge-gray { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); font-size: 9px; }
+  .header {
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a6b 100%);
+    color: white;
+    padding: 24px 28px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .header .logo { font-size: 11px; letter-spacing: 2px; opacity: 0.7; text-transform: uppercase; margin-bottom: 6px; }
+  .header h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+  .header .sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+  .header .badge { 
+    display: inline-block; background: rgba(255,255,255,0.15); 
+    padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-top: 10px;
+  }
 
-.header-title { max-width: 700px; margin-bottom: 16px; }
-.header-eyebrow {
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 10px;
-  display: flex; align-items: center; gap: 10px;
-}
-.header-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
-.header h1 {
-  font-size: 30px; font-weight: 700; color: #fff;
-  line-height: 1.15; margin-bottom: 6px;
-}
-.header h1 span { color: var(--gold); }
-.header-sub { font-size: 14px; color: rgba(255,255,255,0.5); }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; 
+    text-transform: uppercase; color: #6b7280; margin: 20px 0 10px;
+    padding-left: 12px; border-left: 3px solid #1a3a6b;
+  }
 
-.header-meta {
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding: 14px 0;
-  display: flex; gap: 0;
-}
-.meta-item {
-  flex: 1; padding-right: 20px; border-right: 1px solid rgba(255,255,255,0.08);
-  margin-right: 20px;
-}
-.meta-item:last-child { border-right: none; margin-right: 0; }
-.meta-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 3px; }
-.meta-val { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+  /* KPI cards row */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+  .kpi-card {
+    background: white; border-radius: 10px; padding: 14px 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-top: 3px solid #1a3a6b;
+  }
+  .kpi-card.green { border-top-color: #10b981; }
+  .kpi-card.amber { border-top-color: #f59e0b; }
+  .kpi-card.red { border-top-color: #ef4444; }
+  .kpi-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .kpi-value { font-size: 20px; font-weight: 700; color: #111827; line-height: 1.1; }
+  .kpi-unit { font-size: 11px; color: #6b7280; margin-top: 2px; }
 
-/* ── BODY ── */
-.body { padding: 0 48px; }
+  /* Two-column layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 
-/* ── SECTION HEADER ── */
-.sec-hdr {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--navy); padding: 12px 20px;
-  border-left: 4px solid var(--gold);
-  border-radius: 8px 8px 0 0;
-  margin-top: 28px;
-}
-.sec-num {
-  width: 26px; height: 26px; background: var(--gold);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 800; color: var(--navy); flex-shrink: 0;
-}
-.sec-title { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
-.sec-body {
-  background: var(--white); border: 1px solid var(--gray-border);
-  border-top: none; border-radius: 0 0 8px 8px; padding: 24px;
-}
+  /* Tables */
+  .card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card-title { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 12px; }
+  
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th { background: #f3f4f6; color: #6b7280; font-size: 10px; text-transform: uppercase; 
+              letter-spacing: 0.5px; padding: 6px 8px; text-align: left; }
+  thead th:not(:first-child) { text-align: right; }
+  tbody td { padding: 7px 8px; border-bottom: 1px solid #f3f4f6; color: #374151; }
+  tbody td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td { border-bottom: none; font-weight: 700; background: #f9fafb; }
+  tbody tr.total td { font-weight: 700; background: #f0f4ff; color: #1a3a6b; }
+  tbody tr.subtotal td { font-weight: 600; color: #374151; }
 
-/* ── GRIDS ── */
-.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-.g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.g5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  /* Sensitivity table */
+  .sensitivity table { font-size: 11px; }
+  .sensitivity thead th { text-align: center; }
+  .sensitivity tbody td { text-align: center; }
+  .sensitivity tbody td:first-child { text-align: left; font-weight: 600; }
+  .sensitivity .highlight { background: #e8f0fe; font-weight: 700; color: #1a3a6b; }
 
-/* ── KPI CARDS ── */
-.kpi-card {
-  background: var(--white); border: 1px solid var(--gray-border);
-  border-top: 3px solid var(--gold);
-  border-radius: 8px; padding: 18px 16px; text-align: center;
-}
-.kpi-num { font-size: 26px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 6px; }
-.kpi-num.xanh { color: var(--green); }
-.kpi-num.vang { color: var(--gold); }
-.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light); font-weight: 600; }
-.kpi-sub { font-size: 10.5px; color: var(--text-light); margin-top: 4px; }
+  /* Timeline */
+  .timeline { display: flex; gap: 8px; }
+  .milestone { flex: 1; background: #f0f4ff; border-radius: 8px; padding: 10px; text-align: center; }
+  .milestone .date { font-size: 10px; color: #6b7280; }
+  .milestone .event { font-size: 11px; font-weight: 600; color: #1a3a6b; margin-top: 2px; }
+  .milestone .amount { font-size: 12px; font-weight: 700; color: #111827; margin-top: 3px; }
 
-/* ── CARDS ── */
-.card {
-  background: var(--white); border: 1px solid var(--gray-border);
-  border-radius: 8px; padding: 18px 20px;
-}
-.card-label {
-  font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--gold); font-weight: 700; margin-bottom: 6px;
-  display: flex; align-items: center; gap: 6px;
-}
-.card-label::before { content: ''; width: 14px; height: 1px; background: var(--gold); }
-.card-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  /* Capital structure */
+  .capital-bar { height: 16px; border-radius: 8px; overflow: hidden; display: flex; margin: 8px 0; }
+  .capital-bar .seg { height: 100%; display: flex; align-items: center; justify-content: center; 
+                      font-size: 9px; font-weight: 700; color: white; }
+  .cap-legend { display: flex; gap: 12px; font-size: 11px; flex-wrap: wrap; }
+  .cap-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
 
-/* ── BẢNG ── */
-.bang { width: 100%; border-collapse: collapse; font-size: 12px; }
-.bang thead tr { background: var(--navy); }
-.bang thead th {
-  padding: 9px 12px; font-size: 10px; letter-spacing: 1px;
-  text-transform: uppercase; color: rgba(255,255,255,0.7);
-  text-align: left; font-weight: 600;
-}
-.bang thead th.r { text-align: right; }
-.bang tbody tr { border-bottom: 1px solid var(--gray-border); transition: background 0.15s; }
-.bang tbody tr:hover { background: var(--gray-light); }
-.bang tbody tr:last-child { border-bottom: none; }
-.bang tbody td { padding: 9px 12px; color: var(--text-mid); }
-.bang tbody td.r { text-align: right; }
-.bang tbody td.bold { font-weight: 700; color: var(--text-dark); }
-.bang tbody td.vang { color: var(--gold); font-weight: 700; }
-.bang tbody td.xanh { color: var(--green); font-weight: 600; }
-.bang tbody td.do { color: var(--red); font-weight: 600; }
-.bang tbody td.cam { color: var(--amber); font-weight: 600; }
-.hang-tong td { background: var(--navy) !important; color: #fff !important; font-weight: 700; }
-.hang-tong td.vang { color: var(--gold) !important; }
-.hang-tong-nho td { background: var(--gray-light) !important; font-weight: 700; }
-.hang-co-ban td { background: #eff6ff !important; font-weight: 700; color: var(--blue) !important; }
-.hang-xau td { background: #fef2f2 !important; color: var(--red) !important; }
-.hang-tot td { background: #f0fdf4 !important; color: var(--green) !important; }
+  /* IRR badge */
+  .irr-badge { 
+    background: linear-gradient(135deg, #10b981, #059669); color: white;
+    border-radius: 10px; padding: 16px; text-align: center;
+  }
+  .irr-badge .num { font-size: 36px; font-weight: 800; line-height: 1; }
+  .irr-badge .label { font-size: 11px; opacity: 0.9; margin-top: 4px; }
 
-/* ── INSET ── */
-.inset { border-left: 3px solid var(--gold); padding-left: 14px; margin-bottom: 12px; }
-.inset.xanh { border-left-color: var(--green); }
-.inset.do { border-left-color: var(--red); }
-.inset.cam { border-left-color: var(--amber); }
-.inset.blue { border-left-color: var(--blue); }
+  /* Footer */
+  .footer { font-size: 10px; color: #9ca3af; text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
 
-/* ── PILL ── */
-.pill {
-  display: inline-block; padding: 2px 10px; border-radius: 12px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
-}
-.pill-do { background: rgba(192,57,43,0.12); color: var(--red); }
-.pill-cam { background: rgba(230,126,22,0.12); color: var(--amber); }
-.pill-xanh { background: rgba(39,174,96,0.12); color: var(--green); }
-.pill-xam { background: var(--gray-light); color: var(--text-light); }
-
-/* ── SAVILLS BOX ── */
-.savills-box {
-  background: #fef9e7; border: 1px solid #f9e47b;
-  border-left: 3px solid var(--amber);
-  border-radius: 8px; padding: 14px 18px; margin-top: 16px;
-}
-.savills-tieu { font-size: 10px; font-weight: 700; color: #7d5a00; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-.savills-dong { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f0dfa0; font-size: 12px; }
-.savills-dong:last-child { border-bottom: none; }
-.savills-dong span { color: #6b4f00; }
-.savills-dong strong { color: #7d5a00; }
-
-/* ── HIGHLIGHT BOX ── */
-.highlight-box {
-  background: linear-gradient(135deg, var(--navy), var(--navy-light));
-  border-radius: 10px; padding: 20px 24px; color: white; margin-top: 16px;
-}
-.highlight-box h3 { color: var(--gold); margin-bottom: 14px; font-size: 13px; }
-.highlight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-.hl-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
-.hl-val { font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1; }
-.hl-sub { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 3px; }
-
-/* ── MATRIX ── */
-.cell-xanh td { background: #dcfce7 !important; color: #16a34a !important; font-weight: 700; }
-.cell-cam td { background: #fef9c3 !important; color: #854d0e !important; }
-.cell-do td { background: #fee2e2 !important; color: var(--red) !important; }
-.cell-base td { background: #dbeafe !important; color: var(--blue) !important; font-weight: 700; }
-
-/* ── TIMELINE ── */
-.timeline-strip {
-  display: flex; align-items: center; gap: 0;
-  background: var(--gray-light); border-radius: 8px;
-  padding: 14px 16px; margin-bottom: 20px;
-  overflow-x: auto;
-}
-.tl-point { text-align: center; flex: 1; position: relative; }
-.tl-point:not(:last-child)::after {
-  content: '→'; position: absolute;
-  right: -10px; top: 50%; transform: translateY(-50%);
-  color: var(--text-light); font-size: 14px;
-}
-.tl-date { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-.tl-desc { font-size: 10px; color: var(--text-light); line-height: 1.4; }
-
-/* ── STRATEGY CARDS ── */
-.strat-card {
-  background: var(--gray-light); border-radius: 8px;
-  padding: 14px 16px; border-left: 3px solid var(--blue);
-}
-.strat-card.xanh { border-left-color: var(--green); }
-.strat-card.cam { border-left-color: var(--amber); }
-.strat-card.tim { border-left-color: var(--purple); }
-.strat-ten { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-.strat-mo { font-size: 11.5px; color: var(--text-mid); line-height: 1.6; }
-
-/* ── NGƯỜI PHỤTRÁCH ── */
-.nguoi-card {
-  background: var(--white); border: 1px solid var(--gray-border);
-  border-radius: 8px; padding: 16px; text-align: center;
-  border-top: 3px solid var(--blue);
-}
-.nguoi-card.do { border-top-color: var(--red); }
-.nguoi-card.xanh { border-top-color: var(--green); }
-.nguoi-card.cam { border-top-color: var(--amber); }
-.nguoi-card.xam { border-top-color: var(--text-light); }
-.nguoi-card.tim { border-top-color: var(--purple); }
-.nguoi-avatar {
-  width: 44px; height: 44px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; margin: 0 auto 8px;
-  background: var(--gray-light);
-}
-.nguoi-ten { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
-.nguoi-chuc { font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
-.nguoi-scope { font-size: 10px; color: var(--blue); }
-
-/* ── RỦI RO ── */
-.rr-item {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 12px 14px; background: var(--white);
-  border: 1px solid var(--gray-border); border-radius: 8px; margin-bottom: 8px;
-}
-.rr-dot {
-  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
-}
-.rr-cao { background: var(--red); }
-.rr-trung { background: var(--amber); }
-.rr-thap { background: var(--green); }
-.rr-ten { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-.rr-mo { font-size: 11px; color: var(--text-light); }
-.rr-giai { font-size: 11px; color: var(--green); margin-top: 3px; }
-
-/* ── GO BOX ── */
-.go-box {
-  background: linear-gradient(135deg, #064e3b, #065f46);
-  border-radius: 12px; padding: 28px 32px; color: white;
-}
-.go-nhan { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
-.go-ket { font-size: 28px; font-weight: 800; color: #34d399; margin-bottom: 8px; }
-.go-ly-do { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
-.go-dks { list-style: none; padding: 0; }
-.go-dks li {
-  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
-  display: flex; gap: 10px; font-size: 12px; color: white;
-}
-.go-dks li:last-child { border-bottom: none; }
-.go-dks li::before { content: '☐'; color: #34d399; flex-shrink: 0; }
-
-/* ── FOOTER ── */
-.footer {
-  background: var(--navy); padding: 18px 48px;
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.3px;
-  margin-top: 40px;
-}
-
-/* ── DIVIDER ── */
-.divider { height: 1px; background: var(--gray-border); margin: 18px 0; }
-
-@media (max-width: 768px) {
-  .header, .body { padding: 24px 20px; }
-  .g2, .g3, .g4, .g5 { grid-template-columns: 1fr; }
-  .footer { flex-direction: column; gap: 6px; text-align: center; }
-  .header h1 { font-size: 22px; }
-}
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .pill-blue { background: #dbeafe; color: #1d4ed8; }
+  .pill-green { background: #d1fae5; color: #065f46; }
 </style>
 </head>
 <body>
-<div class="trang">
 
-<!-- ══ HEADER ══ -->
+<!-- HEADER -->
 <div class="header">
-  <div class="header-top">
-    <div class="logo">
-      <div class="logo-box">R</div>
-      <div>
-        <div class="logo-ten">Royal Canary Corp</div>
-        <div class="logo-phu">KẾ HOẠCH KINH DOANH · Prj_TC</div>
-      </div>
-    </div>
-    <div class="header-badges">
-      <span class="badge badge-mat">TÀI LIỆU MẬT</span>
-      <span class="badge badge-gray">v1.0 · 09/04/2026</span>
-    </div>
+  <div class="logo">Royal Canary Corp · Investment Analysis</div>
+  <h1>Kế Hoạch Kinh Doanh — Biệt Thự Lam Ngọc</h1>
+  <div class="sub">Tuần Châu · Quảng Ninh · Low-rise Residential</div>
+  <span class="badge">📅 Cập nhật: 09/04/2026 · v3</span>
+  <span class="badge" style="margin-left:6px;">FX: 26,200 VND/USD</span>
+</div>
+
+<!-- KPI TOP ROW -->
+<div class="section-title">Chỉ Số Tài Chính Chính</div>
+<div class="kpi-grid">
+  <div class="kpi-card green">
+    <div class="kpi-label">Equity IRR</div>
+    <div class="kpi-value">42%</div>
+    <div class="kpi-unit">p.a.</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Tổng Doanh Thu</div>
+    <div class="kpi-value">2,374</div>
+    <div class="kpi-unit">tỷ VND (≈149M USD)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">PAT HoldCo</div>
+    <div class="kpi-value">507</div>
+    <div class="kpi-unit">tỷ VND (≈32M USD)</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">M&A Valuation</div>
+    <div class="kpi-value">734</div>
+    <div class="kpi-unit">tỷ VND (≈28M USD)</div>
+  </div>
+</div>
+
+<!-- REVENUE + COST -->
+<div class="two-col">
+  <!-- Revenue -->
+  <div class="card">
+    <div class="card-title">📈 Doanh Thu</div>
+    <table>
+      <thead>
+        <tr><th>Phân khu</th><th>NSA (m²)</th><th>Giá (tr/m²)</th><th>Doanh thu (tỷ)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bay (H-23→31)</td>
+          <td>10,110</td>
+          <td>144</td>
+          <td>1,457</td>
+        </tr>
+        <tr>
+          <td>Marina (H-54→62)</td>
+          <td>5,856</td>
+          <td>157</td>
+          <td>917</td>
+        </tr>
+        <tr class="total">
+          <td>TỔNG</td>
+          <td>15,966</td>
+          <td>—</td>
+          <td>2,374</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="header-title">
-    <div class="header-eyebrow">Kế Hoạch Kinh Doanh & Luận Điểm Đầu Tư</div>
-    <h1>Biệt Thự <span>Lam Ngọc</span><br>Đảo Tuần Châu, Vịnh Hạ Long</h1>
-    <p class="header-sub">Đề xuất trình Hội Đồng Quản Trị · Tháng 4/2026</p>
+  <!-- Cost -->
+  <div class="card">
+    <div class="card-title">📦 Chi Phí Phát Triển</div>
+    <table>
+      <thead>
+        <tr><th>Khoản mục</th><th>%</th><th>Tỷ VND</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Xây dựng</td><td>40.1%</td><td>526</td></tr>
+        <tr><td>Sale & Marketing</td><td>7.0%</td><td>166</td></tr>
+        <tr><td>Landscape & Infra</td><td>2.0%</td><td>67</td></tr>
+        <tr><td>Soft costs</td><td>3.6%</td><td>47</td></tr>
+        <tr><td>Dev fee</td><td>—</td><td>6</td></tr>
+        <tr><td>G&A</td><td>1.0%</td><td>24</td></tr>
+        <tr class="subtotal"><td>Dev Cost</td><td></td><td>770</td></tr>
+        <tr><td>Interest (Dev)</td><td></td><td>47</td></tr>
+        <tr class="total"><td>TOTAL COST</td><td></td><td>817</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- P&L + CAPITAL STRUCTURE -->
+<div class="two-col">
+  <!-- P&L -->
+  <div class="card">
+    <div class="card-title">💰 Kết Quả Lợi Nhuận</div>
+    <table>
+      <thead><tr><th>Chỉ số</th><th>Tỷ VND</th><th>M USD</th></tr></thead>
+      <tbody>
+        <tr><td>Tổng Doanh Thu</td><td>2,374</td><td>91</td></tr>
+        <tr><td>Total Cost</td><td>(817)</td><td>(31)</td></tr>
+        <tr><td>M&A Cost</td><td>(734)</td><td>(28)</td></tr>
+        <tr><td>Interest on M&A</td><td>(110)</td><td>(4)</td></tr>
+        <tr><td>PBT</td><td>1,557</td><td>59</td></tr>
+        <tr><td>CIT (20%)</td><td>(207)</td><td>(8)</td></tr>
+        <tr><td>PAT Project</td><td>1,350</td><td>52</td></tr>
+        <tr class="total"><td>PAT HoldCo</td><td>507</td><td>19</td></tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="header-meta">
-    <div class="meta-item">
-      <div class="meta-label">Người Nhận</div>
-      <div class="meta-val">Anh Quang (Chủ tịch) · ExCom: Colin · Dung · Bach</div>
+  <!-- Capital + IRR -->
+  <div class="card">
+    <div class="card-title">🏗️ Cơ Cấu Vốn (ProjectCo)</div>
+    <table style="margin-bottom: 12px;">
+      <thead><tr><th>Nguồn vốn</th><th>%</th><th>Tỷ VND</th></tr></thead>
+      <tbody>
+        <tr><td>Equity</td><td>19.7%</td><td>161</td></tr>
+        <tr><td>Dev Loan (12% p.a.)</td><td>53.1%</td><td>434</td></tr>
+        <tr><td>Pre-sale</td><td>27.2%</td><td>222</td></tr>
+        <tr class="total"><td>TỔNG</td><td>100%</td><td>817</td></tr>
+      </tbody>
+    </table>
+    <div class="capital-bar">
+      <div class="seg" style="width:19.7%; background:#1a3a6b;">20%</div>
+      <div class="seg" style="width:53.1%; background:#3b82f6;">53%</div>
+      <div class="seg" style="width:27.2%; background:#10b981;">27%</div>
     </div>
-    <div class="meta-item">
-      <div class="meta-label">Cấu Trúc Giao Dịch</div>
-      <div class="meta-val">Mua cổ phần 100% · Qua NewCo · Escrow 3 đợt</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Giá Mua Lại</div>
-      <div class="meta-val" style="color:var(--gold-nhat, #e8c96a);">$25.5M · 663 tỷ VNĐ</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Đơn Vị Tư Vấn</div>
-      <div class="meta-val">FIIVN (Pháp lý) · EY (Tài chính) · CBRE (Định giá)</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Chuẩn Bị Bởi</div>
-      <div class="meta-val">Zera (RCC AI Orchestrator)</div>
+    <div class="cap-legend">
+      <span><span class="cap-dot" style="background:#1a3a6b;"></span>Equity</span>
+      <span><span class="cap-dot" style="background:#3b82f6;"></span>Dev Loan</span>
+      <span><span class="cap-dot" style="background:#10b981;"></span>Pre-sale</span>
     </div>
   </div>
 </div>
 
-<div class="body">
-
-<!-- 1. TÓM TẮT DỰ ÁN -->
-<div class="sec-hdr"><div class="sec-num">1</div><div class="sec-title">Tóm Tắt Dự Án</div></div>
-<div class="sec-body">
-  <div class="g5" style="margin-bottom:20px;">
-    <div class="kpi-card">
-      <div class="kpi-num">$117.3M</div>
-      <div class="kpi-label">Tổng Doanh Thu (GDV)</div>
-      <div class="kpi-sub">3,050 tỷ VNĐ · 18 căn</div>
+<!-- TIMELINE -->
+<div class="section-title">Tiến Độ Thanh Toán M&A</div>
+<div class="card" style="margin-bottom: 14px;">
+  <div class="timeline">
+    <div class="milestone">
+      <div class="date">Tháng 4/2026</div>
+      <div class="event">Deposit</div>
+      <div class="amount">73.4 tỷ</div>
+      <div style="font-size:10px; color:#10b981; margin-top:2px;">10%</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-num xanh">$49.0M</div>
-      <div class="kpi-label">Lợi Nhuận Ròng</div>
-      <div class="kpi-sub">1,275 tỷ VNĐ · Biên 41.8%</div>
+    <div class="milestone">
+      <div class="date">Tháng 9/2026</div>
+      <div class="event">Tranche 1</div>
+      <div class="amount">660.2 tỷ</div>
+      <div style="font-size:10px; color:#1a3a6b; margin-top:2px;">90%</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-num vang">146%</div>
-      <div class="kpi-label">IRR Vốn Chủ Sở Hữu</div>
-      <div class="kpi-sub">Hoàn vốn ~18–24 tháng</div>
+    <div class="milestone" style="background:#f0fdf4;">
+      <div class="date">Apr 2026 → Jun 2027</div>
+      <div class="event">Dev Loan</div>
+      <div class="amount">434 tỷ · 15T</div>
+      <div style="font-size:10px; color:#6b7280; margin-top:2px;">12% p.a.</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-num">$11.9M</div>
-      <div class="kpi-label">Vốn Tự Có Cần Thiết</div>
-      <div class="kpi-sub">309 tỷ VNĐ · LTV 70%</div>
+    <div class="milestone" style="background:#fff7ed;">
+      <div class="date">Apr 2026 → Aug 2028</div>
+      <div class="event">M&A Loan</div>
+      <div class="amount">579 tỷ · 29T</div>
+      <div style="font-size:10px; color:#6b7280; margin-top:2px;">Tổng lãi: 110 tỷ</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-num">~30T</div>
-      <div class="kpi-label">Thời Gian Dự Án</div>
-      <div class="kpi-sub">4/2026 → 11/2028</div>
+    <div class="milestone" style="background:#f0fdf4;">
+      <div class="date">Nov 2026 → Nov 2028</div>
+      <div class="event">Sales Bay</div>
+      <div class="amount">9 căn</div>
+      <div style="font-size:10px; color:#10b981; margin-top:2px;">1,457 tỷ</div>
     </div>
-  </div>
-
-  <div class="highlight-box">
-    <h3>Chỉ Số Sinh Lời Chính</h3>
-    <div class="highlight-grid">
-      <div>
-        <div class="hl-label">Biên Lợi Nhuận Ròng</div>
-        <div class="hl-val">41.8%</div>
-        <div class="hl-sub">Sau toàn bộ chi phí + CIT 20%</div>
-      </div>
-      <div>
-        <div class="hl-label">ROIC</div>
-        <div class="hl-val">87.6%</div>
-        <div class="hl-sub">Lợi nhuận / Tổng vốn đầu tư</div>
-      </div>
-      <div>
-        <div class="hl-label">IRR Vốn Chủ</div>
-        <div class="hl-val">146%</div>
-        <div class="hl-sub">Sau lãi vay, mô hình 2 năm</div>
-      </div>
-    </div>
-    <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.15);display:flex;gap:24px;flex-wrap:wrap;">
-      <div><span style="color:rgba(255,255,255,0.5);font-size:11px;">Lợi nhuận sau lãi vay: </span><span style="font-weight:700;color:var(--gold);">1,136 tỷ / $43.7M</span></div>
-      <div><span style="color:rgba(255,255,255,0.5);font-size:11px;">Hoàn vốn: </span><span style="font-weight:700;color:var(--gold);">~18–24 tháng</span></div>
+    <div class="milestone" style="background:#f0f4ff;">
+      <div class="date">Jan 2027 → Dec 2027</div>
+      <div class="event">Sales Marina</div>
+      <div class="amount">9 căn</div>
+      <div style="font-size:10px; color:#1a3a6b; margin-top:2px;">917 tỷ</div>
     </div>
   </div>
 </div>
 
-<!-- 2. TỔNG QUAN GIAO DỊCH & TÀI SẢN -->
-<div class="sec-hdr"><div class="sec-num">2</div><div class="sec-title">Tổng Quan Giao Dịch & Tài Sản</div></div>
-<div class="sec-body">
-  <div class="g2">
-    <div>
-      <div class="card-label">Thông Tin Tài Sản</div>
-      <div class="card-title">Khu Biệt Thự Lam Ngọc — 18 Căn</div>
-      <table class="bang">
-        <thead><tr><th>Loại Căn</th><th>Số Lượng</th><th class="r">Giá (tr/m²)</th><th class="r">Doanh Thu (tỷ)</th></tr></thead>
-        <tbody>
-          <tr><td class="bold">🌊 Bay Mặt Vịnh (H-30, H-31)</td><td>2</td><td class="r vang">230</td><td class="r bold">698.7</td></tr>
-          <tr><td class="bold">🏠 Bay Tiêu Chuẩn (H-23→H-29)</td><td>7</td><td class="r">200</td><td class="r bold">1,414</td></tr>
-          <tr><td class="bold">⚓ Marina (H-54→H-62)</td><td>9</td><td class="r">160</td><td class="r bold">937</td></tr>
-          <tr class="hang-tong"><td class="bold">TỔNG — 18 CĂN</td><td>18</td><td class="r">—</td><td class="r vang bold">3,050</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;font-size:12px;color:var(--text-mid);line-height:1.7;">
-        • Diện tích đất: 15,966 m² (GCN: 16,013 m²)<br>
-        • Khu vực: Đảo Tuần Châu, Di sản UNESCO Vịnh Hạ Long<br>
-        • Phân khu: Biệt thự du lịch — đã được phê duyệt 18 căn<br>
-        • 1 biệt thự mẫu đã xây hoàn thiện · Hạ tầng sẵn sàng
-      </div>
-    </div>
-    <div>
-      <div class="card-label">Cấu Trúc Giao Dịch</div>
-      <div class="card-title">Điều Chỉnh Giá — Xuống $4.5M</div>
-      <table class="bang">
-        <thead><tr><th>Hạng Mục</th><th class="r">Tỷ VNĐ</th><th class="r">USD</th></tr></thead>
-        <tbody>
-          <tr><td>Giá chào bán ban đầu</td><td class="r">786</td><td class="r">$30.0M</td></tr>
-          <tr><td>− Rủi ro pháp lý (đòn bẩy đàm phán)</td><td class="r do">−103.3</td><td class="r do">−$3.94M</td></tr>
-          <tr><td>− Điều chỉnh tài chính/thuế (EY xác nhận)</td><td class="r do">−18.3</td><td class="r do">−$0.70M</td></tr>
-          <tr class="hang-tong"><td class="bold">= Giá Mua Cuối Cùng</td><td class="r vang bold">664.4</td><td class="r vang bold">$25.5M</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
-        <div class="inset">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Cấu trúc: Mua cổ phần 100% qua NewCo</div>
-          <div style="font-size:11px;color:var(--text-light);">Từ Jen Capital (51%) + Đảo Ngọc (49%) · Đặt cọc escrow 3 đợt</div>
-        </div>
-        <div class="inset">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Vay cổ đông Đảo Ngọc (~$6.75M)</div>
-          <div style="font-size:11px;color:var(--text-light);">Subordinated — được offset vào giá bán, không thanh toán riêng</div>
-        </div>
-        <div class="inset cam">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Escrow $2M có điều kiện</div>
-          <div style="font-size:11px;color:var(--text-light);">Giữ lại đến khi hoàn thành phê duyệt pháp lý (CP conditions)</div>
-        </div>
-        <div class="inset xanh">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dark);margin-bottom:2px;">Đóng dự án: Q3/2026 · Tư vấn: FIIVN · EY · CBRE</div>
-          <div style="font-size:11px;color:var(--text-light);">4 điều kiện tiên quyết — toàn bộ trách nhiệm bên bán</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 3. ĐỊNH VỊ THỊ TRƯỜNG -->
-<div class="sec-hdr"><div class="sec-num">3</div><div class="sec-title">Định Vị Thị Trường & Phân Khúc Khách Hàng</div></div>
-<div class="sec-body">
-  <div class="g3" style="margin-bottom:20px;">
-    <div class="card">
-      <div class="card-label">Bối Cảnh Thị Trường</div>
-      <div class="card-title">Khoảng Trắng Rõ Ràng</div>
-      <div style="font-size:12px;color:var(--text-mid);line-height:1.75;">
-        • UHNWI Việt Nam (≥$30M): <strong>752 người</strong> — dự báo tăng <strong>+30%</strong> lên 978 vào 2028<br>
-        • Mục tiêu: UHNWI Hà Nội & Hải Phòng (tài sản ròng >$20M)<br>
-        • <strong>Không có đối thủ trực tiếp</strong> ở mức giá 180–230 tr/m² tại Hạ Long<br>
-        • Định vị: "Bộ sưu tập biệt thự riêng tư đầu tiên tại VN — không cho thuê"<br>
-        • Hà Nội cách 2 tiếng — thị trường nhà nghỉ cuối tuần cao cấp
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-label">Đối Thủ Cạnh Tranh</div>
-      <div class="card-title">Lam Ngọc Dẫn Đầu</div>
-      <table class="bang">
-        <thead><tr><th>Dự Án</th><th class="r">Giá (tr/m²)</th><th>Nhận Xét</th></tr></thead>
-        <tbody>
-          <tr><td class="bold vang">Lam Ngọc Bay SF</td><td class="r vang">230</td><td>Đẳng cấp nhất HL</td></tr>
-          <tr><td class="bold">Grand Marina SG</td><td class="r">180–270</td><td>HCMC, khác thị trường</td></tr>
-          <tr><td class="bold">Lam Ngọc Bay Std</td><td class="r">200</td><td>View vịnh độc quyền</td></tr>
-          <tr><td class="bold">Park Hyatt Phú Quốc</td><td class="r">155–205</td><td>Đảo khác</td></tr>
-          <tr><td class="bold">Lam Ngọc Marina</td><td class="r">160</td><td>Giá bảo thủ</td></tr>
-          <tr><td>InterCon Hạ Long</td><td class="r">95–100</td><td>Đối thủ thực sự duy nhất</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-label">Đơn Vị Quản Lý</div>
-      <div class="card-title">METT by Sunset HG — Ưu Tiên #1</div>
-      <div style="background:linear-gradient(135deg,#1a3a5c,#0d1829);border-radius:8px;padding:14px;border:1.5px solid var(--gold);margin-bottom:10px;">
-        <div style="font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;">NHÀ ĐIỀU HÀNH KHUYẾN NGHỊ</div>
-        <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px;">The METT — Sunset Hospitality Group</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:10px;">Goldman Sachs hậu thuẫn · 26+ thương hiệu F&B · Đang mở Hà Nội Q4/2025</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:8px;">
-            <div style="font-size:9px;color:rgba(255,255,255,0.45);">Phí quản lý (chủ nhân trả)</div>
-            <div style="font-size:11px;font-weight:700;color:white;">$3,500–6,000/căn/tháng</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.08);border-radius:6px;padding:8px;">
-            <div style="font-size:9px;color:rgba(255,255,255,0.45);">Lợi suất cho thuê</div>
-            <div style="font-size:11px;font-weight:700;color:white;">~4–6%/năm</div>
-          </div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--text-mid);line-height:1.6;">
-        • Thành viên Club METT tự động khi mua biệt thự<br>
-        • Hệ sinh thái F&B: 26+ thương hiệu Sunset HG<br>
-        • Phương án dự phòng: Anantara (có tiền lệ tại VN)
-      </div>
-    </div>
-  </div>
-
-  <div class="g3">
-    <div style="background:#eff6ff;border-radius:8px;padding:14px;border-left:3px solid var(--blue);">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);font-weight:700;margin-bottom:6px;">50% · Khách Hàng Chính</div>
-      <div style="font-weight:700;font-size:12px;margin-bottom:4px;color:var(--navy);">UHNWI Hà Nội</div>
-      <div style="font-size:11px;color:var(--text-mid);">Ngôi nhà thứ hai, nghỉ cuối tuần. Ngân sách 150–350 tỷ/căn. Đề cao tính độc quyền và xa rời đô thị.</div>
-    </div>
-    <div style="background:#f0fdf4;border-radius:8px;padding:14px;border-left:3px solid var(--green);">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--green);font-weight:700;margin-bottom:6px;">30% · Nhà Đầu Tư HNW</div>
-      <div style="font-weight:700;font-size:12px;margin-bottom:4px;color:var(--navy);">Nhà Đầu Tư Việt Nam</div>
-      <div style="font-size:11px;color:var(--text-mid);">Kỳ vọng lợi suất cho thuê 4–6%/năm. Muốn quản lý chuyên nghiệp + chương trình cho thuê.</div>
-    </div>
-    <div style="background:#fdf4ff;border-radius:8px;padding:14px;border-left:3px solid var(--purple);">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700;margin-bottom:6px;">20% · Việt Kiều / Expat</div>
-      <div style="font-weight:700;font-size:12px;margin-bottom:4px;color:var(--navy);">Việt Kiều Singapore/HK</div>
-      <div style="font-size:11px;color:var(--text-mid);">Câu chuyện "quê hương sang trọng". Ngân sách $3–6M/căn. Mua qua kênh môi giới quốc tế.</div>
-    </div>
-  </div>
-</div>
-
-<!-- 4. MÔ HÌNH TÀI CHÍNH -->
-<div class="sec-hdr"><div class="sec-num">4</div><div class="sec-title">Mô Hình Tài Chính — Kết Quả Kinh Doanh</div></div>
-<div class="sec-body">
-  <div class="g2">
-    <div>
-      <div class="card-label">Bảng Kết Quả Kinh Doanh</div>
-      <table class="bang">
-        <thead><tr><th>Hạng Mục</th><th class="r">Tỷ VNĐ</th><th class="r">Triệu USD</th><th class="r">% DT</th></tr></thead>
-        <tbody>
-          <tr><td class="bold">Doanh Thu (GDV)</td><td class="r bold">3,050</td><td class="r bold">$117.3M</td><td class="r">100%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Bay Mặt Vịnh (2 căn)</td><td class="r">698.7</td><td class="r">$26.9M</td><td class="r">23%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Bay Tiêu Chuẩn (7 căn)</td><td class="r">1,414</td><td class="r">$54.4M</td><td class="r">46%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Marina (9 căn)</td><td class="r">937</td><td class="r">$36.0M</td><td class="r">31%</td></tr>
-          <tr class="hang-tong-nho"><td class="bold">Tổng Chi Phí</td><td class="r bold">(1,456)</td><td class="r bold">($56.0M)</td><td class="r">47.7%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Giá mua lại (share deal)</td><td class="r">663</td><td class="r">$25.5M</td><td class="r">21.7%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Xây dựng (EY + dự phòng 15%)</td><td class="r">549</td><td class="r">$21.1M</td><td class="r">18.0%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">Chi phí mềm (pháp lý, bán hàng — 8%)</td><td class="r">244</td><td class="r">$9.4M</td><td class="r">8.0%</td></tr>
-          <tr><td class="bold xanh">Lợi Nhuận Trước Thuế</td><td class="r bold xanh">1,594</td><td class="r bold xanh">$61.3M</td><td class="r xanh">52.3%</td></tr>
-          <tr><td style="padding-left:18px;color:var(--text-light);">CIT (20%)</td><td class="r do">319</td><td class="r do">$12.3M</td><td class="r">10.5%</td></tr>
-          <tr class="hang-tong"><td class="bold vang">LỢI NHUẬN RÒNG</td><td class="r vang bold">1,275</td><td class="r vang bold">$49.0M</td><td class="r vang">41.8%</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <div class="card-label">Phân Tích Kịch Bản</div>
-      <table class="bang">
-        <thead><tr><th>Kịch Bản</th><th class="r">GDV</th><th class="r">LN Ròng</th><th class="r">Biên</th><th class="r">IRR</th></tr></thead>
-        <tbody>
-          <tr class="hang-co-ban"><td class="bold">📊 Cơ Sở</td><td class="r">3,050B</td><td class="r xanh">1,275B</td><td class="r xanh">41.8%</td><td class="r xanh">146%</td></tr>
-          <tr class="hang-tot"><td>Giá +10%</td><td class="r">3,355B</td><td class="r">1,500B</td><td class="r">44.7%</td><td class="r">187%</td></tr>
-          <tr><td>Chi phí +15%</td><td class="r">3,050B</td><td class="r">1,209B</td><td class="r">39.7%</td><td class="r">137%</td></tr>
-          <tr class="hang-xau"><td>Giá −10%</td><td class="r">2,745B</td><td class="r">1,051B</td><td class="r">38.3%</td><td class="r">96%</td></tr>
-          <tr><td>Giá −10% + CP +15%</td><td class="r">2,745B</td><td class="r">985B</td><td class="r">35.9%</td><td class="r">82%</td></tr>
-          <tr><td>Bỏ premium Bay SF</td><td class="r">2,867B</td><td class="r">1,141B</td><td class="r">39.8%</td><td class="r">118%</td></tr>
-          <tr><td>Giá −20% (điểm hòa vốn)</td><td class="r">2,440B</td><td class="r do">826B</td><td class="r">33.9%</td><td class="r do">~1%</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:10px;background:#eff6ff;border-radius:8px;padding:10px 12px;font-size:11px;color:var(--text-mid);border-left:3px solid var(--blue);">
-        ✅ Dự án có lãi (IRR >80%) kể cả kịch bản giá −10% + chi phí +15%. Điểm hòa vốn chỉ ở −20% giá — cực khó xảy ra với định vị thị trường hiện tại.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 5. CƠ CẤU VỐN -->
-<div class="sec-hdr"><div class="sec-num">5</div><div class="sec-title">Cơ Cấu Vốn & Dòng Tiền</div></div>
-<div class="sec-body">
-  <div class="g2">
-    <div>
-      <div class="card-label">Nguồn Vốn</div>
-      <table class="bang">
-        <thead><tr><th>Nguồn</th><th class="r">Số Tiền</th><th class="r">Tỷ Lệ</th></tr></thead>
-        <tbody>
-          <tr><td>Vay M&A · 10%/năm · 3 năm</td><td class="r">464 tỷ ($17.8M)</td><td class="r">70%</td></tr>
-          <tr><td>Vốn tự có RCC</td><td class="r">199 tỷ ($7.7M)</td><td class="r">30%</td></tr>
-          <tr class="hang-tong-nho"><td class="bold">Tổng Mua Lại</td><td class="r bold">663 tỷ ($25.5M)</td><td class="r bold">100%</td></tr>
-          <tr><td>Vay xây dựng (từ dòng tiền presale)</td><td class="r">~439 tỷ</td><td class="r">—</td></tr>
-          <tr><td>Vốn bổ sung xây dựng</td><td class="r">~110 tỷ</td><td class="r">—</td></tr>
-          <tr class="hang-tong"><td class="vang bold">Tổng Vốn Tự Có Cần Thiết</td><td class="r vang bold">~309 tỷ ($11.9M)</td><td class="r">—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <div class="card-label">Tóm Tắt Dòng Tiền</div>
-      <table class="bang">
-        <thead><tr><th>Hạng Mục</th><th class="r">Số Tiền</th></tr></thead>
-        <tbody>
-          <tr><td>Presale (50% GDV, tháng 1–14)</td><td class="r xanh">1,525 tỷ</td></tr>
-          <tr><td>Bán sau hoàn thiện (50%, tháng 15–24)</td><td class="r xanh">1,525 tỷ</td></tr>
-          <tr><td>− Trả vay M&A</td><td class="r do">464 tỷ</td></tr>
-          <tr><td>− Lãi vay (3 năm đơn)</td><td class="r do">139 tỷ</td></tr>
-          <tr><td>− Chi phí xây dựng + mềm</td><td class="r do">793 tỷ</td></tr>
-          <tr><td>− CIT 20%</td><td class="r do">319 tỷ</td></tr>
-          <tr class="hang-tong"><td class="vang bold">Tiền Về RCC</td><td class="r vang bold">1,136 tỷ ($43.7M)</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:10px;background:#eff6ff;border-radius:8px;padding:10px 12px;font-size:11px;color:var(--text-mid);border-left:3px solid var(--blue);">
-        💡 Đầu tư ~$11.9M → thu về ~$43.7M ròng trong 24 tháng. Mỗi $1 vốn tự có sinh ra ~$3.7 lợi nhuận. Dòng tiền presale tài trợ phần lớn xây dựng — giảm tối đa rủi ro vốn đỉnh.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 6. TIẾN ĐỘ PHÁT TRIỂN -->
-<div class="sec-hdr"><div class="sec-num">6</div><div class="sec-title">Tiến Độ Phát Triển & Lịch Bán Hàng</div></div>
-<div class="sec-body">
-  <div class="timeline-strip">
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--blue);">4/2026</div>
-      <div class="tl-desc">Ký SPA · Đặt cọc 10% ($2.5M)<br>Khởi công xây dựng</div>
-    </div>
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--green);">Q3/2026</div>
-      <div class="tl-desc">Đóng dự án · Thanh toán 90% ($22.5M)<br>Giải ngân vay M&A · Hoàn thành CP</div>
-    </div>
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--amber);">11/2026</div>
-      <div class="tl-desc">🚀 Ra mắt presale đầu tiên<br>Bay H-23 (~146 tỷ) · METT live</div>
-    </div>
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--purple);">Q2/2027</div>
-      <div class="tl-desc">Hoàn thiện xây dựng<br>Bàn giao biệt thự mẫu<br>Mục tiêu: 50% GDV presold</div>
-    </div>
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--amber);">8/2028</div>
-      <div class="tl-desc">Bay H-30 thanh toán (~218 tỷ)<br>Bắt đầu trả vay M&A</div>
-    </div>
-    <div class="tl-point">
-      <div class="tl-date" style="color:var(--red);">11/2028</div>
-      <div class="tl-desc">✅ Bay H-31 — căn cuối cùng<br>Trả hết vay M&A · Kết thúc dự án</div>
-    </div>
-  </div>
-
-  <div class="card-label" style="margin-bottom:8px;">Lịch Bán Hàng & Dòng Tiền Dự Kiến</div>
-  <table class="bang">
-    <thead><tr><th>Thời Điểm</th><th>Căn</th><th class="r">Doanh Thu (tỷ)</th><th class="r">Lũy Kế</th><th>Ghi Chú Dòng Tiền</th></tr></thead>
+<!-- SENSITIVITY -->
+<div class="section-title">Phân Tích Độ Nhạy — PAT HoldCo (tỷ VND)</div>
+<div class="card sensitivity" style="margin-bottom: 14px;">
+  <table>
+    <thead>
+      <tr>
+        <th>Chi phí XD \ Giá bán</th>
+        <th>90%</th><th>95%</th><th>100%</th><th>105%</th><th>110%</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr><td>11/2026</td><td>Bay H-23</td><td class="r">146</td><td class="r">146</td><td style="color:var(--green);">Ra mắt presale</td></tr>
-      <tr><td>2/2027</td><td>Bay H-24</td><td class="r">146</td><td class="r">292</td><td style="color:var(--green);">Bù lãi vay xây dựng</td></tr>
-      <tr><td>1–4/2027</td><td>Marina H-54, H-55</td><td class="r">173</td><td class="r">465</td><td style="color:var(--amber);">Hỗ trợ hoàn thiện xây dựng</td></tr>
-      <tr><td>Q2/2027</td><td>Bay H-25 + Marina H-56</td><td class="r">234</td><td class="r">699</td><td style="color:var(--green);">Trả vay xây dựng ✅</td></tr>
-      <tr><td>Q3–Q4/2027</td><td>Bay H-26, H-27 + Marina</td><td class="r">468</td><td class="r">1,167</td><td style="color:var(--green);">Trả lãi vay M&A</td></tr>
-      <tr><td>2028</td><td>Bay H-28, H-29 + Marina</td><td class="r">697</td><td class="r">1,864</td><td style="color:var(--green);">Tiến trình trả vay tốt</td></tr>
-      <tr class="hang-co-ban"><td class="bold">8–11/2028</td><td class="bold">Bay H-30, H-31</td><td class="r bold">438</td><td class="r bold">3,050</td><td class="bold">Trả vay M&A ✅ Kết thúc</td></tr>
+      <tr><td>90%</td><td>330</td><td>400</td><td>470</td><td>539</td><td>609</td></tr>
+      <tr><td>95%</td><td>348</td><td>418</td><td>488</td><td>558</td><td>628</td></tr>
+      <tr class="highlight"><td>100% (Base)</td><td>367</td><td>437</td><td><strong>507</strong></td><td>577</td><td>647</td></tr>
+      <tr><td>105%</td><td>385</td><td>456</td><td>526</td><td>596</td><td>666</td></tr>
+      <tr><td>110%</td><td>404</td><td>474</td><td>544</td><td>614</td><td>684</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- 7. CHIẾN LƯỢC BÁN HÀNG -->
-<div class="sec-hdr"><div class="sec-num">7</div><div class="sec-title">Chiến Lược Bán Hàng — 4 Trụ Cột</div></div>
-<div class="sec-body">
-  <div class="g2" style="margin-bottom:16px;">
-    <div class="strat-card">
-      <div class="strat-ten">🏁 1. Đẩy Nhanh Presale — Mục Tiêu 50% Trước Q2/2027</div>
-      <div class="strat-mo">Ưu tiên bán Bay H-23→H-27 (5 căn nhỏ ~146 tỷ/căn) từ 11/2026. Thu ~730 tỷ trước khi hoàn thiện xây dựng → trả vay xây dựng (434 tỷ). <strong>KPI: 50% GDV presold trước bàn giao Q2/2027.</strong></div>
-    </div>
-    <div class="strat-card xanh">
-      <div class="strat-ten">💎 2. Premium Bay H-30, H-31 — Giữ Lại Bán Cuối</div>
-      <div class="strat-mo">H-30 và H-31 (2 căn lớn nhất ~218–220 tỷ/căn) giữ bán 8–11/2028. Giá trị tăng theo thời gian sau khi cộng đồng cư dân hoàn thiện + thương hiệu METT đã được xây dựng.</div>
-    </div>
-    <div class="strat-card cam">
-      <div class="strat-ten">⚡ 3. Marina Bán Nhanh — Lấp Khoảng Trống Dòng Tiền</div>
-      <div class="strat-mo">Marina H-54→H-62 ra mắt 1/2027 với giá tương đương định giá Savills (~110–114M/m²). Định giá bảo thủ tăng tốc độ hấp thụ, lấp khoảng trống dòng tiền. Tùy chọn: ưu đãi người mua sớm (gói nội thất, ưu tiên bến thuyền marina).</div>
-    </div>
-    <div class="strat-card tim">
-      <div class="strat-ten">🛡️ 4. Dự Phòng Dòng Tiền — Quản Lý Rủi Ro</div>
-      <div class="strat-mo">Duy trì dự phòng lãi vay 3 tháng (~15 tỷ) cho vay M&A. Nếu Bay chỉ đạt giá Savills (−12%): bù đắp bằng upside Marina. <strong>Ngưỡng kích hoạt Plan B:</strong> &lt;3 căn bán trong 6 tháng đầu.</div>
-    </div>
+<!-- ASSUMPTIONS -->
+<div class="section-title">Các Giả Định Chính</div>
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">🔢 Inputs Chính</div>
+    <table>
+      <thead><tr><th>Assumption</th><th>Giá trị</th></tr></thead>
+      <tbody>
+        <tr><td>FX Rate</td><td>26,200 VND/USD</td></tr>
+        <tr><td>Diện tích đất ở</td><td>15,966 m²</td></tr>
+        <tr><td>GFA/NSA Ratio (Bay)</td><td>0.6x</td></tr>
+        <tr><td>GFA/NSA Ratio (Marina)</td><td>1.1–1.3x</td></tr>
+        <tr><td>Giá villa ven sông</td><td>~25 tr/m² + 10 tr finishing</td></tr>
+        <tr><td>Đơn giá xây dựng</td><td>35 tr VND/m² GFA</td></tr>
+        <tr><td>Commission</td><td>5% (3 căn đầu: up to 8%)</td></tr>
+        <tr><td>CIT</td><td>20% + Temp CIT 1%</td></tr>
+        <tr><td>Lãi suất vay Dev</td><td>12% p.a.</td></tr>
+        <tr><td>Price escalation</td><td>0%</td></tr>
+      </tbody>
+    </table>
   </div>
-
-  <div class="g2">
-    <div style="background:#f0fdf4;border-radius:8px;padding:14px;border-left:3px solid var(--green);">
-      <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:8px;">🌿 Gói Cơ Bản (Kèm Theo Khi Mua)</div>
-      <ul style="list-style:none;padding:0;font-size:11px;color:var(--text-mid);">
-        <li style="padding:3px 0;">• Thành viên Club METT trọn đời</li>
-        <li style="padding:3px 0;">• 1 bến thuyền marina — cảng Tuần Châu</li>
-        <li style="padding:3px 0;">• Thẻ thành viên F&B — 26+ thương hiệu Sunset HG</li>
-        <li style="padding:3px 0;">• Miễn phí quản lý biệt thự năm đầu</li>
-      </ul>
-    </div>
-    <div style="background:#eff6ff;border-radius:8px;padding:14px;border-left:3px solid var(--blue);">
-      <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px;">💰 Gói Cho Thuê (Tùy Chọn Thêm)</div>
-      <ul style="list-style:none;padding:0;font-size:11px;color:var(--text-mid);">
-        <li style="padding:3px 0;">• METT quản lý chương trình cho thuê</li>
-        <li style="padding:3px 0;">• Niêm yết OTA cao cấp (Airbnb Luxe, Mr & Mrs Smith)</li>
-        <li style="padding:3px 0;">• Chia doanh thu: 80% chủ nhân / 20% METT</li>
-        <li style="padding:3px 0;">• Lợi suất kỳ vọng: 4–6% giá mua/năm</li>
-      </ul>
-    </div>
+  <div class="card">
+    <div class="card-title">📊 Kế Hoạch Bán Hàng</div>
+    <table>
+      <thead><tr><th>Căn</th><th>NSA</th><th>Giá (tỷ)</th><th>Bắt đầu bán</th></tr></thead>
+      <tbody>
+        <tr><td>Bay H-23</td><td>1,012 m²</td><td>145.9</td><td>Nov-26</td></tr>
+        <tr><td>Bay H-24→27</td><td>4×1,010</td><td>145.6/căn</td><td>Feb–Nov 27</td></tr>
+        <tr><td>Bay H-28</td><td>1,515 m²</td><td>218.4</td><td>Aug-28</td></tr>
+        <tr><td>Bay H-29→31</td><td>~1,523</td><td>219.5</td><td>Nov-28</td></tr>
+        <tr><td>Marina H-54</td><td>715 m²</td><td>86.1</td><td>Jan-27</td></tr>
+        <tr><td>Marina H-55→58</td><td>~720–730</td><td>87–90</td><td>Apr–Jan 28</td></tr>
+        <tr><td>Marina H-61–62</td><td>~1,020</td><td>143–147</td><td>Oct–Dec 28</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- 8. PHÂN TÍCH QUẢN LÝ DỰ ÁN -->
-<div class="sec-hdr"><div class="sec-num">8</div><div class="sec-title">Phân Tích Quản Lý Dự Án — Cơ Cấu Nhóm Làm Việc</div></div>
-<div class="sec-body">
-  <div style="margin-bottom:20px;">
-    <div class="card-label" style="margin-bottom:10px;">Ban Giám Sát (ExCom)</div>
-    <div style="background:linear-gradient(135deg,#1f2a0a,#2a3a10);border:2px solid var(--gold);border-radius:10px;padding:16px 24px;display:flex;justify-content:center;margin-bottom:16px;">
-      <div style="text-align:center;">
-        <div style="font-size:22px;margin-bottom:6px;">👑</div>
-        <div style="font-size:15px;font-weight:700;color:white;">Anh Quang</div>
-        <div style="font-size:11px;color:var(--gold);margin-top:2px;">Chủ Tịch HĐQT & Nhà Tài Trợ Dự Án</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;">Phê duyệt cuối cùng · Định hướng chiến lược · Báo cáo HĐQT</div>
-      </div>
-    </div>
-    <div style="text-align:center;font-size:11px;color:var(--text-light);margin-bottom:12px;">↓ ExCom (Colin · Dung · Bach) — Giám sát dự án, nhận báo cáo từ Nhóm Làm Việc</div>
-  </div>
-
-  <div class="card-label" style="margin-bottom:10px;">Nhóm Làm Việc — 6 Luồng Công Việc</div>
-  <div class="g5" style="margin-bottom:16px;">
-    <div class="nguoi-card blue">
-      <div class="nguoi-avatar">📈</div>
-      <div class="nguoi-ten">Sơn</div>
-      <div class="nguoi-chuc">Giám Đốc Đầu Tư</div>
-      <div class="nguoi-scope">Mua lại · Cấu trúc deal · Lợi nhuận</div>
-    </div>
-    <div class="nguoi-card do">
-      <div class="nguoi-avatar">💰</div>
-      <div class="nguoi-ten">Dung</div>
-      <div class="nguoi-chuc">Giám Đốc Tài Chính</div>
-      <div class="nguoi-scope">Mô hình tài chính · Dòng tiền · Báo cáo</div>
-    </div>
-    <div class="nguoi-card xanh">
-      <div class="nguoi-avatar">🏗️</div>
-      <div class="nguoi-ten">Phán</div>
-      <div class="nguoi-chuc">Giám Đốc Dự Án</div>
-      <div class="nguoi-scope">Xây dựng · Tiến độ · Theo dõi milestone</div>
-    </div>
-    <div class="nguoi-card cam">
-      <div class="nguoi-avatar">📋</div>
-      <div class="nguoi-ten">Hường</div>
-      <div class="nguoi-chuc">Mua Sắm & Chi Phí</div>
-      <div class="nguoi-scope">Hợp đồng · Nhà cung cấp · Kiểm soát chi phí</div>
-    </div>
-    <div class="nguoi-card xam">
-      <div class="nguoi-avatar">⚖️</div>
-      <div class="nguoi-ten">Cả</div>
-      <div class="nguoi-chuc">Pháp Lý</div>
-      <div class="nguoi-scope">Thẩm định · Hoàn thành CP · Tuân thủ</div>
-    </div>
-  </div>
-
-  <div style="background:#1e1a2e;border-radius:8px;padding:12px 18px;border:1.5px solid var(--purple);display:flex;align-items:center;gap:14px;margin-bottom:20px;">
-    <div style="font-size:18px;">🤖</div>
-    <div>
-      <div style="font-size:12px;font-weight:700;color:white;">Zera — Điều Phối Viên Dự Án (AI Orchestrator)</div>
-      <div style="font-size:10px;color:rgba(139,92,246,0.8);margin-top:2px;">Theo dõi tiến độ tổng thể · Điều phối giữa các luồng · Quản lý memory · Báo cáo tuần</div>
-    </div>
-  </div>
-
-  <div class="card-label" style="margin-bottom:8px;">Trạng Thái Hiện Tại — 6 Luồng Công Việc</div>
-  <table class="bang">
-    <thead><tr><th>Luồng</th><th>Phụ Trách</th><th>File Chính</th><th>Trạng Thái</th></tr></thead>
-    <tbody>
-      <tr><td class="bold">🏦 Mua Lại</td><td>Sơn</td><td>Feasibility Study · Financial Model · SPA</td><td><span class="pill pill-xanh">✅ SPA ký xong · Đóng Q3/2026</span></td></tr>
-      <tr><td class="bold">💰 Tài Chính</td><td>Dung</td><td>Cashflow forecast · Loan tracker · Báo cáo CFO</td><td><span class="pill pill-cam">🔄 Đang xây actual vs budget</span></td></tr>
-      <tr><td class="bold">🏗️ Xây Dựng</td><td>Phán</td><td>Lịch thi công · Theo dõi tiến độ · Chứng nhận milestone</td><td><span class="pill pill-xam">⏳ Lập kế hoạch tiền thi công</span></td></tr>
-      <tr><td class="bold">⚖️ Pháp Lý</td><td>Cả</td><td>DD Report EY · CP tracker · Hồ sơ GCNDT</td><td><span class="pill pill-cam">🔄 Đang giải quyết các điều kiện CP</span></td></tr>
-      <tr><td class="bold">📋 Mua Sắm</td><td>Hường</td><td>BOQ · Contract register · Đánh giá nhà cung cấp</td><td><span class="pill pill-xam">⏳ Đang hoàn thiện BOQ</span></td></tr>
-      <tr><td class="bold">🏡 Bán & Vận Hành</td><td>Bach</td><td>Business Plan · Định giá · LOI METT · Danh sách khách</td><td><span class="pill pill-cam">🔄 Đang chốt đơn vị quản lý</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="divider"></div>
-  <div class="g2">
-    <div class="inset blue">
-      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;">Triết Lý Quản Lý Dự Án</div>
-      <div style="font-size:11px;color:var(--text-mid);line-height:1.7;">Phân công theo <strong>chuyên môn</strong>, không theo sự sẵn sàng. Mỗi luồng có MEMORY.md riêng để lưu context. File tiến hóa: Dự báo → Đang thực hiện → Hệ thống quản lý thực tế.</div>
-    </div>
-    <div class="inset cam">
-      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;">Quy Tắc Đặt Tên File</div>
-      <div style="font-size:11px;color:var(--text-mid);line-height:1.7;font-family:monospace;">
-        [Mã_Luồng]_[Loại]_v[X]_[YYYY-MM-DD]<br>
-        Ví dụ: ACQ_FM_v3_2026-04-13.xlsx<br>
-        Phiên bản lẻ = nháp · Phiên bản chẵn = đã review<br>
-        File Output = đóng băng, không chỉnh sửa
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 9. ĐÁNH GIÁ RỦI RO -->
-<div class="sec-hdr"><div class="sec-num">9</div><div class="sec-title">Đánh Giá Rủi Ro — 4 Điều Kiện Tiên Quyết (Bên Bán)</div></div>
-<div class="sec-body">
-  <p style="margin-bottom:14px;font-size:12px;color:var(--text-mid);">Tất cả 4 điều kiện là <strong>trách nhiệm của Bên Bán</strong> phải giải quyết trước khi RCC thanh toán từng đợt. Đây không phải rủi ro RCC phải gánh — đây là điều kiện hợp đồng tiên quyết.</p>
-
-  <div class="rr-item">
-    <div class="rr-dot rr-cao"></div>
-    <div style="flex:1;">
-      <div class="rr-ten">1. Cập Nhật GCN QSDĐ — Chênh Lệch 138m²</div>
-      <div class="rr-mo">Giấy chứng nhận quyền sử dụng đất phải được cập nhật đúng diện tích (15,966m²) và chuyển sang tên Jen Tuần Châu. Có thể phát sinh tiền sử dụng đất bổ sung.</div>
-      <div class="rr-giai">→ Bên bán chịu hoàn toàn. Không thanh toán đợt 2 nếu chưa xong.</div>
-    </div>
-    <div><span class="pill pill-do">CAO</span></div>
-  </div>
-  <div class="rr-item">
-    <div class="rr-dot rr-cao"></div>
-    <div style="flex:1;">
-      <div class="rr-ten">2. Giấy Phép Xây Dựng (Luật XD 2025)</div>
-      <div class="rr-mo">Dự án được miễn GPXD theo Luật XD 2014. Cần xác nhận hiệu lực chuyển tiếp theo Luật XD 2025 hoặc xin phép mới. Không có thông báo khởi công trước 1/1/2026 là rủi ro. Phương án dự phòng: RCC tự nộp hồ sơ, trừ ~1–2 tỷ vào giá.</div>
-      <div class="rr-giai">→ Bên bán chịu. RCC có quyền trừ vào giá nếu phải tự xử lý.</div>
-    </div>
-    <div><span class="pill pill-do">CAO</span></div>
-  </div>
-  <div class="rr-item">
-    <div class="rr-dot rr-cao"></div>
-    <div style="flex:1;">
-      <div class="rr-ten">3. Thỏa Thuận Hạ Tầng Chung với T&H Hạ Long</div>
-      <div class="rr-mo">Hạ tầng dùng chung (17,311m² đường/tiện ích) thuộc sở hữu T&H — cần ký kết thỏa thuận sử dụng, lịch bàn giao và cơ chế phí bảo trì trước khi đóng dự án.</div>
-      <div class="rr-giai">→ Bên bán phải hoàn thành trước Closing. RCC giữ $2M escrow đến khi xong.</div>
-    </div>
-    <div><span class="pill pill-do">CAO</span></div>
-  </div>
-  <div class="rr-item">
-    <div class="rr-dot rr-trung"></div>
-    <div style="flex:1;">
-      <div class="rr-ten">4. Kiểm Tra PCCC — Phòng Cháy Chữa Cháy</div>
-      <div class="rr-mo">Cần biên bản kiểm tra PCCC cho khu vực hạ tầng chung. Thủ tục mang tính quy trình — độ phức tạp thấp hơn 3 điều kiện trên.</div>
-      <div class="rr-giai">→ Bên bán xử lý. Dự kiến không phát sinh vấn đề lớn.</div>
-    </div>
-    <div><span class="pill pill-cam">TRUNG BÌNH</span></div>
-  </div>
-
-  <div class="divider"></div>
-  <div class="card-label" style="margin-bottom:10px;">Rủi Ro Vận Hành & Thị Trường</div>
-  <div class="g2">
-    <div>
-      <div class="rr-item">
-        <div class="rr-dot rr-cao"></div>
-        <div>
-          <div class="rr-ten">Giá Bay vs Savills (+12%)</div>
-          <div class="rr-mo">Mô hình 121M/m² vs Savills 108M/m² — cần market chấp nhận giá premium</div>
-          <div class="rr-giai">→ Sensitivity cho thấy deal vẫn có lãi ở giá Savills. Bay H-30, H-31 giữ lại để tăng giá theo thời gian.</div>
-        </div>
-      </div>
-      <div class="rr-item">
-        <div class="rr-dot rr-cao"></div>
-        <div>
-          <div class="rr-ten">Tốc Độ Hấp Thụ Chậm Hơn 1 Căn/3 Tháng</div>
-          <div class="rr-mo">Nếu chậm hơn → áp lực vay M&A tăng</div>
-          <div class="rr-giai">→ Chiến lược Marina bán nhanh + dự phòng lãi vay 3 tháng</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="rr-item">
-        <div class="rr-dot rr-trung"></div>
-        <div>
-          <div class="rr-ten">Rủi Ro Pháp Lý Hậu Sáp Nhập Quảng Ninh</div>
-          <div class="rr-mo">Sáp nhập tỉnh có thể ảnh hưởng timeline cấp phép</div>
-          <div class="rr-giai">→ $2M CP escrow; EY DD xác nhận; trách nhiệm bên bán</div>
-        </div>
-      </div>
-      <div class="rr-item">
-        <div class="rr-dot rr-trung"></div>
-        <div>
-          <div class="rr-ten">Vượt Chi Phí Xây Dựng</div>
-          <div class="rr-mo">Mô hình 35M VNĐ/m² GFA — cần hợp đồng giá cố định</div>
-          <div class="rr-giai">→ Chi phí +10% chỉ giảm PAT ~5%; dự phòng 15% đã tính vào</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 10. KHUYẾN NGHỊ ĐẦU TƯ -->
-<div class="sec-hdr"><div class="sec-num">10</div><div class="sec-title">Khuyến Nghị Đầu Tư — Go / No-Go</div></div>
-<div class="sec-body">
-  <div class="go-box">
-    <div class="go-nhan">Khuyến Nghị Hội Đồng Quản Trị</div>
-    <div class="go-ket">✅ TIẾN HÀNH — Có Điều Kiện</div>
-    <div class="go-ly-do">Lợi nhuận tốt với rủi ro được kiểm soát. Vị thế dẫn đầu thị trường trong phân khúc chưa có đối thủ. Đề nghị phê duyệt khi hoàn thành 3 điều kiện sau:</div>
-    <ul class="go-dks">
-      <li>Bên bán hoàn thành tất cả 4 điều kiện tiên quyết (CP) đúng mốc thời gian trước mỗi đợt thanh toán</li>
-      <li>Ký LOI với METT (hoặc Anantara phương án dự phòng) trước hoặc đồng thời với ngày Closing</li>
-      <li>Bán được tối thiểu 4 căn trong 6 tháng sau Closing — xác nhận thị trường chấp nhận định giá và nhu cầu thực</li>
-    </ul>
-  </div>
-
-  <div class="g2" style="margin-top:14px;">
-    <div style="background:#f0fdf4;border-radius:10px;padding:16px;border-left:3px solid var(--green);">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--green);font-weight:700;margin-bottom:10px;">✅ Điểm Mạnh Chính</div>
-      <ul style="list-style:none;padding:0;font-size:11.5px;color:var(--text-mid);line-height:1.9;">
-        <li>• IRR 146% — tỷ lệ sinh lời/rủi ro đặc biệt hấp dẫn</li>
-        <li>• Không có đối thủ địa phương ở mức giá này</li>
-        <li>• Địa điểm Di Sản UNESCO — nguồn cung bị giới hạn</li>
-        <li>• 50% tổng đầu tư đã được rót (EY xác nhận)</li>
-        <li>• Lỗ thuế 27.4 tỷ + VAT 6.2 tỷ — dùng được ngay</li>
-        <li>• Presale tài trợ xây dựng — ít rủi ro vốn đỉnh</li>
-      </ul>
-    </div>
-    <div style="background:#fff7ed;border-radius:10px;padding:16px;border-left:3px solid var(--amber);">
-      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--amber);font-weight:700;margin-bottom:10px;">⚠️ Điểm Cần Theo Dõi</div>
-      <ul style="list-style:none;padding:0;font-size:11.5px;color:var(--text-mid);line-height:1.9;">
-        <li>• 4 CP phải đóng đúng hạn — trách nhiệm bên bán là then chốt</li>
-        <li>• LOI METT cần ký trước Closing — không có brand = không có giá premium</li>
-        <li>• Tiến độ hoàn thiện Q1/2027 có thể cần lùi 1 năm</li>
-        <li>• Chưa có dữ liệu cho thuê thực tế tại Hạ Long — dùng Phú Quốc làm tham chiếu</li>
-        <li>• Doanh số phụ thuộc vào kích hoạt mạng lưới VIP (Giai đoạn 1)</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-</div><!-- end body -->
-
-<!-- FOOTER -->
 <div class="footer">
-  <div>Royal Canary Corp · Biệt Thự Lam Ngọc · Kế Hoạch Kinh Doanh v1.0 · Tháng 4/2026</div>
-  <div>TÀI LIỆU MẬT — Chỉ Lưu Hành Nội Bộ · Anh Quang & ExCom</div>
-  <div>Chuẩn bị bởi Zera (RCC AI Orchestrator)</div>
+  RCC Investment Analysis · Prj TC_20260409_FM_v3 · Dữ liệu từ Google Sheets · Chỉ dùng nội bộ
 </div>
 
-</div><!-- end trang -->
 </body>
 </html>
