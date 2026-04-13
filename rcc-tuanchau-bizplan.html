@@ -2,9 +2,10 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; padding: 20px; width: 800px; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; padding: clamp(12px, 3vw, 28px); max-width: 960px; margin: 0 auto; width: 100%; }
 
   .header {
     background: linear-gradient(135deg, #0a1628 0%, #1a3a6b 100%);
@@ -13,70 +14,72 @@
     border-radius: 12px;
     margin-bottom: 20px;
   }
-  .header .logo { font-size: 11px; letter-spacing: 2px; opacity: 0.7; text-transform: uppercase; margin-bottom: 6px; }
-  .header h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
-  .header .sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+  .header .logo { font-size: clamp(9px, 1.2vw, 11px); letter-spacing: 2px; opacity: 0.7; text-transform: uppercase; margin-bottom: 6px; }
+  .header h1 { font-size: clamp(16px, 3vw, 22px); font-weight: 700; line-height: 1.3; }
+  .header .sub { font-size: clamp(11px, 1.8vw, 13px); opacity: 0.8; margin-top: 4px; }
   .header .badge { 
     display: inline-block; background: rgba(255,255,255,0.15); 
-    padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-top: 10px;
+    padding: 3px 10px; border-radius: 20px; font-size: clamp(9px, 1.2vw, 11px); margin-top: 10px;
   }
 
   .section-title {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; 
+    font-size: clamp(9px, 1.2vw, 11px); font-weight: 700; letter-spacing: 1.5px; 
     text-transform: uppercase; color: #6b7280; margin: 20px 0 10px;
     padding-left: 12px; border-left: 3px solid #1a3a6b;
   }
 
   /* KPI cards row */
-  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(6px, 1.2vw, 10px); margin-bottom: 12px; }
+  @media (max-width: 600px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
   .kpi-card {
-    background: white; border-radius: 10px; padding: 14px 12px;
+    background: white; border-radius: 10px; padding: clamp(10px, 2vw, 14px) clamp(8px, 1.5vw, 12px);
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     border-top: 3px solid #1a3a6b;
   }
   .kpi-card.green { border-top-color: #10b981; }
   .kpi-card.amber { border-top-color: #f59e0b; }
   .kpi-card.red { border-top-color: #ef4444; }
-  .kpi-label { font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .kpi-value { font-size: 20px; font-weight: 700; color: #111827; line-height: 1.1; }
-  .kpi-unit { font-size: 11px; color: #6b7280; margin-top: 2px; }
+  .kpi-label { font-size: clamp(9px, 1.1vw, 10px); color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .kpi-value { font-size: clamp(16px, 2.5vw, 22px); font-weight: 700; color: #111827; line-height: 1.1; }
+  .kpi-unit { font-size: clamp(9px, 1.1vw, 11px); color: #6b7280; margin-top: 2px; }
 
   /* Two-column layout */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.5vw, 14px); margin-bottom: 14px; }
+  @media (max-width: 580px) { .two-col { grid-template-columns: 1fr; } }
 
   /* Tables */
-  .card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-  .card-title { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 12px; }
+  .card { background: white; border-radius: 10px; padding: clamp(12px, 2vw, 16px); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .card-title { font-size: clamp(11px, 1.4vw, 13px); font-weight: 700; color: #374151; margin-bottom: 12px; }
   
-  table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  thead th { background: #f3f4f6; color: #6b7280; font-size: 10px; text-transform: uppercase; 
-              letter-spacing: 0.5px; padding: 6px 8px; text-align: left; }
+  table { width: 100%; border-collapse: collapse; font-size: clamp(10px, 1.3vw, 12px); }
+  thead th { background: #f3f4f6; color: #6b7280; font-size: clamp(9px, 1.1vw, 10px); text-transform: uppercase; 
+              letter-spacing: 0.5px; padding: clamp(4px, 0.8vw, 6px) clamp(6px, 1vw, 8px); text-align: left; }
   thead th:not(:first-child) { text-align: right; }
-  tbody td { padding: 7px 8px; border-bottom: 1px solid #f3f4f6; color: #374151; }
+  tbody td { padding: clamp(5px, 0.9vw, 7px) clamp(6px, 1vw, 8px); border-bottom: 1px solid #f3f4f6; color: #374151; }
   tbody td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
   tbody tr:last-child td { border-bottom: none; font-weight: 700; background: #f9fafb; }
   tbody tr.total td { font-weight: 700; background: #f0f4ff; color: #1a3a6b; }
   tbody tr.subtotal td { font-weight: 600; color: #374151; }
 
   /* Sensitivity table */
-  .sensitivity table { font-size: 11px; }
+  .sensitivity table { font-size: clamp(9px, 1.2vw, 11px); }
   .sensitivity thead th { text-align: center; }
   .sensitivity tbody td { text-align: center; }
   .sensitivity tbody td:first-child { text-align: left; font-weight: 600; }
   .sensitivity .highlight { background: #e8f0fe; font-weight: 700; color: #1a3a6b; }
 
   /* Timeline */
-  .timeline { display: flex; gap: 8px; }
-  .milestone { flex: 1; background: #f0f4ff; border-radius: 8px; padding: 10px; text-align: center; }
-  .milestone .date { font-size: 10px; color: #6b7280; }
-  .milestone .event { font-size: 11px; font-weight: 600; color: #1a3a6b; margin-top: 2px; }
-  .milestone .amount { font-size: 12px; font-weight: 700; color: #111827; margin-top: 3px; }
+  .timeline { display: flex; gap: clamp(5px, 1vw, 8px); flex-wrap: wrap; }
+  .milestone { flex: 1; min-width: clamp(90px, 14vw, 130px); background: #f0f4ff; border-radius: 8px; padding: clamp(8px, 1.2vw, 10px); text-align: center; }
+  .milestone .date { font-size: clamp(8px, 1vw, 10px); color: #6b7280; }
+  .milestone .event { font-size: clamp(10px, 1.2vw, 11px); font-weight: 600; color: #1a3a6b; margin-top: 2px; }
+  .milestone .amount { font-size: clamp(10px, 1.3vw, 12px); font-weight: 700; color: #111827; margin-top: 3px; }
 
   /* Capital structure */
   .capital-bar { height: 16px; border-radius: 8px; overflow: hidden; display: flex; margin: 8px 0; }
   .capital-bar .seg { height: 100%; display: flex; align-items: center; justify-content: center; 
                       font-size: 9px; font-weight: 700; color: white; }
-  .cap-legend { display: flex; gap: 12px; font-size: 11px; flex-wrap: wrap; }
+  .cap-legend { display: flex; gap: 12px; font-size: clamp(10px, 1.2vw, 11px); flex-wrap: wrap; }
   .cap-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
 
   /* IRR badge */
@@ -84,13 +87,13 @@
     background: linear-gradient(135deg, #10b981, #059669); color: white;
     border-radius: 10px; padding: 16px; text-align: center;
   }
-  .irr-badge .num { font-size: 36px; font-weight: 800; line-height: 1; }
-  .irr-badge .label { font-size: 11px; opacity: 0.9; margin-top: 4px; }
+  .irr-badge .num { font-size: clamp(28px, 4vw, 36px); font-weight: 800; line-height: 1; }
+  .irr-badge .label { font-size: clamp(10px, 1.2vw, 11px); opacity: 0.9; margin-top: 4px; }
 
   /* Footer */
-  .footer { font-size: 10px; color: #9ca3af; text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
+  .footer { font-size: clamp(9px, 1.1vw, 10px); color: #9ca3af; text-align: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
 
-  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: clamp(9px, 1.1vw, 10px); font-weight: 600; }
   .pill-blue { background: #dbeafe; color: #1d4ed8; }
   .pill-green { background: #d1fae5; color: #065f46; }
 </style>
