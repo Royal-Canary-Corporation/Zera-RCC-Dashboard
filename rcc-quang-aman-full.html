@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --navy: #0d1829;
+  --navy-mid: #152033;
+  --gold: #b8922a;
+  --gold-light: #d4aa50;
+  --white: #ffffff;
+  --cream: #faf9f6;
+  --gray-border: #ddd8cc;
+  --text-dark: #0d1829;
+  --text-mid: #3a4358;
+  --text-light: #7a7a8a;
+  --green: #2d7a4f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  background: var(--white);
+  color: var(--text-dark);
+  font-size: 13pt;
+  line-height: 1.8;
+  width: 794px; /* A4 */
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  width: 794px;
+  height: 1123px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  page-break-after: always;
+  position: relative;
+  overflow: hidden;
+}
+.cover-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+}
+.cover-top { padding: 60px 64px 0; }
+.cover-logo {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 120px;
+}
+.cover-logo-box {
+  width: 44px; height: 44px;
+  background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px; font-weight: 700; color: var(--navy);
+}
+.cover-logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; color: rgba(255,255,255,0.6);
+  letter-spacing: 2px; text-transform: uppercase;
+  line-height: 1.4;
+}
+.cover-main { padding: 0 64px; }
+.cover-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+}
+.cover-title {
+  font-size: 42pt; font-weight: 500;
+  color: var(--white); line-height: 1.1;
+  margin-bottom: 12px;
+}
+.cover-title span { color: var(--gold-light); }
+.cover-subtitle {
+  font-size: 14pt; color: rgba(255,255,255,0.5);
+  font-style: italic; margin-bottom: 48px;
+}
+.cover-divider {
+  width: 48px; height: 2px;
+  background: var(--gold); margin-bottom: 32px;
+}
+.cover-desc {
+  font-size: 13pt; color: rgba(255,255,255,0.65);
+  max-width: 480px; line-height: 1.7; margin-bottom: 0;
+}
+.cover-bottom {
+  padding: 40px 64px 56px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.cover-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; color: rgba(255,255,255,0.35);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  line-height: 2;
+}
+.cover-conf {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; color: rgba(255,255,255,0.25);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* ── INNER PAGES ── */
+.page {
+  width: 794px;
+  min-height: 1123px;
+  padding: 72px 72px 80px;
+  page-break-before: always;
+  position: relative;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 48px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-border);
+}
+.page-section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+}
+.page-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; color: var(--text-light);
+  letter-spacing: 1px;
+}
+
+/* TYPOGRAPHY */
+h1 {
+  font-size: 26pt; font-weight: 500;
+  color: var(--navy); line-height: 1.15;
+  margin-bottom: 8px;
+}
+h1 em { font-style: italic; color: var(--text-mid); }
+.subtitle-line {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 36px;
+}
+h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.5px;
+  color: var(--navy); margin: 40px 0 14px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--gray-border);
+}
+p { margin-bottom: 14px; color: var(--text-mid); }
+p strong, p b { color: var(--text-dark); font-weight: 600; }
+
+/* PULL QUOTE */
+.pullquote {
+  border-left: 3px solid var(--gold);
+  padding: 14px 22px; margin: 28px 0;
+  background: var(--cream);
+}
+.pullquote p {
+  font-size: 13.5pt; font-style: italic;
+  color: var(--navy); margin: 0 0 8px;
+}
+.pullquote cite {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text-light);
+  font-style: normal;
+}
+
+/* STATS */
+.stat-row { display: flex; gap: 16px; margin: 20px 0 30px; }
+.stat-box {
+  flex: 1;
+  border: 1px solid var(--gray-border);
+  border-top: 3px solid var(--gold);
+  padding: 16px 18px;
+}
+.stat-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 22pt; font-weight: 700;
+  color: var(--navy); line-height: 1; margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text-light); margin-bottom: 4px;
+}
+.stat-note { font-size: 10pt; color: var(--text-light); font-style: italic; }
+
+/* TABLE */
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 11pt; margin: 16px 0 28px;
+}
+thead tr { background: var(--navy); }
+thead th {
+  padding: 9px 12px; color: rgba(255,255,255,0.75);
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
+  font-weight: 600; text-align: left;
+}
+tbody tr { border-bottom: 1px solid var(--gray-border); }
+tbody td { padding: 10px 12px; color: var(--text-mid); vertical-align: top; }
+tbody td:first-child {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600; color: var(--navy);
+  font-size: 10.5pt;
+}
+.deal-size {
+  font-family: 'Inter', sans-serif;
+  color: var(--gold); font-weight: 700; font-size: 11pt;
+}
+.deal-outcome { color: var(--green); font-size: 10.5pt; }
+tfoot td {
+  padding: 10px 12px; background: var(--cream);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700; font-size: 10pt;
+  border-top: 2px solid var(--navy); color: var(--navy);
+}
+
+/* TIMELINE */
+.tl-item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 0 20px; margin-bottom: 20px;
+}
+.tl-year {
+  font-family: 'Inter', sans-serif;
+  font-size: 10pt; font-weight: 700; color: var(--gold);
+  padding-top: 2px; text-align: right;
+}
+.tl-body { border-left: 2px solid var(--gray-border); padding: 0 0 16px 20px; }
+.tl-body.major { border-left-color: var(--navy); }
+.tl-event { font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.tl-detail { font-size: 11.5pt; color: var(--text-mid); }
+
+/* CLOSING BOX */
+.closing-box {
+  background: var(--navy); padding: 32px 36px; margin-top: 40px;
+  color: var(--white);
+}
+.closing-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.closing-text { font-size: 13pt; color: rgba(255,255,255,0.75); line-height: 1.7; }
+.closing-contact {
+  margin-top: 22px; padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5pt; color: rgba(255,255,255,0.55);
+  line-height: 1.8;
+}
+.closing-contact strong { color: rgba(255,255,255,0.85); }
+
+/* PAGE FOOTER */
+.page-footer {
+  position: fixed; bottom: 32px; left: 72px; right: 72px;
+  display: flex; justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-size: 8px; color: var(--text-light);
+  letter-spacing: 0.5px;
+  border-top: 1px solid var(--gray-border);
+  padding-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cover-accent"></div>
+  <div class="cover-top">
+    <div class="cover-logo">
+      <div class="cover-logo-box">R</div>
+      <div class="cover-logo-text">Royal Canary<br>Corporation</div>
+    </div>
+  </div>
+  <div class="cover-main">
+    <div class="cover-eyebrow">Private & Confidential · April 2026</div>
+    <div class="cover-title">Nguyen Dang Quang<br><span>A Request for a<br>Private Meeting</span></div>
+    <div class="cover-subtitle">For the attention of Mr. Vladislav Doronin</div>
+    <div class="cover-divider"></div>
+    <div class="cover-desc">
+      This document introduces Dr. Nguyen Dang Quang, Founder and Group Chairman of Royal Canary Corporation, and sets out the basis for a long-term strategic partnership between RCC and Aman Group.
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      Royal Canary Corporation<br>
+      Ho Chi Minh City, Vietnam<br>
+      April 2026
+    </div>
+    <div class="cover-conf">Strictly Private &amp; Confidential<br>Not for Circulation</div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 1 — PRINCIPAL PROFILE ═══ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-section-label">Section I — The Principal</div>
+    <div class="page-num">01</div>
+  </div>
+
+  <h1>Nguyen Dang Quang<br><em>Founder & Group Chairman</em></h1>
+  <div class="subtitle-line">Royal Canary Corporation · Vietnam</div>
+
+  <p>Dr. Nguyen Dang Quang (born 1963, Vietnam) is one of Southeast Asia's most consequential long-horizon capital allocators. Educated in Moscow — MBA from Plekhanov Russian University of Economics, Doctorate from the National Academy of Sciences of Belarus — he returned to Vietnam in the early 1990s and built two of the country's defining financial institutions from the ground up.</p>
+
+  <p>In <strong>1993</strong>, he co-invested in <strong>Techcombank</strong> — today Vietnam's second-largest private bank by assets, listed on HoSE with a market capitalisation exceeding USD 6 billion. In <strong>2004</strong>, he co-founded <strong>Masan Group</strong> — now Vietnam's largest consumer and retail conglomerate with FY2024 revenue of <strong>USD 3.3 billion</strong> spanning consumer goods, modern retail, natural resources, and financial services. Forbes lists him on the 2025 Billionaires list at approximately USD 1.1 billion.</p>
+
+  <p>He builds for decades. He does not trade positions.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">$3.3B</div>
+      <div class="stat-label">FY2024 Masan Revenue</div>
+      <div class="stat-note">Vietnam's largest consumer platform</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$6B+</div>
+      <div class="stat-label">Techcombank Market Cap</div>
+      <div class="stat-note">Vietnam's 2nd largest private bank</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">Years Holding Core Positions</div>
+      <div class="stat-note">No exits. No fund cycles.</div>
+    </div>
+  </div>
+
+  <h2>Royal Canary Corporation</h2>
+
+  <p>Beyond Masan, Dr. Quang controls <strong>Royal Canary Corporation (RCC)</strong> — a privately held hospitality developer and investment holding company with an explicit UHNW positioning across every asset it develops and acquires.</p>
+
+  <p>RCC's current portfolio is anchored by <strong>Le Meridien Saigon</strong> — a mixed-use tower at Riverbank Place, District 1, Ho Chi Minh City, comprising 305 hotel keys and 13,972 sqm of Grade A waterfront office space on the most coveted address in Vietnam. The company is actively building an M&A and development pipeline across Hạ Long Bay, Phú Quốc, Continental Europe, and key gateway cities across Asia — every asset developed with the same conviction: scarcity, privacy, and irreplaceable location.</p>
+
+  <h2>The Proposal</h2>
+
+  <p>Dr. Quang is not approaching Aman as an admirer of the brand. He is approaching as a capital partner who recognises that the strategic alignment between RCC's pipeline and Aman's expansion thesis creates a compounding opportunity that neither party can replicate independently.</p>
+
+  <p>He is seeking a <strong>long-term strategic partnership</strong> with Aman Group — across existing properties and the upcoming development pipeline — structured as a principal-to-principal relationship between two builders who operate on the same time horizon.</p>
+
+  <div class="closing-box">
+    <div class="closing-label">The Request</div>
+    <div class="closing-text">Dr. Nguyen Dang Quang would welcome the opportunity for a private meeting with Mr. Vladislav Doronin — at a time and location of Mr. Doronin's choosing — to explore the basis for a long-term strategic partnership between RCC and Aman Group.</div>
+    <div class="closing-contact">
+      <strong>Bach Tran</strong> · Deputy CEO, Royal Canary Corporation<br>
+      To arrange a meeting, please contact via the address provided separately.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2 — M&A TRACK RECORD ═══ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-section-label">Appendix — Track Record</div>
+    <div class="page-num">02</div>
+  </div>
+
+  <h1>A Builder's Track Record<br><em>Techcombank · Masan Group · 1993–2025</em></h1>
+  <div class="subtitle-line">How Dr. Quang compounds capital through strategic acquisition</div>
+
+  <p>Every great position Dr. Quang has built began with a private conviction that a category was structurally mispriced — and that the missing ingredient was not capital alone, but the right operating framework and the patience to let it compound. The record below documents that thesis in practice.</p>
+
+  <h2>Techcombank — The Original Position (1993–Present)</h2>
+
+  <p>In 1993, at the age of 30, Dr. Quang co-invested in Techcombank when Vietnam's banking sector had no public benchmarks and the Đổi Mới reforms were just beginning. He held through every cycle — Asian financial crisis, the 2008 global recession, COVID — never wavering from the original conviction.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">1993</div>
+      <div class="stat-label">Year of Investment</div>
+      <div class="stat-note">Early-stage, private, no comps</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$370M</div>
+      <div class="stat-label">Warburg Pincus (2018)</div>
+      <div class="stat-note">Pre-IPO validation</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$900M+</div>
+      <div class="stat-label">IPO Raise — HoSE 2018</div>
+      <div class="stat-note">Largest Vietnamese bank IPO</div>
+    </div>
+  </div>
+
+  <h2>Masan Group — The M&A Platform (2004–2025)</h2>
+
+  <p>At the 2023 Vietnam M&A Forum, Masan Group was officially recognised as Vietnam's <strong>enterprise with the most typical M&A strategy across the period 2009–2023</strong>. The following transactions document why.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Transaction</th>
+        <th>Size</th>
+        <th>Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2010</td>
+        <td>Nui Phao Mine — Distressed acquisition of world's largest tungsten deposit when prior owner ran out of capital</td>
+        <td class="deal-size">Undisclosed</td>
+        <td class="deal-outcome">Became world's largest tungsten mine. Core of Masan High-Tech Materials.</td>
+      </tr>
+      <tr>
+        <td>2011</td>
+        <td>KKR invests USD 159M for 10% of Masan Consumer — Vietnam's largest private equity deal at the time</td>
+        <td class="deal-size">$159M</td>
+        <td class="deal-outcome">International validation. Market leader in fish sauce, noodles, chilli sauce.</td>
+      </tr>
+      <tr>
+        <td>2019</td>
+        <td>VinCommerce + VinEco from Vingroup — 2,500+ stores acquired as Vingroup exited non-core assets</td>
+        <td class="deal-size">Asset swap</td>
+        <td class="deal-outcome">Renamed WinCommerce. Now 3,600+ stores. Vietnam's largest modern retail network. Voted #1 deal 2009–2023.</td>
+      </tr>
+      <tr>
+        <td>2021</td>
+        <td>Phuc Long Coffee & Tea — 85% controlling stake in Vietnam's premium F&B chain</td>
+        <td class="deal-size">~$110M</td>
+        <td class="deal-outcome">800+ kiosks inside WinMart. Double-digit revenue growth annually.</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>SK Group (Korea) strategic partnership — capital and distribution for SEA expansion</td>
+        <td class="deal-size">$340M</td>
+        <td class="deal-outcome">Active cross-border technology and distribution partnerships.</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">FY2024 Consolidated Revenue</td>
+        <td colspan="2"><strong>USD 3.3 billion</strong> — Consumer · Retail · Resources · Financial Services</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2>The Repeating Framework</h2>
+
+  <p>Reviewed in sequence, these transactions reveal a single framework applied consistently across every category Dr. Quang enters:</p>
+
+  <p><strong>Acquire at moments of category mispricing.</strong> Nui Phao when its owner ran out of capital. VinCommerce when Vingroup needed to exit. Phuc Long before premium F&B reached full market pricing. The entry point is always chosen for structural advantage, not momentum.</p>
+
+  <p><strong>Attract world-class operating partners.</strong> KKR, Warburg Pincus, SK Group, and Alibaba have each entered at various stages of the Masan platform. These are not exits — they are strategic validations that bring technology, distribution, and global credibility to each business unit.</p>
+
+  <p><strong>Hold the position.</strong> Dr. Quang has not sold his core Masan or Techcombank stakes in over twenty years. He operates on a generational time horizon.</p>
+
+  <div class="pullquote">
+    <p>Every great position Dr. Quang has built began with a private conversation between principals who recognised, before the market did, that they were looking at the same opportunity.</p>
+    <cite>RCC — Internal strategic note · April 2026</cite>
+  </div>
+
+  <p>The next application of this framework is Royal Canary Corporation's hospitality and real estate platform — and the missing piece is the world's most disciplined luxury hospitality brand as a long-term strategic partner. That is why Dr. Quang is requesting this conversation.</p>
+</div>
+
+<div class="page-footer">
+  <div>Royal Canary Corporation · Strictly Private &amp; Confidential · Not for Circulation</div>
+  <div>April 2026</div>
+</div>
+
+</body>
+</html>
