@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screaming Eagle — Phân Tích Offer Final</title>
+<style>
+:root {
+  --navy: #0d1829;
+  --gold: #c9a84c;
+  --white: #ffffff;
+  --gray-bg: #f4f6f9;
+  --gray-border: #e2e6ec;
+  --text-dark: #0d1829;
+  --text-mid: #3a4a5e;
+  --text-light: #6b7c93;
+  --green: #27ae60;
+  --green-bg: rgba(39,174,96,0.08);
+  --green-strong-bg: rgba(39,174,96,0.15);
+  --red: #c0392b;
+  --amber: #e67e22;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', -apple-system, sans-serif;
+  background: var(--gray-bg);
+  color: var(--text-dark);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+/* HEADER */
+.header {
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+  padding: 28px 36px;
+  margin-bottom: 24px;
+  border-radius: 10px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.header h1 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.header h1 span { color: var(--gold); }
+.header-sub { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+.header-right { text-align: right; }
+.header-right .val { font-size: 22px; font-weight: 700; color: var(--gold); }
+.header-right .lbl { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+
+/* KPI ROW */
+.kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 24px; }
+.kpi {
+  background: var(--white); border: 1px solid var(--gray-border);
+  border-top: 3px solid var(--gold);
+  border-radius: 8px; padding: 16px; text-align: center;
+}
+.kpi .num { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.kpi .num.green { color: var(--green); }
+.kpi .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); }
+.kpi .sub { font-size: 10px; color: var(--text-light); margin-top: 3px; }
+
+/* SECTION */
+.sec-hdr {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); padding: 10px 18px;
+  border-left: 4px solid var(--gold);
+  border-radius: 6px 6px 0 0; margin-top: 24px;
+}
+.sec-num {
+  width: 22px; height: 22px; background: var(--gold);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--navy);
+}
+.sec-title { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
+.sec-body {
+  background: var(--white); border: 1px solid var(--gray-border);
+  border-top: none; border-radius: 0 0 8px 8px; padding: 0;
+  overflow: hidden;
+}
+
+/* TABLE */
+.t { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.t thead tr { background: var(--navy); }
+.t thead th {
+  padding: 10px 14px; color: rgba(255,255,255,0.7);
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  font-weight: 600; text-align: left;
+}
+.t thead th.r { text-align: right; }
+.t tbody tr { border-bottom: 1px solid var(--gray-border); }
+.t tbody tr:hover { background: var(--gray-bg); }
+.t tbody tr:last-child { border-bottom: none; }
+.t tbody td { padding: 10px 14px; color: var(--text-mid); }
+.t tbody td.r { text-align: right; }
+.t tbody td.bold { font-weight: 700; color: var(--text-dark); }
+.t tfoot td { padding: 11px 14px; background: var(--navy); color: #fff; font-weight: 700; border-top: 2px solid var(--gold); }
+.t tfoot td.r { text-align: right; }
+.t tfoot td.gold { color: var(--gold); }
+
+/* DISCOUNT BADGE */
+.disc { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+.disc-10 { background: rgba(201,168,76,0.15); color: #8a6d1e; }
+.disc-200 { background: rgba(37,99,235,0.12); color: #1d4ed8; }
+.disc-free { background: rgba(39,174,96,0.12); color: var(--green); }
+
+/* vs MARKET */
+.vs { font-size: 11px; font-weight: 700; }
+.vs.good { color: var(--green); }
+.vs.vgood { color: #15803d; }
+.star { color: var(--gold); }
+
+/* SUMMARY TABLE */
+.sum-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sum-table tr { border-bottom: 1px solid var(--gray-border); }
+.sum-table tr.total { background: var(--navy); }
+.sum-table tr.total td { color: #fff; font-weight: 700; padding: 13px 14px; border-top: 2px solid var(--gold); }
+.sum-table tr.total td.gold { color: var(--gold); text-align: right; }
+.sum-table td { padding: 11px 14px; color: var(--text-mid); }
+.sum-table td.label { font-weight: 600; color: var(--text-dark); }
+.sum-table td.r { text-align: right; }
+.sum-table td.saving { text-align: right; color: var(--green); font-weight: 600; }
+.sum-table tr.sub td { background: var(--gray-bg); font-size: 12px; }
+
+/* COMPARE BOX */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.cbox { border-radius: 8px; padding: 18px 20px; }
+.cbox.old { background: var(--gray-bg); border: 1px solid var(--gray-border); }
+.cbox.new { background: rgba(39,174,96,0.06); border: 1px solid rgba(39,174,96,0.3); border-left: 3px solid var(--green); }
+.cbox-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-bottom: 10px; font-weight: 700; }
+.cbox.new .cbox-label { color: var(--green); }
+.cbox-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12.5px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+.cbox-row:last-child { border-bottom: none; }
+.cbox-row .k { color: var(--text-mid); }
+.cbox-row .v { font-weight: 600; color: var(--text-dark); }
+.cbox.new .cbox-row .v { color: var(--green); }
+
+/* VERDICT */
+.verdict {
+  background: linear-gradient(135deg, #064e3b, #065f46);
+  border-radius: 8px; padding: 20px 24px; margin-top: 24px;
+  color: white;
+}
+.verdict-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.verdict-text { font-size: 15px; font-weight: 700; color: #34d399; margin-bottom: 6px; }
+.verdict-sub { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+/* FOOTER */
+.footer { text-align: center; font-size: 10px; color: var(--text-light); margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--gray-border); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Screaming Eagle — <span>Phân Tích Offer Final</span></h1>
+    <div class="header-sub">WINE-SEARCHER BENCHMARK · FINAL PRICING · APRIL 2026 · STRICTLY PRIVATE</div>
+  </div>
+  <div class="header-right">
+    <div class="lbl">Final Total</div>
+    <div class="val">$122,110</div>
+    <div class="lbl" style="color:var(--gold);margin-top:4px;">63 chai · −17.5% vs gốc</div>
+  </div>
+</div>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="num">63</div>
+    <div class="lbl">Tổng Số Chai</div>
+    <div class="sub">27 museum + 15 cab + 21 white</div>
+  </div>
+  <div class="kpi">
+    <div class="num">$148,050</div>
+    <div class="lbl">Giá Gốc</div>
+    <div class="sub">Trước tất cả discount</div>
+  </div>
+  <div class="kpi">
+    <div class="num green">$122,110</div>
+    <div class="lbl">Final Total</div>
+    <div class="sub">Sau tất cả discount</div>
+  </div>
+  <div class="kpi">
+    <div class="num green">−$25,940</div>
+    <div class="lbl">Tổng Tiết Kiệm</div>
+    <div class="sub">−17.5% vs giá gốc</div>
+  </div>
+  <div class="kpi">
+    <div class="num green">+49%</div>
+    <div class="lbl">Built-in Margin</div>
+    <div class="sub">vs Wine-Searcher ~$192K+</div>
+  </div>
+</div>
+
+<!-- SECTION 1: MUSEUM RELEASE -->
+<div class="sec-hdr"><div class="sec-num">1</div><div class="sec-title">Museum Release 1998–2018 · Discount −10%/Chai · 27 Chai OWC Ex-Winery</div></div>
+<div class="sec-body">
+  <table class="t">
+    <thead>
+      <tr>
+        <th>Vintage</th>
+        <th>Score</th>
+        <th class="r">Giá Gốc/Chai</th>
+        <th class="r">Discount</th>
+        <th class="r">Giá Sau/Chai</th>
+        <th class="r">Số Chai</th>
+        <th class="r">Tổng Sau Discount</th>
+        <th class="r">WS Market</th>
+        <th class="r">vs Market</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">1998</td>
+        <td>93pts</td>
+        <td class="r">$2,900</td>
+        <td class="r"><span class="disc disc-10">−10% (−$290)</span></td>
+        <td class="r bold">$2,610</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,830</td>
+        <td class="r">$3,021</td>
+        <td class="r"><span class="vs good">−14% 🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">1999</td>
+        <td>94pts</td>
+        <td class="r">$2,900</td>
+        <td class="r"><span class="disc disc-10">−10% (−$290)</span></td>
+        <td class="r bold">$2,610</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,830</td>
+        <td class="r">$4,032</td>
+        <td class="r"><span class="vs vgood">−35% 🟢🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2006</td>
+        <td>94pts</td>
+        <td class="r">$2,900</td>
+        <td class="r"><span class="disc disc-10">−10% (−$290)</span></td>
+        <td class="r bold">$2,610</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,830</td>
+        <td class="r">$3,727</td>
+        <td class="r"><span class="vs vgood">−30% 🟢🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2007</td>
+        <td>97pts</td>
+        <td class="r">$3,400</td>
+        <td class="r"><span class="disc disc-10">−10% (−$340)</span></td>
+        <td class="r bold">$3,060</td>
+        <td class="r">3</td>
+        <td class="r bold">$9,180</td>
+        <td class="r">$4,423</td>
+        <td class="r"><span class="vs vgood">−31% 🟢🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2010</td>
+        <td>98pts</td>
+        <td class="r">$3,300</td>
+        <td class="r"><span class="disc disc-10">−10% (−$330)</span></td>
+        <td class="r bold">$2,970</td>
+        <td class="r">3</td>
+        <td class="r bold">$8,910</td>
+        <td class="r">$4,369</td>
+        <td class="r"><span class="vs vgood">−32% 🟢🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2011</td>
+        <td>94pts</td>
+        <td class="r">$2,400</td>
+        <td class="r"><span class="disc disc-10">−10% (−$240)</span></td>
+        <td class="r bold">$2,160</td>
+        <td class="r">3</td>
+        <td class="r bold">$6,480</td>
+        <td class="r">$2,906</td>
+        <td class="r"><span class="vs good">−26% 🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2013</td>
+        <td>97pts</td>
+        <td class="r">$2,700</td>
+        <td class="r"><span class="disc disc-10">−10% (−$270)</span></td>
+        <td class="r bold">$2,430</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,290</td>
+        <td class="r">$3,262</td>
+        <td class="r"><span class="vs good">−26% 🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2014</td>
+        <td>96pts</td>
+        <td class="r">$2,900</td>
+        <td class="r"><span class="disc disc-10">−10% (−$290)</span></td>
+        <td class="r bold">$2,610</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,830</td>
+        <td class="r">$3,520</td>
+        <td class="r"><span class="vs good">−26% 🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">2018</td>
+        <td>99pts <span class="star">★</span></td>
+        <td class="r">$2,900</td>
+        <td class="r"><span class="disc disc-10">−10% (−$290)</span></td>
+        <td class="r bold">$2,610</td>
+        <td class="r">3</td>
+        <td class="r bold">$7,830</td>
+        <td class="r">$3,802</td>
+        <td class="r"><span class="vs vgood">−31% 🟢🟢</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">TỔNG MUSEUM RELEASE (27 chai)</td>
+        <td class="r">$78,900</td>
+        <td class="r" style="color:var(--gold);">−$2,790 (−10%)</td>
+        <td colspan="2"></td>
+        <td class="r gold">$71,010</td>
+        <td class="r" style="color:rgba(255,255,255,0.6);">~$106,530</td>
+        <td class="r gold">−33% avg</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- SECTION 2: NEW VINTAGES -->
+<div class="sec-hdr"><div class="sec-num">2</div><div class="sec-title">Vintage Mới — Discount −$200/Chai</div></div>
+<div class="sec-body">
+  <table class="t">
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th class="r">Giá Gốc/Chai</th>
+        <th class="r">Discount</th>
+        <th class="r">Giá Sau/Chai</th>
+        <th class="r">Số Chai Trả Tiền</th>
+        <th class="r">Chai Free</th>
+        <th class="r">Tổng Sau Discount</th>
+        <th class="r">WS Market/Chai</th>
+        <th class="r">vs Market</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">Cab Sauvignon 2023</td>
+        <td class="r">$1,950</td>
+        <td class="r"><span class="disc disc-200">−$200/chai</span></td>
+        <td class="r bold">$1,750</td>
+        <td class="r">15</td>
+        <td class="r">—</td>
+        <td class="r bold">$26,250</td>
+        <td class="r">$2,607</td>
+        <td class="r"><span class="vs vgood">−33% 🟢🟢</span></td>
+      </tr>
+      <tr>
+        <td class="bold">Sauvignon Blanc 2022/2023</td>
+        <td class="r">$1,900</td>
+        <td class="r"><span class="disc disc-200">−$200/chai</span> + <span class="disc disc-free">6 chai free</span></td>
+        <td class="r bold">$1,700</td>
+        <td class="r">15</td>
+        <td class="r" style="color:var(--green);font-weight:600;">6 free</td>
+        <td class="r bold">$25,500</td>
+        <td class="r">$2,405</td>
+        <td class="r"><span class="vs vgood">−29% 🟢🟢</span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>TỔNG VINTAGE MỚI (30 chai trả + 6 free)</td>
+        <td class="r">$47,250</td>
+        <td class="r" style="color:var(--gold);">−$9,000 + 6 free</td>
+        <td colspan="3"></td>
+        <td class="r gold">$51,750</td>
+        <td class="r" style="color:rgba(255,255,255,0.6);">~$86,220</td>
+        <td class="r gold">−40% avg</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- SECTION 3: TỔNG KẾT -->
+<div class="sec-hdr"><div class="sec-num">3</div><div class="sec-title">Tổng Kết — Trước & Sau Tất Cả Discount</div></div>
+<div class="sec-body" style="padding:0;">
+  <table class="sum-table">
+    <tr>
+      <td class="label">Museum Release (27 chai) · Discount −10%</td>
+      <td class="r">$78,900</td>
+      <td class="r" style="color:var(--amber);">−$7,890</td>
+      <td class="r bold">$71,010</td>
+    </tr>
+    <tr>
+      <td class="label">Cab Sauvignon 2023 (15 chai) · Discount −$200/chai</td>
+      <td class="r">$29,250</td>
+      <td class="r" style="color:var(--amber);">−$3,000</td>
+      <td class="r bold">$26,250</td>
+    </tr>
+    <tr>
+      <td class="label">Sauvignon Blanc (15 chai trả) · Discount −$200/chai</td>
+      <td class="r">$28,500</td>
+      <td class="r" style="color:var(--amber);">−$3,000</td>
+      <td class="r bold">$25,500</td>
+    </tr>
+    <tr>
+      <td class="label" style="color:var(--green);">Sauvignon Blanc (6 chai FREE)</td>
+      <td class="r" style="text-decoration:line-through;color:var(--text-light);">$11,400</td>
+      <td class="r" style="color:var(--green);">−$11,400</td>
+      <td class="r bold" style="color:var(--green);">$0</td>
+    </tr>
+    <tr class="total">
+      <td>TỔNG CỘNG (63 chai · 57 trả + 6 free)</td>
+      <td class="r">$148,050</td>
+      <td class="r" style="color:var(--gold);">−$25,290</td>
+      <td class="gold">$122,760</td>
+    </tr>
+  </table>
+</div>
+
+<!-- COMPARE OLD vs NEW -->
+<div style="margin-top:24px;">
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:12px;">So Sánh Các Phiên Bản Offer</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+
+    <div style="background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:8px;padding:16px 18px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:10px;font-weight:700;">Offer Gốc</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">Museum discount</span><span style="font-weight:600;">Không có</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">New vintage discount</span><span style="font-weight:600;">Không có</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">White free</span><span style="font-weight:600;color:var(--green);">6 chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;"><span style="font-weight:700;">Total</span><span style="font-weight:700;">$130,950</span></div>
+    </div>
+
+    <div style="background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:8px;padding:16px 18px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:10px;font-weight:700;">Offer V2 (−$100/chai)</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">Museum discount</span><span style="font-weight:600;color:var(--amber);">−$100/chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">New vintage discount</span><span style="font-weight:600;color:var(--amber);">−$100/chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--gray-border);"><span style="color:var(--text-mid);">White free</span><span style="font-weight:600;color:var(--green);">6 chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;"><span style="font-weight:700;">Total</span><span style="font-weight:700;">$128,760</span></div>
+    </div>
+
+    <div style="background:rgba(39,174,96,0.06);border:1px solid rgba(39,174,96,0.3);border-left:3px solid var(--green);border-radius:8px;padding:16px 18px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:10px;font-weight:700;">Offer Final ✅</div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(39,174,96,0.15);"><span style="color:var(--text-mid);">Museum discount</span><span style="font-weight:600;color:var(--green);">−10%/chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(39,174,96,0.15);"><span style="color:var(--text-mid);">New vintage discount</span><span style="font-weight:600;color:var(--green);">−$200/chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(39,174,96,0.15);"><span style="color:var(--text-mid);">White free</span><span style="font-weight:600;color:var(--green);">6 chai</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;"><span style="font-weight:700;color:var(--navy);">Total</span><span style="font-weight:700;color:var(--green);">$122,760</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict">
+  <div class="verdict-label">Kết Luận</div>
+  <div class="verdict-text">✅ ACCEPT — Deal Tốt Ở Mọi Kịch Bản</div>
+  <div class="verdict-sub">
+    Offer final tiết kiệm <strong style="color:#34d399;">$25,290 (−17.5%)</strong> so với giá gốc $148,050.
+    Market value tương đương ~$192,000+ — built-in margin <strong style="color:#34d399;">+49%</strong>.
+    Highlight: 2010 (98pts), 2007 (97pts), 2018 (99pts) — dưới market $1,000+/chai.
+    Nên chốt sớm trước khi nguồn hàng ex-winery hết.
+  </div>
+</div>
+
+<div class="footer">
+  Zera · RCC Strategic Advisory · Screaming Eagle Offer Analysis · April 2026 · Private
+</div>
+
+</div>
+</body>
+</html>
