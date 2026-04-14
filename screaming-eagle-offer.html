@@ -25,10 +25,31 @@ body {
   font-family: 'Segoe UI', -apple-system, sans-serif;
   background: var(--gray-bg);
   color: var(--text-dark);
-  font-size: 13px;
+  font-size: clamp(11px, 1.2vw, 13px);
   line-height: 1.6;
 }
-.page { max-width: 1100px; margin: 0 auto; padding: 32px; }
+.page {
+  max-width: min(1100px, 98vw);
+  margin: 0 auto;
+  padding: clamp(12px, 3vw, 32px);
+}
+
+/* Responsive table — scroll on small screens */
+.sec-body { overflow-x: auto; }
+.t { min-width: 700px; }
+.sum-table { min-width: 400px; }
+
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .header { flex-direction: column; gap: 12px; }
+  .header-right { text-align: left; }
+}
+@media (max-width: 600px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .header h1 { font-size: 16px; }
+  .kpi .num { font-size: 18px; }
+  .verdict { padding: 16px 18px; }
+}
 
 /* HEADER */
 .header {
@@ -419,7 +440,7 @@ body {
 <!-- COMPARE OLD vs NEW -->
 <div style="margin-top:24px;">
   <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:12px;">So Sánh Các Phiên Bản Offer</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;">
 
     <div style="background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:8px;padding:16px 18px;">
       <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text-light);margin-bottom:10px;font-weight:700;">Offer Gốc</div>
