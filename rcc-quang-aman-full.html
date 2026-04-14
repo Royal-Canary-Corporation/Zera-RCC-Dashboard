@@ -21,6 +21,11 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+@page {
+  size: A4;
+  margin: 18mm 18mm 20mm 18mm;
+}
+
 body {
   font-family: 'EB Garamond', Georgia, serif;
   background: var(--white);
@@ -29,6 +34,13 @@ body {
   line-height: 1.8;
   width: 794px; /* A4 */
 }
+
+/* Prevent orphaned lines and cut elements */
+p { orphans: 3; widows: 3; }
+h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+.stat-row { page-break-inside: avoid; break-inside: avoid; }
+table { page-break-inside: avoid; break-inside: avoid; }
+.closing-box { page-break-inside: avoid; break-inside: avoid; }
 
 /* ── COVER PAGE ── */
 .cover {
@@ -110,9 +122,8 @@ body {
 /* ── INNER PAGES ── */
 .page {
   width: 794px;
-  padding: 80px 72px 96px;
+  padding: 64px 64px 80px;
   page-break-before: always;
-  page-break-inside: avoid;
   position: relative;
 }
 .page::before {
@@ -163,8 +174,10 @@ p strong, p b { color: var(--text-dark); font-weight: 600; }
 /* PULL QUOTE */
 .pullquote {
   border-left: 3px solid var(--gold);
-  padding: 14px 22px; margin: 28px 0;
+  padding: 18px 24px; margin: 28px 0;
   background: var(--cream);
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 .pullquote p {
   font-size: 13.5pt; font-style: italic;
