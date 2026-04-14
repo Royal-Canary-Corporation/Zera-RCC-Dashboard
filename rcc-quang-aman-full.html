@@ -110,9 +110,9 @@ body {
 /* ── INNER PAGES ── */
 .page {
   width: 794px;
-  min-height: 1123px;
-  padding: 72px 72px 80px;
+  padding: 80px 72px 96px;
   page-break-before: always;
+  page-break-inside: avoid;
   position: relative;
 }
 .page::before {
@@ -264,16 +264,8 @@ tfoot td {
 }
 .closing-contact strong { color: rgba(255,255,255,0.85); }
 
-/* PAGE FOOTER */
-.page-footer {
-  position: fixed; bottom: 32px; left: 72px; right: 72px;
-  display: flex; justify-content: space-between;
-  font-family: 'Inter', sans-serif;
-  font-size: 8px; color: var(--text-light);
-  letter-spacing: 0.5px;
-  border-top: 1px solid var(--gray-border);
-  padding-top: 10px;
-}
+/* PAGE FOOTER — removed to prevent overlap */
+.page-footer { display: none; }
 </style>
 </head>
 <body>
