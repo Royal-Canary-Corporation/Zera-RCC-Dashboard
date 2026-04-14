@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Aman Project — Working Group Structure</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #0f1923;
+  color: #e2e8f0;
+  width: 1400px;
+  padding: 40px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #1a3a5c, #0d2137);
+  border-radius: 14px;
+  padding: 28px 36px;
+  margin-bottom: 28px;
+  border: 1px solid #2a4a6c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h1 { font-size: 24px; font-weight: 700; color: white; }
+.header h1 span { color: #c9a84c; }
+.header p { font-size: 12px; color: #7fb3d3; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 12px; font-size: 10px; color: #c8dff0; }
+.header-right { text-align: right; }
+.header-right .tag { font-size: 10px; color: #c9a84c; letter-spacing: 1px; text-transform: uppercase; }
+.header-right .val { font-size: 18px; font-weight: 700; color: #c9a84c; }
+.header-right .sub { font-size: 10px; color: #4fc3f7; margin-top: 2px; }
+
+/* SECTION TITLE */
+.section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #4fc3f7; margin-bottom: 12px; padding-left: 2px; }
+
+/* EXEC SUMMARY */
+.exec-box {
+  background: linear-gradient(135deg, #0d2137, #1a3a5c);
+  border-radius: 14px; padding: 32px 36px; margin-bottom: 28px;
+  border: 1px solid #2a4a6c;
+}
+.exec-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 14px; }
+
+.kpi-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+.kpi-card { background: rgba(255,255,255,0.06); border-radius: 10px; padding: 14px 16px; border-top: 3px solid #c9a84c; }
+.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 6px; }
+.kpi-val { font-size: 15px; font-weight: 700; color: white; }
+.kpi-sub { font-size: 11px; color: #7fb3d3; margin-top: 4px; }
+
+.vision-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.vision-card { border-radius: 10px; padding: 16px 18px; border-left: 3px solid; }
+.vision-card.blue { background: rgba(59,130,246,0.08); border-left-color: #3b82f6; }
+.vision-card.gold { background: rgba(201,168,76,0.08); border-left-color: #c9a84c; }
+.vision-card.red { background: rgba(239,68,68,0.1); border-left-color: #ef4444; }
+.vc-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.vc-tag.blue { color: #3b82f6; }
+.vc-tag.gold { color: #c9a84c; }
+.vc-tag.red { color: #ef4444; }
+.vc-list { list-style: none; padding: 0; font-size: 12.5px; color: #c8dff0; line-height: 1.9; }
+.vc-list li::before { content: '• '; color: #4fc3f7; }
+
+/* MILESTONE STRIP */
+.milestone-strip { display: flex; align-items: center; gap: 2px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; margin-top: 16px; }
+.ms-point { text-align: center; flex: 1; padding: 10px 8px; border-radius: 6px; }
+.ms-date { font-size: 12px; font-weight: 700; }
+.ms-desc { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+.ms-arrow { font-size: 14px; color: #2a4a6c; padding: 0 4px; }
+
+/* PERSON CARDS */
+.people-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 20px; }
+.person-card { background: #1a2d40; border-radius: 10px; padding: 14px 12px; text-align: center; border: 1.5px solid #2a4a6c; }
+.person-card.vietcap { border-color: #f59e0b; background: #1f2d1a; }
+.person-card.orchestrator { border-color: #8b5cf6; background: #1e1a2e; }
+.person-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 8px; }
+.person-name { font-size: 14px; font-weight: 700; color: white; margin-bottom: 2px; }
+.person-role { font-size: 11px; color: #94a3b8; line-height: 1.4; }
+.person-scope { font-size: 10px; color: #4fc3f7; margin-top: 4px; font-style: italic; }
+.vietcap-badge { font-size: 9px; background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); border-radius: 10px; padding: 2px 8px; display: inline-block; margin-top: 4px; }
+.inv-card .person-avatar { background: rgba(59,130,246,0.15); border: 2px solid #3b82f6; }
+.cfo-card .person-avatar { background: rgba(239,68,68,0.15); border: 2px solid #ef4444; }
+.legal-card .person-avatar { background: rgba(100,116,139,0.15); border: 2px solid #64748b; }
+.vietcap .person-avatar { background: rgba(245,158,11,0.2); border: 2px solid #f59e0b; }
+.orchestrator .person-avatar { background: rgba(139,92,246,0.2); border: 2px solid #8b5cf6; }
+
+/* WORKSTREAM CARDS */
+.workstream-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 28px; }
+.ws-card { background: #1a2d40; border-radius: 10px; padding: 14px; border-top: 3px solid #2a4a6c; }
+.ws-card.ws-inv { border-top-color: #3b82f6; }
+.ws-card.ws-legal { border-top-color: #64748b; }
+.ws-card.ws-finance { border-top-color: #ef4444; }
+.ws-card.ws-deal { border-top-color: #c9a84c; }
+.ws-card.ws-strategy { border-top-color: #8b5cf6; }
+.ws-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 6px; }
+.ws-owner { font-size: 10px; color: #4fc3f7; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.ws-files { list-style: none; }
+.ws-files li { font-size: 11px; color: #94a3b8; padding: 3px 0; border-bottom: 1px solid #1e3a50; display: flex; align-items: center; gap: 4px; }
+.ws-files li:last-child { border-bottom: none; }
+.file-icon { font-size: 9px; }
+.f-forecast { color: #60a5fa; }
+.f-wip { color: #f59e0b; }
+.f-output { color: #34d399; }
+
+/* FILE LEGEND */
+.legend { display: flex; gap: 20px; margin-bottom: 28px; font-size: 10px; }
+.legend span { color: #60a5fa; }
+.legend span.wip { color: #f59e0b; }
+.legend span.out { color: #34d399; }
+.legend span.mem { color: #c084fc; }
+
+/* FOLDER GRID */
+.folder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+.folder-card { background: #1a2d40; border-radius: 10px; padding: 16px; border: 1px solid #2a4a6c; }
+.folder-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #243447; }
+.folder-icon { font-size: 16px; }
+.folder-name { font-size: 13px; font-weight: 700; color: white; }
+.folder-owner { font-size: 10px; color: #4fc3f7; margin-left: auto; }
+.folder-tree { font-size: 11px; color: #94a3b8; line-height: 1.9; }
+.folder-tree .sub { padding-left: 14px; color: #64748b; }
+.folder-tree .forecast { color: #60a5fa; }
+.folder-tree .wip { color: #f59e0b; }
+.folder-tree .output { color: #34d399; }
+.folder-tree .memory { color: #c084fc; }
+
+/* RULES */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.rule-card { background: #1a2d40; border-radius: 10px; padding: 16px; border-left: 3px solid #3b82f6; }
+.rule-card.r2 { border-left-color: #10b981; }
+.rule-card.r3 { border-left-color: #f59e0b; }
+.rule-card.r4 { border-left-color: #8b5cf6; }
+.rule-title { font-size: 11px; font-weight: 700; color: white; margin-bottom: 8px; }
+.rule-items { list-style: none; }
+.rule-items li { font-size: 11px; color: #94a3b8; padding: 3px 0; padding-left: 12px; position: relative; line-height: 1.5; }
+.rule-items li::before { content: '→'; position: absolute; left: 0; color: #4fc3f7; font-size: 9px; }
+
+/* ZERA ROW */
+.zera-row { background: #1e1a2e; border-radius: 10px; padding: 12px 20px; margin-bottom: 28px; border: 1.5px solid #8b5cf6; display: flex; align-items: center; gap: 16px; }
+
+/* TELEGRAM TOPICS */
+.tg-main { background: #1a2d40; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; border: 2px solid #8b5cf6; }
+.tg-topics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.tg-topic { background: #152233; border-radius: 8px; padding: 10px 12px; border-left: 3px solid; }
+.tg-topic.t-inv { border-left-color: #3b82f6; }
+.tg-topic.t-legal { border-left-color: #64748b; }
+.tg-topic.t-fin { border-left-color: #ef4444; }
+.tg-topic.t-deal { border-left-color: #c9a84c; }
+.tg-topic.t-strat { border-left-color: #8b5cf6; }
+.tg-name { font-size: 12px; font-weight: 700; color: white; margin-bottom: 4px; }
+.tg-role { font-size: 10px; color: #60a5fa; margin-bottom: 4px; }
+.tg-desc { font-size: 10px; color: #64748b; line-height: 1.5; }
+
+/* FOOTER */
+.footer { text-align: center; font-size: 10px; color: #475569; margin-top: 16px; padding-top: 12px; border-top: 1px solid #1e3a50; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>🏨 Aman Project — <span>Working Group</span></h1>
+    <p>Cấu trúc tổ chức · Folder SharePoint · Telegram channels · File evolution</p>
+    <div class="header-badges">
+      <span class="badge">ExCom: Bách · Quang</span>
+      <span class="badge">Vietcap IB Partner: Hoàn · Pháp</span>
+      <span class="badge">5 Working Group Members</span>
+      <span class="badge">5 Workstreams</span>
+      <span class="badge">Zera as Orchestrator</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="tag">Dự Án</div>
+    <div class="val">Amanoi + Aman Group</div>
+    <div class="sub">Strategic equity + SEA partnership · Strictly Confidential</div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="exec-box">
+  <div class="exec-label">Project Vision — Executive Summary</div>
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">Mục Tiêu Chính</div>
+      <div class="kpi-val">Strategic Equity</div>
+      <div class="kpi-sub">Cổ phần Aman HoldCo + SEA Partnership</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Dự Án Ngay</div>
+      <div class="kpi-val">Amanoi + Aman Group</div>
+      <div class="kpi-sub">Vietnam · Global HoldCo</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">IB Partner</div>
+      <div class="kpi-val">Vietcap Securities</div>
+      <div class="kpi-sub">Hoàn · Pháp — deal structuring</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Principal</div>
+      <div class="kpi-val">Anh Quang</div>
+      <div class="kpi-sub">NDQ · Masan · RCC Chairman</div>
+    </div>
+  </div>
+
+  <div class="vision-grid">
+    <div class="vision-card blue">
+      <div class="vc-tag blue">🎯 Mục Tiêu Chiến Lược</div>
+      <ul class="vc-list">
+        <li>Mua cổ phần chiến lược Aman Group (HoldCo level)</li>
+        <li>Trở thành đối tác SEA anchor cho pipeline mở rộng của Aman</li>
+        <li>Co-invest vào các dự án Aman upcoming tại SEA</li>
+        <li>Leverage Amanoi (đã có tại VN) như điểm khởi đầu quan hệ</li>
+      </ul>
+    </div>
+    <div class="vision-card gold">
+      <div class="vc-tag gold">🏨 Hai Dự Án Ngay</div>
+      <ul class="vc-list">
+        <li><strong>Amanoi:</strong> Property tại Ninh Thuận · cơ hội đầu tư / quan hệ với Vlad Doronin</li>
+        <li><strong>Aman Group HoldCo:</strong> Strategic minority stake · SEA development rights</li>
+        <li>Vietcap Team hỗ trợ deal structuring + IB execution</li>
+        <li>Meeting request đã draft · chờ introduce qua channel phù hợp</li>
+      </ul>
+    </div>
+    <div class="vision-card red">
+      <div class="vc-tag red">⚡ Rủi Ro & Timeline</div>
+      <ul class="vc-list">
+        <li>Aman đang trong expansion phase mạnh nhất 37 năm qua</li>
+        <li>Window: SEA gap chưa bị fill — HCMC, Hà Nội vẫn zero Aman-tier</li>
+        <li>Doronin đang tích cực nhận capital từ aligned partners</li>
+        <li>Cần move trong 2026 trước khi cơ hội bị price in</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT OVERSIGHT -->
+<div class="section-title">Cấu Trúc Phê Duyệt</div>
+<div style="text-align:center;margin-bottom:12px;">
+  <div style="display:inline-block;background:linear-gradient(135deg,#2a1f08,#3a2a0a);border:2px solid #c9a84c;border-radius:12px;padding:14px 40px;">
+    <div style="font-size:22px;margin-bottom:6px;">👑</div>
+    <div style="font-size:15px;font-weight:700;color:white;">Anh Quang (NDQ)</div>
+    <div style="font-size:11px;color:#c9a84c;margin-top:2px;">Chủ Tịch RCC · Masan Group Chairman · Principal của deal</div>
+    <div style="font-size:10px;color:#94a3b8;margin-top:4px;">Final approval · Capital commitment · Strategic direction</div>
+  </div>
+</div>
+<div style="text-align:center;font-size:11px;color:#475569;margin-bottom:14px;">↓ Bách lead dự án · Báo cáo thẳng lên Anh Quang</div>
+<div style="background:#1a2d40;border-radius:8px;padding:10px 16px;margin-bottom:28px;border:1px solid #c9a84c;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:14px;">ℹ️</span>
+  <span>Bách (Trần) — Investment Lead, chịu trách nhiệm toàn bộ dự án · Vietcap (Hoàn · Pháp) là IB partner độc lập, hỗ trợ deal structure và execution · Tất cả quyết định vượt ngưỡng report thẳng Anh Quang</span>
+</div>
+
+<!-- WORKING GROUP -->
+<div class="section-title">Working Group — Investment Lead + Functional Members</div>
+<div class="people-row">
+
+  <div class="person-card inv-card" style="border-color:#c9a84c;background:#1f2a10;">
+    <div class="person-avatar">📊</div>
+    <div class="person-name">Bách</div>
+    <div class="person-role">Investment Lead</div>
+    <div class="person-scope">Deal strategy · Aman relationship · Project lead</div>
+  </div>
+
+  <div class="person-card inv-card">
+    <div class="person-avatar">📈</div>
+    <div class="person-name">Sơn</div>
+    <div class="person-role">Investment Analysis</div>
+    <div class="person-scope">Valuation · Return model · Deal terms</div>
+  </div>
+
+  <div class="person-card cfo-card">
+    <div class="person-avatar">💰</div>
+    <div class="person-name">Dung</div>
+    <div class="person-role">Finance</div>
+    <div class="person-scope">Financial model · Cashflow · Reporting</div>
+  </div>
+
+  <div class="person-card legal-card">
+    <div class="person-avatar">⚖️</div>
+    <div class="person-name">Cả</div>
+    <div class="person-role">Legal</div>
+    <div class="person-scope">Deal structure · DD · Compliance · SPA</div>
+  </div>
+
+  <div class="person-card vietcap">
+    <div class="person-avatar">🏦</div>
+    <div class="person-name">Hoàn</div>
+    <div class="person-role">Vietcap Securities</div>
+    <div class="person-scope">IB Lead · Deal execution · Capital markets</div>
+    <div class="vietcap-badge">IB Partner</div>
+  </div>
+
+  <div class="person-card vietcap">
+    <div class="person-avatar">🏦</div>
+    <div class="person-name">Pháp</div>
+    <div class="person-role">Vietcap Securities</div>
+    <div class="person-scope">Structuring · Term sheet · IB support</div>
+    <div class="vietcap-badge">IB Partner</div>
+  </div>
+
+  <div class="person-card orchestrator">
+    <div class="person-avatar">🤖</div>
+    <div class="person-name">Zera</div>
+    <div class="person-role">AI Orchestrator</div>
+    <div class="person-scope">Master tracking · Research · File management · Memory</div>
+  </div>
+
+</div>
+
+<!-- ZERA ROW -->
+<div class="zera-row">
+  <div style="font-size:18px;">🤖</div>
+  <div>
+    <div style="font-size:12px;font-weight:700;color:white;">Zera — Project Orchestrator</div>
+    <div style="font-size:10px;color:#c084fc;margin-top:2px;">Master progress tracking · Research (market, Aman, Doronin) · File version control · Memory consistency · Sub-personality per topic (IB mode, Legal mode, Finance mode)</div>
+  </div>
+  <div style="margin-left:auto;text-align:right;">
+    <div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Scope</div>
+    <div style="font-size:10px;color:#a78bfa;">All 5 workstreams · Main channel · 5 topic channels</div>
+  </div>
+</div>
+
+<!-- 5 WORKSTREAMS -->
+<div class="section-title">5 Workstreams — Files & Deliverables</div>
+<div class="workstream-grid">
+
+  <div class="ws-card ws-inv">
+    <div class="ws-title">📊 Investment & Analysis</div>
+    <div class="ws-owner">Bách · Sơn</div>
+    <ul class="ws-files">
+      <li><span class="file-icon f-forecast">◆</span> Aman Group valuation model</li>
+      <li><span class="file-icon f-forecast">◆</span> IRR / return analysis</li>
+      <li><span class="file-icon f-wip">●</span> Deal terms tracker</li>
+      <li><span class="file-icon f-wip">●</span> Doronin meeting prep</li>
+      <li><span class="file-icon f-output">✓</span> IC Presentation</li>
+      <li><span class="file-icon f-output">✓</span> Principal profile (done)</li>
+    </ul>
+  </div>
+
+  <div class="ws-card ws-deal">
+    <div class="ws-title">🏨 Deal — Vietcap IB</div>
+    <div class="ws-owner">Hoàn · Pháp (Vietcap)</div>
+    <ul class="ws-files">
+      <li><span class="file-icon f-forecast">◆</span> Deal structure options</li>
+      <li><span class="file-icon f-forecast">◆</span> Term sheet draft</li>
+      <li><span class="file-icon f-wip">●</span> Aman HoldCo ownership analysis</li>
+      <li><span class="file-icon f-wip">●</span> Co-invest structure</li>
+      <li><span class="file-icon f-output">✓</span> NDA / Confidentiality agreement</li>
+      <li><span class="file-icon f-output">✓</span> SPA / investment agreement</li>
+    </ul>
+  </div>
+
+  <div class="ws-card ws-finance">
+    <div class="ws-title">💰 Finance & Cashflow</div>
+    <div class="ws-owner">Dung</div>
+    <ul class="ws-files">
+      <li><span class="file-icon f-forecast">◆</span> Investment sizing model</li>
+      <li><span class="file-icon f-forecast">◆</span> Capital commitment schedule</li>
+      <li><span class="file-icon f-wip">●</span> Funding source plan</li>
+      <li><span class="file-icon f-wip">●</span> Actual vs commitment tracker</li>
+      <li><span class="file-icon f-output">✓</span> Monthly CFO report</li>
+      <li><span class="file-icon f-output">✓</span> Board financial package</li>
+    </ul>
+  </div>
+
+  <div class="ws-card ws-legal">
+    <div class="ws-title">⚖️ Legal & Compliance</div>
+    <div class="ws-owner">Cả</div>
+    <ul class="ws-files">
+      <li><span class="file-icon f-forecast">◆</span> Jurisdiction analysis</li>
+      <li><span class="file-icon f-forecast">◆</span> Ownership structure options</li>
+      <li><span class="file-icon f-wip">●</span> DD checklist — Aman Group</li>
+      <li><span class="file-icon f-wip">●</span> Regulatory approval tracker</li>
+      <li><span class="file-icon f-output">✓</span> NDA executed</li>
+      <li><span class="file-icon f-output">✓</span> Investment agreement</li>
+    </ul>
+  </div>
+
+  <div class="ws-card ws-strategy">
+    <div class="ws-title">🌏 SEA Strategy</div>
+    <div class="ws-owner">Bách · Zera</div>
+    <ul class="ws-files">
+      <li><span class="file-icon f-forecast">◆</span> SEA pipeline site analysis</li>
+      <li><span class="file-icon f-forecast">◆</span> UHNWI market sizing (done)</li>
+      <li><span class="file-icon f-wip">●</span> Amanoi opportunity brief</li>
+      <li><span class="file-icon f-wip">●</span> HCMC / HN site shortlist</li>
+      <li><span class="file-icon f-output">✓</span> Principal profile for Doronin</div>
+      <li><span class="file-icon f-output">✓</span> Meeting request memo</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="legend">
+  <span>◆ Forecast / Initial</span>
+  <span class="wip">● Work-in-Progress</span>
+  <span class="out">✓ Output / Executed</span>
+  <span class="mem">★ Memory / Context</span>
+</div>
+
+<!-- FOLDER STRUCTURE -->
+<div class="section-title">Folder Structure — SharePoint / Aman Project</div>
+<div class="folder-grid">
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">00 — Master</div>
+      <div class="folder-owner">Bách</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span> — master context<br>
+      <span class="sub">📄 <span class="memory">progress-log.md</span></span><br>
+      📄 <span class="output">Principal Profile — NDQ</span><br>
+      📄 <span class="output">Meeting Request — Doronin</span><br>
+      📄 <span class="forecast">IC Presentation</span><br>
+      📅 Project timeline
+    </div>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">01 — Investment</div>
+      <div class="folder-owner">Bách · Sơn</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span><br>
+      📄 <span class="forecast">Aman valuation model</span><br>
+      <span class="sub">📄 <span class="wip">Deal_terms_vX.xlsx</span></span><br>
+      📄 <span class="wip">Return analysis</span><br>
+      📄 <span class="forecast">UHNWI SEA analysis</span><br>
+      <span class="sub">📄 <span class="output">IC Presentation</span></span>
+    </div>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">02 — Deal (Vietcap)</div>
+      <div class="folder-owner">Hoàn · Pháp</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span><br>
+      📄 <span class="forecast">Structure options</span><br>
+      <span class="sub">📄 <span class="wip">Term_sheet_vX.docx</span></span><br>
+      📄 <span class="wip">HoldCo ownership analysis</span><br>
+      📄 <span class="output">NDA executed</span><br>
+      <span class="sub">📄 <span class="output">SPA / investment agreement</span></span>
+    </div>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">03 — Finance</div>
+      <div class="folder-owner">Dung</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span><br>
+      📄 <span class="forecast">Investment sizing model</span><br>
+      <span class="sub">📄 <span class="wip">Capital_commitment_vX.xlsx</span></span><br>
+      📄 <span class="wip">Funding source plan</span><br>
+      📄 <span class="output">CFO report</span><br>
+      <span class="sub">📄 <span class="output">Board financial package</span></span>
+    </div>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">04 — Legal</div>
+      <div class="folder-owner">Cả</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span><br>
+      📄 <span class="forecast">Jurisdiction analysis</span><br>
+      <span class="sub">📄 <span class="wip">DD_checklist_Aman.md</span></span><br>
+      📄 <span class="wip">Regulatory tracker</span><br>
+      📄 <span class="output">NDA signed</span><br>
+      <span class="sub">📁 Executed docs/</span>
+    </div>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-header">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">05 — SEA Strategy</div>
+      <div class="folder-owner">Bách · Zera</div>
+    </div>
+    <div class="folder-tree">
+      📄 <span class="memory">MEMORY.md</span><br>
+      📄 <span class="output">Principal profile NDQ</span><br>
+      <span class="sub">📄 <span class="output">Meeting request memo</span></span><br>
+      📄 <span class="wip">Amanoi opportunity brief</span><br>
+      📄 <span class="wip">HCMC / HN site shortlist</span><br>
+      <span class="sub">📄 <span class="forecast">SEA pipeline analysis</span></span>
+    </div>
+  </div>
+
+</div>
+
+<!-- TELEGRAM STRUCTURE -->
+<div class="section-title">Telegram Group Structure</div>
+<div class="tg-main" style="margin-bottom:16px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+    <span style="font-size:20px;">📱</span>
+    <div>
+      <div style="font-size:14px;font-weight:700;color:white;">Aman Project — Main Group</div>
+      <div style="font-size:11px;color:#c084fc;">Tất cả members · Orchestrator: Zera · Weekly progress · Major decisions · Escalations</div>
+    </div>
+    <div style="margin-left:auto;background:#1e1a2e;border-radius:8px;padding:6px 14px;font-size:10px;color:#a78bfa;">
+      Members: Bách · Sơn · Dung · Cả · Hoàn · Pháp · Zera
+    </div>
+  </div>
+</div>
+
+<div class="tg-topics">
+  <div class="tg-topic t-inv">
+    <div class="tg-name">📊 Investment</div>
+    <div class="tg-role">Lead: Bách · Sơn</div>
+    <div class="tg-desc">Valuation · Returns · Deal analysis · IC prep</div>
+  </div>
+  <div class="tg-topic t-deal">
+    <div class="tg-name">🏦 Deal / Vietcap</div>
+    <div class="tg-role">Lead: Hoàn · Pháp</div>
+    <div class="tg-desc">Term sheet · Structure · IB execution · NDA</div>
+  </div>
+  <div class="tg-topic t-fin">
+    <div class="tg-name">💰 Finance</div>
+    <div class="tg-role">Lead: Dung</div>
+    <div class="tg-desc">Capital model · Cashflow · CFO reports</div>
+  </div>
+  <div class="tg-topic t-legal">
+    <div class="tg-name">⚖️ Legal</div>
+    <div class="tg-role">Lead: Cả</div>
+    <div class="tg-desc">DD · Structure · Regulatory · SPA</div>
+  </div>
+  <div class="tg-topic t-strat">
+    <div class="tg-name">🌏 SEA Strategy</div>
+    <div class="tg-role">Lead: Bách · Zera</div>
+    <div class="tg-desc">Pipeline sites · Amanoi · Meeting prep · Research</div>
+  </div>
+</div>
+
+<!-- RULES -->
+<div class="section-title" style="margin-top:28px;">Working Rules</div>
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-title">📌 File Versioning</div>
+    <ul class="rule-items">
+      <li>Tên file: <code>[WS]_[Type]_v[X]_[YYYY-MM-DD]</code></li>
+      <li>Không xóa version cũ — archive vào /archive/</li>
+      <li>Mỗi update ghi change log 1 dòng vào MEMORY.md</li>
+      <li>Version lẻ = draft · version chẵn = reviewed</li>
+      <li>Output = đóng băng, tạo version mới nếu cần sửa</li>
+    </ul>
+  </div>
+  <div class="rule-card r2">
+    <div class="rule-title">🤖 Zera Orchestrator</div>
+    <ul class="rule-items">
+      <li>Thứ Hai: post Weekly Progress Summary vào Main Group</li>
+      <li>Khi có update: cập nhật MEMORY.md của workstream đó</li>
+      <li>Flag cross-workstream dependencies ngay khi detect</li>
+      <li>Research Aman/Doronin khi có thông tin mới</li>
+      <li>Không tự quyết định — escalate lên Bách khi cần</li>
+    </ul>
+  </div>
+  <div class="rule-card r3">
+    <div class="rule-title">🔐 Confidentiality</div>
+    <ul class="rule-items">
+      <li>Toàn bộ thông tin dự án — STRICTLY CONFIDENTIAL</li>
+      <li>Không share ngoài working group khi chưa có approval</li>
+      <li>Vietcap team: chỉ nhận info cần thiết cho IB role</li>
+      <li>Mọi external communication phải qua Bách approve</li>
+      <li>NDQ/Quang được brief định kỳ, không detail hàng ngày</li>
+    </ul>
+  </div>
+  <div class="rule-card r4">
+    <div class="rule-title">🔄 Forecast → Management</div>
+    <ul class="rule-items">
+      <li>Forecast file = baseline, readonly sau khi confirm</li>
+      <li>Management file = live update, so sánh vs forecast</li>
+      <li>Variance lớn → alert vào Main Group ngay</li>
+      <li>Quarterly: review tất cả files, upgrade stage nếu cần</li>
+      <li>Deal close: toàn bộ archive + Lessons Learned doc</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  Aman Project — Working Group Structure · RCC Royal Canary Corp · April 2026 · Strictly Confidential<br>
+  Prepared by Zera (RCC AI Orchestrator) · Version 1.0 · Subject to confirmation by Bách
+</div>
+
+</body>
+</html>
