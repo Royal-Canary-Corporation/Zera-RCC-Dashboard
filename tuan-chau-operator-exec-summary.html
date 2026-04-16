@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuần Châu — Operator Executive Summary</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0a0e1a; color: #e6edf3; min-height: 100vh; padding: 40px 16px; }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 52px; padding-bottom: 32px; border-bottom: 1px solid #21262d; }
+  .header .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #8b949e; margin-bottom: 14px; }
+  .header h1 { font-size: 30px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .header h2 { font-size: 16px; color: #58a6ff; font-weight: 400; margin-top: 8px; }
+  .header .meta-row { display: flex; justify-content: center; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+  .header .meta-item { font-size: 12px; color: #8b949e; }
+  .header .meta-item strong { color: #e6edf3; }
+
+  /* Section */
+  .section { margin-bottom: 44px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #8b949e; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #21262d; }
+
+  /* Context box */
+  .context-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+  .context-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px; }
+  .context-card .icon { font-size: 22px; margin-bottom: 10px; }
+  .context-card .label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .context-card .value { font-size: 14px; color: #e6edf3; font-weight: 600; line-height: 1.4; }
+  .context-card .sub { font-size: 12px; color: #8b949e; margin-top: 4px; }
+
+  /* Recommendation matrix */
+  .rec-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .rec-track { background: #161b22; border-radius: 12px; padding: 24px; border: 1px solid #30363d; }
+  .rec-track.primary { border-color: #ffd700; }
+  .rec-track.secondary { border-color: #bc8cff; }
+  .rec-track.parallel { border-color: #3fb950; }
+  .rec-track.fallback { border-color: #30363d; }
+
+  .track-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+  .badge-gold { background: rgba(255,215,0,0.1); color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
+  .badge-purple { background: rgba(139,92,246,0.1); color: #bc8cff; border: 1px solid rgba(139,92,246,0.3); }
+  .badge-green { background: rgba(63,185,80,0.1); color: #3fb950; border: 1px solid rgba(63,185,80,0.2); }
+  .badge-gray { background: rgba(48,54,61,0.5); color: #8b949e; border: 1px solid #30363d; }
+
+  .track-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .track-parent { font-size: 12px; color: #8b949e; margin-bottom: 14px; }
+  .track-rationale { font-size: 13px; color: #8b949e; line-height: 1.7; margin-bottom: 14px; }
+  .track-bullets { list-style: none; }
+  .track-bullets li { font-size: 13px; color: #8b949e; padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .track-bullets li .bullet-icon { flex-shrink: 0; }
+  .track-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid #21262d; }
+  .track-meta-item { font-size: 11px; color: #8b949e; }
+  .track-meta-item strong { color: #e6edf3; }
+
+  /* Matching matrix */
+  .match-grid { display: grid; gap: 12px; }
+  .match-row { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 18px 20px; display: grid; grid-template-columns: 200px 1fr auto; gap: 20px; align-items: center; }
+  .match-row.best-match { border-color: #ffd700; background: #1a1a0d; }
+  .match-operator { font-size: 15px; font-weight: 700; color: #e6edf3; }
+  .match-operator-sub { font-size: 11px; color: #8b949e; margin-top: 2px; }
+  .match-criteria { display: flex; flex-wrap: wrap; gap: 6px; }
+  .match-tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+  .tag-fit { background: rgba(63,185,80,0.1); color: #3fb950; }
+  .tag-risk { background: rgba(248,81,73,0.1); color: #f85149; }
+  .tag-note { background: rgba(88,166,255,0.1); color: #58a6ff; }
+  .match-score { text-align: center; }
+  .match-score .num { font-size: 28px; font-weight: 700; line-height: 1; }
+  .match-score .label { font-size: 10px; color: #8b949e; margin-top: 2px; }
+  .score-gold { color: #ffd700; }
+  .score-silver { color: #c0c0c0; }
+  .score-purple { color: #bc8cff; }
+  .score-bronze { color: #cd7f32; }
+  .score-blue { color: #58a6ff; }
+  .score-gray { color: #8b949e; }
+
+  /* Decision framework */
+  .decision-table { width: 100%; border-collapse: collapse; background: #161b22; border-radius: 10px; overflow: hidden; border: 1px solid #30363d; }
+  .decision-table th { background: #21262d; color: #8b949e; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; text-align: left; }
+  .decision-table td { padding: 12px 16px; font-size: 13px; border-top: 1px solid #21262d; vertical-align: top; }
+  .decision-table tr:hover td { background: #1c2128; }
+  .decision-table .scenario { font-weight: 600; color: #e6edf3; }
+  .decision-table .operator-pick { color: #ffd700; font-weight: 600; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #21262d; }
+  .timeline-item { position: relative; margin-bottom: 24px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: #30363d; border: 2px solid #8b949e; }
+  .timeline-item.active::before { background: #ffd700; border-color: #ffd700; }
+  .timeline-item.purple::before { background: #8b5cf6; border-color: #8b5cf6; }
+  .timeline-item.green::before { background: #3fb950; border-color: #3fb950; }
+  .tl-period { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .tl-title { font-size: 14px; font-weight: 600; color: #e6edf3; margin-bottom: 4px; }
+  .tl-desc { font-size: 12px; color: #8b949e; line-height: 1.6; }
+
+  /* Key insight box */
+  .insight-box { background: #161b22; border-radius: 12px; padding: 28px; border: 1px solid #30363d; margin-bottom: 16px; }
+  .insight-box.gold { border-left: 4px solid #ffd700; }
+  .insight-box.purple { border-left: 4px solid #8b5cf6; }
+  .insight-box.green { border-left: 4px solid #3fb950; }
+  .insight-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .insight-box.gold .insight-title { color: #ffd700; }
+  .insight-box.purple .insight-title { color: #bc8cff; }
+  .insight-box.green .insight-title { color: #3fb950; }
+  .insight-body { font-size: 14px; color: #8b949e; line-height: 1.8; }
+  .insight-body strong { color: #e6edf3; }
+
+  /* Footer */
+  .footer { text-align: center; margin-top: 52px; color: #484f58; font-size: 12px; border-top: 1px solid #21262d; padding-top: 24px; }
+
+  @media (max-width: 700px) {
+    .context-grid { grid-template-columns: 1fr; }
+    .rec-matrix { grid-template-columns: 1fr; }
+    .match-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">RCC Strategic Advisory · Confidential</div>
+    <h1>🏝️ TUẦN CHÂU PRIVATE ESTATES<br>Operator Selection — Executive Summary</h1>
+    <h2>Brand Matching, Strategic Rationale & Recommended Approach</h2>
+    <div class="meta-row">
+      <div class="meta-item">Prepared by <strong>Zera</strong></div>
+      <div class="meta-item">Date <strong>16/04/2026</strong></div>
+      <div class="meta-item">Status <strong>Internal Draft</strong></div>
+      <div class="meta-item">Full Assessment <strong><a href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/tuan-chau-operator-assessment.html" style="color:#58a6ff;">→ View</a></strong></div>
+    </div>
+  </div>
+
+  <!-- Project Context -->
+  <div class="section">
+    <div class="section-label">01 — Project Context</div>
+    <div class="context-grid">
+      <div class="context-card">
+        <div class="icon">🏝️</div>
+        <div class="label">Destination</div>
+        <div class="value">Tuần Châu Island, Quảng Ninh</div>
+        <div class="sub">Private island · Ha Long Bay UNESCO · 30 min từ Hải Phòng airport mới</div>
+      </div>
+      <div class="context-card">
+        <div class="icon">🎯</div>
+        <div class="label">Target Buyer</div>
+        <div class="value">UHNW / HNW Vietnam & Asia</div>
+        <div class="sub">Net worth $5M+, private island living, lifestyle-driven investment</div>
+      </div>
+      <div class="context-card">
+        <div class="icon">🏗️</div>
+        <div class="label">Product</div>
+        <div class="value">Private Estate Villas</div>
+        <div class="sub">Low-rise luxury residential · Mixed-use · Brand operator required</div>
+      </div>
+      <div class="context-card">
+        <div class="icon">💰</div>
+        <div class="label">GDV Target</div>
+        <div class="value">~$117M (3,050 tỷ VND)</div>
+        <div class="sub">Net profit margin 41.8% · IRR 146%</div>
+      </div>
+      <div class="context-card">
+        <div class="icon">⚡</div>
+        <div class="label">Key Requirement</div>
+        <div class="value">Brand operator → Price premium</div>
+        <div class="sub">Branded = +30–50% vs. unbranded · Resale liquidity · Buyer confidence</div>
+      </div>
+      <div class="context-card">
+        <div class="icon">📅</div>
+        <div class="label">Timeline</div>
+        <div class="value">Operator selection Q2/2026</div>
+        <div class="sub">M&A close → phasing → operator ký kết → launch sales H1/2027</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Operator Matters -->
+  <div class="section">
+    <div class="section-label">02 — Tại Sao Brand Operator Là Quyết Định Chiến Lược</div>
+    <div class="insight-box gold">
+      <div class="insight-title">💡 The Brand Premium Effect</div>
+      <div class="insight-body">
+        Nghiên cứu toàn cầu cho thấy branded residences bán <strong>cao hơn 30–50%</strong> so với unbranded tương đương. Với Tuần Châu GDV ~$117M, chênh lệch này tương đương <strong>$35–58M additional revenue</strong>.<br><br>
+        Quan trọng hơn, brand operator giải quyết 3 nỗi lo của UHNW buyer: <strong>(1) Chất lượng vận hành</strong> — tiêu chuẩn 5* được đảm bảo; <strong>(2) Thanh khoản resale</strong> — branded có người mua rõ ràng hơn; <strong>(3) Lifestyle access</strong> — F&B, concierge, network toàn cầu.
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommended Tracks -->
+  <div class="section">
+    <div class="section-label">03 — Recommended Approach — 3-Track Strategy</div>
+    <div class="rec-matrix" style="grid-template-columns:1fr 1fr;">
+
+      <div class="rec-track primary">
+        <div class="track-badge badge-gold">🥇 Track A — Primary</div>
+        <div class="track-title">Marriott — W Residences</div>
+        <div class="track-parent">Marriott International · Luxury Lifestyle · Fit Score 93/100</div>
+        <div class="track-rationale">
+          Brand lifestyle hàng đầu cho UHNW millennials và Gen X — đúng demographic của Tuần Châu. W chưa có residences tại Vietnam → <strong>first-mover advantage</strong> là differentiator mạnh nhất cho marketing và resale.
+        </div>
+        <ul class="track-bullets">
+          <li><span class="bullet-icon">✅</span> Marriott Bonvoy 196M members → resale demand có sẵn</li>
+          <li><span class="bullet-icon">✅</span> W Bali, W Maldives → island resort DNA đã proven</li>
+          <li><span class="bullet-icon">✅</span> Fee $6–10K/villa/tháng → revenue upside tốt</li>
+          <li><span class="bullet-icon">⚠️</span> Timeline đàm phán 18–24 tháng — cần bắt đầu ngay</li>
+        </ul>
+        <div class="track-meta">
+          <div class="track-meta-item">Contact <strong>Marriott Asia Pacific Dev (Singapore)</strong></div>
+          <div class="track-meta-item">Pitch <strong>W + Luxury Collection dual-track</strong></div>
+        </div>
+      </div>
+
+      <div class="rec-track secondary">
+        <div class="track-badge badge-purple">⭐ Track A+ — Aspirational</div>
+        <div class="track-title">Capella Hotels & Resorts</div>
+        <div class="track-parent">Capella Hotel Group · #1 Brand World 2025 · Fit Score 87/100</div>
+        <div class="track-rationale">
+          Brand duy nhất có thể định vị Tuần Châu ngang tầm <strong>Maldives / Sentosa</strong>. #1 Hotel Brand thế giới 2025 — Capella Hanoi đã có quan hệ VN. Nếu RCC muốn tối đa hóa brand prestige và price ceiling, đây là lựa chọn aspirational nhất.
+        </div>
+        <ul class="track-bullets">
+          <li><span class="bullet-icon">⭐</span> Highest resale premium trong tất cả options</li>
+          <li><span class="bullet-icon">✅</span> Capella Sentosa Singapore — private island villa track record</li>
+          <li><span class="bullet-icon">✅</span> Đang tích cực expand: 8 → 24 properties by 2030</li>
+          <li><span class="bullet-icon">⚠️</span> Standard đầu vào rất cao · Timeline 24–36 tháng</li>
+        </ul>
+        <div class="track-meta">
+          <div class="track-meta-item">Fee <strong>$8–15K/villa/tháng</strong></div>
+          <div class="track-meta-item">Via <strong>Capella Hanoi relationship → Capella HG Singapore</strong></div>
+        </div>
+      </div>
+
+      <div class="rec-track parallel">
+        <div class="track-badge badge-green">⚡ Track B — Parallel / Fast</div>
+        <div class="track-title">METT Hotels & Resorts</div>
+        <div class="track-parent">Sunset Hospitality Group · Fit Score 84/100</div>
+        <div class="track-rationale">
+          Triển khai <strong>nhanh nhất</strong> (6–12 tháng) với leverage tự nhiên — SHG đã committed $35M vào Vietnam và sắp vận hành tại Sofitel Hải Phòng (<strong>cách Tuần Châu 30km</strong>). Phù hợp làm pilot vận hành trong khi đàm phán Marriott/Capella.
+        </div>
+        <ul class="track-bullets">
+          <li><span class="bullet-icon">✅</span> Hải Phòng shared back-end → 15–25% F&B OPEX saving</li>
+          <li><span class="bullet-icon">✅</span> 26 F&B brands tích hợp: MOTT 32, SUSHISAMBA, Ammos</li>
+          <li><span class="bullet-icon">✅</span> Pilot-friendly: sẵn sàng bắt đầu từ 1–2 villas</li>
+          <li><span class="bullet-icon">⚠️</span> Brand recognition thấp hơn Marriott/Capella</li>
+        </ul>
+        <div class="track-meta">
+          <div class="track-meta-item">Action <strong>NDA + Term Sheet ngay tháng 4/2026</strong></div>
+          <div class="track-meta-item">Via <strong>SHG Vietnam representative</strong></div>
+        </div>
+      </div>
+
+      <div class="rec-track fallback">
+        <div class="track-badge badge-gray">🔄 Track C — Fallback</div>
+        <div class="track-title">Luxury Collection + Anantara</div>
+        <div class="track-parent">Marriott Intl. · Minor Hotels · Backup Options</div>
+        <div class="track-rationale">
+          Nếu W/Capella không feasible (requirements quá cao hoặc timeline không khớp), Luxury Collection (89/100) là option mạnh nhất — đã có precedent Vietnam (Đà Nẵng 2024) và DNA "unique sense of place" fit hoàn toàn với Ha Long island narrative.
+        </div>
+        <ul class="track-bullets">
+          <li><span class="bullet-icon">✅</span> LC: IFF Holdings precedent Quảng Nam → template có sẵn</li>
+          <li><span class="bullet-icon">✅</span> LC: UNESCO Ha Long = LC-caliber destination story</li>
+          <li><span class="bullet-icon">✅</span> Anantara: fastest Marriott alternative · Vietnam present</li>
+          <li><span class="bullet-icon">⚠️</span> Positioning thấp hơn W/Capella</li>
+        </ul>
+        <div class="track-meta">
+          <div class="track-meta-item">LC Fee <strong>$5–9K/villa/tháng</strong></div>
+          <div class="track-meta-item">Anantara Fee <strong>$4–7K/villa/tháng</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Brand Matching Matrix -->
+  <div class="section">
+    <div class="section-label">04 — Brand Matching — Tuần Châu Fit Analysis</div>
+    <div class="match-grid">
+
+      <div class="match-row best-match">
+        <div>
+          <div class="match-operator">W Residences</div>
+          <div class="match-operator-sub">Marriott · Track A Primary</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ Island lifestyle DNA</span>
+          <span class="match-tag tag-fit">✅ UHNW millennial target</span>
+          <span class="match-tag tag-fit">✅ First-mover VN</span>
+          <span class="match-tag tag-fit">✅ Bonvoy 196M</span>
+          <span class="match-tag tag-note">📌 Cần destination narrative mạnh</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-gold">93</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div>
+          <div class="match-operator">Luxury Collection</div>
+          <div class="match-operator-sub">Marriott · Track C Primary Fallback</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ "Sense of place" DNA = Ha Long</span>
+          <span class="match-tag tag-fit">✅ Vietnam precedent Đà Nẵng</span>
+          <span class="match-tag tag-fit">✅ UNESCO fit tự nhiên</span>
+          <span class="match-tag tag-note">📌 Mature HNW buyer hơn millennials</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-silver">89</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+      <div class="match-row" style="border-color:#8b5cf6;background:#13101a;">
+        <div>
+          <div class="match-operator" style="color:#bc8cff;">Capella Hotels</div>
+          <div class="match-operator-sub">Capella HG · Track A+ Aspirational</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ #1 Brand World 2025 = max prestige</span>
+          <span class="match-tag tag-fit">✅ Sentosa island villa track record</span>
+          <span class="match-tag tag-fit">✅ Capella Hanoi = VN relationship</span>
+          <span class="match-tag tag-risk">⚠️ Standard đầu vào rất cao</span>
+          <span class="match-tag tag-risk">⚠️ Timeline 24–36 tháng</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-purple">87</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div>
+          <div class="match-operator">METT Resorts</div>
+          <div class="match-operator-sub">SHG · Track B Parallel</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ Hải Phòng 30km — proximity</span>
+          <span class="match-tag tag-fit">✅ Fastest to market 6–12 tháng</span>
+          <span class="match-tag tag-fit">✅ F&B ecosystem 26 brands</span>
+          <span class="match-tag tag-risk">⚠️ Brand nhỏ hơn Marriott/Capella</span>
+          <span class="match-tag tag-note">📌 Tốt nhất cho pilot vận hành</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-bronze">84</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div>
+          <div class="match-operator">EDITION Residences</div>
+          <div class="match-operator-sub">Marriott · Design Luxury Alternative</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ Highest fee $7–12K</span>
+          <span class="match-tag tag-fit">✅ Ian Schrager boutique DNA</span>
+          <span class="match-tag tag-risk">⚠️ Chưa có VN presence</span>
+          <span class="match-tag tag-risk">⚠️ Market niche và hẹp</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-blue">80</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+      <div class="match-row">
+        <div>
+          <div class="match-operator">Anantara</div>
+          <div class="match-operator-sub">Minor Hotels · Track C Fallback</div>
+        </div>
+        <div class="match-criteria">
+          <span class="match-tag tag-fit">✅ Vietnam present (Quy Nhon)</span>
+          <span class="match-tag tag-fit">✅ SEA resort specialist</span>
+          <span class="match-tag tag-risk">⚠️ Tier thấp hơn</span>
+          <span class="match-tag tag-risk">⚠️ Resale premium hạn chế</span>
+          <span class="match-tag tag-note">📌 Fallback nếu Marriott/Capella fail</span>
+        </div>
+        <div class="match-score">
+          <div class="num score-gray">72</div>
+          <div class="label">Fit /100</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Decision Framework -->
+  <div class="section">
+    <div class="section-label">05 — Decision Framework — Khi Nào Chọn Ai</div>
+    <table class="decision-table">
+      <tr>
+        <th>Scenario RCC</th>
+        <th>Operator Được Chọn</th>
+        <th>Lý Do</th>
+        <th>Timeline</th>
+      </tr>
+      <tr>
+        <td class="scenario">Muốn tối đa prestige, chấp nhận timeline dài</td>
+        <td class="operator-pick">Capella ★</td>
+        <td>#1 brand thế giới · highest price ceiling · Sentosa precedent</td>
+        <td>24–36 tháng</td>
+      </tr>
+      <tr>
+        <td class="scenario">Cân bằng prestige + speed + loyalty network</td>
+        <td class="operator-pick">W Residences</td>
+        <td>First-mover VN · Bonvoy 196M · island lifestyle DNA</td>
+        <td>18–24 tháng</td>
+      </tr>
+      <tr>
+        <td class="scenario">Cần pilot vận hành nhanh để có proof-of-concept</td>
+        <td class="operator-pick">METT (SHG)</td>
+        <td>Hải Phòng 30km · $35M VN commit · 6–12 tháng deployment</td>
+        <td>6–12 tháng</td>
+      </tr>
+      <tr>
+        <td class="scenario">Marriott accept nhưng W không available</td>
+        <td class="operator-pick">Luxury Collection</td>
+        <td>Đà Nẵng precedent · UNESCO Ha Long = LC DNA · 89/100</td>
+        <td>18–24 tháng</td>
+      </tr>
+      <tr>
+        <td class="scenario">Muốn ultra-boutique, design-forward, fee cao nhất</td>
+        <td class="operator-pick">EDITION</td>
+        <td>$7–12K/villa · Ian Schrager · Bangkok EDITION precedent SEA</td>
+        <td>18–24 tháng</td>
+      </tr>
+      <tr>
+        <td class="scenario">Tất cả options trên đều không feasible</td>
+        <td class="operator-pick">Anantara</td>
+        <td>Vietnam present · SEA specialist · fastest Marriott alternative</td>
+        <td>9–15 tháng</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Recommended Action Timeline -->
+  <div class="section">
+    <div class="section-label">06 — Action Timeline — Q2/2026 Onwards</div>
+    <div class="timeline">
+      <div class="timeline-item active">
+        <div class="tl-period">Tháng 4/2026 — NGAY BÂY GIỜ</div>
+        <div class="tl-title">Ký NDA với METT/SHG · Chuẩn bị Information Memorandum</div>
+        <div class="tl-desc">Leverage Hải Phòng connection. IM bao gồm: project scale, phasing plan, target buyer profile, GDV, operator role scope. Song song chuẩn bị pitch deck cho Marriott.</div>
+      </div>
+      <div class="timeline-item active">
+        <div class="tl-period">Tháng 5/2026</div>
+        <div class="tl-title">Tiếp cận Marriott Asia Pacific Development (Singapore)</div>
+        <div class="tl-desc">Dual-track pitch: W Residences + Luxury Collection. Key message: "First private island luxury estate in Northern Vietnam — Ha Long UNESCO backdrop." Yêu cầu LOI (Letter of Intent) thăm dò.</div>
+      </div>
+      <div class="timeline-item purple">
+        <div class="tl-period">Tháng 5–6/2026</div>
+        <div class="tl-title">Tiếp cận Capella Hotel Group (Singapore HQ)</div>
+        <div class="tl-desc">Via Capella Hanoi relationship → Capella HG Development team. Pitch: island residences concept, Sentosa comparison. Đây là track dài nhất nhưng return cao nhất.</div>
+      </div>
+      <div class="timeline-item green">
+        <div class="tl-period">Q3/2026</div>
+        <div class="tl-title">Site Visit + Term Sheet Negotiation</div>
+        <div class="tl-desc">Mời METT/SHG management thăm Tuần Châu sau khi Hải Phòng mở. Song song: follow-up Marriott/Capella về requirements, key count, design standards.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-period">Q4/2026</div>
+        <div class="tl-title">Chốt operator chính thức · Ký HMA / License Agreement</div>
+        <div class="tl-desc">Quyết định cuối dựa trên: timeline feasibility, fee structure, operator requirements vs. RCC capacity. Mục tiêu: operator được announce trước sales launch H1/2027.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Insights -->
+  <div class="section">
+    <div class="section-label">07 — Key Insights</div>
+    <div class="insight-box gold">
+      <div class="insight-title">🥇 Chiến Lược Tối Ưu</div>
+      <div class="insight-body">
+        Chạy <strong>3 tracks song song</strong>: (A) Marriott W/LC — prestige + Bonvoy; (A+) Capella — aspirational ultra-luxury; (B) METT — speed + local synergy. Track B bắt đầu nhanh nhất và tạo proof-of-concept. Track A/A+ đàm phán dài hạn. Kết quả tốt nhất = <strong>Marriott hoặc Capella cho branding, METT cho F&B + lifestyle operations</strong> (hybrid structure nếu khả thi).
+      </div>
+    </div>
+    <div class="insight-box purple">
+      <div class="insight-title">⭐ Capella Wild Card</div>
+      <div class="insight-body">
+        Capella là brand duy nhất có thể đặt Tuần Châu vào conversation ngang với <strong>Capella Maldives, Capella Sentosa, Capella Kyoto</strong> trong brochure toàn cầu. Với UHNW buyer từ Singapore, HK, Korea — đây là tín hiệu rất mạnh. <strong>Recommend: tiếp cận Capella ngay cả khi chỉ để test appetite.</strong>
+      </div>
+    </div>
+    <div class="insight-box green">
+      <div class="insight-title">⚡ METT — Immediate Action Item</div>
+      <div class="insight-body">
+        SHG đang vào Vietnam và cần partners tốt. RCC đang có <strong>vị thế đàm phán tốt nhất ngay lúc này</strong> — trước khi SHG Hải Phòng mở và họ ổn định. NDA + Term Sheet tháng 4/2026 là window tốt nhất. Đây không chỉ là fallback — METT F&B ecosystem ($35M commit) là <strong>genuine value-add</strong> cho estate experience.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Zera 🌟 · RCC Strategic Advisory · Tuần Châu Operator Executive Summary · 16/04/2026 · Confidential — Internal Use Only<br>
+    <a href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/tuan-chau-operator-assessment.html" style="color:#58a6ff;">→ Full Operator Assessment</a>
+  </div>
+
+</div>
+</body>
+</html>
