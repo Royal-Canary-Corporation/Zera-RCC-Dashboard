@@ -19,7 +19,7 @@
   .header .meta-item span { color: #58a6ff; font-weight: 600; }
 
   /* Score cards */
-  .score-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 40px; }
+  .score-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 40px; }
   .score-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px 12px; text-align: center; position: relative; overflow: hidden; }
   .score-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
   .score-card.rank1::before { background: linear-gradient(90deg, #ffd700, #ffaa00); }
@@ -139,7 +139,7 @@
     <div class="meta">
       <div class="meta-item">Prepared by <span>Zera</span></div>
       <div class="meta-item">Updated <span>16/04/2026</span></div>
-      <div class="meta-item">Operators evaluated <span>5</span></div>
+      <div class="meta-item">Operators evaluated <span>6</span></div>
       <div class="meta-item">Marriott brands analyzed <span>17</span></div>
     </div>
   </div>
@@ -181,6 +181,14 @@
         <div class="brand">Anantara</div>
         <div class="operator">Minor Hotels</div>
         <div class="score">72</div>
+        <div class="score-label">/100</div>
+      </div>
+      <div class="score-card" style="border:1px solid #30363d;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div>
+        <div class="rank" style="color:#bc8cff;">#2★</div>
+        <div class="brand">Capella Resorts</div>
+        <div class="operator">Capella Hotel Group</div>
+        <div class="score" style="color:#bc8cff;">87</div>
         <div class="score-label">/100</div>
       </div>
     </div>
@@ -470,6 +478,93 @@
       </div>
     </div>
 
+    <!-- Capella -->
+    <div class="operator-card" style="border-color:#8b5cf6;">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-rank-badge" style="background:rgba(139,92,246,0.15);color:#bc8cff;border:1px solid rgba(139,92,246,0.3);">★ Special Mention — Ultra-Luxury</div>
+          <div class="card-title">Capella Hotels & Resorts</div>
+          <div class="card-parent">Capella Hotel Group (Singapore HQ) · #1 Best Hotel Brand World 2025</div>
+        </div>
+        <div class="card-score-box">
+          <div class="big-score" style="color:#bc8cff;">87</div>
+          <div class="score-sub">Fit Score /100</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">"A constellation of the finest hotels — each Capella property upholds a legacy of crafted luxury design combined with the highest level of personalised service that is both unique and memorable."</div>
+        <div class="tags">
+          <span class="tag tag-purple">🏆 #1 Brand Thế Giới 2025</span>
+          <span class="tag tag-green">✅ Vietnam Present (Capella Hanoi)</span>
+          <span class="tag tag-blue">🌊 Island Villa DNA (Singapore)</span>
+          <span class="tag tag-orange">🎨 Bill Bensley Design</span>
+          <span class="tag tag-blue">💰 $8–15K/villa/month</span>
+          <span class="tag tag-purple">📈 Portfolio ×2 by 2030</span>
+        </div>
+        <div class="criteria-grid">
+          <div class="criteria-item">
+            <div class="criteria-label">Brand Prestige</div>
+            <div class="criteria-value">#1 World 2025 · Ultra</div>
+            <div class="criteria-bar"><div class="criteria-fill" style="width:98%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Vietnam Presence</div>
+            <div class="criteria-value">Capella Hanoi (2021)</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-bronze" style="width:78%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Island Villa Track</div>
+            <div class="criteria-value">Capella Maldives · Sentosa</div>
+            <div class="criteria-bar"><div class="criteria-fill" style="width:90%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">UHNW Fit</div>
+            <div class="criteria-value">Tốt nhất thị trường</div>
+            <div class="criteria-bar"><div class="criteria-fill" style="width:97%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Intimacy / Scale</div>
+            <div class="criteria-value">Boutique · 40–120 keys</div>
+            <div class="criteria-bar"><div class="criteria-fill" style="width:92%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Expansion 2025–2030</div>
+            <div class="criteria-value">8 → 24 properties</div>
+            <div class="criteria-bar"><div class="criteria-fill" style="width:85%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pros">
+            <div class="pros-title">Strengths</div>
+            <ul>
+              <li><strong>#1 Hotel Brand in the World 2025</strong> — unmatched prestige signal cho buyers</li>
+              <li>Capella Hanoi (2021) → Vietnam relationship đã có, Bill Bensley track record</li>
+              <li>Capella Sentosa Singapore → private island villa DNA hoàn toàn fit Tuần Châu</li>
+              <li>Boutique scale (40–120 keys) → phù hợp quy mô estate Tuần Châu</li>
+              <li>Highest resale premium trong tất cả options — Capella brand = price floor</li>
+              <li>Mục tiêu double portfolio by 2030 → đang tích cực tìm deals mới ở SEA</li>
+              <li>Fee cao nhất: $8–15K/villa/month → revenue upside lớn nhất</li>
+              <li>Không cần Bonvoy — brand đủ mạnh tự standalone</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <div class="cons-title">Risks</div>
+            <ul>
+              <li>Portfolio nhỏ (12 properties 2025) → brand ít phổ biến hơn Marriott với đại chúng</li>
+              <li>Standard đầu vào rất cao — design, construction quality phải exceptional</li>
+              <li>Chưa có branded residences track record tại SEA (Seoul pipeline là đầu tiên)</li>
+              <li>Deal timeline có thể rất dài — Capella rất selective với partners</li>
+              <li>Minimum investment threshold cao</li>
+            </ul>
+          </div>
+        </div>
+        <div style="background:#0d1117;border-radius:8px;padding:12px 14px;margin-top:12px;border-left:3px solid #8b5cf6;">
+          <div style="font-size:11px;color:#bc8cff;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">⭐ Strategic Note</div>
+          <div style="font-size:12px;color:#8b949e;line-height:1.6;">Capella là brand duy nhất trong danh sách có thể <strong style="color:#e6edf3;">định vị Tuần Châu ngang tầm Maldives / Sentosa</strong> về prestige. Nếu RCC target UHNW $5M+ buyer và muốn tối đa hóa brand halo, Capella là lựa chọn aspirational nhất. Tuy nhiên, Capella Hanoi = urban boutique (47 phòng) — cần pitch riêng cho Capella resort/residences team về island concept.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Anantara -->
     <div class="operator-card">
       <div class="card-header rank5">
@@ -523,6 +618,7 @@
         <th>Tiêu Chí</th>
         <th class="center">W Residences</th>
         <th class="center">Luxury Collection</th>
+        <th class="center" style="color:#bc8cff;">Capella ★</th>
         <th class="center">METT</th>
         <th class="center">EDITION</th>
         <th class="center">Anantara</th>
@@ -531,6 +627,7 @@
         <td>Fit Score</td>
         <td class="center" style="color:#ffd700;font-weight:700">93</td>
         <td class="center" style="color:#c0c0c0;font-weight:700">89</td>
+        <td class="center" style="color:#bc8cff;font-weight:700">87</td>
         <td class="center" style="color:#cd7f32;font-weight:700">84</td>
         <td class="center" style="color:#58a6ff;font-weight:700">80</td>
         <td class="center" style="color:#8b949e;font-weight:700">72</td>
@@ -539,6 +636,7 @@
         <td>Fee/villa/tháng</td>
         <td class="center">$6–10K</td>
         <td class="center">$5–9K</td>
+        <td class="center" style="color:#bc8cff;font-weight:600">$8–15K ↑</td>
         <td class="center">$3.5–6K</td>
         <td class="center">$7–12K</td>
         <td class="center">$4–7K</td>
@@ -547,6 +645,7 @@
         <td>Vietnam Presence</td>
         <td class="center">❌ Chưa có</td>
         <td class="center">✅ Đà Nẵng</td>
+        <td class="center">✅ Hanoi (2021)</td>
         <td class="center">✅ Hải Phòng 2026</td>
         <td class="center">❌ Chưa có</td>
         <td class="center">✅ Quy Nhon</td>
@@ -555,6 +654,7 @@
         <td>Bonvoy / Loyalty</td>
         <td class="center">✅ 196M</td>
         <td class="center">✅ 196M</td>
+        <td class="center">⭐ Brand độc lập</td>
         <td class="center">❌</td>
         <td class="center">✅ 196M</td>
         <td class="center">⚠️ Nhỏ hơn</td>
@@ -563,6 +663,7 @@
         <td>Speed to Market</td>
         <td class="center">⚠️ 18–24th</td>
         <td class="center">⚠️ 18–24th</td>
+        <td class="center">⚠️ 24–36th</td>
         <td class="center">✅ 6–12th</td>
         <td class="center">⚠️ 18–24th</td>
         <td class="center">✅ 9–15th</td>
@@ -571,12 +672,14 @@
         <td>UHNW Brand Appeal</td>
         <td class="center">⭐⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐⭐</td>
+        <td class="center" style="color:#bc8cff;">⭐⭐⭐⭐⭐+</td>
         <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐</td>
       </tr>
       <tr>
         <td>F&B Integration</td>
+        <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐⭐</td>
@@ -587,6 +690,7 @@
         <td>Resale Premium</td>
         <td class="center" style="color:#3fb950;font-weight:600">Rất cao</td>
         <td class="center" style="color:#3fb950;font-weight:600">Rất cao</td>
+        <td class="center" style="color:#bc8cff;font-weight:700">Cao nhất</td>
         <td class="center" style="color:#d29922">Trung bình</td>
         <td class="center" style="color:#3fb950">Cao</td>
         <td class="center" style="color:#d29922">Trung bình</td>
