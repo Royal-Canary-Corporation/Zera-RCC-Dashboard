@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tuần Châu — Operator Assessment 2026</title>
+<title>Tuần Châu — Operator Assessment v3 · Space/Zoning Constraint Applied</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', Arial, sans-serif; background: #0a0e1a; color: #e6edf3; min-height: 100vh; padding: 40px 16px; }
@@ -12,61 +12,68 @@
   /* Header */
   .header { text-align: center; margin-bottom: 48px; }
   .header .eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #8b949e; margin-bottom: 12px; }
-  .header h1 { font-size: 32px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+  .header h1 { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
   .header .subtitle { color: #8b949e; font-size: 15px; margin-top: 8px; }
   .header .meta { display: flex; justify-content: center; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
   .header .meta-item { font-size: 12px; color: #8b949e; }
   .header .meta-item span { color: #58a6ff; font-weight: 600; }
 
-  /* Score cards */
-  .score-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 40px; }
-  .score-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px 12px; text-align: center; position: relative; overflow: hidden; }
-  .score-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .score-card.rank1::before { background: linear-gradient(90deg, #ffd700, #ffaa00); }
-  .score-card.rank2::before { background: linear-gradient(90deg, #c0c0c0, #a0a0a0); }
-  .score-card.rank3::before { background: linear-gradient(90deg, #cd7f32, #a05020); }
-  .score-card.rank4::before { background: linear-gradient(90deg, #1f6feb, #1a5cd8); }
-  .score-card.rank5::before { background: linear-gradient(90deg, #30363d, #21262d); }
-  .score-card .rank { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-  .score-card .brand { font-size: 13px; font-weight: 700; color: #e6edf3; margin-bottom: 4px; line-height: 1.2; }
-  .score-card .operator { font-size: 10px; color: #8b949e; margin-bottom: 10px; }
-  .score-card .score { font-size: 28px; font-weight: 700; }
-  .score-card.rank1 .score { color: #ffd700; }
-  .score-card.rank2 .score { color: #c0c0c0; }
-  .score-card.rank3 .score { color: #cd7f32; }
-  .score-card.rank4 .score { color: #58a6ff; }
-  .score-card.rank5 .score { color: #8b949e; }
-  .score-card .score-label { font-size: 10px; color: #8b949e; }
-
   /* Section */
   .section { margin-bottom: 40px; }
   .section-title { font-size: 13px; font-weight: 600; color: #8b949e; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #21262d; display: flex; align-items: center; gap: 8px; }
+  .section-title-elim { font-size: 13px; font-weight: 600; color: #f85149; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid rgba(248,81,73,0.3); display: flex; align-items: center; gap: 8px; }
+
+  /* Score cards grid */
+  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .score-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+  .score-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px 12px; text-align: center; position: relative; overflow: hidden; }
+  .score-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .score-card.sc-purple::before { background: linear-gradient(90deg, #8b5cf6, #6d28d9); }
+  .score-card.sc-bronze::before { background: linear-gradient(90deg, #cd7f32, #a05020); }
+  .score-card.sc-silver::before { background: linear-gradient(90deg, #c0c0c0, #a0a0a0); }
+  .score-card.sc-gray::before { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
+  .score-card.sc-red::before { background: linear-gradient(90deg, #f85149, #b91c1c); }
+  .score-card .sc-rank { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .score-card .sc-brand { font-size: 13px; font-weight: 700; color: #e6edf3; margin-bottom: 4px; line-height: 1.2; }
+  .score-card .sc-operator { font-size: 10px; color: #8b949e; margin-bottom: 10px; }
+  .score-card .sc-score { font-size: 28px; font-weight: 700; }
+  .score-card.sc-purple .sc-score { color: #bc8cff; }
+  .score-card.sc-bronze .sc-score { color: #cd7f32; }
+  .score-card.sc-silver .sc-score { color: #c0c0c0; }
+  .score-card.sc-gray .sc-score { color: #58a6ff; }
+  .score-card.sc-red .sc-score { color: #f85149; }
+  .score-card .sc-label { font-size: 10px; color: #8b949e; }
+  .score-card.eliminated { opacity: 0.55; border-color: rgba(248,81,73,0.4); }
+  .score-card.eliminated .sc-brand { text-decoration: line-through; text-decoration-color: #f85149; }
 
   /* Operator cards */
   .operator-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
-  .operator-card.featured { border-color: #ffd700; }
-  .operator-card.featured2 { border-color: #c0c0c0; }
-  .operator-card.featured3 { border-color: #cd7f32; }
+  .operator-card.oc-purple { border-color: #8b5cf6; }
+  .operator-card.oc-bronze { border-color: #cd7f32; }
+  .operator-card.oc-silver { border-color: #c0c0c0; }
+  .operator-card.oc-blue { border-color: #58a6ff; }
+  .operator-card.oc-eliminated { border-color: rgba(248,81,73,0.5); opacity: 0.6; }
 
   .card-header { padding: 20px 24px 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .card-header-left { flex: 1; }
   .card-rank-badge { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; display: inline-block; }
-  .rank1-badge { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
-  .rank2-badge { background: rgba(192,192,192,0.15); color: #c0c0c0; border: 1px solid rgba(192,192,192,0.3); }
-  .rank3-badge { background: rgba(205,127,50,0.15); color: #cd7f32; border: 1px solid rgba(205,127,50,0.3); }
-  .rank4-badge { background: rgba(31,111,235,0.15); color: #58a6ff; border: 1px solid rgba(31,111,235,0.3); }
-  .rank5-badge { background: rgba(48,54,61,0.5); color: #8b949e; border: 1px solid #30363d; }
+  .badge-purple { background: rgba(139,92,246,0.15); color: #bc8cff; border: 1px solid rgba(139,92,246,0.3); }
+  .badge-bronze { background: rgba(205,127,50,0.15); color: #cd7f32; border: 1px solid rgba(205,127,50,0.3); }
+  .badge-silver { background: rgba(192,192,192,0.15); color: #c0c0c0; border: 1px solid rgba(192,192,192,0.3); }
+  .badge-blue { background: rgba(88,166,255,0.15); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  .badge-red { background: rgba(248,81,73,0.15); color: #f85149; border: 1px solid rgba(248,81,73,0.4); }
 
   .card-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
   .card-parent { font-size: 13px; color: #8b949e; }
-  .card-score-box { text-align: center; }
-  .card-score-box .big-score { font-size: 36px; font-weight: 700; line-height: 1; }
-  .rank1 .big-score { color: #ffd700; }
-  .rank2 .big-score { color: #c0c0c0; }
-  .rank3 .big-score { color: #cd7f32; }
-  .rank4 .big-score { color: #58a6ff; }
-  .rank5 .big-score { color: #8b949e; }
-  .card-score-box .score-sub { font-size: 11px; color: #8b949e; margin-top: 2px; }
+  .card-score-box { text-align: center; min-width: 80px; }
+  .big-score { font-size: 36px; font-weight: 700; line-height: 1; }
+  .score-sub { font-size: 11px; color: #8b949e; margin-top: 2px; }
+  .big-score.purple { color: #bc8cff; }
+  .big-score.bronze { color: #cd7f32; }
+  .big-score.silver { color: #c0c0c0; }
+  .big-score.blue { color: #58a6ff; }
+  .big-score.red { color: #f85149; text-decoration: line-through; }
+  .big-score.gray { color: #8b949e; }
 
   .card-body { padding: 0 24px 20px; }
   .card-desc { font-size: 14px; color: #8b949e; line-height: 1.6; margin-bottom: 16px; font-style: italic; border-left: 3px solid #30363d; padding-left: 12px; }
@@ -78,11 +85,12 @@
   .criteria-value { font-size: 13px; color: #e6edf3; font-weight: 500; }
   .criteria-bar { height: 4px; background: #21262d; border-radius: 2px; margin-top: 6px; }
   .criteria-fill { height: 100%; border-radius: 2px; }
+  .fill-purple { background: linear-gradient(90deg, #8b5cf6, #6d28d9); }
   .fill-gold { background: linear-gradient(90deg, #ffd700, #ffaa00); }
-  .fill-silver { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
+  .fill-silver { background: linear-gradient(90deg, #c0c0c0, #a0a0a0); }
   .fill-bronze { background: linear-gradient(90deg, #3fb950, #238636); }
   .fill-blue { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
-  .fill-gray { background: #30363d; }
+  .fill-orange { background: linear-gradient(90deg, #cd7f32, #a05020); }
 
   /* Tags */
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
@@ -92,6 +100,7 @@
   .tag-orange { background: rgba(210,153,34,0.1); color: #d29922; border: 1px solid rgba(210,153,34,0.2); }
   .tag-red { background: rgba(248,81,73,0.1); color: #f85149; border: 1px solid rgba(248,81,73,0.2); }
   .tag-purple { background: rgba(188,140,255,0.1); color: #bc8cff; border: 1px solid rgba(188,140,255,0.2); }
+  .tag-gray { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.2); }
 
   /* Pros/Cons */
   .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -113,15 +122,33 @@
 
   /* Recommendation box */
   .rec-box { background: #161b22; border: 1px solid #30363d; border-left: 4px solid #ffd700; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; }
+  .rec-box.purple { border-left-color: #8b5cf6; }
+  .rec-box.bronze { border-left-color: #cd7f32; }
+  .rec-box.silver { border-left-color: #c0c0c0; }
   .rec-title { font-size: 13px; font-weight: 700; color: #ffd700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .rec-title.purple { color: #bc8cff; }
+  .rec-title.bronze { color: #cd7f32; }
+  .rec-title.silver { color: #c0c0c0; }
   .rec-body { font-size: 14px; color: #8b949e; line-height: 1.7; }
   .rec-body strong { color: #e6edf3; }
+
+  /* Elimination box */
+  .elim-reason { background: rgba(248,81,73,0.07); border: 1px solid rgba(248,81,73,0.25); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; }
+  .elim-reason-title { font-size: 11px; font-weight: 700; color: #f85149; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .elim-reason-text { font-size: 12px; color: #cd7867; line-height: 1.7; }
+  .ref-note { font-size: 11px; color: #6b7280; font-style: italic; margin-bottom: 8px; padding: 4px 10px; background: rgba(139,148,158,0.07); border-radius: 4px; display: inline-block; }
+  .reconsider-note { margin-top: 14px; background: rgba(63,185,80,0.05); border: 1px solid rgba(63,185,80,0.15); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #3fb950; }
 
   /* Footer */
   .footer { text-align: center; margin-top: 48px; color: #484f58; font-size: 12px; border-top: 1px solid #21262d; padding-top: 24px; }
 
+  /* Subsection label */
+  .subsection-label { font-size: 12px; font-weight: 700; color: #3fb950; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .subsection-label.red { color: #f85149; }
+
   @media (max-width: 700px) {
-    .score-grid { grid-template-columns: repeat(3, 1fr); }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .score-grid-2 { grid-template-columns: 1fr; }
     .criteria-grid { grid-template-columns: 1fr 1fr; }
     .pros-cons { grid-template-columns: 1fr; }
     .card-header { flex-direction: column; }
@@ -131,24 +158,24 @@
 <body>
 <div class="container">
 
-  <!-- Header -->
+  <!-- ========== HEADER ========== -->
   <div class="header">
     <div class="eyebrow">RCC Strategic Advisory · Confidential</div>
-    <h1>🏝️ TUẦN CHÂU PRIVATE ESTATES</h1>
-    <div class="subtitle">Operator Assessment — Hospitality Brand Selection 2026</div>
+    <h1>🏝️ TUẦN CHÂU PRIVATE ESTATES · Operator Assessment v3 · Space/Zoning Constraint Applied</h1>
+    <div class="subtitle">Hospitality Brand Selection 2026 — 4 Shortlisted / 2 Eliminated</div>
     <div class="meta">
       <div class="meta-item">Prepared by <span>Zera</span></div>
-      <div class="meta-item">Updated <span>16/04/2026 v2</span></div>
-      <div class="meta-item">Operators evaluated <span>6</span></div>
-      <div class="meta-item">Amenity constraint <span>Applied ⚠️</span></div>
+      <div class="meta-item">Updated <span>16/04/2026 v3</span></div>
+      <div class="meta-item">Shortlisted <span>4</span></div>
+      <div class="meta-item">Eliminated <span>2 (Space/Zoning)</span></div>
     </div>
   </div>
 
-  <!-- EXECUTIVE SUMMARY -->
+  <!-- ========== EXECUTIVE SUMMARY ========== -->
   <div class="section" style="background:#161b22;border:1px solid #30363d;border-left:4px solid #ffd700;border-radius:12px;padding:28px 32px;margin-bottom:40px;">
     <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ffd700;margin-bottom:20px;">📋 Executive Summary</div>
 
-    <!-- Context -->
+    <!-- 3-col context -->
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
       <div style="background:#0d1117;border-radius:8px;padding:14px;">
         <div style="font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🏝️ Destination</div>
@@ -169,202 +196,287 @@
 
     <!-- Key finding -->
     <div style="font-size:13px;color:#8b949e;line-height:1.8;margin-bottom:20px;padding:16px;background:#0d1117;border-radius:8px;">
-      <strong style="color:#ffd700;">Kết luận (v2 — Amenity Constraint Applied):</strong> Tuần Châu có <strong style="color:#e6edf3;">limited public amenity</strong> (marina + in-villa). Sau khi áp dụng constraint này, ranking thay đổi đáng kể: <strong style="color:#f85149;">W Residences và EDITION bị downgrade</strong> vì yêu cầu full amenity cluster (pool, spa, fitness, F&B venues). <strong style="color:#bc8cff;">Capella lên #1</strong> — villa-centric model phù hợp nhất với in-villa luxury + marina format. <strong style="color:#3fb950;">METT #2</strong> — F&B pop-up flexible, không cần capex amenity lớn.
+      <strong style="color:#ffd700;">Kết luận v3 — Space/Zoning Constraint Applied:</strong> <strong style="color:#f85149;">W Residences và EDITION bị LOẠI HOÀN TOÀN</strong> — không phải vì budget mà vì không có physical space để build amenity requirements tối thiểu (WET DECK pool, AWAY Spa, FIT fitness, dining venues = 3,000–5,000m²+). <strong style="color:#e6edf3;">Shortlist thực sự còn 4 operators.</strong> <strong style="color:#bc8cff;">Capella #1</strong> — villa-centric model phù hợp nhất với in-villa luxury + marina format. <strong style="color:#3fb950;">METT #2</strong> — F&B pop-up flexible, không cần capex amenity lớn.
     </div>
 
-    <!-- ⚠️ Amenity Alert -->
-    <div style="background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.25);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#f85149;">
-      <strong>⚠️ Amenity Constraint:</strong> <span style="color:#8b949e;">W Residences và EDITION yêu cầu communal amenity hub (WET DECK pool, AWAY Spa, FIT fitness, dining venue) — ngay cả khi standalone không có hotel. Với Tuần Châu limited public amenity, 2 brands này cần capex bổ sung ~$3–5M hoặc bị loại.</span>
+    <!-- Red alert -->
+    <div style="background:rgba(248,81,73,0.1);border:1.5px solid rgba(248,81,73,0.4);border-radius:8px;padding:14px 18px;margin-bottom:20px;">
+      <div style="font-size:13px;font-weight:700;color:#f85149;">❌ ELIMINATED: W Residences &amp; EDITION · Space/Zoning Constraint</div>
+      <div style="font-size:12px;color:#cd7867;margin-top:6px;">3,000–5,000m² communal amenity required · Not feasible at Tuần Châu</div>
     </div>
 
-    <!-- 3 Tracks REVISED -->
+    <!-- 3 Track Cards -->
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
       <div style="background:#13101a;border:1px solid rgba(139,92,246,0.4);border-radius:8px;padding:14px;">
-        <div style="font-size:10px;font-weight:700;color:#bc8cff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🥇 Track A — Primary (Revised)</div>
+        <div style="font-size:10px;font-weight:700;color:#bc8cff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🥇 Track A — Primary</div>
         <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;">Capella Hotels ★</div>
-        <div style="font-size:11px;color:#8b949e;">Capella HG · Score 92/100 · $8–15K/villa/tháng</div>
+        <div style="font-size:11px;color:#8b949e;">Capella HG · Score <strong style="color:#bc8cff;">92/100</strong> · $8–15K/villa/tháng</div>
         <div style="font-size:11px;color:#8b949e;margin-top:6px;">Villa-centric · In-villa = primary amenity · No amenity tower needed</div>
       </div>
       <div style="background:#0d1a0d;border:1px solid rgba(63,185,80,0.3);border-radius:8px;padding:14px;">
         <div style="font-size:10px;font-weight:700;color:#3fb950;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🥈 Track B — Fast Track</div>
         <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;">METT / SHG</div>
-        <div style="font-size:11px;color:#8b949e;">Sunset Hospitality · Score 88/100 · $3.5–6K/villa</div>
-        <div style="font-size:11px;color:#8b949e;margin-top:6px;">F&B pop-up flexible · No permanent amenity capex · 6–12 tháng</div>
+        <div style="font-size:11px;color:#8b949e;">Sunset Hospitality · Score <strong style="color:#cd7f32;">88/100</strong> · $3.5–6K/villa</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:6px;">F&amp;B pop-up flexible · No permanent amenity capex · 6–12 tháng</div>
       </div>
       <div style="background:#1a1207;border:1px solid rgba(210,153,34,0.3);border-radius:8px;padding:14px;">
         <div style="font-size:10px;font-weight:700;color:#d29922;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">🥉 Track C — Marriott Option</div>
         <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;">Luxury Collection</div>
-        <div style="font-size:11px;color:#8b949e;">Marriott · Score 83/100 · $5–9K/villa/tháng</div>
+        <div style="font-size:11px;color:#8b949e;">Marriott · Score <strong style="color:#c0c0c0;">83/100</strong> · $5–9K/villa/tháng</div>
         <div style="font-size:11px;color:#8b949e;margin-top:6px;">Ha Long Bay = the amenity · Lower requirements vs W · VN precedent</div>
       </div>
     </div>
 
-    <!-- Decision when -->
-    <div style="font-size:12px;color:#8b949e;border-top:1px solid #21262d;padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div>🥇 <strong style="color:#bc8cff;">Capella</strong> — Max prestige · Villa-centric · No amenity tower needed</div>
-      <div>🥈 <strong style="color:#3fb950;">METT</strong> — Fastest · F&B pop-up · Hải Phòng synergy · No capex</div>
-      <div>🥉 <strong style="color:#d29922;">Luxury Collection</strong> — Marriott option · Ha Long as amenity · Feasible</div>
-      <div>⚠️ <strong style="color:#f85149;">W / EDITION</strong> — Cần add amenity hub ~$3–5M capex hoặc loại</div>
-    </div>
-
     <!-- Action items -->
-    <div style="margin-top:16px;border-top:1px solid #21262d;padding-top:16px;">
+    <div style="border-top:1px solid #21262d;padding-top:16px;">
       <div style="font-size:10px;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Immediate Actions</div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;">
         <span style="font-size:11px;background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.2);border-radius:4px;padding:3px 10px;">🔴 T4/2026 — NDA với METT/SHG ngay</span>
-        <span style="font-size:11px;background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.2);border-radius:4px;padding:3px 10px;">🔴 T5/2026 — Pitch Marriott Asia Pacific Dev (Singapore)</span>
-        <span style="font-size:11px;background:rgba(210,153,34,0.1);color:#d29922;border:1px solid rgba(210,153,34,0.2);border-radius:4px;padding:3px 10px;">🟡 T5-6/2026 — Tiếp cận Capella HG via Capella Hanoi</span>
+        <span style="font-size:11px;background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.2);border-radius:4px;padding:3px 10px;">🔴 T5/2026 — Pitch Marriott Asia Pacific Dev (Singapore) — Luxury Collection only</span>
+        <span style="font-size:11px;background:rgba(210,153,34,0.1);color:#d29922;border:1px solid rgba(210,153,34,0.2);border-radius:4px;padding:3px 10px;">🟡 T5–6/2026 — Tiếp cận Capella HG via Capella Hanoi</span>
         <span style="font-size:11px;background:rgba(63,185,80,0.1);color:#3fb950;border:1px solid rgba(63,185,80,0.2);border-radius:4px;padding:3px 10px;">🟢 Q3/2026 — Site visit + Term sheet negotiation</span>
       </div>
     </div>
   </div>
 
-  <!-- Score Summary -->
+  <!-- ========== RANKING OVERVIEW ========== -->
   <div class="section">
-    <div class="section-title">📊 Ranking Overview — v2 (Amenity Constraint Applied)</div>
-    <div style="background:rgba(248,81,73,0.07);border:1px solid rgba(248,81,73,0.2);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#f85149;">
-      ⚠️ <strong>v2 Update:</strong> W Residences ↓ và EDITION ↓ — yêu cầu communal amenity cluster (pool/spa/fitness/dining) ngay cả khi standalone. Capella ↑ #1 vì villa-centric model phù hợp in-villa + marina format.
+    <div class="section-title">📊 Ranking Overview — v3 (Space/Zoning Constraint Applied)</div>
+
+    <!-- Section A: Shortlisted -->
+    <div class="subsection-label">✅ Section A — Shortlisted (4)</div>
+    <div class="score-grid" style="margin-bottom:28px;">
+      <div class="score-card sc-purple">
+        <div class="sc-rank" style="color:#bc8cff;">🥇 Rank 1</div>
+        <div class="sc-brand">Capella Hotels</div>
+        <div class="sc-operator">Capella Hotel Group</div>
+        <div class="sc-score">92</div>
+        <div class="sc-label">/100</div>
+      </div>
+      <div class="score-card sc-bronze">
+        <div class="sc-rank">🥈 Rank 2</div>
+        <div class="sc-brand">METT Resorts</div>
+        <div class="sc-operator">Sunset Hospitality Group</div>
+        <div class="sc-score">88</div>
+        <div class="sc-label">/100</div>
+      </div>
+      <div class="score-card sc-silver">
+        <div class="sc-rank">🥉 Rank 3</div>
+        <div class="sc-brand">Luxury Collection</div>
+        <div class="sc-operator">Marriott International</div>
+        <div class="sc-score">83</div>
+        <div class="sc-label">/100</div>
+      </div>
+      <div class="score-card sc-gray">
+        <div class="sc-rank">#4</div>
+        <div class="sc-brand">Anantara</div>
+        <div class="sc-operator">Minor Hotels</div>
+        <div class="sc-score">78</div>
+        <div class="sc-label">/100</div>
+      </div>
     </div>
-    <div class="score-grid">
-      <div class="score-card" style="border-color:#8b5cf6;position:relative;overflow:hidden;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div>
-        <div class="rank" style="color:#bc8cff;">🥇 Rank 1 ↑</div>
-        <div class="brand">Capella Hotels</div>
-        <div class="operator">Capella Hotel Group</div>
-        <div class="score" style="color:#bc8cff;">92</div>
-        <div class="score-label">/100</div>
+
+    <!-- Section B: Eliminated -->
+    <div class="subsection-label red">❌ Section B — Eliminated — Space/Zoning Constraint</div>
+    <div class="score-grid-2">
+      <div class="score-card sc-red eliminated">
+        <div class="sc-rank" style="color:#f85149;">❌ ELIMINATED</div>
+        <div class="sc-brand">W Residences</div>
+        <div class="sc-operator">Marriott · Space Constraint</div>
+        <div class="sc-score">93</div>
+        <div class="sc-label">original score — voided</div>
       </div>
-      <div class="score-card rank3">
-        <div class="rank">🥈 Rank 2 ↑</div>
-        <div class="brand">METT Resorts</div>
-        <div class="operator">Sunset Hospitality Group</div>
-        <div class="score">88</div>
-        <div class="score-label">/100</div>
-      </div>
-      <div class="score-card rank2">
-        <div class="rank">🥉 Rank 3</div>
-        <div class="brand">Luxury Collection</div>
-        <div class="operator">Marriott International</div>
-        <div class="score">83</div>
-        <div class="score-label">/100</div>
-      </div>
-      <div class="score-card rank5">
-        <div class="rank">#4</div>
-        <div class="brand">Anantara</div>
-        <div class="operator">Minor Hotels</div>
-        <div class="score">78</div>
-        <div class="score-label">/100</div>
-      </div>
-      <div class="score-card rank4" style="opacity:0.75;">
-        <div class="rank" style="color:#f85149;">⚠️ #5 ↓</div>
-        <div class="brand">W Residences</div>
-        <div class="operator">Marriott · Amenity Risk</div>
-        <div class="score" style="color:#f85149;">64</div>
-        <div class="score-label">/100</div>
-      </div>
-      <div class="score-card rank5" style="opacity:0.6;">
-        <div class="rank" style="color:#f85149;">❌ #6 ↓</div>
-        <div class="brand">EDITION</div>
-        <div class="operator">Marriott · Amenity Risk</div>
-        <div class="score" style="color:#f85149;">58</div>
-        <div class="score-label">/100</div>
+      <div class="score-card sc-red eliminated">
+        <div class="sc-rank" style="color:#f85149;">❌ ELIMINATED</div>
+        <div class="sc-brand">EDITION</div>
+        <div class="sc-operator">Marriott × Ian Schrager · Space Constraint</div>
+        <div class="sc-score">80</div>
+        <div class="sc-label">original score — voided</div>
       </div>
     </div>
   </div>
 
-  <!-- Operator Cards -->
+  <!-- ========== SHORTLISTED OPERATORS ========== -->
   <div class="section">
-    <div class="section-title">🏨 Operator Profiles</div>
+    <div class="section-title">🏨 Shortlisted Operators (4)</div>
 
-    <!-- W Residences -->
-    <div class="operator-card featured">
-      <div class="card-header rank1">
+    <!-- CAPELLA — #1 -->
+    <div class="operator-card oc-purple">
+      <div class="card-header">
         <div class="card-header-left">
-          <div class="card-rank-badge rank1-badge">🥇 Recommended #1</div>
-          <div class="card-title">W Residences</div>
-          <div class="card-parent">Marriott International · Ultra-Luxury Lifestyle Segment</div>
+          <div class="card-rank-badge badge-purple">🥇 #1 Recommended · Villa-Centric Model</div>
+          <div class="card-title">Capella Hotels &amp; Resorts</div>
+          <div class="card-parent">Capella Hotel Group (Singapore HQ) · #1 Best Hotel Brand World 2025</div>
         </div>
-        <div class="card-score-box rank1">
-          <div class="big-score">93</div>
+        <div class="card-score-box">
+          <div class="big-score purple">92</div>
           <div class="score-sub">Fit Score /100</div>
         </div>
       </div>
       <div class="card-body">
-        <div class="card-desc">"Bold, unexpected, W blends a passion for life with an addictive energy. The W brand is designed for those who want to live life with an irreverent edge."</div>
+        <div class="card-desc">"A constellation of the finest hotels — each Capella property upholds a legacy of crafted luxury design combined with the highest level of personalised service that is both unique and memorable."</div>
         <div class="tags">
-          <span class="tag tag-green">✅ First-mover VN</span>
-          <span class="tag tag-blue">🌊 Resort DNA</span>
-          <span class="tag tag-orange">⚡ Lifestyle Brand</span>
-          <span class="tag tag-purple">🌏 SEA Expansion Active</span>
-          <span class="tag tag-blue">💰 $6–10K/villa/month</span>
+          <span class="tag tag-purple">🏆 #1 Brand Thế Giới 2025</span>
+          <span class="tag tag-green">✅ Vietnam Present (Capella Hanoi)</span>
+          <span class="tag tag-blue">🌊 Island Villa DNA (Singapore)</span>
+          <span class="tag tag-orange">🎨 Bill Bensley Design</span>
+          <span class="tag tag-blue">💰 $8–15K/villa/month</span>
+          <span class="tag tag-purple">📈 Portfolio ×2 by 2030</span>
         </div>
         <div class="criteria-grid">
           <div class="criteria-item">
-            <div class="criteria-label">Brand Recognition</div>
-            <div class="criteria-value">Toàn cầu · Tier 1</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:95%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">UHNW Fit</div>
-            <div class="criteria-value">Rất cao · Lifestyle HNW</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:92%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Resort Experience</div>
-            <div class="criteria-value">W Bali · W Maldives</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:90%"></div></div>
+            <div class="criteria-label">Brand Prestige</div>
+            <div class="criteria-value">#1 World 2025 · Ultra</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-purple" style="width:98%"></div></div>
           </div>
           <div class="criteria-item">
             <div class="criteria-label">Vietnam Presence</div>
-            <div class="criteria-value">Chưa có → Opportunity</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-silver" style="width:40%"></div></div>
+            <div class="criteria-value">Capella Hanoi (2021)</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-bronze" style="width:78%"></div></div>
           </div>
           <div class="criteria-item">
-            <div class="criteria-label">F&B Portfolio</div>
-            <div class="criteria-value">ALTITUDE · WET · AWAY</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:88%"></div></div>
+            <div class="criteria-label">Island Villa Track</div>
+            <div class="criteria-value">Capella Maldives · Sentosa</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-purple" style="width:90%"></div></div>
           </div>
           <div class="criteria-item">
-            <div class="criteria-label">Marriott Bonvoy</div>
-            <div class="criteria-value">196M+ members</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:100%"></div></div>
+            <div class="criteria-label">UHNW Fit</div>
+            <div class="criteria-value">Tốt nhất thị trường</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-purple" style="width:97%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Villa-Centric Amenity</div>
+            <div class="criteria-value">In-villa = primary · No tower</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-purple" style="width:95%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Expansion 2025–2030</div>
+            <div class="criteria-value">8 → 24 properties</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-purple" style="width:85%"></div></div>
           </div>
         </div>
         <div class="pros-cons">
           <div class="pros">
             <div class="pros-title">Strengths</div>
             <ul>
-              <li>First W Residences tại Vietnam → premium differentiation</li>
-              <li>Brand resonance mạnh với UHNW millennials & Gen X</li>
-              <li>Marriott Bonvoy ecosystem 196M members → resale liquidity</li>
-              <li>Active SEA resort expansion (W Bali, W Phu Quoc pipeline)</li>
-              <li>Music, nightlife, poolside DNA → phù hợp island lifestyle</li>
-              <li>Management fee structure linh hoạt, có residences track record</li>
+              <li><strong>#1 Hotel Brand in the World 2025</strong> — unmatched prestige signal cho buyers</li>
+              <li>Capella Hanoi (2021) → Vietnam relationship đã có, Bill Bensley track record</li>
+              <li>Capella Sentosa Singapore → private island villa DNA hoàn toàn fit Tuần Châu</li>
+              <li>Boutique scale (40–120 keys) → phù hợp quy mô estate Tuần Châu</li>
+              <li>Highest resale premium trong tất cả options — Capella brand = price floor</li>
+              <li>Mục tiêu double portfolio by 2030 → đang tích cực tìm deals mới ở SEA</li>
+              <li>Fee cao nhất: $8–15K/villa/month → revenue upside lớn nhất</li>
+              <li>Villa-centric model: in-villa là primary amenity → không cần amenity tower riêng</li>
             </ul>
           </div>
           <div class="cons">
             <div class="cons-title">Risks</div>
             <ul>
-              <li>Cần destination awareness — Tuần Châu cần thêm brand building</li>
-              <li>Development timeline Marriott thường dài (18–24 tháng đàm phán)</li>
-              <li>Minimum key count yêu cầu có thể cao</li>
-              <li>Fee structure phức tạp hơn boutique operators</li>
+              <li>Portfolio nhỏ (12 properties 2025) → brand ít phổ biến hơn Marriott với đại chúng</li>
+              <li>Standard đầu vào rất cao — design, construction quality phải exceptional</li>
+              <li>Chưa có branded residences track record tại SEA (Seoul pipeline là đầu tiên)</li>
+              <li>Deal timeline có thể rất dài — Capella rất selective với partners</li>
+              <li>Minimum investment threshold cao</li>
+            </ul>
+          </div>
+        </div>
+        <div style="background:#0d1117;border-radius:8px;padding:12px 14px;margin-top:12px;border-left:3px solid #8b5cf6;">
+          <div style="font-size:11px;color:#bc8cff;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">⭐ Strategic Note</div>
+          <div style="font-size:12px;color:#8b949e;line-height:1.6;">Capella là brand duy nhất trong shortlist có thể <strong style="color:#e6edf3;">định vị Tuần Châu ngang tầm Maldives / Sentosa</strong> về prestige. Villa-centric model eliminates the space/zoning constraint that eliminated W và EDITION. Tuy nhiên, Capella Hanoi = urban boutique (47 phòng) — cần pitch riêng cho Capella resort/residences team về island concept.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METT — #2 -->
+    <div class="operator-card oc-bronze">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-rank-badge badge-bronze">🥈 #2 Fast Track · F&amp;B Ecosystem</div>
+          <div class="card-title">METT Hotels &amp; Resorts</div>
+          <div class="card-parent">Sunset Hospitality Group (Dubai) · Boutique Lifestyle Resort</div>
+        </div>
+        <div class="card-score-box">
+          <div class="big-score bronze">88</div>
+          <div class="score-sub">Fit Score /100</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-desc">"METT curates a world where socialising, lifestyle entertainment and tranquil service converge — designed for discerning travellers who want more than a hotel stay."</div>
+        <div class="tags">
+          <span class="tag tag-green">✅ Vietnam 2026 (Hải Phòng)</span>
+          <span class="tag tag-blue">🍽️ 26 F&amp;B Brands</span>
+          <span class="tag tag-orange">⚡ Fastest to Market</span>
+          <span class="tag tag-purple">💼 $35M VN Commitment</span>
+          <span class="tag tag-blue">💰 $3.5–6K/villa/month</span>
+        </div>
+        <div class="criteria-grid">
+          <div class="criteria-item">
+            <div class="criteria-label">Speed to Market</div>
+            <div class="criteria-value">Nhanh nhất · 6–12 tháng</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:95%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">F&amp;B Ecosystem</div>
+            <div class="criteria-value">26 brands · Tier 1 F&amp;B</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:92%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Vietnam Proximity</div>
+            <div class="criteria-value">Hải Phòng ~30km</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:90%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Brand Recognition</div>
+            <div class="criteria-value">Regional · Growing</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-silver" style="width:55%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Cost Synergy</div>
+            <div class="criteria-value">15–25% F&amp;B OPEX saving</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-bronze" style="width:85%"></div></div>
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-label">Flexibility</div>
+            <div class="criteria-value">Rất cao · Boutique model</div>
+            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:95%"></div></div>
+          </div>
+        </div>
+        <div class="pros-cons">
+          <div class="pros">
+            <div class="pros-title">Strengths</div>
+            <ul>
+              <li>SHG sắp vận hành tại Sofitel Hải Phòng 2026 → 30km từ Tuần Châu</li>
+              <li>Shared back-end: procurement, chef rotation, POS systems</li>
+              <li>26 F&amp;B brands → MOTT 32, SUSHISAMBA, Ammos tích hợp vào estate</li>
+              <li>Fastest deal timeline — boutique, ít bureaucracy hơn Marriott</li>
+              <li>$35M Vietnam market commitment → serious intent</li>
+              <li>Pilot-friendly: sẵn sàng bắt đầu từ 1–2 villas</li>
+              <li>F&amp;B pop-up model → không cần permanent amenity capex lớn</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <div class="cons-title">Risks</div>
+            <ul>
+              <li>Brand recognition thấp hơn Marriott → ảnh hưởng resale premium</li>
+              <li>Chưa có residences track record mạnh ở SEA</li>
+              <li>Không có loyalty program tầm cỡ Bonvoy</li>
+              <li>Fee/villa thấp hơn → positioning thấp hơn</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Luxury Collection -->
-    <div class="operator-card featured2">
-      <div class="card-header rank2">
+    <!-- LUXURY COLLECTION — #3 -->
+    <div class="operator-card oc-silver">
+      <div class="card-header">
         <div class="card-header-left">
-          <div class="card-rank-badge rank2-badge">🥈 Recommended #2</div>
+          <div class="card-rank-badge badge-silver">🥉 #3 Marriott Option · Ha Long as Amenity</div>
           <div class="card-title">The Luxury Collection Residences</div>
           <div class="card-parent">Marriott International · Ultra-Luxury Heritage Segment</div>
         </div>
-        <div class="card-score-box rank2">
-          <div class="big-score">89</div>
+        <div class="card-score-box">
+          <div class="big-score silver">83</div>
           <div class="score-sub">Fit Score /100</div>
         </div>
       </div>
@@ -415,10 +527,11 @@
             <ul>
               <li>IFF Holdings đã ký LC tại VN → template deal structure có sẵn</li>
               <li>Brand DNA "unique sense of place" → Tuần Châu island story fit hoàn hảo</li>
-              <li>Ha Long UNESCO World Heritage = LC-caliber destination narrative</li>
+              <li>Ha Long UNESCO World Heritage = LC-caliber destination narrative — Ha Long là amenity</li>
               <li>Mature HNW buyers — phù hợp với target buyer RCC</li>
               <li>Precedent SEA resort: Phuket, Bali, Koh Samui</li>
               <li>Marriott Bonvoy 196M members + resale premium</li>
+              <li>Lower amenity footprint requirements vs W Residences</li>
             </ul>
           </div>
           <div class="cons">
@@ -433,226 +546,16 @@
       </div>
     </div>
 
-    <!-- METT -->
-    <div class="operator-card featured3">
-      <div class="card-header rank3">
-        <div class="card-header-left">
-          <div class="card-rank-badge rank3-badge">🥉 Recommended #3</div>
-          <div class="card-title">METT Hotels & Resorts</div>
-          <div class="card-parent">Sunset Hospitality Group (Dubai) · Boutique Lifestyle Resort</div>
-        </div>
-        <div class="card-score-box rank3">
-          <div class="big-score">84</div>
-          <div class="score-sub">Fit Score /100</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-desc">"METT curates a world where socialising, lifestyle entertainment and tranquil service converge — designed for discerning travellers who want more than a hotel stay."</div>
-        <div class="tags">
-          <span class="tag tag-green">✅ Vietnam 2026 (Hải Phòng)</span>
-          <span class="tag tag-blue">🍽️ 26 F&B Brands</span>
-          <span class="tag tag-orange">⚡ Fastest to Market</span>
-          <span class="tag tag-purple">💼 $35M VN Commitment</span>
-          <span class="tag tag-blue">💰 $3.5–6K/villa/month</span>
-        </div>
-        <div class="criteria-grid">
-          <div class="criteria-item">
-            <div class="criteria-label">Speed to Market</div>
-            <div class="criteria-value">Nhanh nhất · 6–12 tháng</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:95%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">F&B Ecosystem</div>
-            <div class="criteria-value">26 brands · Tier 1 F&B</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:92%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Vietnam Proximity</div>
-            <div class="criteria-value">Hải Phòng ~30km</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:90%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Brand Recognition</div>
-            <div class="criteria-value">Regional · Growing</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-silver" style="width:55%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Cost Synergy</div>
-            <div class="criteria-value">15–25% F&B OPEX saving</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-bronze" style="width:85%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Flexibility</div>
-            <div class="criteria-value">Rất cao · Boutique model</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-gold" style="width:95%"></div></div>
-          </div>
-        </div>
-        <div class="pros-cons">
-          <div class="pros">
-            <div class="pros-title">Strengths</div>
-            <ul>
-              <li>SHG sắp vận hành tại Sofitel Hải Phòng 2026 → 30km từ Tuần Châu</li>
-              <li>Shared back-end: procurement, chef rotation, POS systems</li>
-              <li>26 F&B brands → MOTT 32, SUSHISAMBA, Ammos tích hợp vào estate</li>
-              <li>Fastest deal timeline — boutique, ít bureaucracy hơn Marriott</li>
-              <li>$35M Vietnam market commitment → serious intent</li>
-              <li>Pilot-friendly: sẵn sàng bắt đầu từ 1–2 villas</li>
-            </ul>
-          </div>
-          <div class="cons">
-            <div class="cons-title">Risks</div>
-            <ul>
-              <li>Brand recognition thấp hơn Marriott → ảnh hưởng resale premium</li>
-              <li>Chưa có residences track record mạnh ở SEA</li>
-              <li>Không có loyalty program tầm cỡ Bonvoy</li>
-              <li>Fee/villa thấp hơn → positioning thấp hơn</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- EDITION -->
-    <div class="operator-card">
-      <div class="card-header rank4">
-        <div class="card-header-left">
-          <div class="card-rank-badge rank4-badge">#4 Alternative</div>
-          <div class="card-title">EDITION Residences</div>
-          <div class="card-parent">Marriott International × Ian Schrager · Ultra-Curated Design Luxury</div>
-        </div>
-        <div class="card-score-box rank4">
-          <div class="big-score">80</div>
-          <div class="score-sub">Fit Score /100</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-desc">"The EDITION is the meeting of two points of view: the Marriott system and scale, and Ian Schrager's design-forward, culturally curated boutique experience."</div>
-        <div class="tags">
-          <span class="tag tag-blue">🎨 Design-Forward</span>
-          <span class="tag tag-purple">🌏 SEA Expanding</span>
-          <span class="tag tag-orange">💰 $7–12K/villa/month</span>
-          <span class="tag tag-blue">🏛️ Boutique Ultra-Luxury</span>
-        </div>
-        <div class="pros-cons">
-          <div class="pros">
-            <div class="pros-title">Strengths</div>
-            <ul>
-              <li>Highest fee potential: $7–12K/villa/month</li>
-              <li>Ultra-curated, intimate — phù hợp private island concept</li>
-              <li>Bangkok EDITION đã open → SEA precedent</li>
-              <li>Ian Schrager design DNA → strong PR/media story</li>
-            </ul>
-          </div>
-          <div class="cons">
-            <div class="cons-title">Risks</div>
-            <ul>
-              <li>Ít properties hơn W → brand recognition hạn chế hơn</li>
-              <li>Rất niche — thị trường buyer hẹp hơn</li>
-              <li>Chưa có VN presence hay pipeline</li>
-              <li>Timeline đàm phán dài + requirements cao</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Capella -->
-    <div class="operator-card" style="border-color:#8b5cf6;">
+    <!-- ANANTARA — #4 -->
+    <div class="operator-card oc-blue">
       <div class="card-header">
         <div class="card-header-left">
-          <div class="card-rank-badge" style="background:rgba(139,92,246,0.15);color:#bc8cff;border:1px solid rgba(139,92,246,0.3);">★ Special Mention — Ultra-Luxury</div>
-          <div class="card-title">Capella Hotels & Resorts</div>
-          <div class="card-parent">Capella Hotel Group (Singapore HQ) · #1 Best Hotel Brand World 2025</div>
-        </div>
-        <div class="card-score-box">
-          <div class="big-score" style="color:#bc8cff;">87</div>
-          <div class="score-sub">Fit Score /100</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-desc">"A constellation of the finest hotels — each Capella property upholds a legacy of crafted luxury design combined with the highest level of personalised service that is both unique and memorable."</div>
-        <div class="tags">
-          <span class="tag tag-purple">🏆 #1 Brand Thế Giới 2025</span>
-          <span class="tag tag-green">✅ Vietnam Present (Capella Hanoi)</span>
-          <span class="tag tag-blue">🌊 Island Villa DNA (Singapore)</span>
-          <span class="tag tag-orange">🎨 Bill Bensley Design</span>
-          <span class="tag tag-blue">💰 $8–15K/villa/month</span>
-          <span class="tag tag-purple">📈 Portfolio ×2 by 2030</span>
-        </div>
-        <div class="criteria-grid">
-          <div class="criteria-item">
-            <div class="criteria-label">Brand Prestige</div>
-            <div class="criteria-value">#1 World 2025 · Ultra</div>
-            <div class="criteria-bar"><div class="criteria-fill" style="width:98%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Vietnam Presence</div>
-            <div class="criteria-value">Capella Hanoi (2021)</div>
-            <div class="criteria-bar"><div class="criteria-fill fill-bronze" style="width:78%"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Island Villa Track</div>
-            <div class="criteria-value">Capella Maldives · Sentosa</div>
-            <div class="criteria-bar"><div class="criteria-fill" style="width:90%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">UHNW Fit</div>
-            <div class="criteria-value">Tốt nhất thị trường</div>
-            <div class="criteria-bar"><div class="criteria-fill" style="width:97%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Intimacy / Scale</div>
-            <div class="criteria-value">Boutique · 40–120 keys</div>
-            <div class="criteria-bar"><div class="criteria-fill" style="width:92%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
-          </div>
-          <div class="criteria-item">
-            <div class="criteria-label">Expansion 2025–2030</div>
-            <div class="criteria-value">8 → 24 properties</div>
-            <div class="criteria-bar"><div class="criteria-fill" style="width:85%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);"></div></div>
-          </div>
-        </div>
-        <div class="pros-cons">
-          <div class="pros">
-            <div class="pros-title">Strengths</div>
-            <ul>
-              <li><strong>#1 Hotel Brand in the World 2025</strong> — unmatched prestige signal cho buyers</li>
-              <li>Capella Hanoi (2021) → Vietnam relationship đã có, Bill Bensley track record</li>
-              <li>Capella Sentosa Singapore → private island villa DNA hoàn toàn fit Tuần Châu</li>
-              <li>Boutique scale (40–120 keys) → phù hợp quy mô estate Tuần Châu</li>
-              <li>Highest resale premium trong tất cả options — Capella brand = price floor</li>
-              <li>Mục tiêu double portfolio by 2030 → đang tích cực tìm deals mới ở SEA</li>
-              <li>Fee cao nhất: $8–15K/villa/month → revenue upside lớn nhất</li>
-              <li>Không cần Bonvoy — brand đủ mạnh tự standalone</li>
-            </ul>
-          </div>
-          <div class="cons">
-            <div class="cons-title">Risks</div>
-            <ul>
-              <li>Portfolio nhỏ (12 properties 2025) → brand ít phổ biến hơn Marriott với đại chúng</li>
-              <li>Standard đầu vào rất cao — design, construction quality phải exceptional</li>
-              <li>Chưa có branded residences track record tại SEA (Seoul pipeline là đầu tiên)</li>
-              <li>Deal timeline có thể rất dài — Capella rất selective với partners</li>
-              <li>Minimum investment threshold cao</li>
-            </ul>
-          </div>
-        </div>
-        <div style="background:#0d1117;border-radius:8px;padding:12px 14px;margin-top:12px;border-left:3px solid #8b5cf6;">
-          <div style="font-size:11px;color:#bc8cff;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">⭐ Strategic Note</div>
-          <div style="font-size:12px;color:#8b949e;line-height:1.6;">Capella là brand duy nhất trong danh sách có thể <strong style="color:#e6edf3;">định vị Tuần Châu ngang tầm Maldives / Sentosa</strong> về prestige. Nếu RCC target UHNW $5M+ buyer và muốn tối đa hóa brand halo, Capella là lựa chọn aspirational nhất. Tuy nhiên, Capella Hanoi = urban boutique (47 phòng) — cần pitch riêng cho Capella resort/residences team về island concept.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Anantara -->
-    <div class="operator-card">
-      <div class="card-header rank5">
-        <div class="card-header-left">
-          <div class="card-rank-badge rank5-badge">#5 Fallback</div>
+          <div class="card-rank-badge badge-blue">#4 Fallback · SEA Specialist</div>
           <div class="card-title">Anantara Residences</div>
           <div class="card-parent">Minor Hotels · SEA Luxury Resort Specialist</div>
         </div>
-        <div class="card-score-box rank5">
-          <div class="big-score">72</div>
+        <div class="card-score-box">
+          <div class="big-score blue">78</div>
           <div class="score-sub">Fit Score /100</div>
         </div>
       </div>
@@ -670,8 +573,9 @@
             <ul>
               <li>SEA resort specialist — Phuket, Bali, Maldives, Vietnam</li>
               <li>Vietnam presence: Anantara Quy Nhon, Anantara Mui Ne</li>
-              <li>Fastest deployment vs. Marriott</li>
+              <li>Faster deployment vs. Marriott</li>
               <li>Strong wellness/spa positioning</li>
+              <li>Feasible amenity requirements for Tuần Châu footprint</li>
             </ul>
           </div>
           <div class="cons">
@@ -688,59 +592,164 @@
     </div>
   </div>
 
-  <!-- Comparison Table -->
+  <!-- ========== ELIMINATED OPERATORS ========== -->
   <div class="section">
-    <div class="section-title">📋 So Sánh Tổng Hợp</div>
+    <div class="section-title-elim">❌ Eliminated Operators — Space/Zoning Constraint</div>
+    <div style="background:rgba(248,81,73,0.06);border:1px solid rgba(248,81,73,0.2);border-radius:8px;padding:10px 16px;margin-bottom:20px;font-size:12px;color:#8b949e;">
+      Hai brands dưới đây bị loại khỏi shortlist vì không có physical space và zoning để xây dựng amenity cluster tối thiểu theo brand standards — <strong style="color:#f85149;">không phải vì budget</strong>. Thông tin brand được giữ lại để tham khảo.
+    </div>
+
+    <!-- W RESIDENCES — ELIMINATED -->
+    <div class="operator-card oc-eliminated">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-rank-badge badge-red">❌ ELIMINATED — Space/Zoning Constraint</div>
+          <div class="card-title" style="color:#8b949e;text-decoration:line-through;text-decoration-color:#f85149;">W Residences</div>
+          <div class="card-parent">Marriott International · Ultra-Luxury Lifestyle Segment</div>
+        </div>
+        <div class="card-score-box">
+          <div class="big-score red">93</div>
+          <div class="score-sub">original score — voided</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="elim-reason">
+          <div class="elim-reason-title">❌ Lý do loại — Space/Zoning</div>
+          <div class="elim-reason-text">Yêu cầu amenity cluster: <strong>WET DECK pool ~1,500m²</strong>, <strong>AWAY Spa ~500m²</strong>, <strong>FIT fitness ~400m²</strong>, <strong>Dining venue ~600m²</strong>, <strong>Residents' Lounge ~300m²</strong> = tổng <strong>~3,300m²+ communal footprint</strong>. Áp dụng cả với standalone (không có hotel component). Tuần Châu không có diện tích và zoning cho amenity cluster này.</div>
+        </div>
+        <div class="card-desc">"Bold, unexpected, W blends a passion for life with an addictive energy. The W brand is designed for those who want to live life with an irreverent edge."</div>
+        <div style="margin-bottom:12px;"><span class="ref-note">Thông tin tham khảo — brand đã bị loại</span></div>
+        <div class="tags">
+          <span class="tag tag-gray">First-mover VN (n/a)</span>
+          <span class="tag tag-gray">🌊 Resort DNA</span>
+          <span class="tag tag-gray">⚡ Lifestyle Brand</span>
+          <span class="tag tag-gray">🌏 SEA Expansion Active</span>
+          <span class="tag tag-gray">💰 $6–10K/villa/month</span>
+        </div>
+        <div class="pros-cons">
+          <div class="pros">
+            <div class="pros-title">Strengths (Reference Only)</div>
+            <ul>
+              <li>First W Residences tại Vietnam → premium differentiation</li>
+              <li>Brand resonance mạnh với UHNW millennials &amp; Gen X</li>
+              <li>Marriott Bonvoy ecosystem 196M members → resale liquidity</li>
+              <li>Active SEA resort expansion (W Bali, W Phu Quoc pipeline)</li>
+              <li>Music, nightlife, poolside DNA → phù hợp island lifestyle</li>
+              <li>Management fee structure linh hoạt, có residences track record</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <div class="cons-title">Elimination Reasons</div>
+            <ul>
+              <li>WET DECK pool mandatory ~1,500m²</li>
+              <li>AWAY Spa mandatory ~500m²</li>
+              <li>FIT fitness mandatory ~400m²</li>
+              <li>Dining venue mandatory ~600m²</li>
+              <li>Residents' Lounge mandatory ~300m²</li>
+              <li>Total communal footprint ~3,300m²+ — not feasible at Tuần Châu</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reconsider-note">
+          💡 Có thể reconsider trong tương lai nếu RCC phát triển amenity hub riêng biệt (~3,300m²+ communal zone)
+        </div>
+      </div>
+    </div>
+
+    <!-- EDITION — ELIMINATED -->
+    <div class="operator-card oc-eliminated">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-rank-badge badge-red">❌ ELIMINATED — Space/Zoning Constraint</div>
+          <div class="card-title" style="color:#8b949e;text-decoration:line-through;text-decoration-color:#f85149;">EDITION Residences</div>
+          <div class="card-parent">Marriott International × Ian Schrager · Ultra-Curated Design Luxury</div>
+        </div>
+        <div class="card-score-box">
+          <div class="big-score red">80</div>
+          <div class="score-sub">original score — voided</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="elim-reason">
+          <div class="elim-reason-title">❌ Lý do loại — Space/Zoning</div>
+          <div class="elim-reason-text">Yêu cầu amenity statement piece bắt buộc theo brand standards: <strong>signature pool/lounge, spa, fitness, restaurant</strong> = <strong>~2,000–4,000m²+</strong>. Brand positioning "only in world's top cities" với full luxury amenity program — <strong>không compatible với Tuần Châu limited public space constraint</strong>.</div>
+        </div>
+        <div class="card-desc">"The EDITION is the meeting of two points of view: the Marriott system and scale, and Ian Schrager's design-forward, culturally curated boutique experience."</div>
+        <div style="margin-bottom:12px;"><span class="ref-note">Thông tin tham khảo — brand đã bị loại</span></div>
+        <div class="tags">
+          <span class="tag tag-gray">🎨 Design-Forward</span>
+          <span class="tag tag-gray">🌏 SEA Expanding</span>
+          <span class="tag tag-gray">💰 $7–12K/villa/month</span>
+          <span class="tag tag-gray">🏛️ Boutique Ultra-Luxury</span>
+        </div>
+        <div class="pros-cons">
+          <div class="pros">
+            <div class="pros-title">Strengths (Reference Only)</div>
+            <ul>
+              <li>Highest fee potential: $7–12K/villa/month</li>
+              <li>Ultra-curated, intimate — phù hợp private island concept</li>
+              <li>Bangkok EDITION đã open → SEA precedent</li>
+              <li>Ian Schrager design DNA → strong PR/media story</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <div class="cons-title">Elimination Reasons</div>
+            <ul>
+              <li>Brand standards: signature pool/lounge bắt buộc</li>
+              <li>Spa + fitness + restaurant mandatory amenity cluster</li>
+              <li>~2,000–4,000m²+ required — not feasible at Tuần Châu</li>
+              <li>Positioning "only in world's top cities" — not island fit</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reconsider-note">
+          💡 Có thể reconsider trong tương lai nếu RCC phát triển amenity hub riêng biệt (~2,000–4,000m²+ statement amenity zone)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== COMPARISON TABLE (4 shortlisted only) ========== -->
+  <div class="section">
+    <div class="section-title">📋 So Sánh Tổng Hợp — Shortlisted Operators</div>
     <table>
       <tr>
         <th>Tiêu Chí</th>
-        <th class="center">W Residences</th>
-        <th class="center">Luxury Collection</th>
-        <th class="center" style="color:#bc8cff;">Capella ★</th>
-        <th class="center">METT</th>
-        <th class="center">EDITION</th>
-        <th class="center">Anantara</th>
+        <th class="center" style="color:#bc8cff;">Capella ★ #1</th>
+        <th class="center">METT #2</th>
+        <th class="center">Luxury Collection #3</th>
+        <th class="center">Anantara #4</th>
       </tr>
       <tr>
-        <td>Fit Score</td>
-        <td class="center" style="color:#ffd700;font-weight:700">93</td>
-        <td class="center" style="color:#c0c0c0;font-weight:700">89</td>
-        <td class="center" style="color:#bc8cff;font-weight:700">87</td>
-        <td class="center" style="color:#cd7f32;font-weight:700">84</td>
-        <td class="center" style="color:#58a6ff;font-weight:700">80</td>
-        <td class="center" style="color:#8b949e;font-weight:700">72</td>
+        <td>Fit Score (v3)</td>
+        <td class="center" style="color:#bc8cff;font-weight:700">92</td>
+        <td class="center" style="color:#cd7f32;font-weight:700">88</td>
+        <td class="center" style="color:#c0c0c0;font-weight:700">83</td>
+        <td class="center" style="color:#58a6ff;font-weight:700">78</td>
       </tr>
       <tr>
         <td>Fee/villa/tháng</td>
-        <td class="center">$6–10K</td>
-        <td class="center">$5–9K</td>
         <td class="center" style="color:#bc8cff;font-weight:600">$8–15K ↑</td>
         <td class="center">$3.5–6K</td>
-        <td class="center">$7–12K</td>
+        <td class="center">$5–9K</td>
         <td class="center">$4–7K</td>
       </tr>
       <tr>
         <td>Vietnam Presence</td>
-        <td class="center">❌ Chưa có</td>
-        <td class="center">✅ Đà Nẵng</td>
         <td class="center">✅ Hanoi (2021)</td>
         <td class="center">✅ Hải Phòng 2026</td>
-        <td class="center">❌ Chưa có</td>
+        <td class="center">✅ Đà Nẵng</td>
         <td class="center">✅ Quy Nhon</td>
       </tr>
       <tr>
-        <td>Bonvoy / Loyalty</td>
-        <td class="center">✅ 196M</td>
-        <td class="center">✅ 196M</td>
+        <td>Loyalty Program</td>
         <td class="center">⭐ Brand độc lập</td>
         <td class="center">❌</td>
-        <td class="center">✅ 196M</td>
+        <td class="center">✅ Bonvoy 196M</td>
         <td class="center">⚠️ Nhỏ hơn</td>
       </tr>
       <tr>
         <td>Speed to Market</td>
-        <td class="center">⚠️ 18–24th</td>
-        <td class="center">⚠️ 18–24th</td>
         <td class="center">⚠️ 24–36th</td>
         <td class="center">✅ 6–12th</td>
         <td class="center">⚠️ 18–24th</td>
@@ -748,99 +757,127 @@
       </tr>
       <tr>
         <td>UHNW Brand Appeal</td>
-        <td class="center">⭐⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐⭐⭐</td>
         <td class="center" style="color:#bc8cff;">⭐⭐⭐⭐⭐+</td>
         <td class="center">⭐⭐⭐⭐</td>
+        <td class="center">⭐⭐⭐⭐⭐</td>
+        <td class="center">⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td>F&amp;B Integration</td>
+        <td class="center">⭐⭐⭐⭐</td>
+        <td class="center">⭐⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐⭐</td>
         <td class="center">⭐⭐⭐</td>
       </tr>
       <tr>
-        <td>F&B Integration</td>
-        <td class="center">⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐⭐</td>
-        <td class="center">⭐⭐⭐</td>
+        <td>Amenity Footprint</td>
+        <td class="center" style="color:#3fb950;font-weight:600">✅ Villa-centric</td>
+        <td class="center" style="color:#3fb950;font-weight:600">✅ Pop-up F&amp;B</td>
+        <td class="center" style="color:#d29922;font-weight:600">⚠️ Lower vs W</td>
+        <td class="center" style="color:#3fb950;font-weight:600">✅ Feasible</td>
       </tr>
       <tr class="highlight-row">
         <td>Resale Premium</td>
-        <td class="center" style="color:#3fb950;font-weight:600">Rất cao</td>
-        <td class="center" style="color:#3fb950;font-weight:600">Rất cao</td>
         <td class="center" style="color:#bc8cff;font-weight:700">Cao nhất</td>
         <td class="center" style="color:#d29922">Trung bình</td>
-        <td class="center" style="color:#3fb950">Cao</td>
+        <td class="center" style="color:#3fb950;font-weight:600">Rất cao</td>
         <td class="center" style="color:#d29922">Trung bình</td>
       </tr>
     </table>
+    <div style="font-size:11px;color:#8b949e;margin-top:8px;text-align:right;font-style:italic;">* W Residences &amp; EDITION excluded — see Eliminated section above</div>
   </div>
 
-  <!-- Recommendation -->
+  <!-- ========== RECOMMENDATIONS ========== -->
   <div class="section">
     <div class="section-title">🎯 Chiến Lược Tiếp Cận</div>
-    <div class="rec-box">
-      <div class="rec-title">🥇 Primary: W Residences hoặc Luxury Collection</div>
+
+    <div class="rec-box purple">
+      <div class="rec-title purple">🥇 Primary: Capella Hotels &amp; Resorts</div>
       <div class="rec-body">
-        Tiếp cận <strong>Marriott Development Asia Pacific (Singapore)</strong> với dual-track proposal — đề xuất cả W và Luxury Collection đồng thời để Marriott tự chọn brand phù hợp nhất với vision Tuần Châu.<br><br>
-        <strong>Key narrative cho Marriott:</strong> "Tuần Châu = Vietnam's first genuine private island luxury destination. UNESCO Ha Long Bay proximity. 2h từ Hà Nội. 30 phút từ Hải Phòng airport (mới). No comparable comp in Northern Vietnam."<br><br>
-        <strong>Deal structure đề xuất:</strong> HMA (Hotel Management Agreement) + Residences licensing. RCC giữ ownership, Marriott brand + management.
+        Tiếp cận <strong>Capella Hotel Group</strong> via Capella Hanoi connection — leverage existing Vietnam relationship. Pitch Tuần Châu như "Vietnam's Sentosa" với island estate concept. Capella villa-centric model eliminates amenity space constraint.<br><br>
+        <strong>Key narrative:</strong> "Tuần Châu = Vietnam's first genuine private island ultra-luxury estate. UNESCO Ha Long Bay proximity. Bill Bensley-quality design. Capella Sentosa DNA in Ha Long." <br><br>
+        <strong>Deal structure:</strong> HMA (Hotel Management Agreement) + Residences branding. RCC giữ ownership. Target: Term Sheet Q3/2026.
       </div>
     </div>
-    <div class="rec-box" style="border-left-color: #cd7f32;">
-      <div class="rec-title" style="color:#cd7f32;">🥉 Parallel Track: METT (Fastest Path)</div>
+
+    <div class="rec-box bronze">
+      <div class="rec-title bronze">🥈 Parallel Fast Track: METT / Sunset Hospitality Group</div>
       <div class="rec-body">
-        Song song với Marriott (timeline dài), tiến hành <strong>NDA + Term Sheet với METT/SHG ngay</strong> — leverage Hải Phòng connection. METT có thể vận hành pilot 2–3 villas trong <strong>6–12 tháng</strong>, tạo proof-of-concept trước khi Marriott quyết định.<br><br>
-        <strong>Hybrid option:</strong> METT vận hành F&B + lifestyle concierge → Marriott brand residences (nếu có thể tách biệt). Hoặc METT full-stack nếu Marriott timeline không phù hợp với launch schedule RCC.
+        Song song với Capella (timeline dài), tiến hành <strong>NDA + Term Sheet với METT/SHG ngay T4/2026</strong> — leverage Hải Phòng connection (Sofitel Hải Phòng 2026, 30km). METT có thể vận hành pilot 2–3 villas trong <strong>6–12 tháng</strong>, tạo proof-of-concept trước khi Capella/LC quyết định.<br><br>
+        <strong>F&amp;B advantage:</strong> 26 F&amp;B brands → MOTT 32, SUSHISAMBA, Ammos có thể rotate vào estate format mà không cần permanent amenity capex. Perfectly suited cho Tuần Châu space constraint.
+      </div>
+    </div>
+
+    <div class="rec-box silver">
+      <div class="rec-title silver">🥉 Fallback: Luxury Collection (Marriott)</div>
+      <div class="rec-body">
+        Nếu Capella timeline không phù hợp, tiếp cận <strong>Marriott Development Asia Pacific (Singapore)</strong> với Luxury Collection proposal — đây là option Marriott duy nhất còn trong shortlist sau khi W và EDITION bị loại.<br><br>
+        <strong>Key narrative:</strong> "Ha Long Bay UNESCO World Heritage = the amenity. Tuần Châu island story = LC sense of place. IFF Holdings Vietnam deal template available." <br><br>
+        <strong>Note:</strong> W Residences và EDITION đã bị loại khỏi shortlist — <strong>không pitch 2 brands này cho Marriott Dev team</strong>.
       </div>
     </div>
   </div>
 
-  <!-- Next Steps -->
+  <!-- ========== NEXT STEPS ========== -->
   <div class="section">
     <div class="section-title">📌 Next Steps</div>
     <table>
       <tr><th>#</th><th>Action</th><th>Owner</th><th>Timeline</th><th>Priority</th></tr>
       <tr>
         <td>1</td>
-        <td>Liên hệ Marriott Asia Pacific Development (Singapore) — đề xuất dual-track W / LC</td>
-        <td>RCC BD</td>
-        <td>Tháng 5/2026</td>
-        <td style="color:#f85149;font-weight:600">🔴 High</td>
-      </tr>
-      <tr>
-        <td>2</td>
         <td>Ký NDA với METT/SHG — share project brief Tuần Châu</td>
         <td>RCC BD</td>
         <td>Tháng 4/2026</td>
         <td style="color:#f85149;font-weight:600">🔴 High</td>
       </tr>
       <tr>
+        <td>2</td>
+        <td>Tiếp cận Capella Hotel Group via Capella Hanoi — pitch island estate concept</td>
+        <td>RCC BD</td>
+        <td>Tháng 5–6/2026</td>
+        <td style="color:#f85149;font-weight:600">🔴 High</td>
+      </tr>
+      <tr>
         <td>3</td>
-        <td>Chuẩn bị Information Memorandum (IM) cho operators — project scale, phasing, buyer target</td>
+        <td>Liên hệ Marriott Asia Pacific Development (Singapore) — Luxury Collection only (W + EDITION excluded)</td>
+        <td>RCC BD</td>
+        <td>Tháng 5/2026</td>
+        <td style="color:#f85149;font-weight:600">🔴 High</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Chuẩn bị Information Memorandum (IM) cho operators — project scale, phasing, buyer target, amenity format</td>
         <td>Zera + RCC</td>
         <td>Tháng 5/2026</td>
         <td style="color:#d29922;font-weight:600">🟡 Medium</td>
       </tr>
       <tr>
-        <td>4</td>
+        <td>5</td>
         <td>Site visit Tuần Châu + Hải Phòng cho METT/SHG management</td>
         <td>RCC</td>
         <td>Q3/2026</td>
         <td style="color:#d29922;font-weight:600">🟡 Medium</td>
       </tr>
       <tr>
-        <td>5</td>
-        <td>Term sheet + fee negotiation với operator được chọn</td>
+        <td>6</td>
+        <td>Term sheet + fee negotiation với operator được chọn (Capella hoặc METT)</td>
         <td>RCC Legal</td>
         <td>Q3/2026</td>
         <td style="color:#8b949e">⚪ Follow-up</td>
       </tr>
+      <tr>
+        <td>7</td>
+        <td>Đánh giá lại W / EDITION nếu RCC quyết định phát triển amenity hub riêng biệt (3,000–5,000m²)</td>
+        <td>RCC Strategy</td>
+        <td>TBD</td>
+        <td style="color:#8b949e">⚪ Future</td>
+      </tr>
     </table>
   </div>
 
+  <!-- ========== FOOTER ========== -->
   <div class="footer">
-    Zera 🌟 · RCC Strategic Advisory · Tuần Châu Operator Assessment · 16/04/2026 · Confidential — Internal Use Only
+    Zera 🌟 · RCC Strategic Advisory · Tuần Châu Operator Assessment v3 · Space/Zoning Constraint Applied · 16/04/2026 · Confidential — Internal Use Only
   </div>
 
 </div>
