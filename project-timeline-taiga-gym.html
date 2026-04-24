@@ -3,354 +3,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Timeline — Taiga Banya & Gym Renovation</title>
+<title>Project Timeline — Level 8 Gym & Level 9 Taiga Banya</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
 
-  .header{background:linear-gradient(135deg,#1e3a5f,#0f2441);padding:28px 40px 20px;border-bottom:2px solid #2563eb33}
-  .header h1{font-size:20px;font-weight:700;color:#fff}
-  .header p{font-size:12px;color:#94a3b8;margin-top:5px}
+/* HEADER */
+.header{background:linear-gradient(135deg,#161b22,#0d1117);padding:26px 40px 18px;border-bottom:1px solid #30363d}
+.header h1{font-size:19px;font-weight:700;color:#f0f6fc}
+.header p{font-size:12px;color:#8b949e;margin-top:4px}
 
-  .stats-bar{display:flex;gap:12px;padding:16px 40px;background:#111827;border-bottom:1px solid #1e293b;flex-wrap:wrap}
-  .stat{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px 18px;flex:1;min-width:150px;transition:transform .2s,box-shadow .2s}
-  .stat:hover{transform:translateY(-2px);box-shadow:0 4px 20px #2563eb22}
-  .stat .lbl{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.8px}
-  .stat .val{font-size:16px;font-weight:700;margin-top:4px}
-  .stat .sub{font-size:10px;color:#64748b;margin-top:2px}
+/* STAT CARDS */
+.stats{display:flex;gap:10px;padding:14px 40px;background:#0d1117;flex-wrap:wrap;border-bottom:1px solid #21262d}
+.stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:11px 16px;flex:1;min-width:140px;transition:border-color .2s,transform .2s}
+.stat:hover{border-color:#58a6ff;transform:translateY(-2px)}
+.stat .lbl{font-size:10px;color:#8b949e;text-transform:uppercase;letter-spacing:.7px}
+.stat .val{font-size:15px;font-weight:700;margin-top:3px}
+.stat .sub{font-size:10px;color:#6e7681;margin-top:2px}
 
-  /* phase tabs */
-  .phase-tabs{display:flex;gap:8px;padding:16px 40px 0;background:#111827}
-  .tab{padding:8px 18px;border-radius:8px 8px 0 0;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #334155;border-bottom:none;color:#94a3b8;background:#1e293b;transition:all .2s}
-  .tab.active{color:#fff;border-color:#2563eb44}
-  .tab[data-phase="all"].active{background:#1e3a5f}
-  .tab[data-phase="pre"].active{background:#4c1d95}
-  .tab[data-phase="con"].active{background:#1e3a8a}
+/* MAIN TASK TABS */
+.tabs{display:flex;gap:0;padding:16px 40px 0;background:#0d1117;border-bottom:1px solid #21262d}
+.tab{padding:8px 20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #30363d;border-bottom:none;border-radius:8px 8px 0 0;color:#8b949e;background:#161b22;transition:all .2s;margin-right:4px}
+.tab.active{color:#f0f6fc;background:#1f2937;border-color:#58a6ff}
+.tab[data-filter="all"].active{border-color:#58a6ff}
+.tab[data-filter="t1"].active{border-color:#3b82f6;background:#1e3a5f}
+.tab[data-filter="t2"].active{border-color:#22c55e;background:#052e16}
 
-  .timeline-wrap{padding:20px 40px 32px;overflow-x:auto;background:#0f172a}
-  .gantt{min-width:900px;background:#1e293b;border-radius:12px;border:1px solid #334155;overflow:hidden}
+/* GANTT WRAPPER */
+.gantt-wrap{padding:18px 40px 28px;overflow-x:auto}
+.gantt{min-width:860px;border:1px solid #30363d;border-radius:10px;overflow:hidden;background:#161b22}
 
-  /* month row */
-  .gantt-header{position:relative;height:36px;background:#0f2441;border-bottom:1px solid #334155;display:flex}
-  .gantt-header .fixed-cols{display:flex;flex-shrink:0}
-  .gh-col{padding:0 12px;display:flex;align-items:center;font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;border-right:1px solid #334155;white-space:nowrap}
-  .gantt-months{flex:1;position:relative;overflow:hidden}
-  .month-block{position:absolute;top:0;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#60a5fa;letter-spacing:.8px;border-right:1px solid #334155}
+/* FIXED COL WIDTHS (px) */
+:root{--w-id:50px;--w-task:270px;--w-date:95px}
 
-  /* week row */
-  .gantt-weeks{display:flex;background:#162032;border-bottom:2px solid #334155}
-  .gw-col{flex-shrink:0;padding:6px 12px;font-size:10px;color:#475569;border-right:1px solid #334155;white-space:nowrap}
-  .weeks-track{flex:1;position:relative;overflow:hidden;height:38px}
-  .week-tick{position:absolute;top:0;bottom:0;width:1px;background:#1e293b}
-  .week-lbl{position:absolute;top:50%;transform:translateY(-50%) translateX(-50%);font-size:9px;color:#475569;white-space:nowrap}
+/* MONTH ROW */
+.row-months{display:flex;background:#0d1117;border-bottom:1px solid #30363d;height:32px}
+.fix-head{display:flex;flex-shrink:0}
+.fh{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;border-right:1px solid #30363d;white-space:nowrap;padding:0 8px}
+.months-track{flex:1;position:relative;overflow:hidden}
+.m-block{position:absolute;top:0;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#58a6ff;letter-spacing:.6px;border-right:1px solid #30363d}
 
-  /* phase header in gantt */
-  .phase-hdr{display:flex;background:#1a1040;border-bottom:1px solid #334155}
-  .phase-hdr.con-hdr{background:#0e1f40}
-  .phase-hdr-label{flex-shrink:0;display:flex;align-items:center;padding:0 12px;font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:.5px;border-right:1px solid #334155}
-  .phase-hdr.con-hdr .phase-hdr-label{color:#60a5fa}
-  .phase-hdr-bar{flex:1;border-left:none}
+/* WEEK ROW */
+.row-weeks{display:flex;background:#0d1117;border-bottom:2px solid #21262d;height:36px}
+.weeks-track{flex:1;position:relative;overflow:hidden}
+.w-tick{position:absolute;top:0;bottom:0;width:1px;background:#21262d}
+.w-lbl{position:absolute;top:50%;transform:translateY(-50%) translateX(-50%);font-size:8px;color:#484f58;white-space:nowrap}
 
-  /* task row */
-  .task-row{display:flex;border-bottom:1px solid #1e293b;cursor:pointer;transition:background .15s}
-  .task-row:hover{background:#1e3a5f11}
-  .task-row.active{background:#1e3a5f33}
-  .task-row:last-child{border-bottom:none}
+/* TODAY */
+.today-line{position:absolute;top:0;bottom:0;width:2px;background:#f0a82a66;border-left:2px dashed #f0a82a;z-index:20;pointer-events:none}
+.today-tag{position:absolute;top:2px;transform:translateX(-50%);font-size:8px;font-weight:700;color:#f0a82a;white-space:nowrap;pointer-events:none}
 
-  .tr-no{flex-shrink:0;width:44px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#64748b;border-right:1px solid #1e293b}
-  .tr-phase{flex-shrink:0;width:130px;display:flex;align-items:center;padding:0 10px;font-size:10px;color:#64748b;border-right:1px solid #1e293b}
-  .tr-name{flex-shrink:0;width:240px;display:flex;align-items:center;padding:0 12px;font-size:12px;border-right:1px solid #334155;gap:8px}
-  .tr-name .badge{font-size:9px;background:#dc262622;color:#f87171;border:1px solid #dc262644;border-radius:3px;padding:1px 5px;white-space:nowrap;flex-shrink:0}
-  .tr-start,.tr-end{flex-shrink:0;width:100px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#94a3b8;border-right:1px solid #1e293b}
-  .bar-area{flex:1;padding:7px 0;position:relative}
-  .bar-track{position:relative;height:26px;width:100%}
-  .bar{position:absolute;height:26px;border-radius:5px;display:flex;align-items:center;overflow:hidden;transition:filter .2s,transform .15s;cursor:pointer}
-  .bar:hover{filter:brightness(1.18);transform:scaleY(1.1)}
-  .bar span{padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .today-line{position:absolute;top:0;bottom:0;width:2px;background:#fbbf24;z-index:10;pointer-events:none}
-  .today-tag{position:absolute;top:-16px;transform:translateX(-50%);font-size:8px;color:#fbbf24;white-space:nowrap;font-weight:600;pointer-events:none}
+/* MAIN TASK HEADER ROW */
+.main-hdr{display:flex;border-bottom:1px solid #30363d;height:30px}
+.mh-left{display:flex;flex-shrink:0;align-items:center}
+.mh-id{width:var(--w-id);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-right:1px solid #30363d}
+.mh-name{width:calc(var(--w-task) + var(--w-date)*2);display:flex;align-items:center;padding:0 14px;font-size:12px;font-weight:700;letter-spacing:.3px;border-right:1px solid #30363d}
+.mh-bar{flex:1;display:flex;align-items:center;position:relative}
+.mh-bar-inner{position:absolute;height:16px;border-radius:3px;opacity:.35}
 
-  /* detail panel */
-  .detail-wrap{margin:0 40px 28px;overflow:hidden;transition:max-height .35s ease,opacity .25s}
-  .detail-wrap.closed{max-height:0;opacity:0}
-  .detail-wrap.open{max-height:320px;opacity:1}
-  .detail-panel{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:22px 26px}
-  .dp-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  .dp-dot{width:11px;height:11px;border-radius:50%}
-  .dp-title{font-size:14px;font-weight:700}
-  .dp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:14px}
-  .dp-item{background:#0f172a;border-radius:7px;padding:10px 14px}
-  .dp-item .k{font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:.7px}
-  .dp-item .v{font-size:13px;font-weight:600;margin-top:3px}
-  .dp-note{font-size:11px;color:#94a3b8;border-left:3px solid #2563eb;padding-left:10px}
+/* SUB TASK ROW */
+.sub-row{display:flex;border-bottom:1px solid #21262d;cursor:pointer;transition:background .15s}
+.sub-row:hover{background:#1f2937}
+.sub-row.active{background:#1f2937}
+.sr-id{width:var(--w-id);display:flex;align-items:center;justify-content:center;font-size:10px;color:#6e7681;border-right:1px solid #21262d;flex-shrink:0}
+.sr-name{width:var(--w-task);display:flex;align-items:center;padding:0 12px;font-size:12px;border-right:1px solid #21262d;flex-shrink:0;gap:6px}
+.sr-name .crit{font-size:9px;background:#da363322;color:#f85149;border:1px solid #da363344;border-radius:3px;padding:1px 5px;flex-shrink:0}
+.sr-date{width:var(--w-date);display:flex;align-items:center;padding:0 8px;font-size:10px;color:#8b949e;border-right:1px solid #21262d;flex-shrink:0;white-space:nowrap}
+.sr-bar{flex:1;padding:6px 0;position:relative}
+.bar-track{position:relative;width:100%;height:24px}
+.bar{position:absolute;height:24px;border-radius:5px;display:flex;align-items:center;overflow:hidden;transition:filter .18s,transform .15s;cursor:pointer}
+.bar:hover{filter:brightness(1.2);transform:scaleY(1.1)}
+.bar span{padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-  /* legend */
-  .legend{display:flex;gap:16px;padding:14px 40px;background:#111827;border-top:1px solid #1e293b;flex-wrap:wrap}
-  .leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#94a3b8}
-  .leg-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+/* DETAIL PANEL */
+.detail-wrap{margin:0 40px 24px;overflow:hidden;transition:max-height .3s ease,opacity .25s}
+.detail-wrap.closed{max-height:0;opacity:0}
+.detail-wrap.open{max-height:280px;opacity:1}
+.dp{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:18px 22px}
+.dp-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.dp-dot{width:10px;height:10px;border-radius:50%}
+.dp-title{font-size:13px;font-weight:700}
+.dp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin-bottom:12px}
+.dp-item{background:#0d1117;border-radius:6px;padding:9px 12px;border:1px solid #21262d}
+.dp-item .k{font-size:9px;color:#6e7681;text-transform:uppercase;letter-spacing:.6px}
+.dp-item .v{font-size:12px;font-weight:600;margin-top:3px}
+.dp-note{font-size:11px;color:#8b949e;border-left:3px solid #58a6ff;padding-left:10px}
 
-  ::-webkit-scrollbar{height:5px;width:5px}
-  ::-webkit-scrollbar-track{background:#1e293b}
-  ::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
+/* LEGEND */
+.legend{display:flex;gap:14px;padding:12px 40px;background:#0d1117;border-top:1px solid #21262d;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#8b949e}
+.leg-sq{width:10px;height:10px;border-radius:2px}
 
-  @media(max-width:768px){
-    .header,.stats-bar,.timeline-wrap,.detail-wrap,.legend,.phase-tabs{padding-left:12px;padding-right:12px}
-    .detail-wrap{margin:0 12px 20px}
-  }
+::-webkit-scrollbar{height:5px;width:5px}
+::-webkit-scrollbar-track{background:#161b22}
+::-webkit-scrollbar-thumb{background:#30363d;border-radius:3px}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>🏗️ Project Timeline — Taiga Banya & Gym Renovation</h1>
-  <p>Royal Canary Corp · Full Timeline incl. Pre-Construction · Apr – Dec 2026</p>
+  <h1>🏗️ Project Timeline — Level 8: GYM &nbsp;|&nbsp; Level 9: TAIGA BANYA</h1>
+  <p>Royal Canary Corp &nbsp;·&nbsp; Full Timeline incl. Pre-Construction &nbsp;·&nbsp; Apr – Dec 2026</p>
 </div>
 
-<div class="stats-bar" id="statsBar">
-  <div class="stat"><div class="lbl">Project Start</div><div class="val" style="color:#a78bfa">22 Apr 2026</div><div class="sub">Design kick-off</div></div>
-  <div class="stat"><div class="lbl">Design</div><div class="val" style="color:#a78bfa">4 weeks</div><div class="sub">22 Apr – 19 May</div></div>
-  <div class="stat"><div class="lbl">Procurement</div><div class="val" style="color:#f59e0b">3 weeks</div><div class="sub">20 May – 9 Jun</div></div>
-  <div class="stat"><div class="lbl">Contractor Selection</div><div class="val" style="color:#f97316">3 weeks</div><div class="sub">10 Jun – 30 Jun</div></div>
-  <div class="stat"><div class="lbl">Gym L8 ⚠️ Critical</div><div class="val" style="color:#60a5fa">2 months</div><div class="sub">1 Jul – 30 Aug</div></div>
-  <div class="stat"><div class="lbl">Taiga Banya</div><div class="val" style="color:#4ade80">3 months</div><div class="sub">14 Sep – 13 Dec</div></div>
+<div class="stats">
+  <div class="stat"><div class="lbl">Project Start</div><div class="val" style="color:#a78bfa">22 Apr 2026</div><div class="sub">Design L8 kick-off</div></div>
+  <div class="stat"><div class="lbl">🏋️ Gym L8 — Critical</div><div class="val" style="color:#60a5fa">1 Jul – 30 Aug</div><div class="sub">2 months · Critical Path</div></div>
+  <div class="stat"><div class="lbl">🔴 Demolish L9</div><div class="val" style="color:#f87171">31 Aug – 13 Sep</div><div class="sub">2 weeks · No gap</div></div>
+  <div class="stat"><div class="lbl">🧖 Taiga Banya</div><div class="val" style="color:#4ade80">14 Sep – 13 Dec</div><div class="sub">3 months · Level 9</div></div>
+  <div class="stat"><div class="lbl">Project End</div><div class="val" style="color:#fbbf24">13 Dec 2026</div><div class="sub">~8 months total</div></div>
 </div>
 
-<div class="phase-tabs">
-  <div class="tab active" data-phase="all">All Phases</div>
-  <div class="tab" data-phase="pre">Pre-Construction</div>
-  <div class="tab" data-phase="con">Construction</div>
+<div class="tabs">
+  <div class="tab active" data-filter="all">All Tasks</div>
+  <div class="tab" data-filter="t1">Task 1 — Level 8: GYM</div>
+  <div class="tab" data-filter="t2">Task 2 — Level 9: TAIGA BANYA</div>
 </div>
 
-<div class="timeline-wrap">
+<div class="gantt-wrap">
   <div class="gantt" id="gantt"></div>
 </div>
 
 <div class="detail-wrap closed" id="detailWrap">
-  <div class="detail-panel" id="detailPanel"></div>
+  <div class="dp" id="detailPanel"></div>
 </div>
 
 <div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:#7c3aed"></div>Design</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#d97706"></div>Procurement</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#ea580c"></div>Contractor Selection</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#2563eb"></div>Gym L8 (Critical)</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#dc2626"></div>Demolish L9</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#16a34a"></div>Taiga Banya</div>
-  <div class="leg-item"><div class="leg-dot" style="background:#fbbf24;border-radius:50%"></div>Today</div>
+  <div class="leg"><div class="leg-sq" style="background:#7c3aed"></div>Design</div>
+  <div class="leg"><div class="leg-sq" style="background:#d97706"></div>Procurement</div>
+  <div class="leg"><div class="leg-sq" style="background:#ea580c"></div>Contractor Selection</div>
+  <div class="leg"><div class="leg-sq" style="background:#2563eb"></div>Construction – Gym L8 ⚠️ Critical</div>
+  <div class="leg"><div class="leg-sq" style="background:#dc2626"></div>Demolish L9</div>
+  <div class="leg"><div class="leg-sq" style="background:#16a34a"></div>Construction – Taiga Banya</div>
+  <div class="leg"><div class="leg-sq" style="background:#f0a82a;border-radius:50%"></div>Today</div>
 </div>
 
 <script>
-const tasks = [
-  { id:1, phase:'Pre-Construction', phaseKey:'pre', icon:'📐', name:'Design',
-    start:new Date('2026-04-22'), end:new Date('2026-05-19'),
-    color:'#7c3aed', critical:false, dur:'4 weeks', loc:'TBD', status:'In Progress',
-    note:'Concept → Schematic → Design Development → DD Drawings. Must complete before Procurement begins.' },
-  { id:2, phase:'Pre-Construction', phaseKey:'pre', icon:'📦', name:'Procurement',
-    start:new Date('2026-05-20'), end:new Date('2026-06-09'),
-    color:'#d97706', critical:false, dur:'3 weeks', loc:'TBD', status:'Pending Design',
-    note:'Spec list finalization, vendor RFQ, quotation review & approval.' },
-  { id:3, phase:'Pre-Construction', phaseKey:'pre', icon:'🤝', name:'Contractor Selection',
-    start:new Date('2026-06-10'), end:new Date('2026-06-30'),
-    color:'#ea580c', critical:false, dur:'3 weeks', loc:'TBD', status:'Pending Procurement',
-    note:'Tender issuance, bid evaluation, negotiation and contract award. Must finish by 30 Jun for 1 Jul construction start.' },
-  { id:4, phase:'Construction', phaseKey:'con', icon:'🏋️', name:'Gym at Level 8',
-    start:new Date('2026-07-01'), end:new Date('2026-08-30'),
-    color:'#2563eb', critical:true, dur:'2 months (61 days)', loc:'Level 8', status:'Scheduled',
-    note:'CRITICAL PATH — any delay directly pushes back Demolish L9 and Taiga Banya start. No slack.' },
-  { id:5, phase:'Construction', phaseKey:'con', icon:'🔴', name:'Demolish Existing Gym & Spa (Level 9)',
-    start:new Date('2026-08-31'), end:new Date('2026-09-13'),
-    color:'#dc2626', critical:false, dur:'2 weeks (14 days)', loc:'Level 9', status:'Pending Gym L8',
-    note:'Full demolition of existing gym and spa. Starts immediately after Gym L8 handover. No buffer.' },
-  { id:6, phase:'Construction', phaseKey:'con', icon:'🧖', name:'Taiga Banya Construction (Level 9)',
-    start:new Date('2026-09-14'), end:new Date('2026-12-13'),
-    color:'#16a34a', critical:false, dur:'3 months (91 days)', loc:'Level 9', status:'Pending Demolish',
-    note:'New Taiga Banya facility built from scratch on cleared Level 9 space. Project completion target: 13 Dec 2026.' },
+const PROJ_START = new Date('2026-04-22');
+const PROJ_END   = new Date('2026-12-31');
+const TODAY      = new Date('2026-04-24');
+
+function pct(d){ return Math.max(0,Math.min(100,(d-PROJ_START)/(PROJ_END-PROJ_START)*100)); }
+function fmt(d){ return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+
+// ── DATA ────────────────────────────────────────────────────────────────────
+const TASKS = [
+  {
+    id:'1', main:true, filter:'t1',
+    name:'Level 8: GYM', color:'#1d4ed8', bg:'#1e3a5f22',
+    start:new Date('2026-04-22'), end:new Date('2026-08-30'),
+    subs:[
+      { id:'1.1', name:'Design',              icon:'📐', color:'#7c3aed', start:new Date('2026-04-22'), end:new Date('2026-05-19'), dur:'4 weeks', status:'In Progress', note:'Concept → Schematic → DD Drawings. Must finish before Procurement.', critical:false },
+      { id:'1.2', name:'Procurement',         icon:'📦', color:'#d97706', start:new Date('2026-05-20'), end:new Date('2026-06-09'), dur:'3 weeks', status:'Pending Design', note:'Spec finalization, vendor RFQ, quotation review.', critical:false },
+      { id:'1.3', name:'Contractor Selection',icon:'🤝', color:'#ea580c', start:new Date('2026-06-10'), end:new Date('2026-06-30'), dur:'3 weeks', status:'Pending Procurement', note:'Tender, bid evaluation, contract award. Must finish by 30 Jun.', critical:false },
+      { id:'1.4', name:'Construction',        icon:'🏋️', color:'#2563eb', start:new Date('2026-07-01'), end:new Date('2026-08-30'), dur:'2 months', status:'Scheduled', note:'CRITICAL PATH — any delay pushes entire L9 schedule back.', critical:true },
+    ]
+  },
+  {
+    id:'2', main:true, filter:'t2',
+    name:'Level 9: TAIGA BANYA', color:'#15803d', bg:'#052e1622',
+    start:new Date('2026-07-07'), end:new Date('2026-12-13'),
+    subs:[
+      { id:'2.1', name:'Design',                      icon:'📐', color:'#7c3aed', start:new Date('2026-07-07'), end:new Date('2026-08-03'), dur:'4 weeks', status:'Pending', note:'Parallel to L8 Construction. Must finish before L9 Procurement.', critical:false },
+      { id:'2.2', name:'Procurement',                 icon:'📦', color:'#d97706', start:new Date('2026-08-04'), end:new Date('2026-08-24'), dur:'3 weeks', status:'Pending Design', note:'Spec, RFQ, quotation review for Taiga Banya fit-out.', critical:false },
+      { id:'2.3', name:'Contractor Selection',        icon:'🤝', color:'#ea580c', start:new Date('2026-08-25'), end:new Date('2026-09-13'), dur:'3 weeks', status:'Pending Procurement', note:'Tender, bid evaluation, award. Finish-Start before L9 Construction.', critical:false },
+      { id:'2.4', name:'Demolish Existing Gym & Spa', icon:'🔴', color:'#dc2626', start:new Date('2026-08-31'), end:new Date('2026-09-13'), dur:'2 weeks', status:'After L8 Done', note:'Starts immediately after L8 Construction finishes (31 Aug). Parallel to L9 Contractor Selection.', critical:false },
+      { id:'2.5', name:'Construction',                icon:'🧖', color:'#16a34a', start:new Date('2026-09-14'), end:new Date('2026-12-13'), dur:'3 months', status:'Pending Demolish + Contractor', note:'Starts after both Demolish and Contractor Selection complete. Project completion: 13 Dec 2026.', critical:false },
+    ]
+  }
 ];
 
-const projStart = new Date('2026-04-22');
-const projEnd   = new Date('2026-12-31');
-const today     = new Date('2026-04-24');
-
-function pct(d){
-  return Math.max(0,Math.min(100,(d-projStart)/(projEnd-projStart)*100));
-}
-function fmt(d){return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
-
-// weeks
+// ── BUILD WEEKS & MONTHS ────────────────────────────────────────────────────
 const weeks=[];
-let wd=new Date(projStart);
-while(wd<=projEnd){weeks.push(new Date(wd));wd.setDate(wd.getDate()+7);}
+let wd=new Date(PROJ_START);
+while(wd<=PROJ_END){weeks.push(new Date(wd));wd.setDate(wd.getDate()+7);}
 
-// months
 const months=[];
-let md=new Date(projStart.getFullYear(),projStart.getMonth(),1);
-while(md<=projEnd){
+let md=new Date(PROJ_START.getFullYear(),PROJ_START.getMonth(),1);
+while(md<=PROJ_END){
   const mEnd=new Date(md.getFullYear(),md.getMonth()+1,0);
-  const cs=md<projStart?projStart:md;
-  const ce=mEnd>projEnd?projEnd:mEnd;
-  months.push({label:md.toLocaleDateString('en-US',{month:'short',year:'numeric'}),startPct:pct(cs),widthPct:pct(ce)-pct(cs)});
+  const cs=md<PROJ_START?PROJ_START:md;
+  const ce=mEnd>PROJ_END?PROJ_END:mEnd;
+  months.push({label:md.toLocaleDateString('en-US',{month:'short',year:'2-digit'}),sp:pct(cs),wp:pct(ce)-pct(cs)});
   md=new Date(md.getFullYear(),md.getMonth()+1,1);
 }
 
-const FIXED = 44+130+240+100+100; // px of fixed columns — approximate, we use flex
+const gantt=document.getElementById('gantt');
+const FIXED_W = 50+270+95+95; // px
 
-const gantt = document.getElementById('gantt');
+function todayOverlay(){
+  if(TODAY<PROJ_START||TODAY>PROJ_END) return '';
+  return `<div class="today-line" style="left:${pct(TODAY)}%"></div>`;
+}
 
-// ── MONTH HEADER ────────────────────────────────────────
-const mhdr = document.createElement('div');
-mhdr.className='gantt-header';
-mhdr.innerHTML=`
-  <div class="fixed-cols">
-    <div class="gh-col" style="width:44px">No.</div>
-    <div class="gh-col" style="width:130px">Phase</div>
-    <div class="gh-col" style="width:240px">Task</div>
-    <div class="gh-col" style="width:100px">Start</div>
-    <div class="gh-col" style="width:100px">Finish</div>
-  </div>
-`;
+// ── MONTH ROW ───────────────────────────────────────────────────────────────
+const mRow=document.createElement('div');
+mRow.className='row-months';
+mRow.innerHTML=`
+  <div class="fix-head">
+    <div class="fh" style="width:50px">No.</div>
+    <div class="fh" style="width:270px">Task</div>
+    <div class="fh" style="width:95px">Start</div>
+    <div class="fh" style="width:95px">Finish</div>
+  </div>`;
 const mTrack=document.createElement('div');
-mTrack.className='gantt-months';
+mTrack.className='months-track';
 months.forEach(m=>{
-  const mb=document.createElement('div');
-  mb.className='month-block';
-  mb.style.cssText=`left:${m.startPct}%;width:${m.widthPct}%;`;
-  mb.textContent=m.label;
-  mTrack.appendChild(mb);
+  const b=document.createElement('div');
+  b.className='m-block';
+  b.style.cssText=`left:${m.sp}%;width:${m.wp}%`;
+  b.textContent=m.label;
+  mTrack.appendChild(b);
 });
-mhdr.appendChild(mTrack);
-gantt.appendChild(mhdr);
+mRow.appendChild(mTrack);
+gantt.appendChild(mRow);
 
-// ── WEEK HEADER ─────────────────────────────────────────
-const whdr=document.createElement('div');
-whdr.className='gantt-weeks';
-whdr.innerHTML=`
-  <div class="gw-col" style="width:44px"></div>
-  <div class="gw-col" style="width:130px"></div>
-  <div class="gw-col" style="width:240px"></div>
-  <div class="gw-col" style="width:100px"></div>
-  <div class="gw-col" style="width:100px"></div>
-`;
+// ── WEEK ROW ────────────────────────────────────────────────────────────────
+const wRow=document.createElement('div');
+wRow.className='row-weeks';
+wRow.innerHTML=`
+  <div class="fix-head">
+    <div class="fh" style="width:50px;border-right:1px solid #21262d"></div>
+    <div class="fh" style="width:270px;border-right:1px solid #21262d"></div>
+    <div class="fh" style="width:95px;border-right:1px solid #21262d"></div>
+    <div class="fh" style="width:95px;border-right:1px solid #21262d"></div>
+  </div>`;
 const wTrack=document.createElement('div');
 wTrack.className='weeks-track';
+// today
+if(TODAY>=PROJ_START&&TODAY<=PROJ_END){
+  const tt=document.createElement('div');tt.className='today-tag';tt.style.left=pct(TODAY)+'%';tt.textContent='TODAY';
+  const tl=document.createElement('div');tl.className='today-line';tl.style.left=pct(TODAY)+'%';
+  wTrack.appendChild(tt);wTrack.appendChild(tl);
+}
 weeks.forEach(w=>{
   const p=pct(w);
-  const tick=document.createElement('div');
-  tick.className='week-tick';tick.style.left=p+'%';
-  const lbl=document.createElement('div');
-  lbl.className='week-lbl';lbl.style.left=p+'%';
+  const tick=document.createElement('div');tick.className='w-tick';tick.style.left=p+'%';
+  const lbl=document.createElement('div');lbl.className='w-lbl';lbl.style.left=p+'%';
   lbl.textContent=w.toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit'});
   wTrack.appendChild(tick);wTrack.appendChild(lbl);
 });
-// today
-if(today>=projStart&&today<=projEnd){
-  const tl=document.createElement('div');tl.className='today-line';tl.style.left=pct(today)+'%';
-  const tt=document.createElement('div');tt.className='today-tag';tt.style.left=pct(today)+'%';tt.textContent='TODAY';
-  wTrack.appendChild(tt);wTrack.appendChild(tl);
-}
-whdr.appendChild(wTrack);
-gantt.appendChild(whdr);
+wRow.appendChild(wTrack);
+gantt.appendChild(wRow);
 
-// ── TASK ROWS ───────────────────────────────────────────
-let currentPhase=null;
-let activeId=null;
+// ── TASK GROUPS ─────────────────────────────────────────────────────────────
+let activeKey=null;
 
-const phaseLabels={'pre':'Pre-Construction','con':'Construction'};
-const phaseHdrColor={'pre':'#4c1d95','con':'#1e3a8a'};
-const phaseLabelColor={'pre':'#a78bfa','con':'#60a5fa'};
-
-tasks.forEach(task=>{
-  // Phase separator
-  if(task.phaseKey!==currentPhase){
-    currentPhase=task.phaseKey;
-    const ph=document.createElement('div');
-    ph.className='phase-hdr'+(task.phaseKey==='con'?' con-hdr':'');
-    ph.style.cssText=`height:26px;`;
-    ph.innerHTML=`
-      <div class="phase-hdr-label" style="width:514px;color:${phaseLabelColor[task.phaseKey]};background:${phaseHdrColor[task.phaseKey]}">
-        ▶ ${phaseLabels[task.phaseKey].toUpperCase()}
-      </div>
-      <div style="flex:1;background:${phaseHdrColor[task.phaseKey]}"></div>
-    `;
-    gantt.appendChild(ph);
+TASKS.forEach((task,ti)=>{
+  // separator before task 2
+  if(ti>0){
+    const sep=document.createElement('div');
+    sep.style.cssText='height:4px;background:#21262d;border-top:1px solid #30363d';
+    sep.dataset.filter=task.filter;
+    gantt.appendChild(sep);
   }
 
-  const row=document.createElement('div');
-  row.className='task-row';
-  row.dataset.taskId=task.id;
-  row.dataset.phase=task.phaseKey;
-
-  const badgeHtml=task.critical?'<span class="badge">CRITICAL</span>':'';
-
-  row.innerHTML=`
-    <div class="tr-no">${task.id}</div>
-    <div class="tr-phase">${task.phase}</div>
-    <div class="tr-name">${task.icon} <span style="flex:1">${task.name}</span>${badgeHtml}</div>
-    <div class="tr-start">${fmt(task.start)}</div>
-    <div class="tr-end">${fmt(task.end)}</div>
-    <div class="bar-area">
-      <div class="bar-track">
-        ${today>=projStart&&today<=projEnd?`<div class="today-line" style="left:${pct(today)}%"></div>`:''}
-        <div class="bar" style="left:${pct(task.start)}%;width:${pct(task.end)-pct(task.start)}%;background:linear-gradient(90deg,${task.color}cc,${task.color});box-shadow:0 2px 8px ${task.color}55">
-          <span>${task.dur}</span>
-        </div>
-      </div>
+  // Main task header
+  const mhdr=document.createElement('div');
+  mhdr.className='main-hdr';
+  mhdr.dataset.filter=task.filter;
+  mhdr.style.cssText=`background:${task.bg};border-left:3px solid ${task.color}`;
+  mhdr.innerHTML=`
+    <div class="mh-left">
+      <div class="mh-id" style="color:${task.color};background:${task.color}22">${task.id}</div>
+      <div class="mh-name" style="color:${task.color}">${task.name}</div>
     </div>
-  `;
-  row.style.height='36px';
-  row.addEventListener('click',()=>showDetail(task,row));
-  gantt.appendChild(row);
+    <div class="mh-bar">
+      ${TODAY>=PROJ_START&&TODAY<=PROJ_END?`<div class="today-line" style="left:${pct(TODAY)}%"></div>`:''}
+      <div class="mh-bar-inner" style="left:${pct(task.start)}%;width:${pct(task.end)-pct(task.start)}%;background:${task.color}"></div>
+    </div>`;
+  gantt.appendChild(mhdr);
+
+  // Sub rows
+  task.subs.forEach(sub=>{
+    const row=document.createElement('div');
+    row.className='sub-row';
+    row.dataset.filter=task.filter;
+    row.dataset.key=sub.id;
+    row.innerHTML=`
+      <div class="sr-id">${sub.id}</div>
+      <div class="sr-name">${sub.icon} <span style="flex:1">${sub.name}</span>${sub.critical?'<span class="crit">CRITICAL</span>':''}</div>
+      <div class="sr-date">${fmt(sub.start)}</div>
+      <div class="sr-date">${fmt(sub.end)}</div>
+      <div class="sr-bar">
+        <div class="bar-track">
+          ${TODAY>=PROJ_START&&TODAY<=PROJ_END?`<div class="today-line" style="left:${pct(TODAY)}%"></div>`:''}
+          <div class="bar" style="left:${pct(sub.start)}%;width:${pct(sub.end)-pct(sub.start)}%;background:linear-gradient(90deg,${sub.color}bb,${sub.color});box-shadow:0 2px 8px ${sub.color}44">
+            <span>${sub.dur}</span>
+          </div>
+        </div>
+      </div>`;
+    row.style.height='34px';
+    row.addEventListener('click',()=>showDetail(sub,row));
+    gantt.appendChild(row);
+  });
 });
 
-function showDetail(task,row){
+// ── DETAIL ──────────────────────────────────────────────────────────────────
+function showDetail(sub,row){
   const wrap=document.getElementById('detailWrap');
   const panel=document.getElementById('detailPanel');
-  if(activeId===task.id){
+  if(activeKey===sub.id){
     wrap.className='detail-wrap closed';
     row.classList.remove('active');
-    activeId=null;return;
+    activeKey=null;return;
   }
-  document.querySelectorAll('.task-row').forEach(r=>r.classList.remove('active'));
+  document.querySelectorAll('.sub-row').forEach(r=>r.classList.remove('active'));
   row.classList.add('active');
-  activeId=task.id;
-  const depMap={2:'Design',3:'Procurement',4:'Contractor Selection',5:'Gym at Level 8',6:'Demolish L9'};
+  activeKey=sub.id;
   panel.innerHTML=`
     <div class="dp-head">
-      <div class="dp-dot" style="background:${task.color};box-shadow:0 0 8px ${task.color}88"></div>
-      <div class="dp-title">${task.icon} ${task.name}</div>
+      <div class="dp-dot" style="background:${sub.color};box-shadow:0 0 8px ${sub.color}88"></div>
+      <div class="dp-title">${sub.icon} ${sub.name}</div>
     </div>
     <div class="dp-grid">
-      <div class="dp-item"><div class="k">Start</div><div class="v" style="color:#60a5fa">${fmt(task.start)}</div></div>
-      <div class="dp-item"><div class="k">Finish</div><div class="v" style="color:#60a5fa">${fmt(task.end)}</div></div>
-      <div class="dp-item"><div class="k">Duration</div><div class="v" style="color:#fbbf24">${task.dur}</div></div>
-      <div class="dp-item"><div class="k">Location</div><div class="v">${task.loc}</div></div>
-      <div class="dp-item"><div class="k">Phase</div><div class="v">${task.phase}</div></div>
-      <div class="dp-item"><div class="k">Status</div><div class="v" style="color:${task.critical?'#f87171':'#4ade80'}">${task.status}</div></div>
+      <div class="dp-item"><div class="k">Start</div><div class="v" style="color:#58a6ff">${fmt(sub.start)}</div></div>
+      <div class="dp-item"><div class="k">Finish</div><div class="v" style="color:#58a6ff">${fmt(sub.end)}</div></div>
+      <div class="dp-item"><div class="k">Duration</div><div class="v" style="color:#fbbf24">${sub.dur}</div></div>
+      <div class="dp-item"><div class="k">Status</div><div class="v" style="color:${sub.critical?'#f85149':'#3fb950'}">${sub.status}</div></div>
     </div>
-    <div class="dp-note">${task.note}</div>
-  `;
+    <div class="dp-note">${sub.note}</div>`;
   wrap.className='detail-wrap open';
   setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
 }
 
-// ── PHASE FILTER TABS ───────────────────────────────────
+// ── FILTER TABS ─────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    const phase=tab.dataset.phase;
-    document.querySelectorAll('.task-row').forEach(row=>{
-      const rp=row.dataset.phase;
-      row.style.display=(phase==='all'||rp===phase)?'flex':'none';
+    const f=tab.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(el=>{
+      el.style.display=(f==='all'||el.dataset.filter===f)?'':'none';
     });
-    document.querySelectorAll('.phase-hdr').forEach(ph=>{
-      ph.style.display='flex';
-      if(phase==='pre'&&ph.classList.contains('con-hdr')) ph.style.display='none';
-      if(phase==='con'&&!ph.classList.contains('con-hdr')) ph.style.display='none';
-    });
-    // close detail panel on filter change
     document.getElementById('detailWrap').className='detail-wrap closed';
-    document.querySelectorAll('.task-row').forEach(r=>r.classList.remove('active'));
-    activeId=null;
+    document.querySelectorAll('.sub-row').forEach(r=>r.classList.remove('active'));
+    activeKey=null;
   });
 });
 </script>
