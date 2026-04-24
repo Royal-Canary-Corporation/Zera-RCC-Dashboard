@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Timeline — Taiga Banya & Gym Renovation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2441 100%);
+    padding: 32px 40px 24px;
+    border-bottom: 2px solid #2563eb44;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+  .header p { font-size: 13px; color: #94a3b8; margin-top: 6px; }
+
+  .stats-bar {
+    display: flex; gap: 16px; padding: 20px 40px;
+    background: #111827; border-bottom: 1px solid #1e293b;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    background: #1e293b; border-radius: 10px; padding: 14px 20px;
+    flex: 1; min-width: 180px; border: 1px solid #334155;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px #2563eb33; }
+  .stat-card .label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.8px; }
+  .stat-card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .stat-card .sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+  .blue { color: #60a5fa; } .red { color: #f87171; } .green { color: #4ade80; } .yellow { color: #fbbf24; }
+
+  .timeline-wrap {
+    padding: 24px 40px 40px;
+    overflow-x: auto;
+  }
+
+  .timeline-title {
+    font-size: 13px; color: #64748b; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 16px;
+  }
+
+  .gantt {
+    min-width: 900px;
+    background: #1e293b;
+    border-radius: 14px;
+    border: 1px solid #334155;
+    overflow: hidden;
+  }
+
+  /* MONTH HEADER */
+  .gantt-months {
+    display: grid;
+    grid-template-columns: 280px 110px 110px 1fr;
+    background: #0f2441;
+    border-bottom: 1px solid #2563eb44;
+  }
+  .gantt-months .col-label {
+    padding: 12px 16px;
+    font-size: 11px; font-weight: 600; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    border-right: 1px solid #334155;
+  }
+  .months-grid {
+    display: flex; overflow: hidden;
+  }
+  .month-block {
+    flex: 1; text-align: center;
+    padding: 12px 4px;
+    font-size: 11px; font-weight: 700; color: #60a5fa;
+    letter-spacing: 1px; text-transform: uppercase;
+    border-right: 1px solid #334155;
+    position: relative;
+  }
+  .month-block:last-child { border-right: none; }
+
+  /* WEEK HEADER */
+  .gantt-weeks {
+    display: grid;
+    grid-template-columns: 280px 110px 110px 1fr;
+    background: #162032;
+    border-bottom: 2px solid #334155;
+  }
+  .gantt-weeks .col-label {
+    padding: 8px 16px;
+    font-size: 10px; color: #475569;
+    border-right: 1px solid #334155;
+  }
+  .weeks-grid {
+    display: flex; overflow: hidden;
+  }
+  .week-cell {
+    flex: 1; text-align: center;
+    padding: 6px 2px;
+    font-size: 9px; color: #475569;
+    border-right: 1px solid #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  /* TASK ROW */
+  .task-row {
+    display: grid;
+    grid-template-columns: 280px 110px 110px 1fr;
+    border-bottom: 1px solid #1e293b;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-row:hover { background: #1e3a5f22; }
+  .task-row.active { background: #1e3a5f44; }
+
+  .task-name {
+    padding: 14px 16px;
+    font-size: 13px; font-weight: 500;
+    border-right: 1px solid #334155;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .task-name .icon { font-size: 16px; }
+  .task-name .name-text { flex: 1; }
+  .task-name .badge {
+    font-size: 9px; background: #dc262622; color: #f87171;
+    border: 1px solid #dc262644; border-radius: 4px;
+    padding: 2px 6px; white-space: nowrap;
+  }
+
+  .task-date {
+    padding: 14px 16px;
+    font-size: 11px; color: #94a3b8;
+    border-right: 1px solid #334155;
+    display: flex; align-items: center;
+  }
+
+  .bar-area {
+    padding: 10px 0;
+    position: relative;
+    display: flex; align-items: center;
+  }
+  .bar-track {
+    position: relative; width: 100%; height: 28px;
+  }
+  .bar {
+    position: absolute; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: #fff;
+    white-space: nowrap; overflow: hidden;
+    transition: filter 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .bar:hover { filter: brightness(1.15); transform: scaleY(1.08); }
+  .bar-label { padding: 0 8px; }
+
+  /* DETAIL PANEL */
+  .detail-panel {
+    margin: 0 40px 32px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s;
+    max-height: 0; opacity: 0;
+  }
+  .detail-panel.open { max-height: 400px; opacity: 1; }
+  .detail-inner { padding: 24px 28px; }
+  .detail-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .detail-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .detail-title { font-size: 15px; font-weight: 700; }
+  .detail-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-bottom: 16px;
+  }
+  .detail-item { background: #0f172a; border-radius: 8px; padding: 12px 16px; }
+  .detail-item .di-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 0.7px; }
+  .detail-item .di-value { font-size: 14px; font-weight: 600; margin-top: 4px; }
+  .detail-note {
+    font-size: 12px; color: #94a3b8; border-left: 3px solid #2563eb;
+    padding-left: 12px; margin-top: 8px;
+  }
+
+  /* DEPENDENCY ARROW */
+  .dep-line {
+    position: absolute; top: 50%; left: 0;
+    width: 100%; border-top: 1px dashed #334155;
+    pointer-events: none;
+  }
+
+  /* TODAY LINE */
+  .today-label {
+    position: absolute; top: -18px;
+    transform: translateX(-50%);
+    font-size: 9px; color: #fbbf24;
+    white-space: nowrap;
+  }
+  .today-line {
+    position: absolute; top: 0; bottom: 0;
+    width: 2px; background: #fbbf2466;
+    border-left: 2px dashed #fbbf24;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex; gap: 20px; padding: 16px 40px;
+    background: #111827; border-top: 1px solid #1e293b;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: #94a3b8;
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { height: 6px; width: 6px; }
+  ::-webkit-scrollbar-track { background: #1e293b; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    .header, .stats-bar, .timeline-wrap, .detail-panel, .legend { padding-left: 16px; padding-right: 16px; }
+    .detail-panel { margin-left: 16px; margin-right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏗️ Project Timeline — Taiga Banya & Gym Renovation</h1>
+  <p>Royal Canary Corp · Le Meridien Saigon · Generated April 2026</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="label">Total Duration</div>
+    <div class="value yellow">~6 Months</div>
+    <div class="sub">Jul 2026 → Dec 2026</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Gym at Level 8</div>
+    <div class="value blue">2 Months</div>
+    <div class="sub">01 Jul – 30 Aug · Critical Path</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Demolish L9</div>
+    <div class="value red">2 Weeks</div>
+    <div class="sub">31 Aug – 13 Sep · No Gap</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Taiga Banya</div>
+    <div class="value green">3 Months</div>
+    <div class="sub">14 Sep – 13 Dec · Level 9</div>
+  </div>
+</div>
+
+<div class="timeline-wrap">
+  <div class="timeline-title">Gantt Chart — Click any task for details</div>
+  <div class="gantt" id="gantt">
+    <!-- Dynamically generated by JS -->
+  </div>
+</div>
+
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-inner" id="detailInner"></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Gym at Level 8 (Critical Path)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Demolish Existing Gym & Spa (L9)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div> Taiga Banya Construction (L9)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;border-radius:50%"></div> Today</div>
+</div>
+
+<script>
+const tasks = [
+  {
+    id: 1,
+    name: "Gym at Level 8",
+    icon: "🏋️",
+    start: new Date("2026-07-01"),
+    end: new Date("2026-08-30"),
+    color: "#2563eb",
+    critical: true,
+    duration: "2 months (61 days)",
+    location: "Level 8",
+    status: "Scheduled",
+    note: "Critical Path — any delay will push back Taiga Banya start date. No parallel work possible on L9 during this phase.",
+    depends: null
+  },
+  {
+    id: 2,
+    name: "Demolish Existing Gym & Spa (L9)",
+    icon: "🔴",
+    start: new Date("2026-08-31"),
+    end: new Date("2026-09-13"),
+    color: "#dc2626",
+    critical: false,
+    duration: "2 weeks (14 days)",
+    location: "Level 9",
+    status: "Pending Gym L8",
+    note: "Begins immediately after Gym L8 completion. No gap. Scope: full demolition of existing gym and spa area on Level 9.",
+    depends: 1
+  },
+  {
+    id: 3,
+    name: "Taiga Banya Construction (L9)",
+    icon: "🧖",
+    start: new Date("2026-09-14"),
+    end: new Date("2026-12-13"),
+    color: "#16a34a",
+    critical: false,
+    duration: "3 months (91 days)",
+    location: "Level 9",
+    status: "Pending Demolish",
+    note: "Starts immediately after demolition complete. New Taiga Banya build from scratch on cleared Level 9 space.",
+    depends: 2
+  }
+];
+
+const projStart = new Date("2026-07-01");
+const projEnd   = new Date("2026-12-31");
+const totalDays = (projEnd - projStart) / 86400000;
+const today     = new Date("2026-04-24");
+
+function pct(d) {
+  return Math.max(0, Math.min(100, (d - projStart) / (projEnd - projStart) * 100));
+}
+
+function fmt(d) {
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+// Build months header
+const months = [];
+let d = new Date(projStart);
+while (d <= projEnd) {
+  const key = d.getFullYear() + '-' + d.getMonth();
+  const existing = months.find(m => m.key === key);
+  if (!existing) {
+    const mStart = new Date(d.getFullYear(), d.getMonth(), 1);
+    const mEnd   = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+    const clampStart = mStart < projStart ? projStart : mStart;
+    const clampEnd   = mEnd > projEnd ? projEnd : mEnd;
+    months.push({
+      key,
+      label: d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+      startPct: pct(clampStart),
+      widthPct: pct(clampEnd) - pct(clampStart)
+    });
+  }
+  d.setMonth(d.getMonth() + 1);
+}
+
+// Build weeks
+const weeks = [];
+let wd = new Date(projStart);
+while (wd <= projEnd) {
+  weeks.push(new Date(wd));
+  wd.setDate(wd.getDate() + 7);
+}
+
+const gantt = document.getElementById('gantt');
+
+// Month row
+const mRow = document.createElement('div');
+mRow.className = 'gantt-months';
+mRow.innerHTML = `<div class="col-label">Task</div><div class="col-label">Start</div><div class="col-label">Finish</div>`;
+const mGrid = document.createElement('div');
+mGrid.className = 'months-grid';
+mGrid.style.cssText = 'flex:1;position:relative;overflow:hidden;';
+months.forEach(m => {
+  const mb = document.createElement('div');
+  mb.className = 'month-block';
+  mb.style.cssText = `position:absolute;left:${m.startPct}%;width:${m.widthPct}%;`;
+  mb.textContent = m.label;
+  mGrid.appendChild(mb);
+});
+mRow.appendChild(mGrid);
+gantt.appendChild(mRow);
+
+// Week row
+const wRow = document.createElement('div');
+wRow.className = 'gantt-weeks';
+wRow.innerHTML = `<div class="col-label"></div><div class="col-label"></div><div class="col-label"></div>`;
+const wGrid = document.createElement('div');
+wGrid.className = 'weeks-grid';
+wGrid.style.cssText = 'flex:1;position:relative;overflow:hidden;height:32px;';
+weeks.forEach(w => {
+  const wc = document.createElement('div');
+  wc.className = 'week-cell';
+  wc.style.cssText = `position:absolute;left:${pct(w)}%;`;
+  wc.textContent = w.toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit'});
+  wGrid.appendChild(wc);
+});
+// Today line
+if (today >= projStart && today <= projEnd) {
+  const tl = document.createElement('div');
+  tl.className = 'today-line';
+  tl.style.left = pct(today) + '%';
+  const tLabel = document.createElement('div');
+  tLabel.className = 'today-label';
+  tLabel.textContent = 'TODAY';
+  tLabel.style.left = pct(today) + '%';
+  wGrid.appendChild(tLabel);
+  wGrid.appendChild(tl);
+}
+wRow.appendChild(wGrid);
+gantt.appendChild(wRow);
+
+// Task rows
+let activeTask = null;
+
+tasks.forEach(task => {
+  const row = document.createElement('div');
+  row.className = 'task-row';
+  row.id = 'row-' + task.id;
+
+  const badgeHtml = task.critical ? '<span class="badge">CRITICAL</span>' : '';
+
+  row.innerHTML = `
+    <div class="task-name">
+      <span class="icon">${task.icon}</span>
+      <span class="name-text">${task.name}</span>
+      ${badgeHtml}
+    </div>
+    <div class="task-date">${fmt(task.start)}</div>
+    <div class="task-date">${fmt(task.end)}</div>
+    <div class="bar-area">
+      <div class="bar-track" style="position:relative;width:100%;height:28px;">
+        ${today >= projStart && today <= projEnd ? `<div class="today-line" style="position:absolute;left:${pct(today)}%;top:0;bottom:0;"></div>` : ''}
+        <div class="bar" style="
+          left:${pct(task.start)}%;
+          width:${pct(task.end) - pct(task.start)}%;
+          background:linear-gradient(90deg, ${task.color}dd, ${task.color});
+          box-shadow: 0 2px 8px ${task.color}66;
+        ">
+          <span class="bar-label">${task.duration}</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  row.addEventListener('click', () => showDetail(task, row));
+  gantt.appendChild(row);
+});
+
+function showDetail(task, row) {
+  const panel = document.getElementById('detailPanel');
+  const inner = document.getElementById('detailInner');
+
+  if (activeTask === task.id) {
+    panel.classList.remove('open');
+    row.classList.remove('active');
+    activeTask = null;
+    return;
+  }
+
+  document.querySelectorAll('.task-row').forEach(r => r.classList.remove('active'));
+  row.classList.add('active');
+  activeTask = task.id;
+
+  const depTask = task.depends ? tasks.find(t => t.id === task.depends) : null;
+
+  inner.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-dot" style="background:${task.color};box-shadow:0 0 8px ${task.color}"></div>
+      <div class="detail-title">${task.icon} ${task.name}</div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="di-label">Start Date</div>
+        <div class="di-value" style="color:#60a5fa">${fmt(task.start)}</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">End Date</div>
+        <div class="di-value" style="color:#60a5fa">${fmt(task.end)}</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">Duration</div>
+        <div class="di-value" style="color:#fbbf24">${task.duration}</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">Location</div>
+        <div class="di-value">${task.location}</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">Status</div>
+        <div class="di-value" style="color:${task.critical ? '#f87171' : '#4ade80'}">${task.status}</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">Depends On</div>
+        <div class="di-value">${depTask ? depTask.name : '— (Start task)'}</div>
+      </div>
+    </div>
+    <div class="detail-note">${task.note}</div>
+  `;
+
+  panel.classList.add('open');
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+}
+</script>
+</body>
+</html>
