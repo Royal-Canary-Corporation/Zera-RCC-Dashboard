@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Group — Meeting Prep | 5 May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 32px 40px;
+    min-width: 1200px;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  .doc-title { font-size: 22px; font-weight: 700; color: #e6edf3; letter-spacing: -0.3px; }
+  .doc-subtitle { font-size: 13px; color: #8b949e; margin-top: 4px; }
+  .doc-meta { text-align: right; }
+  .doc-meta .badge {
+    display: inline-block;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #f59e0b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+  }
+  .doc-meta .date { font-size: 12px; color: #8b949e; }
+
+  /* ── THESIS SECTION ── */
+  .thesis-section {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-left: 4px solid #f59e0b;
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+  }
+  .thesis-section h2 {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f59e0b;
+    margin-bottom: 14px;
+  }
+  .thesis-body { font-size: 13.5px; color: #c9d1d9; line-height: 1.7; }
+  .thesis-body strong { color: #e6edf3; }
+
+  .thesis-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .pillar {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .pillar-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #f59e0b;
+    margin-bottom: 6px;
+  }
+  .pillar-title { font-size: 13px; font-weight: 600; color: #e6edf3; margin-bottom: 6px; }
+  .pillar-desc { font-size: 12px; color: #8b949e; line-height: 1.55; }
+
+  /* ── CATEGORY BLOCKS ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .cat-full { grid-column: 1 / -1; }
+
+  .cat-block {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .cat-block h3 {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #21262d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cat-block h3 .icon { font-size: 14px; }
+  .cat-block h3.blue  { color: #58a6ff; }
+  .cat-block h3.green { color: #3fb950; }
+  .cat-block h3.gold  { color: #f59e0b; }
+  .cat-block h3.purple{ color: #bc8cff; }
+  .cat-block h3.red   { color: #f85149; }
+  .cat-block h3.teal  { color: #39d353; }
+
+  .q-list { list-style: none; }
+  .q-list li {
+    position: relative;
+    padding: 8px 0 8px 18px;
+    border-bottom: 1px solid #21262d;
+    color: #c9d1d9;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .q-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .q-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #8b949e;
+    font-weight: 700;
+    font-size: 15px;
+    top: 7px;
+  }
+  .q-list li strong { color: #e6edf3; }
+  .q-list li em { color: #8b949e; font-style: normal; font-size: 11.5px; }
+
+  /* ── PRIORITY STRIP ── */
+  .priority-strip {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-top: 3px solid #f85149;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+  }
+  .priority-strip h2 {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: #f85149; margin-bottom: 14px;
+  }
+  .priority-items { display: flex; gap: 14px; }
+  .priority-item {
+    flex: 1;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 13px 15px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .priority-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: #f85149;
+    line-height: 1;
+    min-width: 24px;
+  }
+  .priority-text .pt-title { font-size: 13px; font-weight: 600; color: #e6edf3; margin-bottom: 3px; }
+  .priority-text .pt-desc { font-size: 12px; color: #8b949e; }
+
+  /* ── CONTEXT BAR ── */
+  .context-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .ctx-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 13px 15px;
+  }
+  .ctx-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #8b949e; margin-bottom: 5px; }
+  .ctx-value { font-size: 14px; font-weight: 700; color: #e6edf3; }
+  .ctx-note  { font-size: 11px; color: #8b949e; margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #21262d;
+    display: flex;
+    justify-content: space-between;
+    color: #484f58;
+    font-size: 11px;
+  }
+
+  @media print {
+    body { background: #fff; color: #0d1117; padding: 20px; min-width: unset; }
+    .thesis-section, .cat-block, .ctx-card, .priority-strip, .pillar, .priority-item {
+      background: #f8f9fa !important; color: #0d1117 !important;
+      border-color: #dee2e6 !important;
+    }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div>
+    <div class="doc-title">Aman Group — Meeting Preparation</div>
+    <div class="doc-subtitle">HoldCo Equity Acquisition | Strategic Partnership Discussion</div>
+  </div>
+  <div class="doc-meta">
+    <div class="badge">Confidential</div>
+    <div class="date">Meeting: 5 May 2026 &nbsp;|&nbsp; Prepared by Zera · RCC</div>
+  </div>
+</div>
+
+<!-- CONTEXT BAR -->
+<div class="context-bar">
+  <div class="ctx-card">
+    <div class="ctx-label">Deal Type</div>
+    <div class="ctx-value">HoldCo Equity</div>
+    <div class="ctx-note">Controlling / strategic stake</div>
+  </div>
+  <div class="ctx-card">
+    <div class="ctx-label">Target</div>
+    <div class="ctx-value">Aman Group</div>
+    <div class="ctx-note">Current majority: PIF (Saudi Arabia)</div>
+  </div>
+  <div class="ctx-card">
+    <div class="ctx-label">RCC Objectives</div>
+    <div class="ctx-value">Equity + SEA Rights</div>
+    <div class="ctx-note">Pipeline access · Board representation</div>
+  </div>
+  <div class="ctx-card">
+    <div class="ctx-label">Status</div>
+    <div class="ctx-value" style="color:#f59e0b;">VDR Pending</div>
+    <div class="ctx-note">DD not yet commenced</div>
+  </div>
+</div>
+
+<!-- INVESTMENT THESIS -->
+<div class="thesis-section">
+  <h2>📐 RCC Investment Thesis — Aman Group</h2>
+  <div class="thesis-body">
+    RCC operates a repeating investment framework: <strong>identify mispricing → build operating platform → attract tier-1 global partners → hold long-term.</strong>
+    The Aman Group opportunity represents the next chapter of this thesis — entering a globally recognised ultra-luxury brand at an inflection point,
+    anchoring RCC's Southeast Asia hospitality platform with a brand that commands among the highest ADRs in the world (~USD 2,000–5,000/night),
+    while establishing a preferential pipeline into future Aman developments across the region.
+  </div>
+  <div class="thesis-pillars">
+    <div class="pillar">
+      <div class="pillar-num">Pillar 01</div>
+      <div class="pillar-title">Brand Moat & Pricing Power</div>
+      <div class="pillar-desc">Aman's UHNW clientele and "anti-hotel" positioning command structural pricing premiums that are nearly impossible to replicate. Loyalty is lifestyle-driven, not points-based.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Pillar 02</div>
+      <div class="pillar-title">SEA Pipeline Access</div>
+      <div class="pillar-desc">Vietnam and broader SEA remain underpenetrated for Aman. A strategic equity position gives RCC right-of-first-offer on future developments — owning the land/SPV, not just the management fees.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">Pillar 03</div>
+      <div class="pillar-title">HoldCo Leverage</div>
+      <div class="pillar-desc">Entry at HoldCo level captures consolidated upside across 35+ properties globally. As PIF potentially looks to rebalance, RCC acquires at a negotiated entry vs. IPO pricing.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORITY -->
+<div class="priority-strip">
+  <h2>🔴 Top Priorities for 5 May Meeting</h2>
+  <div class="priority-items">
+    <div class="priority-item">
+      <div class="priority-num">1</div>
+      <div class="priority-text">
+        <div class="pt-title">Confirm Valuation & % Stake Available</div>
+        <div class="pt-desc">Lock the deal size and structure before DD commences. Is this a controlled minority or majority play?</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">2</div>
+      <div class="priority-text">
+        <div class="pt-title">VDR Access — Timeline & Scope</div>
+        <div class="pt-desc">Agree access date and confirm what's included: financials, HMA portfolio, debt schedule, pending litigation.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">3</div>
+      <div class="priority-text">
+        <div class="pt-title">SEA Pipeline Specifics</div>
+        <div class="pt-desc">Which properties are in pipeline for Vietnam / SEA? What's the co-investment mechanism — HoldCo or SPV-level?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION CATEGORIES -->
+<div class="cat-grid">
+
+  <!-- 1. Corporate Structure -->
+  <div class="cat-block">
+    <h3 class="blue"><span class="icon">🏢</span> 1. Corporate Structure & Ownership</h3>
+    <ul class="q-list">
+      <li>Where is the HoldCo domiciled? <em>(Singapore, BVI, Cayman?)</em></li>
+      <li>Who are the current shareholders? <strong>Is PIF still majority holder?</strong> Any shareholder seeking to exit?</li>
+      <li>Full cap table: shares outstanding, any unexercised options or warrants?</li>
+      <li>Are there <strong>drag-along / tag-along provisions</strong> that would affect RCC's entry?</li>
+      <li>Any pre-emption rights from existing shareholders that need to be waived?</li>
+    </ul>
+  </div>
+
+  <!-- 2. Valuation & Deal Terms -->
+  <div class="cat-block">
+    <h3 class="gold"><span class="icon">💰</span> 2. Valuation & Deal Terms</h3>
+    <ul class="q-list">
+      <li>What is the current <strong>valuation basis?</strong> <em>(EBITDA multiple, asset NAV, DCF?)</em></li>
+      <li>What % stake is being offered to RCC? <strong>Controlling or strategic minority?</strong></li>
+      <li>Liquidity event expectation: <strong>IPO, trade sale,</strong> or long-term hold?</li>
+      <li>Payment structure: all-cash, deferred, or earn-out component?</li>
+      <li>Is there a <strong>locked-up period</strong> post-closing for RCC's stake?</li>
+    </ul>
+  </div>
+
+  <!-- 3. Financials -->
+  <div class="cat-block">
+    <h3 class="green"><span class="icon">📊</span> 3. Financials <em style="font-size:10px;font-weight:400;color:#8b949e;text-transform:none;letter-spacing:0">(to verify in VDR)</em></h3>
+    <ul class="q-list">
+      <li>Revenue, EBITDA, Net Income — <strong>consolidated, FY2022–2024</strong></li>
+      <li>RevPAR and Occupancy — consolidated across full portfolio?</li>
+      <li>Total debt at HoldCo level? <strong>Net Debt / EBITDA ratio?</strong></li>
+      <li>Committed CAPEX for pipeline properties, especially SEA?</li>
+      <li>Any material off-balance-sheet liabilities or contingent obligations?</li>
+    </ul>
+  </div>
+
+  <!-- 4. SEA Strategy -->
+  <div class="cat-block">
+    <h3 class="purple"><span class="icon">🌏</span> 4. SEA Strategy & RCC Synergy</h3>
+    <ul class="q-list">
+      <li>How many Aman properties are in <strong>active pipeline for SEA?</strong> Timeline?</li>
+      <li>Will RCC receive <strong>Right of First Offer</strong> for SEA development opportunities?</li>
+      <li>Co-investment mechanism: at <strong>HoldCo level or SPV per property?</strong></li>
+      <li>Is Aman open to a <strong>JV or HMA model</strong> for Vietnam-specific sites under RCC's land bank?</li>
+      <li>How does Aman currently manage brand exclusivity in markets with existing local partners?</li>
+    </ul>
+  </div>
+
+  <!-- 5. Governance & Rights -->
+  <div class="cat-block">
+    <h3 class="teal"><span class="icon">⚖️</span> 5. Governance & Investor Rights</h3>
+    <ul class="q-list">
+      <li><strong>Board representation</strong> commensurate with RCC's stake — how many seats?</li>
+      <li>Veto rights on strategic decisions: new markets, brand extension, debt issuance?</li>
+      <li>Information rights: <strong>quarterly financials, annual audited accounts, management access?</strong></li>
+      <li>Anti-dilution protection for future capital raises?</li>
+      <li>Reserved matters requiring RCC approval?</li>
+    </ul>
+  </div>
+
+  <!-- 6. Process & VDR -->
+  <div class="cat-block">
+    <h3 class="red"><span class="icon">🔄</span> 6. Process, VDR & Timeline</h3>
+    <ul class="q-list">
+      <li>When can RCC access the VDR? <strong>Who is the contact?</strong> Scope of materials?</li>
+      <li>Is there an <strong>exclusivity period</strong> for RCC to negotiate without parallel processes?</li>
+      <li>Expected timeline: LOI → SPA → Close?</li>
+      <li>Who is Aman's legal counsel? What <strong>jurisdiction</strong> will the SPA be governed by?</li>
+      <li>Is Aman Group engaging other buyers concurrently? <strong>Competitive process?</strong></li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>RCC Strategic Advisory · Confidential · Not for Distribution</span>
+  <span>Prepared by Zera AI · 1 May 2026 · aman-meeting-prep-20260505</span>
+</footer>
+
+</body>
+</html>
