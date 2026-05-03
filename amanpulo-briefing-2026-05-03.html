@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Amanpulo — RCC Investment Briefing</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    font-size: 13px;
+    padding: 32px;
+    min-width: 1280px;
+  }
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #30363d;
+  }
+  .header-left h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e6edf3;
+    letter-spacing: -0.5px;
+  }
+  .header-left .subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .badge-confidential { background: #3d1e1e; color: #f85149; border: 1px solid #6e2a2a; }
+  .badge-rcc { background: #1c2a3a; color: #58a6ff; border: 1px solid #2d4a6a; }
+  .header-right .date { font-size: 11px; color: #8b949e; margin-top: 8px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #58a6ff;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px;
+    margin: 24px 0 14px;
+  }
+  .section-header.part2 { color: #d2a679; }
+
+  /* ── KPI ROW ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #8b949e;
+    margin-bottom: 6px;
+  }
+  .kpi-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+  .kpi-sub {
+    font-size: 11px;
+    color: #8b949e;
+    margin-top: 3px;
+  }
+  .kpi-value.green { color: #3fb950; }
+  .kpi-value.red { color: #f85149; }
+  .kpi-value.gold { color: #d29922; }
+  .kpi-value.blue { color: #58a6ff; }
+
+  /* ── 2-COL GRID ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8b949e;
+    margin-bottom: 12px;
+  }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8b949e;
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #30363d;
+  }
+  td {
+    font-size: 12px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #21262d;
+    color: #e6edf3;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1c2128; }
+  td.right, th.right { text-align: right; }
+  td.center, th.center { text-align: center; }
+  td.green { color: #3fb950; }
+  td.red { color: #f85149; }
+  td.gold { color: #d29922; }
+  td.blue { color: #58a6ff; }
+
+  /* ── OWNERSHIP CHART ── */
+  .ownership-bar {
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+  .own-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .alert-red { background: #2c1a1a; border-left: 3px solid #f85149; color: #ffa8a8; }
+  .alert-gold { background: #2c2510; border-left: 3px solid #d29922; color: #ffd166; }
+  .alert-blue { background: #0d1f33; border-left: 3px solid #58a6ff; color: #a5c8ff; }
+  .alert-green { background: #0e2a1a; border-left: 3px solid #3fb950; color: #8fcfa0; }
+  .alert strong { font-weight: 700; }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 2px;
+  }
+  .tag-red { background: #3d1e1e; color: #f85149; }
+  .tag-gold { background: #3d2e10; color: #d29922; }
+  .tag-green { background: #0e2a1a; color: #3fb950; }
+  .tag-blue { background: #0d1f33; color: #58a6ff; }
+  .tag-purple { background: #1f1533; color: #bc8cff; }
+
+  /* ── QA ITEMS ── */
+  .qa-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #21262d;
+    line-height: 1.6;
+  }
+  .qa-item:last-child { border-bottom: none; }
+  .qa-q {
+    font-weight: 700;
+    color: #d2a679;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  .qa-a {
+    font-size: 12px;
+    color: #8b949e;
+    padding-left: 12px;
+  }
+
+  /* ── DIVIDER ── */
+  .part-divider {
+    border: none;
+    border-top: 2px solid #30363d;
+    margin: 32px 0 24px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #30363d;
+    font-size: 10px;
+    color: #6e7681;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    body { background: #fff; padding: 20px; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="header-left">
+    <h1>🏝️ Project Amanpulo — Investment Briefing</h1>
+    <div class="subtitle">RCC X VC · Aman Portfolio Working Group · Confidential — For Internal Use Only</div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-confidential">⛔ Confidential</span>&nbsp;
+    <span class="badge badge-rcc">RCC Internal</span>
+    <div class="date">Prepared: May 3, 2026 &nbsp;|&nbsp; Ver 1.0</div>
+  </div>
+</div>
+
+<!-- ══ PART 1: PROJECT BRIEFING ══ -->
+<div class="section-header">Part I — Project Briefing</div>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">Asset</div>
+    <div class="kpi-value" style="font-size:15px">Amanpulo</div>
+    <div class="kpi-sub">Pamalican Island, Palawan, PH</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Keys</div>
+    <div class="kpi-value blue">60</div>
+    <div class="kpi-sub">42 Casitas + 18 Villas</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">FY2025 Revenue</div>
+    <div class="kpi-value gold">₱1.48B</div>
+    <div class="kpi-sub">~USD 26M | +1.4% YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">FY2025 Net Profit</div>
+    <div class="kpi-value red">₱95.7M</div>
+    <div class="kpi-sub">~USD 1.7M | -50%+ YoY</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">FY2025 Occupancy</div>
+    <div class="kpi-value red">46%</div>
+    <div class="kpi-sub">vs 53% (2024), 59.5% (Q1'25)</div>
+  </div>
+</div>
+
+<!-- OWNERSHIP + OVERVIEW -->
+<div class="two-col">
+  <div class="card">
+    <h3>Ownership Structure — Current</h3>
+    <div class="ownership-bar">
+      <div class="own-seg" style="width:62%; background:#1c3a5a; color:#58a6ff">ANSCOR/Soriano 62%</div>
+      <div class="own-seg" style="width:18%; background:#1e3a1e; color:#3fb950">Aboitiz 18%</div>
+      <div class="own-seg" style="width:20%; background:#3d2e10; color:#d29922">Aman Group 20%</div>
+    </div>
+    <table style="margin-top:10px">
+      <tr>
+        <th>Shareholder</th><th>Stake</th><th>Role</th><th>Status</th>
+      </tr>
+      <tr>
+        <td>ANSCOR / Soriano Family</td>
+        <td class="gold">62%</td>
+        <td>Land owner, majority</td>
+        <td><span class="tag tag-red">Exiting</span></td>
+      </tr>
+      <tr>
+        <td>Aboitiz Family</td>
+        <td>~18%</td>
+        <td>Silent investor</td>
+        <td><span class="tag tag-red">Exiting</span></td>
+      </tr>
+      <tr>
+        <td>Aman Group</td>
+        <td class="blue">~20%</td>
+        <td>Operator + Deal Lead</td>
+        <td><span class="tag tag-gold">Leading Buyout</span></td>
+      </tr>
+      <tr>
+        <td style="color:#58a6ff"><strong>RCC (Target)</strong></td>
+        <td style="color:#58a6ff"><strong>TBD</strong></td>
+        <td>Strategic Investor</td>
+        <td><span class="tag tag-blue">Evaluating</span></td>
+      </tr>
+    </table>
+    <div class="alert alert-red" style="margin-top:12px">
+      <strong>Legal Constraint:</strong> Philippines Constitution (60-40 Rule) — Foreign ownership capped at <strong>40% max</strong>. RCC (as foreign entity) cannot exceed 40% stake. Requires Filipino nominee or JV structure.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Asset Overview</h3>
+    <table>
+      <tr><td style="color:#8b949e;width:40%">Location</td><td>Pamalican Island, Cuyo Archipelago, Palawan</td></tr>
+      <tr><td style="color:#8b949e">Island Size</td><td>5.5 km private island — entirely resort</td></tr>
+      <tr><td style="color:#8b949e">Opened</td><td>December 1993 (32 years)</td></tr>
+      <tr><td style="color:#8b949e">Operator</td><td>Aman Resorts (under SSRL entity)</td></tr>
+      <tr><td style="color:#8b949e">Access</td><td>70-min private charter from Manila (resort-operated aircraft)</td></tr>
+      <tr><td style="color:#8b949e">Architect</td><td>Francisco Mañosa (bahay kubo vernacular)</td></tr>
+      <tr><td style="color:#8b949e">Energy</td><td>3.5ha solar farm (Oct 2024) — ~50% energy self-sufficient</td></tr>
+      <tr><td style="color:#8b949e">Casitas</td><td>42 units: Beach (24+5), Treetop (4), Hillside, Deluxe Hillside</td></tr>
+      <tr><td style="color:#8b949e">Villas</td><td>18 units: 4BR Lagoon (7) + 4BR Palawan (5) + others</td></tr>
+      <tr><td style="color:#8b949e">Deal Trigger</td><td>Capex-heavy renovation needed; PH shareholders unwilling to fund</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- FINANCIAL PERFORMANCE -->
+<div class="section-header">Financial Performance — SSRL (Seven Seas Resorts & Leisure)</div>
+<div class="two-col">
+  <div class="card">
+    <h3>Revenue & Profit Trend</h3>
+    <table>
+      <tr>
+        <th>Period</th><th class="right">Revenue (₱)</th><th class="right">Net Profit (₱)</th><th class="right">Occ. Rate</th><th class="right">Avg Room Rate</th>
+      </tr>
+      <tr>
+        <td>Q1 2025</td>
+        <td class="right">—</td>
+        <td class="right green">₱132.4M</td>
+        <td class="right">59.5%</td>
+        <td class="right">—</td>
+      </tr>
+      <tr>
+        <td>H1 2025 (est.)</td>
+        <td class="right">₱859.9M</td>
+        <td class="right gold">↓ vs H1'24</td>
+        <td class="right red">53.0%</td>
+        <td class="right green">₱106,751</td>
+      </tr>
+      <tr>
+        <td>FY2024</td>
+        <td class="right">~₱1.46B</td>
+        <td class="right gold">~₱200M+</td>
+        <td class="right">~55%</td>
+        <td class="right">₱97,982</td>
+      </tr>
+      <tr>
+        <td><strong>FY2025</strong></td>
+        <td class="right gold"><strong>₱1.48B</strong></td>
+        <td class="right red"><strong>₱95.7M</strong></td>
+        <td class="right red"><strong>46%</strong></td>
+        <td class="right green">+5% YoY</td>
+      </tr>
+    </table>
+    <div class="alert alert-red" style="margin-top:12px">
+      FY2025 net profit plunged >50% YoY despite revenue holding flat. Cause: weather disruptions + rising OpEx + capex deferred = structural pressure building.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Estimated Operating Metrics (FY2025)</h3>
+    <table>
+      <tr><th>Metric</th><th class="right">Value</th><th class="right">USD Equiv.</th></tr>
+      <tr><td>Total Revenue</td><td class="right gold">₱1.48B</td><td class="right">~$26M</td></tr>
+      <tr><td>Net Profit</td><td class="right red">₱95.7M</td><td class="right">~$1.7M</td></tr>
+      <tr><td>Net Margin</td><td class="right red">~6.5%</td><td class="right">—</td></tr>
+      <tr><td>Avg Room Rate (ADR)</td><td class="right">~₱110,000+</td><td class="right">~$1,950/night</td></tr>
+      <tr><td>Occupancy</td><td class="right red">46%</td><td class="right">—</td></tr>
+      <tr><td>RevPAR (est.)</td><td class="right">~₱50,600</td><td class="right">~$900/night</td></tr>
+      <tr><td>EBITDA (est.)</td><td class="right gold">~₱250-350M</td><td class="right">~$4.5-6.2M</td></tr>
+      <tr><td>Total Keys</td><td class="right">60</td><td class="right">—</td></tr>
+      <tr><td>Rev/Key/Year</td><td class="right">₱24.7M</td><td class="right">~$437K</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- GUEST PROFILE -->
+<div class="section-header">Target Guest Profile & Market Position</div>
+<div class="three-col">
+  <div class="card">
+    <h3>Primary Guest Segments</h3>
+    <table>
+      <tr><th>Segment</th><th class="right">Est. Mix</th></tr>
+      <tr><td>UHNWI / HNW Families</td><td class="right">~35%</td></tr>
+      <tr><td>Honeymooners / Anniversaries</td><td class="right">~25%</td></tr>
+      <tr><td>Aman Loyalty (repeat)</td><td class="right">~20%</td></tr>
+      <tr><td>Corporate / Buyout</td><td class="right">~10%</td></tr>
+      <tr><td>Travel Trade / Agency</td><td class="right">~10%</td></tr>
+    </table>
+    <div style="margin-top:10px;font-size:11px;color:#8b949e">
+      Key source markets: USA, Australia, Japan, Singapore, Philippines domestic
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Competitive Position</h3>
+    <table>
+      <tr><th>vs Comp Set</th><th class="right">ADR</th><th class="right">Positioning</th></tr>
+      <tr><td>Amanpulo</td><td class="right gold">$1,950+/night</td><td class="right"><span class="tag tag-gold">Ultra-luxury</span></td></tr>
+      <tr><td>El Nido Resorts</td><td class="right">$400-800</td><td class="right"><span class="tag tag-blue">Luxury</span></td></tr>
+      <tr><td>Pangulasian Island</td><td class="right">$300-600</td><td class="right"><span class="tag tag-green">Premium</span></td></tr>
+      <tr><td>Six Senses Palawan</td><td class="right">$800-1,500</td><td class="right"><span class="tag tag-blue">Ultra-lux</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Asset Strengths & Risks</h3>
+    <div style="margin-bottom:8px">
+      <div style="font-size:11px;color:#3fb950;font-weight:700;margin-bottom:4px">✓ STRENGTHS</div>
+      <div style="font-size:11px;color:#8b949e;line-height:1.6">
+        · Only private island Aman in SEA<br>
+        · 30yr brand equity, loyal UHNW clientele<br>
+        · 50% solar (Oct 2024) — ESG premium<br>
+        · Captive island = zero competition on-site<br>
+        · Own aircraft + landing strip = moat
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:#f85149;font-weight:700;margin-bottom:4px">⚠ RISKS</div>
+      <div style="font-size:11px;color:#8b949e;line-height:1.6">
+        · Aging infrastructure (opened 1993, 32yr)<br>
+        · Weather dependency (monsoon = closures)<br>
+        · Occ. declining 3yr: 59.5% → 53% → 46%<br>
+        · PH 60-40 rule = structural ownership cap<br>
+        · Remote location = high operating costs
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEAL CONTEXT -->
+<div class="section-header">Deal Context & Why Now</div>
+<div class="card">
+  <div class="alert alert-gold">
+    <strong>Deal Catalyst:</strong> Amanpulo requires significant renovation capex after 32 years. Philippine co-shareholders (Soriano & Aboitiz) unwilling to inject new capital. Aman Group (20% shareholder + operator) is leading a buyout of the Philippine families and simultaneously conducting a capital call to fund refurbishment. This creates a rare window for a new strategic investor to enter alongside Aman Group at the property level.
+  </div>
+  <div class="two-col" style="margin-top:14px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#8b949e;margin-bottom:8px">DEAL STRUCTURE (Hypothetical)</div>
+      <table>
+        <tr><th>Component</th><th>Detail</th></tr>
+        <tr><td>Target entity</td><td>Seven Seas Resorts & Leisure, Inc. (SSRL)</td></tr>
+        <tr><td>Stake available</td><td>Up to ~80% (Soriano 62% + Aboitiz 18%)</td></tr>
+        <tr><td>RCC max (60-40 rule)</td><td><strong>≤40% of SSRL</strong> (foreign cap)</td></tr>
+        <tr><td>Aman Group role</td><td>Operator + Co-investor (retain 20%+)</td></tr>
+        <tr><td>Capital call purpose</td><td>Full renovation + repositioning capex</td></tr>
+        <tr><td>Land ownership</td><td>Soriano family — Pamalican Island</td></tr>
+      </table>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#8b949e;margin-bottom:8px">PRELIMINARY VALUATION CONTEXT</div>
+      <table>
+        <tr><th>Basis</th><th class="right">Range (USD)</th></tr>
+        <tr><td>EV/Key (comp: Six Senses ~$2-3M/key)</td><td class="right gold">$120-180M</td></tr>
+        <tr><td>EV/Revenue (luxury: 5-8x)</td><td class="right">$130-208M</td></tr>
+        <tr><td>EV/EBITDA (Aman comps: 25-35x)</td><td class="right">$112-217M</td></tr>
+        <tr><td><strong>Blended EV estimate</strong></td><td class="right gold"><strong>~$150-200M</strong></td></tr>
+        <tr><td>RCC 40% stake cost (est.)</td><td class="right blue"><strong>~$60-80M</strong></td></tr>
+        <tr><td>+ Capex contribution (est.)</td><td class="right red">$15-30M TBD</td></tr>
+      </table>
+      <div class="alert alert-blue" style="margin-top:10px;font-size:11px">
+        All valuations are preliminary estimates pending VDR access (05/05/2026). Actual figures require full DD.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PART 2: Q&A + IRL ══ -->
+<hr class="part-divider">
+<div class="section-header part2">Part II — Questions & Investment Return Logic (IRL)</div>
+
+<!-- QUESTIONS -->
+<div class="two-col">
+  <div class="card">
+    <h3>🔍 Ownership & Legal Questions</h3>
+    <div class="qa-item">
+      <div class="qa-q">1. How is the 60-40 rule structured in SSRL's current cap table?</div>
+      <div class="qa-a">Is there a nominee arrangement? Can Aman Group's 20% be considered "Filipino-controlled" for purposes of the foreign equity cap?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">2. Who owns Pamalican Island — SSRL or the Soriano family directly?</div>
+      <div class="qa-a">Land lease vs. freehold? What are lease terms, renewal conditions, and assignability to a new investor?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">3. What is Aman Group's proposed post-buyout cap table?</div>
+      <div class="qa-a">Aman Group target stake? Will they maintain operator role under new structure? Any tag-along / drag-along provisions?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">4. Are there any existing pledges, mortgages, or encumbrances on the SSRL shares or island?</div>
+      <div class="qa-a">Clean title confirmation required in VDR.</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">5. Has Aman Group signed LOI or binding agreement with Soriano/Aboitiz for the buyout?</div>
+      <div class="qa-a">What exclusivity period exists? Is RCC entering as co-buyer or secondary investor post-Aman buyout?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💰 Financial & Valuation Questions</h3>
+    <div class="qa-item">
+      <div class="qa-q">6. What is the ask price for the 80% stake (Soriano + Aboitiz combined)?</div>
+      <div class="qa-a">Implied EV? Has independent valuation been commissioned? Who is the financial advisor?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">7. What is the full capex requirement for renovation — scope, timeline, phasing?</div>
+      <div class="qa-a">Will resort close during renovation? Estimated revenue loss during closure? Who funds interim OpEx?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">8. Provide last 5 years audited financials: Revenue, EBITDA, Net Profit, Occupancy, ADR, RevPAR.</div>
+      <div class="qa-a">Why is occupancy trending down 3 consecutive years (59.5% → 53% → 46%)? Structural or weather-driven?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">9. What is the post-renovation revenue / EBITDA projection?</div>
+      <div class="qa-a">Comparable: After Six Senses Laamu renovation, RevPAR increased ~40%. What is Aman's modeled uplift for Amanpulo?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">10. What are the dividend policy and distribution mechanics for shareholders?</div>
+      <div class="qa-a">Historical dividend history from SSRL? Preferred return structure for new investor?</div>
+    </div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <h3>🏨 Operational Questions</h3>
+    <div class="qa-item">
+      <div class="qa-q">11. What does the Aman management agreement look like — fees, term, termination?</div>
+      <div class="qa-a">Base fee (typically 2-3% revenue) + incentive fee (10-12% GOP). Duration and break clauses?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">12. What is the renovation scope — full rebuild or targeted refurbishment?</div>
+      <div class="qa-a">Will Aman add new keys? Any branded residences being added (Aman's recent strategy)?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">13. What is the aircraft/charter arrangement — owned or outsourced?</div>
+      <div class="qa-a">What is the annual cost? Asset or OpEx? Will this be sold/restructured?</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q">14. Current forward booking and waitlist status post-renovation announcement?</div>
+      <div class="qa-a">Any cancellation risk? How is demand holding up given occupancy decline?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📈 IRL — Investment Return Logic</h3>
+    <div class="alert alert-blue" style="margin-bottom:12px">
+      <strong>RCC Investment Thesis:</strong> Buy at distressed-EBITDA multiple (occupancy trough), participate in Aman-led renovation capex, benefit from brand repositioning and rate uplift post-refurb. Exit via secondary sale or REIT listing (3-7yr horizon).
+    </div>
+    <table>
+      <tr><th>Scenario</th><th class="right">Entry (40% stake)</th><th class="right">EBITDA Post-Reno</th><th class="right">Exit Multiple</th><th class="right">IRR est.</th></tr>
+      <tr>
+        <td><span class="tag tag-green">Bull</span></td>
+        <td class="right">$65M</td>
+        <td class="right">$12M (40% share)</td>
+        <td class="right">30x EV</td>
+        <td class="right green">~20-25%</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-gold">Base</span></td>
+        <td class="right">$70M</td>
+        <td class="right">$8M (40% share)</td>
+        <td class="right">25x EV</td>
+        <td class="right gold">~12-15%</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">Bear</span></td>
+        <td class="right">$75M</td>
+        <td class="right">$4M (40% share)</td>
+        <td class="right">20x EV</td>
+        <td class="right red">~5-8%</td>
+      </tr>
+    </table>
+    <div style="margin-top:10px">
+      <div style="font-size:11px;font-weight:700;color:#8b949e;margin-bottom:6px">KEY VALUE CREATION LEVERS</div>
+      <div style="font-size:11px;color:#8b949e;line-height:1.7">
+        ① Occupancy recovery: 46% → 65% post-reno = +$8M+ EBITDA uplift<br>
+        ② ADR premium: Renovation justifies +20-30% rate increase<br>
+        ③ Branded residences: Aman Residences model ($5-10M/unit × 10 units = $50-100M presales)<br>
+        ④ ESG premium: Solar + sustainability → premium to Aman comps on exit<br>
+        ⑤ Singapore/SEA wealth growth: Increasing UHNW demand for SEA private island escapes
+      </div>
+    </div>
+    <div class="alert alert-red" style="margin-top:10px">
+      <strong>Key Risk:</strong> Philippines 60-40 cap limits RCC to 40% max → limited control rights. Full DD needed to assess governance provisions and board representation.
+    </div>
+  </div>
+</div>
+
+<!-- NEXT STEPS -->
+<div class="section-header part2">Next Steps — Project Amanpulo</div>
+<div class="card">
+  <table>
+    <tr>
+      <th>#</th><th>Action</th><th>Owner</th><th>Deadline</th><th>Status</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>VDR access — obtain credentials from Aman deal team</td>
+      <td>Bach</td>
+      <td class="gold">05 May 2026</td>
+      <td><span class="tag tag-gold">Singapore meeting</span></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Legal review — Philippines 60-40 structure options (nominee / JV)</td>
+      <td>Pháp / External counsel</td>
+      <td>08 May 2026</td>
+      <td><span class="tag tag-blue">To initiate</span></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Financial DD — 5yr audited P&L, EBITDA bridge, capex schedule</td>
+      <td>Dung / VietCap (Bản, Thu)</td>
+      <td>Post VDR access</td>
+      <td><span class="tag tag-blue">Pending VDR</span></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Independent valuation — engage Savills / JLL Asia Pacific</td>
+      <td>Sơn / Hoàn</td>
+      <td>TBD</td>
+      <td><span class="tag tag-blue">TBD</span></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Renovation scope review — Aman's capex plan + architect brief</td>
+      <td>Bach + Aman team</td>
+      <td>Post VDR access</td>
+      <td><span class="tag tag-blue">Pending VDR</span></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Indicative LOI — submit to Aman Group if thesis validates</td>
+      <td>Bach</td>
+      <td>May–Jun 2026</td>
+      <td><span class="tag tag-purple">Conditional</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Project Amanpulo — RCC X VC Investment Briefing v1.0 | Prepared by Zera AI | 2026-05-03</div>
+  <div>CONFIDENTIAL — For RCC Aman Portfolio Working Group Internal Use Only</div>
+</div>
+
+</body>
+</html>
