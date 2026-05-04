@@ -727,25 +727,73 @@
 </div>
 
 <script>
-// ── STORAGE KEY ──
-const STORE_KEY = 'rcc_aman_q_comments_v1';
+// ── CONFIG — GitHub Shared Backend ──
+const GH_TOKEN   = 'ghp_5syxrjGLSa0M7f8gRgFWFZWRzKVIIR3pNJId'; // read+write repo
+const GH_REPO    = 'royal-canary-corporation/Zera-RCC-Dashboard';
+const GH_FILE    = 'aman-comments-data.json';
+const RAW_URL    = `https://raw.githubusercontent.com/${GH_REPO}/main/${GH_FILE}`;
+const API_URL    = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
 
-function loadAll() {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch { return {}; }
+let _cache = null;      // in-memory cache
+let _sha   = null;      // current file SHA for updates
+let _dirty = false;
+
+// ── FETCH shared data ──
+async function fetchData(force = false) {
+  if (_cache && !force) return _cache;
+  try {
+    const r = await fetch(RAW_URL + '?cb=' + Date.now());
+    const json = await r.json();
+    _cache = json.comments || {};
+    return _cache;
+  } catch { return _cache || {}; }
 }
-function saveAll(data) {
-  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+
+async function fetchSha() {
+  try {
+    const r = await fetch(API_URL, { headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' } });
+    const d = await r.json();
+    _sha = d.sha;
+  } catch {}
+}
+
+// ── SAVE shared data ──
+async function saveData(data) {
+  if (!_sha) await fetchSha();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify({ comments: data }, null, 2))));
+  const body = { message: 'Update Aman questionnaire comments', content, branch: 'main', sha: _sha };
+  const r = await fetch(API_URL, {
+    method: 'PUT',
+    headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (r.ok) {
+    const d = await r.json();
+    _sha = d.content.sha;
+    _cache = data;
+  } else {
+    throw new Error('Save failed: ' + r.status);
+  }
 }
 
 // ── INJECT COMMENT BOXES ──
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Pre-fetch SHA
+  fetchSha();
+
+  // Close summary on backdrop click
+  document.getElementById('summaryPanel').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+  const btn2 = document.querySelector('.toolbar-btn:nth-child(2)');
+  if (btn2) btn2.onclick = showSummary;
+
   const items = document.querySelectorAll('.q-item');
   items.forEach((item, idx) => {
     const numEl = item.querySelector('.q-num');
     const qId = 'q_' + (numEl ? numEl.textContent.trim().replace(/\s+/g,'_') : idx);
-    const qText = item.querySelector('.q-text') ? item.querySelector('.q-text').textContent.trim().slice(0, 80) + '…' : '';
+    const qText = item.querySelector('.q-text') ? item.querySelector('.q-text').textContent.trim().slice(0, 90) + '…' : '';
     item.dataset.qid = qId;
-    item.dataset.qtext = qText;
 
     const box = document.createElement('div');
     box.className = 'comment-section';
@@ -754,84 +802,102 @@ document.addEventListener('DOMContentLoaded', () => {
         💬 <span class="toggle-label">Add comment</span>
       </button>
       <div class="comment-area" id="area_${qId}">
-        <div class="comment-list" id="list_${qId}"></div>
+        <div class="comment-list" id="list_${qId}"><div style="font-size:11px;color:#6e7681;padding:6px 0">Loading…</div></div>
         <div class="comment-input-row">
           <input class="comment-name-input" id="name_${qId}" placeholder="Your name" />
-          <textarea class="comment-text-input" id="text_${qId}" placeholder="Add your comment, note, or answer here…" rows="2"></textarea>
-          <button class="comment-submit" onclick="submitComment('${qId}', '${qText.replace(/'/g,"\\'")}')">Post</button>
+          <textarea class="comment-text-input" id="text_${qId}" placeholder="Add your comment, note, or answer…" rows="2"></textarea>
+          <button class="comment-submit" id="submit_${qId}" onclick="submitComment('${qId}', \`${qText.replace(/`/g,"'")}\`)">Post</button>
         </div>
       </div>
     `;
     item.querySelector('.q-body').appendChild(box);
+  });
 
-    // Render existing comments
-    renderComments(qId);
-    updateToggleLabel(qId);
+  // Load all comments once and render
+  const data = await fetchData(true);
+  document.querySelectorAll('.q-item').forEach(item => {
+    const qId = item.dataset.qid;
+    if (qId) { renderComments(qId, data); updateToggleLabel(qId, data); }
   });
 });
 
 function toggleComment(qId, btn) {
   const area = document.getElementById('area_' + qId);
-  const isOpen = area.classList.contains('open');
-  area.classList.toggle('open', !isOpen);
-  if (!isOpen) {
-    const inp = document.getElementById('text_' + qId);
-    if (inp) inp.focus();
+  area.classList.toggle('open');
+  if (area.classList.contains('open')) {
+    setTimeout(() => { const inp = document.getElementById('text_' + qId); if (inp) inp.focus(); }, 50);
   }
 }
 
-function submitComment(qId, qText) {
+async function submitComment(qId, qText) {
   const nameEl = document.getElementById('name_' + qId);
   const textEl = document.getElementById('text_' + qId);
-  const name = (nameEl.value.trim()) || 'Anonymous';
+  const submitBtn = document.getElementById('submit_' + qId);
+  const name = nameEl.value.trim() || 'Anonymous';
   const text = textEl.value.trim();
   if (!text) return;
 
-  const data = loadAll();
-  if (!data[qId]) data[qId] = { qText, comments: [] };
-  data[qId].comments.push({
-    author: name,
-    text,
-    ts: new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
-  });
-  saveAll(data);
-  textEl.value = '';
-  renderComments(qId);
-  updateToggleLabel(qId);
+  submitBtn.textContent = 'Saving…';
+  submitBtn.disabled = true;
+
+  try {
+    const data = await fetchData(true); // always fetch fresh before write
+    if (!data[qId]) data[qId] = { qText, comments: [] };
+    data[qId].comments.push({
+      author: name,
+      text,
+      ts: new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
+    });
+    await saveData(data);
+    textEl.value = '';
+    renderComments(qId, data);
+    updateToggleLabel(qId, data);
+    submitBtn.textContent = '✓ Saved';
+    setTimeout(() => { submitBtn.textContent = 'Post'; submitBtn.disabled = false; }, 1500);
+  } catch (e) {
+    submitBtn.textContent = '❌ Error';
+    submitBtn.disabled = false;
+    alert('Could not save comment. Please try again.\n' + e.message);
+  }
 }
 
-function renderComments(qId) {
+function renderComments(qId, data) {
   const listEl = document.getElementById('list_' + qId);
   if (!listEl) return;
-  const data = loadAll();
-  const comments = (data[qId] && data[qId].comments) || [];
+  const comments = (data && data[qId] && data[qId].comments) || [];
+  if (comments.length === 0) {
+    listEl.innerHTML = '';
+    return;
+  }
   listEl.innerHTML = comments.map((c, i) => `
     <div class="comment-entry">
       <div class="comment-meta">
         <span class="comment-author">👤 ${c.author}</span>
         <span class="comment-time">${c.ts}</span>
       </div>
-      <div class="comment-text-display">${c.text.replace(/\n/g,'<br>')}</div>
+      <div class="comment-text-display">${c.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
       <button class="comment-delete" onclick="deleteComment('${qId}', ${i})" title="Delete">✕</button>
     </div>
   `).join('');
 }
 
-function deleteComment(qId, idx) {
-  const data = loadAll();
-  if (data[qId] && data[qId].comments) {
-    data[qId].comments.splice(idx, 1);
-    saveAll(data);
-    renderComments(qId);
-    updateToggleLabel(qId);
-  }
+async function deleteComment(qId, idx) {
+  if (!confirm('Delete this comment?')) return;
+  try {
+    const data = await fetchData(true);
+    if (data[qId] && data[qId].comments) {
+      data[qId].comments.splice(idx, 1);
+      await saveData(data);
+      renderComments(qId, data);
+      updateToggleLabel(qId, data);
+    }
+  } catch (e) { alert('Delete failed: ' + e.message); }
 }
 
-function updateToggleLabel(qId) {
+function updateToggleLabel(qId, data) {
   const btn = document.querySelector(`.comment-toggle[data-qid="${qId}"]`);
   if (!btn) return;
-  const data = loadAll();
-  const count = (data[qId] && data[qId].comments) ? data[qId].comments.length : 0;
+  const count = (data && data[qId] && data[qId].comments) ? data[qId].comments.length : 0;
   const label = btn.querySelector('.toggle-label');
   if (count > 0) {
     btn.classList.add('has-comment');
@@ -842,69 +908,53 @@ function updateToggleLabel(qId) {
   }
 }
 
-function exportComments() {
-  const data = loadAll();
+async function exportComments() {
+  const data = await fetchData(true);
   const lines = ['RCC × Aman — Comments Export', `Generated: ${new Date().toLocaleString()}`, ''];
   let hasAny = false;
   Object.entries(data).forEach(([qId, qData]) => {
     if (!qData.comments || qData.comments.length === 0) return;
     hasAny = true;
     lines.push(`--- ${qId} ---`);
-    lines.push(`Q: ${qData.qText}`);
-    qData.comments.forEach(c => {
-      lines.push(`  [${c.ts}] ${c.author}: ${c.text}`);
-    });
+    lines.push(`Q: ${qData.qText || ''}`);
+    qData.comments.forEach(c => lines.push(`  [${c.ts}] ${c.author}: ${c.text}`));
     lines.push('');
   });
   if (!hasAny) { alert('No comments to export yet.'); return; }
   const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `aman-questionnaire-comments-${new Date().toISOString().slice(0,10)}.txt`;
+  a.download = `aman-comments-${new Date().toISOString().slice(0,10)}.txt`;
   a.click();
 }
 
-function clearAllComments() {
-  if (!confirm('Clear ALL comments? This cannot be undone.')) return;
-  localStorage.removeItem(STORE_KEY);
-  document.querySelectorAll('.q-item').forEach(item => {
-    const qId = item.dataset.qid;
-    if (qId) {
-      renderComments(qId);
-      updateToggleLabel(qId);
-    }
-  });
+async function clearAllComments() {
+  if (!confirm('Clear ALL shared comments? This affects everyone and cannot be undone.')) return;
+  try {
+    await saveData({});
+    document.querySelectorAll('.q-item').forEach(item => {
+      const qId = item.dataset.qid;
+      if (qId) { renderComments(qId, {}); updateToggleLabel(qId, {}); }
+    });
+  } catch (e) { alert('Clear failed: ' + e.message); }
 }
 
-// ── SUMMARY PANEL ──
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('summaryPanel').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
-});
-
-function showSummary() {
-  const data = loadAll();
+async function showSummary() {
+  const data = await fetchData(true);
   const el = document.getElementById('summaryContent');
   const entries = Object.entries(data).filter(([, v]) => v.comments && v.comments.length > 0);
   if (entries.length === 0) {
-    el.innerHTML = '<p style="color:#8b949e;font-size:13px">No comments yet.</p>';
+    el.innerHTML = '<p style="color:#8b949e;font-size:13px;padding:8px 0">No comments yet.</p>';
   } else {
     el.innerHTML = entries.map(([qId, qData]) => `
       <div class="summary-item">
-        <div class="summary-q">${qId.replace('q_','Q')}: ${qData.qText}</div>
-        ${qData.comments.map(c => `<div class="summary-c"><span>${c.author}</span> [${c.ts}]: ${c.text.replace(/\n/g,'<br>')}</div>`).join('')}
+        <div class="summary-q">${qId.replace('q_','Q')}: ${qData.qText || ''}</div>
+        ${qData.comments.map(c => `<div class="summary-c"><span>${c.author}</span> [${c.ts}]: ${c.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`).join('')}
       </div>
     `).join('');
   }
   document.getElementById('summaryPanel').classList.add('open');
 }
-
-// Override the toolbar button to use showSummary
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.querySelector('.toolbar-btn:nth-child(2)');
-  if (btn) btn.onclick = showSummary;
-});
 </script>
 
 </body>
