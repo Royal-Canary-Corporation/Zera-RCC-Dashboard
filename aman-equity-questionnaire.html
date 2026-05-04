@@ -727,61 +727,89 @@
 </div>
 
 <script>
-// ── CONFIG — GitHub Shared Backend ──
-const GH_TOKEN   = 'ghp_5syxrjGLSa0M7f8gRgFWFZWRzKVIIR3pNJId'; // read+write repo
-const GH_REPO    = 'royal-canary-corporation/Zera-RCC-Dashboard';
-const GH_FILE    = 'aman-comments-data.json';
-const RAW_URL    = `https://raw.githubusercontent.com/${GH_REPO}/main/${GH_FILE}`;
-const API_URL    = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
+// ── CONFIG — GitHub Issues as shared comment backend ──
+// CORS verified: api.github.com allows Authorization + POST from browsers
+const GH_TOKEN = 'ghp_5syxrjGLSa0M7f8gRgFWFZWRzKVIIR3pNJId';
+const GH_REPO  = 'royal-canary-corporation/Zera-RCC-Dashboard';
+const GH_LABEL = 'aman-q-comment';
+const GH_API   = 'https://api.github.com';
+const GH_HDR   = { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json', 'User-Agent': 'rcc-aman-q' };
 
-let _cache = null;      // in-memory cache
-let _sha   = null;      // current file SHA for updates
-let _dirty = false;
+// Cache: qId → { issueNumber, comments[] }
+const _issueCache = {};
 
-// ── FETCH shared data ──
-async function fetchData(force = false) {
-  if (_cache && !force) return _cache;
-  try {
-    const r = await fetch(RAW_URL + '?cb=' + Date.now());
-    const json = await r.json();
-    _cache = json.comments || {};
-    return _cache;
-  } catch { return _cache || {}; }
+// ── GET or CREATE issue for a question ──
+async function getOrCreateIssue(qId, qText) {
+  if (_issueCache[qId]) return _issueCache[qId].number;
+
+  // Search for existing issue by title
+  const searchTitle = encodeURIComponent(`[AMAN-Q] ${qId}`);
+  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues?labels=${GH_LABEL}&state=open&per_page=100`, { headers: GH_HDR });
+  const issues = await r.json();
+  const existing = issues.find(i => i.title.startsWith(`[AMAN-Q] ${qId}`));
+  if (existing) {
+    _issueCache[qId] = { number: existing.number };
+    return existing.number;
+  }
+
+  // Create new issue
+  const body = { title: `[AMAN-Q] ${qId}`, body: `**Question:** ${qText}\n\n_Comment thread — managed by Zera AI._`, labels: [GH_LABEL] };
+  const cr = await fetch(`${GH_API}/repos/${GH_REPO}/issues`, { method: 'POST', headers: GH_HDR, body: JSON.stringify(body) });
+  const issue = await cr.json();
+  _issueCache[qId] = { number: issue.number };
+  return issue.number;
 }
 
-async function fetchSha() {
+// ── FETCH comments for a question ──
+async function fetchComments(qId) {
+  const num = _issueCache[qId] && _issueCache[qId].number;
+  if (!num) return [];
+  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/${num}/comments?per_page=100`, { headers: GH_HDR });
+  const data = await r.json();
+  return data.map(c => {
+    // Parse "**Name:** text" format
+    const match = c.body.match(/^\*\*(.+?):\*\*\s*([\s\S]*)/);
+    return {
+      author: match ? match[1] : c.user.login,
+      text: match ? match[2].trim() : c.body,
+      ts: new Date(c.created_at).toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }),
+      id: c.id
+    };
+  });
+}
+
+// ── FETCH all questions' issues at once ──
+async function prefetchAllIssues() {
   try {
-    const r = await fetch(API_URL, { headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' } });
-    const d = await r.json();
-    _sha = d.sha;
+    const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues?labels=${GH_LABEL}&state=open&per_page=100`, { headers: GH_HDR });
+    const issues = await r.json();
+    issues.forEach(i => {
+      const m = i.title.match(/^\[AMAN-Q\] (q_\S+)/);
+      if (m) _issueCache[m[1]] = { number: i.number };
+    });
   } catch {}
 }
 
-// ── SAVE shared data ──
-async function saveData(data) {
-  if (!_sha) await fetchSha();
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify({ comments: data }, null, 2))));
-  const body = { message: 'Update Aman questionnaire comments', content, branch: 'main', sha: _sha };
-  const r = await fetch(API_URL, {
-    method: 'PUT',
-    headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+// ── POST a new comment ──
+async function postComment(issueNum, author, text) {
+  const body = { body: `**${author}:** ${text}` };
+  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/${issueNum}/comments`, {
+    method: 'POST', headers: GH_HDR, body: JSON.stringify(body)
   });
-  if (r.ok) {
-    const d = await r.json();
-    _sha = d.content.sha;
-    _cache = data;
-  } else {
-    throw new Error('Save failed: ' + r.status);
-  }
+  if (!r.ok) throw new Error('Post failed: ' + r.status);
+  return await r.json();
+}
+
+// ── DELETE a comment ──
+async function deleteGHComment(commentId) {
+  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/comments/${commentId}`, {
+    method: 'DELETE', headers: GH_HDR
+  });
+  if (!r.ok) throw new Error('Delete failed: ' + r.status);
 }
 
 // ── INJECT COMMENT BOXES ──
 document.addEventListener('DOMContentLoaded', async () => {
-  // Pre-fetch SHA
-  fetchSha();
-
-  // Close summary on backdrop click
   document.getElementById('summaryPanel').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
   });
@@ -792,44 +820,86 @@ document.addEventListener('DOMContentLoaded', async () => {
   items.forEach((item, idx) => {
     const numEl = item.querySelector('.q-num');
     const qId = 'q_' + (numEl ? numEl.textContent.trim().replace(/\s+/g,'_') : idx);
-    const qText = item.querySelector('.q-text') ? item.querySelector('.q-text').textContent.trim().slice(0, 90) + '…' : '';
+    const qText = item.querySelector('.q-text') ? item.querySelector('.q-text').textContent.trim().slice(0, 100) : '';
     item.dataset.qid = qId;
+    item.dataset.qtext = qText;
 
     const box = document.createElement('div');
     box.className = 'comment-section';
     box.innerHTML = `
-      <button class="comment-toggle" data-qid="${qId}" onclick="toggleComment('${qId}', this)">
+      <button class="comment-toggle" data-qid="${qId}" onclick="toggleComment('${qId}')">
         💬 <span class="toggle-label">Add comment</span>
       </button>
       <div class="comment-area" id="area_${qId}">
-        <div class="comment-list" id="list_${qId}"><div style="font-size:11px;color:#6e7681;padding:6px 0">Loading…</div></div>
+        <div class="comment-list" id="list_${qId}"></div>
         <div class="comment-input-row">
           <input class="comment-name-input" id="name_${qId}" placeholder="Your name" />
           <textarea class="comment-text-input" id="text_${qId}" placeholder="Add your comment, note, or answer…" rows="2"></textarea>
-          <button class="comment-submit" id="submit_${qId}" onclick="submitComment('${qId}', \`${qText.replace(/`/g,"'")}\`)">Post</button>
+          <button class="comment-submit" id="submit_${qId}" onclick="submitComment('${qId}')">Post</button>
         </div>
       </div>
     `;
     item.querySelector('.q-body').appendChild(box);
   });
 
-  // Load all comments once and render
-  const data = await fetchData(true);
-  document.querySelectorAll('.q-item').forEach(item => {
-    const qId = item.dataset.qid;
-    if (qId) { renderComments(qId, data); updateToggleLabel(qId, data); }
-  });
+  // Prefetch existing issues + load comment counts
+  await prefetchAllIssues();
+  await loadAllCommentCounts();
 });
 
-function toggleComment(qId, btn) {
+async function loadAllCommentCounts() {
+  // For each issue in cache, fetch comment count
+  const promises = Object.entries(_issueCache).map(async ([qId, { number }]) => {
+    try {
+      const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/${number}/comments?per_page=100`, { headers: GH_HDR });
+      const comments = await r.json();
+      _issueCache[qId].comments = comments.map(c => {
+        const match = c.body.match(/^\*\*(.+?):\*\*\s*([\s\S]*)/);
+        return { author: match ? match[1] : c.user.login, text: match ? match[2].trim() : c.body,
+          ts: new Date(c.created_at).toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }), id: c.id };
+      });
+      updateToggleLabel(qId);
+    } catch {}
+  });
+  await Promise.all(promises);
+}
+
+function toggleComment(qId) {
   const area = document.getElementById('area_' + qId);
-  area.classList.toggle('open');
-  if (area.classList.contains('open')) {
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    // Load comments when opening
+    loadAndRender(qId);
     setTimeout(() => { const inp = document.getElementById('text_' + qId); if (inp) inp.focus(); }, 50);
   }
 }
 
-async function submitComment(qId, qText) {
+async function loadAndRender(qId) {
+  const listEl = document.getElementById('list_' + qId);
+  if (!listEl) return;
+  const cached = _issueCache[qId];
+  if (!cached) { listEl.innerHTML = ''; return; }
+  const comments = cached.comments || [];
+  renderCommentList(qId, comments);
+}
+
+function renderCommentList(qId, comments) {
+  const listEl = document.getElementById('list_' + qId);
+  if (!listEl) return;
+  listEl.innerHTML = comments.map(c => `
+    <div class="comment-entry">
+      <div class="comment-meta">
+        <span class="comment-author">👤 ${c.author}</span>
+        <span class="comment-time">${c.ts}</span>
+      </div>
+      <div class="comment-text-display">${(c.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+      <button class="comment-delete" onclick="deleteComment('${qId}', ${c.id})" title="Delete">✕</button>
+    </div>
+  `).join('') || '<div style="font-size:11px;color:#6e7681;padding:4px 0">No comments yet.</div>';
+}
+
+async function submitComment(qId) {
   const nameEl = document.getElementById('name_' + qId);
   const textEl = document.getElementById('text_' + qId);
   const submitBtn = document.getElementById('submit_' + qId);
@@ -837,67 +907,44 @@ async function submitComment(qId, qText) {
   const text = textEl.value.trim();
   if (!text) return;
 
-  submitBtn.textContent = 'Saving…';
+  submitBtn.textContent = 'Posting…';
   submitBtn.disabled = true;
 
   try {
-    const data = await fetchData(true); // always fetch fresh before write
-    if (!data[qId]) data[qId] = { qText, comments: [] };
-    data[qId].comments.push({
-      author: name,
-      text,
-      ts: new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
-    });
-    await saveData(data);
+    const item = document.querySelector(`.q-item[data-qid="${qId}"]`);
+    const qText = item ? item.dataset.qtext : '';
+    const issueNum = await getOrCreateIssue(qId, qText);
+    const newC = await postComment(issueNum, name, text);
+    const c = { author: name, text, ts: new Date(newC.created_at).toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }), id: newC.id };
+    if (!_issueCache[qId].comments) _issueCache[qId].comments = [];
+    _issueCache[qId].comments.push(c);
     textEl.value = '';
-    renderComments(qId, data);
-    updateToggleLabel(qId, data);
-    submitBtn.textContent = '✓ Saved';
+    renderCommentList(qId, _issueCache[qId].comments);
+    updateToggleLabel(qId);
+    submitBtn.textContent = '✓ Posted';
     setTimeout(() => { submitBtn.textContent = 'Post'; submitBtn.disabled = false; }, 1500);
   } catch (e) {
     submitBtn.textContent = '❌ Error';
     submitBtn.disabled = false;
-    alert('Could not save comment. Please try again.\n' + e.message);
+    console.error(e);
+    alert('Could not post comment: ' + e.message);
   }
 }
 
-function renderComments(qId, data) {
-  const listEl = document.getElementById('list_' + qId);
-  if (!listEl) return;
-  const comments = (data && data[qId] && data[qId].comments) || [];
-  if (comments.length === 0) {
-    listEl.innerHTML = '';
-    return;
-  }
-  listEl.innerHTML = comments.map((c, i) => `
-    <div class="comment-entry">
-      <div class="comment-meta">
-        <span class="comment-author">👤 ${c.author}</span>
-        <span class="comment-time">${c.ts}</span>
-      </div>
-      <div class="comment-text-display">${c.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
-      <button class="comment-delete" onclick="deleteComment('${qId}', ${i})" title="Delete">✕</button>
-    </div>
-  `).join('');
-}
-
-async function deleteComment(qId, idx) {
+async function deleteComment(qId, commentId) {
   if (!confirm('Delete this comment?')) return;
   try {
-    const data = await fetchData(true);
-    if (data[qId] && data[qId].comments) {
-      data[qId].comments.splice(idx, 1);
-      await saveData(data);
-      renderComments(qId, data);
-      updateToggleLabel(qId, data);
-    }
+    await deleteGHComment(commentId);
+    _issueCache[qId].comments = (_issueCache[qId].comments || []).filter(c => c.id !== commentId);
+    renderCommentList(qId, _issueCache[qId].comments);
+    updateToggleLabel(qId);
   } catch (e) { alert('Delete failed: ' + e.message); }
 }
 
-function updateToggleLabel(qId, data) {
+function updateToggleLabel(qId) {
   const btn = document.querySelector(`.comment-toggle[data-qid="${qId}"]`);
   if (!btn) return;
-  const count = (data && data[qId] && data[qId].comments) ? data[qId].comments.length : 0;
+  const count = (_issueCache[qId] && _issueCache[qId].comments) ? _issueCache[qId].comments.length : 0;
   const label = btn.querySelector('.toggle-label');
   if (count > 0) {
     btn.classList.add('has-comment');
@@ -909,15 +956,13 @@ function updateToggleLabel(qId, data) {
 }
 
 async function exportComments() {
-  const data = await fetchData(true);
   const lines = ['RCC × Aman — Comments Export', `Generated: ${new Date().toLocaleString()}`, ''];
   let hasAny = false;
-  Object.entries(data).forEach(([qId, qData]) => {
-    if (!qData.comments || qData.comments.length === 0) return;
+  Object.entries(_issueCache).forEach(([qId, data]) => {
+    if (!data.comments || data.comments.length === 0) return;
     hasAny = true;
-    lines.push(`--- ${qId} ---`);
-    lines.push(`Q: ${qData.qText || ''}`);
-    qData.comments.forEach(c => lines.push(`  [${c.ts}] ${c.author}: ${c.text}`));
+    lines.push(`--- ${qId} (Issue #${data.number}) ---`);
+    data.comments.forEach(c => lines.push(`  [${c.ts}] ${c.author}: ${c.text}`));
     lines.push('');
   });
   if (!hasAny) { alert('No comments to export yet.'); return; }
@@ -929,27 +974,19 @@ async function exportComments() {
 }
 
 async function clearAllComments() {
-  if (!confirm('Clear ALL shared comments? This affects everyone and cannot be undone.')) return;
-  try {
-    await saveData({});
-    document.querySelectorAll('.q-item').forEach(item => {
-      const qId = item.dataset.qid;
-      if (qId) { renderComments(qId, {}); updateToggleLabel(qId, {}); }
-    });
-  } catch (e) { alert('Clear failed: ' + e.message); }
+  alert('To clear comments, please close/delete issues directly at:\nhttps://github.com/royal-canary-corporation/Zera-RCC-Dashboard/issues');
 }
 
 async function showSummary() {
-  const data = await fetchData(true);
   const el = document.getElementById('summaryContent');
-  const entries = Object.entries(data).filter(([, v]) => v.comments && v.comments.length > 0);
+  const entries = Object.entries(_issueCache).filter(([, v]) => v.comments && v.comments.length > 0);
   if (entries.length === 0) {
-    el.innerHTML = '<p style="color:#8b949e;font-size:13px;padding:8px 0">No comments yet.</p>';
+    el.innerHTML = '<p style="color:#8b949e;font-size:13px;padding:8px 0">No comments yet — or still loading. Try opening a question first.</p>';
   } else {
-    el.innerHTML = entries.map(([qId, qData]) => `
+    el.innerHTML = entries.map(([qId, data]) => `
       <div class="summary-item">
-        <div class="summary-q">${qId.replace('q_','Q')}: ${qData.qText || ''}</div>
-        ${qData.comments.map(c => `<div class="summary-c"><span>${c.author}</span> [${c.ts}]: ${c.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`).join('')}
+        <div class="summary-q">${qId.replace('q_','Q').replace(/_/g,' ')}</div>
+        ${data.comments.map(c => `<div class="summary-c"><span>${c.author}</span> [${c.ts}]: ${(c.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`).join('')}
       </div>
     `).join('');
   }
