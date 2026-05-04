@@ -162,13 +162,151 @@
     font-size: 10px; color: #6e7681; display: flex; justify-content: space-between;
   }
 
+  /* ── COMMENT BOX ── */
+  .comment-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #21262d;
+  }
+  .comment-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; color: #58a6ff; cursor: pointer;
+    background: none; border: none; padding: 0;
+    font-family: inherit; letter-spacing: 0.3px;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .comment-toggle:hover { opacity: 1; }
+  .comment-toggle.has-comment { color: #3fb950; opacity: 1; }
+  .comment-area {
+    display: none;
+    margin-top: 8px;
+  }
+  .comment-area.open { display: block; }
+  .comment-list {
+    margin-bottom: 8px;
+  }
+  .comment-entry {
+    background: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .comment-meta {
+    font-size: 10px; color: #8b949e;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 4px;
+  }
+  .comment-author { font-weight: 700; color: #d29922; }
+  .comment-time { color: #6e7681; }
+  .comment-text-display { font-size: 12px; color: #e6edf3; line-height: 1.5; }
+  .comment-delete {
+    position: absolute; top: 8px; right: 10px;
+    background: none; border: none; color: #6e7681; cursor: pointer;
+    font-size: 14px; padding: 0; line-height: 1;
+    font-family: inherit;
+  }
+  .comment-delete:hover { color: #f85149; }
+  .comment-input-row {
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .comment-name-input {
+    width: 120px; flex-shrink: 0;
+    background: #0d1117; border: 1px solid #30363d;
+    border-radius: 6px; padding: 7px 10px;
+    font-size: 12px; color: #e6edf3;
+    font-family: inherit; resize: none;
+  }
+  .comment-text-input {
+    flex: 1;
+    background: #0d1117; border: 1px solid #30363d;
+    border-radius: 6px; padding: 7px 10px;
+    font-size: 12px; color: #e6edf3;
+    font-family: inherit; resize: vertical;
+    min-height: 54px;
+  }
+  .comment-name-input:focus,
+  .comment-text-input:focus {
+    outline: none; border-color: #58a6ff;
+  }
+  .comment-submit {
+    background: #1c3a5a; border: 1px solid #2d4a6a;
+    border-radius: 6px; padding: 7px 14px;
+    font-size: 11px; font-weight: 700; color: #58a6ff;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+    align-self: flex-end;
+  }
+  .comment-submit:hover { background: #2d4a6a; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    position: fixed; top: 16px; right: 16px; z-index: 999;
+    display: flex; gap: 8px;
+  }
+  .toolbar-btn {
+    background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 8px 14px;
+    font-size: 11px; font-weight: 700; color: #e6edf3;
+    cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .toolbar-btn:hover { background: #21262d; }
+  .toolbar-btn.export { color: #3fb950; border-color: #1a3d28; }
+  .toolbar-btn.clear { color: #f85149; border-color: #3d1e1e; }
+
+  /* ── COMMENT SUMMARY PANEL ── */
+  .summary-panel {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7); z-index: 1000;
+    justify-content: center; align-items: center;
+  }
+  .summary-panel.open { display: flex; }
+  .summary-inner {
+    background: #161b22; border: 1px solid #30363d;
+    border-radius: 12px; padding: 24px; max-width: 800px;
+    width: 90%; max-height: 80vh; overflow-y: auto;
+  }
+  .summary-inner h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #e6edf3; }
+  .summary-close {
+    float: right; background: none; border: none;
+    color: #8b949e; cursor: pointer; font-size: 20px; line-height: 1;
+  }
+  .summary-item { padding: 10px 0; border-bottom: 1px solid #21262d; }
+  .summary-item:last-child { border-bottom: none; }
+  .summary-q { font-size: 12px; font-weight: 700; color: #58a6ff; margin-bottom: 6px; }
+  .summary-c { font-size: 12px; color: #e6edf3; padding-left: 10px; margin-bottom: 3px; line-height: 1.5; }
+  .summary-c span { color: #d29922; font-weight: 700; }
+
   @media print {
     body { background: #fff; padding: 20px; }
     .no-print { display: none; }
+    .toolbar, .summary-panel { display: none !important; }
+    .comment-section { border-top: 1px dashed #ccc; }
+    .comment-entry { background: #f8f8f8; border: 1px solid #ddd; }
+    .comment-area { display: block !important; }
+    .comment-input-row, .comment-toggle { display: none; }
   }
 </style>
 </head>
 <body>
+
+<!-- TOOLBAR -->
+<div class="toolbar no-print">
+  <button class="toolbar-btn export" onclick="exportComments()">📋 Export Comments</button>
+  <button class="toolbar-btn" onclick="document.getElementById('summaryPanel').classList.add('open')">💬 View All Comments</button>
+  <button class="toolbar-btn clear" onclick="clearAllComments()">🗑 Clear All</button>
+</div>
+
+<!-- SUMMARY PANEL -->
+<div class="summary-panel no-print" id="summaryPanel">
+  <div class="summary-inner">
+    <button class="summary-close" onclick="document.getElementById('summaryPanel').classList.remove('open')">✕</button>
+    <h2>💬 All Comments Summary</h2>
+    <div id="summaryContent"></div>
+  </div>
+</div>
 
 <!-- HEADER -->
 <div class="header">
@@ -583,10 +721,191 @@
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
+<div class="footer no-print">
   <div>RCC × Aman Equity Investment Questionnaire | Prepared by Zera AI | May 4, 2026</div>
   <div>CONFIDENTIAL — Aman Portfolio Working Group Internal Use Only</div>
 </div>
+
+<script>
+// ── STORAGE KEY ──
+const STORE_KEY = 'rcc_aman_q_comments_v1';
+
+function loadAll() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch { return {}; }
+}
+function saveAll(data) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+}
+
+// ── INJECT COMMENT BOXES ──
+document.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.q-item');
+  items.forEach((item, idx) => {
+    const numEl = item.querySelector('.q-num');
+    const qId = 'q_' + (numEl ? numEl.textContent.trim().replace(/\s+/g,'_') : idx);
+    const qText = item.querySelector('.q-text') ? item.querySelector('.q-text').textContent.trim().slice(0, 80) + '…' : '';
+    item.dataset.qid = qId;
+    item.dataset.qtext = qText;
+
+    const box = document.createElement('div');
+    box.className = 'comment-section';
+    box.innerHTML = `
+      <button class="comment-toggle" data-qid="${qId}" onclick="toggleComment('${qId}', this)">
+        💬 <span class="toggle-label">Add comment</span>
+      </button>
+      <div class="comment-area" id="area_${qId}">
+        <div class="comment-list" id="list_${qId}"></div>
+        <div class="comment-input-row">
+          <input class="comment-name-input" id="name_${qId}" placeholder="Your name" />
+          <textarea class="comment-text-input" id="text_${qId}" placeholder="Add your comment, note, or answer here…" rows="2"></textarea>
+          <button class="comment-submit" onclick="submitComment('${qId}', '${qText.replace(/'/g,"\\'")}')">Post</button>
+        </div>
+      </div>
+    `;
+    item.querySelector('.q-body').appendChild(box);
+
+    // Render existing comments
+    renderComments(qId);
+    updateToggleLabel(qId);
+  });
+});
+
+function toggleComment(qId, btn) {
+  const area = document.getElementById('area_' + qId);
+  const isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    const inp = document.getElementById('text_' + qId);
+    if (inp) inp.focus();
+  }
+}
+
+function submitComment(qId, qText) {
+  const nameEl = document.getElementById('name_' + qId);
+  const textEl = document.getElementById('text_' + qId);
+  const name = (nameEl.value.trim()) || 'Anonymous';
+  const text = textEl.value.trim();
+  if (!text) return;
+
+  const data = loadAll();
+  if (!data[qId]) data[qId] = { qText, comments: [] };
+  data[qId].comments.push({
+    author: name,
+    text,
+    ts: new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
+  });
+  saveAll(data);
+  textEl.value = '';
+  renderComments(qId);
+  updateToggleLabel(qId);
+}
+
+function renderComments(qId) {
+  const listEl = document.getElementById('list_' + qId);
+  if (!listEl) return;
+  const data = loadAll();
+  const comments = (data[qId] && data[qId].comments) || [];
+  listEl.innerHTML = comments.map((c, i) => `
+    <div class="comment-entry">
+      <div class="comment-meta">
+        <span class="comment-author">👤 ${c.author}</span>
+        <span class="comment-time">${c.ts}</span>
+      </div>
+      <div class="comment-text-display">${c.text.replace(/\n/g,'<br>')}</div>
+      <button class="comment-delete" onclick="deleteComment('${qId}', ${i})" title="Delete">✕</button>
+    </div>
+  `).join('');
+}
+
+function deleteComment(qId, idx) {
+  const data = loadAll();
+  if (data[qId] && data[qId].comments) {
+    data[qId].comments.splice(idx, 1);
+    saveAll(data);
+    renderComments(qId);
+    updateToggleLabel(qId);
+  }
+}
+
+function updateToggleLabel(qId) {
+  const btn = document.querySelector(`.comment-toggle[data-qid="${qId}"]`);
+  if (!btn) return;
+  const data = loadAll();
+  const count = (data[qId] && data[qId].comments) ? data[qId].comments.length : 0;
+  const label = btn.querySelector('.toggle-label');
+  if (count > 0) {
+    btn.classList.add('has-comment');
+    if (label) label.textContent = `${count} comment${count > 1 ? 's' : ''}`;
+  } else {
+    btn.classList.remove('has-comment');
+    if (label) label.textContent = 'Add comment';
+  }
+}
+
+function exportComments() {
+  const data = loadAll();
+  const lines = ['RCC × Aman — Comments Export', `Generated: ${new Date().toLocaleString()}`, ''];
+  let hasAny = false;
+  Object.entries(data).forEach(([qId, qData]) => {
+    if (!qData.comments || qData.comments.length === 0) return;
+    hasAny = true;
+    lines.push(`--- ${qId} ---`);
+    lines.push(`Q: ${qData.qText}`);
+    qData.comments.forEach(c => {
+      lines.push(`  [${c.ts}] ${c.author}: ${c.text}`);
+    });
+    lines.push('');
+  });
+  if (!hasAny) { alert('No comments to export yet.'); return; }
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aman-questionnaire-comments-${new Date().toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+function clearAllComments() {
+  if (!confirm('Clear ALL comments? This cannot be undone.')) return;
+  localStorage.removeItem(STORE_KEY);
+  document.querySelectorAll('.q-item').forEach(item => {
+    const qId = item.dataset.qid;
+    if (qId) {
+      renderComments(qId);
+      updateToggleLabel(qId);
+    }
+  });
+}
+
+// ── SUMMARY PANEL ──
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('summaryPanel').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+function showSummary() {
+  const data = loadAll();
+  const el = document.getElementById('summaryContent');
+  const entries = Object.entries(data).filter(([, v]) => v.comments && v.comments.length > 0);
+  if (entries.length === 0) {
+    el.innerHTML = '<p style="color:#8b949e;font-size:13px">No comments yet.</p>';
+  } else {
+    el.innerHTML = entries.map(([qId, qData]) => `
+      <div class="summary-item">
+        <div class="summary-q">${qId.replace('q_','Q')}: ${qData.qText}</div>
+        ${qData.comments.map(c => `<div class="summary-c"><span>${c.author}</span> [${c.ts}]: ${c.text.replace(/\n/g,'<br>')}</div>`).join('')}
+      </div>
+    `).join('');
+  }
+  document.getElementById('summaryPanel').classList.add('open');
+}
+
+// Override the toolbar button to use showSummary
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.toolbar-btn:nth-child(2)');
+  if (btn) btn.onclick = showSummary;
+});
+</script>
 
 </body>
 </html>
