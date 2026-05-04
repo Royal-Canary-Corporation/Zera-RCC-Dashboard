@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RCC × Aman — Question Grouping Briefing</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background: #0d1117; color: #e6edf3;
+    font-size: 13px; padding: 32px; min-width: 1200px;
+  }
+  .header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #30363d;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header .sub { font-size: 13px; color: #8b949e; margin-top: 5px; }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .badge-conf { background: #3d1e1e; color: #f85149; border: 1px solid #6e2a2a; }
+  .badge-rcc { background: #1c2a3a; color: #58a6ff; border: 1px solid #2d4a6a; }
+  .date { font-size: 11px; color: #8b949e; margin-top: 8px; text-align: right; }
+
+  /* GROUP HEADERS */
+  .group-block { margin-bottom: 32px; }
+  .group-header {
+    padding: 16px 20px; border-radius: 10px 10px 0 0;
+    border: 1px solid; border-bottom: none;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .gh-g1 { background: #0d1f33; border-color: #1c3a5a; }
+  .gh-g2 { background: #0e2218; border-color: #1a3d28; }
+  .group-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; flex-shrink: 0;
+  }
+  .gn-1 { background: #58a6ff; color: #0d1117; }
+  .gn-2 { background: #3fb950; color: #0d1117; }
+  .group-title { font-size: 16px; font-weight: 700; }
+  .g1 .group-title { color: #58a6ff; }
+  .g2 .group-title { color: #3fb950; }
+  .group-desc { font-size: 12px; color: #8b949e; margin-top: 4px; line-height: 1.5; }
+
+  /* THESIS BOX */
+  .thesis-box {
+    padding: 14px 18px; margin: 0;
+    border: 1px solid; border-top: none; border-bottom: none;
+  }
+  .tb-1 { background: #0a1829; border-color: #1c3a5a; }
+  .tb-2 { background: #081810; border-color: #1a3d28; }
+  .thesis-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .tl-1 { color: #58a6ff; }
+  .tl-2 { color: #3fb950; }
+  .thesis-text { font-size: 13px; font-weight: 600; font-style: italic; line-height: 1.5; }
+  .t-1 { color: #a5c8ff; }
+  .t-2 { color: #8fcfa0; }
+
+  /* CATEGORY */
+  .cat-block {
+    border: 1px solid; border-top: none;
+    overflow: hidden;
+  }
+  .cat-block:last-child { border-radius: 0 0 10px 10px; }
+  .cb-1 { border-color: #1c3a5a; }
+  .cb-2 { border-color: #1a3d28; }
+
+  .cat-header {
+    padding: 10px 18px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    border-bottom: 1px solid;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .ch-1 { background: #0d1f33; border-color: #1c3a5a; color: #58a6ff; }
+  .ch-2 { background: #0e2218; border-color: #1a3d28; color: #3fb950; }
+
+  /* QUESTION ITEMS */
+  .q-item {
+    padding: 12px 18px;
+    border-bottom: 1px solid #21262d;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: #161b22;
+  }
+  .q-item:hover { background: #1c2128; }
+  .q-item:last-child { border-bottom: none; }
+  .q-ref { font-size: 11px; font-weight: 700; color: #6e7681; padding-top: 1px; text-align: right; white-space: nowrap; }
+  .q-text { font-size: 13px; color: #e6edf3; line-height: 1.5; font-weight: 500; }
+  .q-why { font-size: 11px; color: #8b949e; margin-top: 4px; line-height: 1.5; font-style: italic; }
+  .q-why em { color: #d29922; font-style: normal; font-weight: 600; }
+
+  /* TAGS */
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin: 2px;
+  }
+  .tag-meeting { background: #1c3a5a; color: #58a6ff; }
+  .tag-vdr { background: #0e2218; color: #3fb950; }
+  .tag-critical { background: #200d0d; color: #f85149; }
+
+  /* SUMMARY STRIP */
+  .summary-strip {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 24px;
+  }
+  .ss-card {
+    padding: 16px 18px; border-radius: 10px; border: 1px solid;
+  }
+  .ss-1 { background: #0d1f33; border-color: #1c3a5a; }
+  .ss-2 { background: #0e2218; border-color: #1a3d28; }
+  .ss-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .ssl-1 { color: #58a6ff; }
+  .ssl-2 { color: #3fb950; }
+  .ss-count { font-size: 28px; font-weight: 700; }
+  .ssc-1 { color: #58a6ff; }
+  .ssc-2 { color: #3fb950; }
+  .ss-desc { font-size: 11px; color: #8b949e; margin-top: 4px; line-height: 1.5; }
+
+  .footer {
+    margin-top: 32px; padding-top: 16px; border-top: 1px solid #30363d;
+    font-size: 10px; color: #6e7681; display: flex; justify-content: space-between;
+  }
+  @media print {
+    body { background: #fff; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>🏨 RCC × Aman — Priority Question Grouping</h1>
+    <div class="sub">Tổng hợp từ Team Questionnaire · Grouped for Singapore 05/05 & VDR Phase</div>
+  </div>
+  <div style="text-align:right">
+    <span class="badge badge-conf">Confidential</span>&nbsp;
+    <span class="badge badge-rcc">RCC Internal</span>
+    <div class="date">May 4, 2026 &nbsp;|&nbsp; Project Aman Equity</div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary-strip">
+  <div class="ss-card ss-1">
+    <div class="ss-label ssl-1">Group 1 — Singapore Meeting 05/05</div>
+    <div class="ss-count ssc-1">10 questions</div>
+    <div class="ss-desc">Thesis: "Buy in now = start of explosive growth, or did we miss it?"<br>Target: Aman Group principals in the room tomorrow</div>
+  </div>
+  <div class="ss-card ss-2">
+    <div class="ss-label ssl-2">Group 2 — VDR & Aman Team to Provide</div>
+    <div class="ss-count ssc-2">15 questions</div>
+    <div class="ss-desc">Everything needed for full picture before committing<br>Target: Data room + follow-up DD sessions</div>
+  </div>
+</div>
+
+<!-- ══ GROUP 1 ══ -->
+<div class="group-block g1">
+  <div class="group-header gh-g1">
+    <div class="group-num gn-1">1</div>
+    <div>
+      <div class="group-title">Questions for Singapore Meeting — 05/05/2026</div>
+      <div class="group-desc">Conversational, strategic, thesis-building. Goal: leave the room knowing whether the next 10 years are Aman's inflection point — or if we missed it.</div>
+    </div>
+  </div>
+  <div class="thesis-box tb-1">
+    <div class="thesis-label tl-1">Core Thesis to Test</div>
+    <div class="thesis-text t-1">"If we buy in now — are the next 10 years explosive growth, or were the last 10 years the growth phase and we're arriving late?"</div>
+  </div>
+
+  <!-- CAT A -->
+  <div class="cat-block cb-1">
+    <div class="cat-header ch-1">📈 A. Growth Trajectory — Are We at the Inflection Point?</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q17</div>
+      <div>
+        <div class="q-text">Aman has historically grown slowly — roughly 36 properties over 30+ years. Is this changing? What is driving the acceleration, and what guardrails does Aman have to ensure growth doesn't dilute the brand?</div>
+        <div class="q-why"><em>Why:</em> The single most important framing question. If Aman is entering a deliberate growth phase with the right governance, that is the investment thesis. If they are growing because investors are pushing them, that is a risk.</div>
+        <span class="tag tag-meeting">Meeting Q</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q15</div>
+      <div>
+        <div class="q-text">What is Aman's current pipeline — how many properties, in which markets, and at what stage? What is the total capital required to execute?</div>
+        <div class="q-why"><em>Why:</em> Pipeline health = future equity value. We are investing in the brand + pipeline, not just today's assets. This sets the growth floor.</div>
+        <span class="tag tag-meeting">Meeting Q</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q4</div>
+      <div>
+        <div class="q-text">What is the branded residence model — how are residences priced, sold, and managed, and what revenue flows back to HoldCo equity holders?</div>
+        <div class="q-why"><em>Why:</em> Branded residences (NYC at $20M+/unit, Tokyo, Kyoto) are increasingly Aman's primary profit driver and growth engine. As equity investors, we need to know whether we participate in this upside or whether it sits in a separate vehicle.</div>
+        <span class="tag tag-meeting">Meeting Q</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q19</div>
+      <div>
+        <div class="q-text">How does Janu fit into the group strategy — is it a feeder brand, a standalone play, or a scalability test? If Janu scales, does it protect or dilute Aman's positioning?</div>
+        <div class="q-why"><em>Why:</em> Equity in Aman Group includes Janu exposure. We need to understand whether Janu is additive to our investment thesis or a brand risk we are unknowingly absorbing.</div>
+        <span class="tag tag-meeting">Meeting Q</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAT B -->
+  <div class="cat-block cb-1">
+    <div class="cat-header ch-1">🌏 B. SEA & Vietnam — Is There a Role for RCC Beyond Capital?</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q18</div>
+      <div>
+        <div class="q-text">What is Aman's strategy for Southeast Asia over the next 10 years? Are there properties planned for Vietnam, and what does Aman look for in a local development partner?</div>
+        <div class="q-why"><em>Why:</em> RCC's primary interest beyond returns is becoming Aman's preferred development partner in Vietnam. This question positions that conversation without over-committing.</div>
+        <span class="tag tag-meeting">Meeting Q</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q16</div>
+      <div>
+        <div class="q-text">When Aman enters a new market — who drives that conversation? Does Aman choose locations, or do investor-partners propose and qualify locations?</div>
+        <div class="q-why"><em>Why:</em> We want to understand the development origination model — so RCC knows whether to pitch Vietnam proactively or wait for Aman to signal interest first.</div>
+        <span class="tag tag-meeting">Meeting Q</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAT C -->
+  <div class="cat-block cb-1">
+    <div class="cat-header ch-1">🧠 C. Business Model — The Non-Obvious Economics</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q1</div>
+      <div>
+        <div class="q-text">Walk us through a fully loaded P&L for a typical Aman property — from RevPAR to owner-level distribution. How does a "good year" compare to a Six Senses or COMO at similar scale?</div>
+        <div class="q-why"><em>Why (from team):</em> RCC has never modeled at this ADR/occupancy ratio. We need the P/L structure — and a peer comparison — before we can form a credible view on value. Comparable brands (Six Senses, COMO, Rosewood) are the benchmark.</div>
+        <span class="tag tag-meeting">Meeting Q</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q2</div>
+      <div>
+        <div class="q-text">What does Aman's revenue mix actually look like — rooms vs. F&B vs. residences vs. experiences? Which line is growing fastest, and why?</div>
+        <div class="q-why"><em>Why:</em> Revenue mix reveals where the real growth is coming from. If residences are 40% of revenue and growing, the investment story is very different from a pure hospitality play.</div>
+        <span class="tag tag-meeting">Meeting Q</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q9</div>
+      <div>
+        <div class="q-text">Has Aman ever experienced meaningful guest attrition after a renovation, ownership change, or management transition — and how was it recovered?</div>
+        <div class="q-why"><em>Why:</em> This tells us how sensitive the Aman guest base is to exactly what we are about to do — introduce new ownership. The answer shapes how visible or invisible RCC should be post-close.</div>
+        <span class="tag tag-meeting">Meeting Q</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ GROUP 2 ══ -->
+<div class="group-block g2" style="margin-top:32px">
+  <div class="group-header gh-g2">
+    <div class="group-num gn-2">2</div>
+    <div>
+      <div class="group-title">Information Expected from VDR & Aman Team</div>
+      <div class="group-desc">Everything we need to form a complete picture. These are not conversational questions — they are data and disclosure requests for the due diligence phase.</div>
+    </div>
+  </div>
+  <div class="thesis-box tb-2">
+    <div class="thesis-label tl-2">What We Need to See Before We Commit</div>
+    <div class="thesis-text t-2">"We expect Aman and the VDR to provide the following to enable a full and informed investment decision."</div>
+  </div>
+
+  <!-- CAT D -->
+  <div class="cat-block cb-2">
+    <div class="cat-header ch-2">💰 D. Financial Performance — Full Transparency</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q1↗</div>
+      <div>
+        <div class="q-text">5 years of audited P&L at HoldCo level and by property cluster — Revenue, EBITDA, Net Profit, Occupancy, ADR, RevPAR. Pre- and post-COVID comparison included.</div>
+        <div class="q-why"><em>VDR request.</em> Non-negotiable baseline for any valuation work.</div>
+        <span class="tag tag-vdr">VDR</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q1↗</div>
+      <div>
+        <div class="q-text">Peer P&L benchmarks — comparable financials or published data for Six Senses, COMO, Rosewood at similar property scale, to contextualise Aman's performance.</div>
+        <div class="q-why"><em>Team request (Bach + Anonymous).</em> RCC needs a reference frame — not just Aman's numbers in isolation.</div>
+        <span class="tag tag-vdr">VDR / Aman Team</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q4↗</div>
+      <div>
+        <div class="q-text">Branded residence revenue recognition — full waterfall showing how pre-sale proceeds and completed residence revenues flow through to HoldCo equity holders.</div>
+        <div class="q-why"><em>VDR request.</em> If residences are increasingly the profit driver, we need to understand whether equity investors participate or whether this sits in a separate SPV.</div>
+        <span class="tag tag-vdr">VDR</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q3↗</div>
+      <div>
+        <div class="q-text">Full management agreement template — base management fee, incentive fee structure, brand royalty, FF&E reserve requirements, and owner termination rights.</div>
+        <div class="q-why"><em>VDR request.</em> The management agreement is where owner-operator economics are determined. Need to understand the full cost structure before modelling returns.</div>
+        <span class="tag tag-vdr">VDR</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAT E -->
+  <div class="cat-block cb-2">
+    <div class="cat-header ch-2">⚖️ E. Cap Table, Governance & Investor Rights</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q20</div>
+      <div>
+        <div class="q-text">Full current cap table — Mubadala %, PIF %, all other shareholders — plus rights summary for each existing investor (board representation, veto rights, information rights, economic preferences).</div>
+        <div class="q-why"><em>VDR / Aman Team.</em> We are entering an existing coalition. We need to understand whose rights we are subordinate to and what governance dynamics already exist.</div>
+        <span class="tag tag-vdr">VDR</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q21</div>
+      <div>
+        <div class="q-text">Historical governance: how have major decisions (new properties, capital calls, management changes) been made among existing investors? Have there been disagreements?</div>
+        <div class="q-why"><em>Aman Team.</em> Coalition health matters. SWF investors (Mubadala, PIF) have very different horizons from a strategic investor like RCC.</div>
+        <span class="tag tag-vdr">Aman Team</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q22</div>
+      <div>
+        <div class="q-text">Exit mechanisms and precedents — has any existing investor done a secondary sale? What IPO readiness looks like, and what the realistic exit options are for a minority investor over a 5–10 year horizon.</div>
+        <div class="q-why"><em>Critical.</em> Ultra-luxury brands are illiquid. Without clarity on exit, RCC cannot model IRR with confidence.</div>
+        <span class="tag tag-vdr">VDR / Aman Team</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q23</div>
+      <div>
+        <div class="q-text">Investor conduct covenants — does Aman have formal or informal standards for investor behaviour to protect brand reputation? What are the remedies if an investor creates brand risk?</div>
+        <div class="q-why"><em>Aman Team.</em> This is a governance issue unique to brand-operated luxury assets. We want to understand what obligations come with equity — in both directions.</div>
+        <span class="tag tag-vdr">Aman Team</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAT F -->
+  <div class="cat-block cb-2">
+    <div class="cat-header ch-2">🏗️ F. Pipeline, Operations & Ramp-Up</div>
+
+    <div class="q-item">
+      <div class="q-ref">Q15↗</div>
+      <div>
+        <div class="q-text">Full pipeline detail — each planned property: market, site status, investment stage, capex estimate, projected opening date, and funding source (HoldCo capital call vs. project-level financing).</div>
+        <div class="q-why"><em>VDR request.</em> Pipeline execution capacity and capital requirements directly affect what our equity stake is worth and when dilution could occur.</div>
+        <span class="tag tag-vdr">VDR</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q10</div>
+      <div>
+        <div class="q-text">Staff-to-guest ratios, labor cost as % of revenue, and how this benchmarks against luxury peers. What does the fully-loaded cost structure look like for a new property opening?</div>
+        <div class="q-why"><em>VDR / Aman Team.</em> RCC has never operated at this staffing intensity. Understanding the labor economics is essential for any EBITDA modelling.</div>
+        <span class="tag tag-vdr">VDR / Aman Team</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q_Son</div>
+      <div>
+        <div class="q-text">Typical ramp-up period for a new Aman property by location type (urban vs. resort vs. remote island) — how long to reach stabilised occupancy and ADR, and what drives variance?</div>
+        <div class="q-why"><em>Team request (Sơn).</em> Critical for modelling new property contributions to HoldCo — and for RCC's own interest in introducing Aman to Vietnam.</div>
+        <span class="tag tag-vdr">Aman Team</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-ref">Q12</div>
+      <div>
+        <div class="q-text">Operational immersion access — can RCC team members stay as guests and shadow operations at an existing Aman property in Asia as part of the DD process?</div>
+        <div class="q-why"><em>DD request.</em> No briefing replaces lived experience. This is the fastest way to close RCC's knowledge gap on the product and culture before we commit capital.</div>
+        <span class="tag tag-vdr">Aman Team Request</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>RCC × Aman — Question Grouping Briefing | Compiled by Zera AI | May 4, 2026</div>
+  <div>CONFIDENTIAL — Aman Portfolio Working Group Internal Use Only</div>
+</div>
+
+</body>
+</html>
