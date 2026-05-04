@@ -727,86 +727,53 @@
 </div>
 
 <script>
-// ── CONFIG — GitHub Issues as shared comment backend ──
-// CORS verified: api.github.com allows Authorization + POST from browsers
-const GH_TOKEN = 'ghp_5syxrjGLSa0M7f8gRgFWFZWRzKVIIR3pNJId';
-const GH_REPO  = 'royal-canary-corporation/Zera-RCC-Dashboard';
-const GH_LABEL = 'aman-q-comment';
-const GH_API   = 'https://api.github.com';
-const GH_HDR   = { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json', 'User-Agent': 'rcc-aman-q' };
+// ── CONFIG — Google Apps Script backend (shared, real-time) ──
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBOPJb0yeAiXBEadgnBc_GKdcg-sphP200D0ZuOjjtJeDXMRPU9AKfGww_WVDWk9W9OQ/exec';
 
-// Cache: qId → { issueNumber, comments[] }
-const _issueCache = {};
+// In-memory cache: qId → [{ id, author, text, ts }]
+const _commentCache = {};
+const _issueCache = {};  // kept for compatibility
 
-// ── GET or CREATE issue for a question ──
-async function getOrCreateIssue(qId, qText) {
-  if (_issueCache[qId]) return _issueCache[qId].number;
-
-  // Search for existing issue by title
-  const searchTitle = encodeURIComponent(`[AMAN-Q] ${qId}`);
-  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues?labels=${GH_LABEL}&state=open&per_page=100`, { headers: GH_HDR });
-  const issues = await r.json();
-  const existing = issues.find(i => i.title.startsWith(`[AMAN-Q] ${qId}`));
-  if (existing) {
-    _issueCache[qId] = { number: existing.number };
-    return existing.number;
-  }
-
-  // Create new issue
-  const body = { title: `[AMAN-Q] ${qId}`, body: `**Question:** ${qText}\n\n_Comment thread — managed by Zera AI._`, labels: [GH_LABEL] };
-  const cr = await fetch(`${GH_API}/repos/${GH_REPO}/issues`, { method: 'POST', headers: GH_HDR, body: JSON.stringify(body) });
-  const issue = await cr.json();
-  _issueCache[qId] = { number: issue.number };
-  return issue.number;
-}
-
-// ── FETCH comments for a question ──
-async function fetchComments(qId) {
-  const num = _issueCache[qId] && _issueCache[qId].number;
-  if (!num) return [];
-  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/${num}/comments?per_page=100`, { headers: GH_HDR });
-  const data = await r.json();
-  return data.map(c => {
-    // Parse "**Name:** text" format
-    const match = c.body.match(/^\*\*(.+?):\*\*\s*([\s\S]*)/);
-    return {
-      author: match ? match[1] : c.user.login,
-      text: match ? match[2].trim() : c.body,
-      ts: new Date(c.created_at).toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }),
-      id: c.id
-    };
-  });
-}
-
-// ── FETCH all questions' issues at once ──
-async function prefetchAllIssues() {
+// ── LOAD ALL COMMENTS ──
+async function loadAllComments() {
   try {
-    const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues?labels=${GH_LABEL}&state=open&per_page=100`, { headers: GH_HDR });
-    const issues = await r.json();
-    issues.forEach(i => {
-      const m = i.title.match(/^\[AMAN-Q\] (q_\S+)/);
-      if (m) _issueCache[m[1]] = { number: i.number };
-    });
-  } catch {}
+    const r = await fetch(`${SCRIPT_URL}?action=listAll`);
+    const d = await r.json();
+    if (d.ok && d.data) {
+      Object.keys(d.data).forEach(qId => {
+        _issueCache[qId] = { comments: d.data[qId] };
+      });
+    }
+  } catch (e) { console.warn('Load failed:', e); }
 }
 
 // ── POST a new comment ──
-async function postComment(issueNum, author, text) {
-  const body = { body: `**${author}:** ${text}` };
-  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/${issueNum}/comments`, {
-    method: 'POST', headers: GH_HDR, body: JSON.stringify(body)
+async function postGASComment(qId, qText, author, text) {
+  const r = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ action: 'add', qId, qText, author, text })
   });
-  if (!r.ok) throw new Error('Post failed: ' + r.status);
-  return await r.json();
+  const d = await r.json();
+  if (!d.ok) throw new Error('Post failed');
+  return { id: d.id, author, text, ts: d.ts };
 }
 
 // ── DELETE a comment ──
-async function deleteGHComment(commentId) {
-  const r = await fetch(`${GH_API}/repos/${GH_REPO}/issues/comments/${commentId}`, {
-    method: 'DELETE', headers: GH_HDR
+async function deleteGASComment(id) {
+  const r = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ action: 'delete', id })
   });
-  if (!r.ok) throw new Error('Delete failed: ' + r.status);
+  const d = await r.json();
+  if (!d.ok) throw new Error('Delete failed');
 }
+
+// Stubs for compatibility
+async function prefetchAllIssues() { await loadAllComments(); }
+async function getOrCreateIssue(qId, qText) { return null; }
+async function deleteGHComment(id) { await deleteGASComment(id); }
 
 // ── INJECT COMMENT BOXES ──
 document.addEventListener('DOMContentLoaded', async () => {
@@ -913,9 +880,7 @@ async function submitComment(qId) {
   try {
     const item = document.querySelector(`.q-item[data-qid="${qId}"]`);
     const qText = item ? item.dataset.qtext : '';
-    const issueNum = await getOrCreateIssue(qId, qText);
-    const newC = await postComment(issueNum, name, text);
-    const c = { author: name, text, ts: new Date(newC.created_at).toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }), id: newC.id };
+    const c = await postGASComment(qId, qText, name, text);
     if (!_issueCache[qId].comments) _issueCache[qId].comments = [];
     _issueCache[qId].comments.push(c);
     textEl.value = '';
