@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RCC × Aman — Equity Investment Questionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    font-size: 13px;
+    padding: 32px;
+    min-width: 1280px;
+  }
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #30363d;
+  }
+  .header-left h1 { font-size: 24px; font-weight: 700; color: #e6edf3; }
+  .header-left .subtitle { font-size: 13px; color: #8b949e; margin-top: 5px; line-height: 1.5; }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .badge-conf { background: #3d1e1e; color: #f85149; border: 1px solid #6e2a2a; }
+  .badge-rcc { background: #1c2a3a; color: #58a6ff; border: 1px solid #2d4a6a; }
+  .date { font-size: 11px; color: #8b949e; margin-top: 8px; text-align: right; }
+
+  /* PHILOSOPHY BOX */
+  .philosophy {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-left: 4px solid #d29922;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+  .philosophy h3 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #d29922; margin-bottom: 10px; }
+  .philosophy p { font-size: 13px; color: #8b949e; line-height: 1.7; }
+  .philosophy strong { color: #e6edf3; }
+
+  /* SECTION */
+  .section-block {
+    margin-bottom: 28px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #30363d;
+    border-bottom: none;
+  }
+  .section-icon { font-size: 18px; }
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
+  .section-sub { font-size: 11px; color: #8b949e; margin-left: auto; font-style: italic; }
+
+  .sh-blue { background: #0d1f33; border-color: #1c3a5a; }
+  .sh-blue .section-title { color: #58a6ff; }
+  .sh-gold { background: #1e1a0a; border-color: #4a3a10; }
+  .sh-gold .section-title { color: #d29922; }
+  .sh-green { background: #0a1e12; border-color: #1a3d28; }
+  .sh-green .section-title { color: #3fb950; }
+  .sh-purple { background: #180f2e; border-color: #3d2070; }
+  .sh-purple .section-title { color: #bc8cff; }
+  .sh-red { background: #200d0d; border-color: #5a1a1a; }
+  .sh-red .section-title { color: #f85149; }
+  .sh-teal { background: #0a1e1e; border-color: #1a3d3d; }
+  .sh-teal .section-title { color: #39d3d3; }
+  .sh-orange { background: #1e1308; border-color: #4a2e10; }
+  .sh-orange .section-title { color: #f0883e; }
+
+  /* Q ITEMS */
+  .q-list {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+  }
+  .q-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid #21262d;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .q-item:last-child { border-bottom: none; }
+  .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6e7681;
+    padding-top: 1px;
+    text-align: right;
+  }
+  .q-body {}
+  .q-text {
+    font-size: 13px;
+    color: #e6edf3;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+  .q-intent {
+    font-size: 11px;
+    color: #8b949e;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .q-intent em { color: #d29922; font-style: normal; font-weight: 500; }
+
+  /* TAGS */
+  .tag {
+    display: inline-block; padding: 1px 7px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-right: 4px; margin-bottom: 4px;
+  }
+  .tag-self { background: #0d1f33; color: #58a6ff; }
+  .tag-ask { background: #1e1a0a; color: #d29922; }
+  .tag-edu { background: #180f2e; color: #bc8cff; }
+  .tag-critical { background: #200d0d; color: #f85149; }
+
+  /* LEGEND */
+  .legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 24px;
+    font-size: 11px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+
+  /* MINDSET BOX */
+  .mindset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .mindset-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .mindset-card .mc-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: #8b949e; margin-bottom: 8px;
+  }
+  .mindset-card .mc-title { font-size: 13px; font-weight: 700; color: #e6edf3; margin-bottom: 6px; }
+  .mindset-card .mc-desc { font-size: 11px; color: #8b949e; line-height: 1.6; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 36px; padding-top: 16px; border-top: 1px solid #30363d;
+    font-size: 10px; color: #6e7681; display: flex; justify-content: space-between;
+  }
+
+  @media print {
+    body { background: #fff; padding: 20px; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>🏨 RCC × Aman — Equity Investment Questionnaire</h1>
+    <div class="subtitle">
+      "You don't know what you don't know" — Questions for First-Time Ultra-Luxury Investors<br>
+      <span style="color:#d29922">Audience: Aman Group Team &nbsp;|&nbsp; Perspective: RCC as first-time Aman-level operator/investor</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <span class="badge badge-conf">⛔ Confidential</span>&nbsp;
+    <span class="badge badge-rcc">RCC Internal</span>
+    <div class="date">May 4, 2026 &nbsp;|&nbsp; Project Aman Equity</div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="philosophy">
+  <h3>💡 Framing Philosophy — "Unknown Unknowns"</h3>
+  <p>
+    RCC operates in hospitality at a strong mid-to-upper-luxury tier. <strong>Aman operates in a different category entirely</strong> — one where conventional hospitality logic often inverts.
+    Occupancy is not maximized. Price is not the primary signal. Marketing is nearly invisible. Guests are curated, not acquired.
+    <br><br>
+    This questionnaire is designed around the assumption that <strong>RCC does not yet know the full shape of what we don't know</strong>.
+    The questions span three modes: <em style="color:#58a6ff">Self-education</em> (what RCC must learn independently),
+    <em style="color:#d29922">Ask Aman</em> (what only Aman can answer), and
+    <em style="color:#bc8cff">Request Aman to educate us</em> (structured knowledge transfer sessions we should request).
+    Every question is tagged accordingly.
+  </p>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><span class="tag tag-self">Self-Learn</span> RCC team should research independently</div>
+  <div class="legend-item"><span class="tag tag-ask">Ask Aman</span> Direct question to Aman team in meeting</div>
+  <div class="legend-item"><span class="tag tag-edu">Request Education</span> Ask Aman to run a session/walkthrough</div>
+  <div class="legend-item"><span class="tag tag-critical">Critical</span> Must answer before any investment decision</div>
+</div>
+
+<!-- MINDSET -->
+<div class="mindset-grid">
+  <div class="mindset-card">
+    <div class="mc-label">Unknown #1</div>
+    <div class="mc-title">The Aman Guest is not a hotel customer</div>
+    <div class="mc-desc">Aman's guest has typically visited 5–15+ Aman properties. They do not "discover" Aman — they are already initiated. Acquiring them requires zero traditional marketing and everything relationship-based.</div>
+  </div>
+  <div class="mindset-card">
+    <div class="mc-label">Unknown #2</div>
+    <div class="mc-title">50% occupancy at Aman = success</div>
+    <div class="mc-desc">At $1,500–$3,000+/night ADR, 50% occupancy often outperforms a 5-star competitor at 85% occupancy in total revenue per available room. Aman never fills to capacity by design.</div>
+  </div>
+  <div class="mindset-card">
+    <div class="mc-label">Unknown #3</div>
+    <div class="mc-title">The brand IS the moat — and it's fragile</div>
+    <div class="mc-desc">A single bad guest experience — especially by a new owner unfamiliar with the culture — can damage decades of brand equity. Aman investors must understand: you own equity, not the guest relationship.</div>
+  </div>
+</div>
+
+<!-- ══ SECTION 1 ══ -->
+<div class="section-block">
+  <div class="section-header sh-blue">
+    <span class="section-icon">🧠</span>
+    <span class="section-title">I. Business Model & Revenue Architecture</span>
+    <span class="section-sub">Understanding how Aman actually makes money — and what it deliberately doesn't optimize for</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">1</div>
+      <div class="q-body">
+        <div class="q-text">Walk us through a fully loaded P&L for a typical Aman property — from top-line RevPAR to owner-level cash distribution. What does a "good year" look like in dollar terms per key?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC has never modeled at this ADR/occupancy ratio. We need to understand how $1,800 ADR at 50% occupancy translates to EBITDA margin vs. a conventional luxury hotel at $300 ADR at 80%.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">2</div>
+      <div class="q-body">
+        <div class="q-text">What % of Aman's group revenue comes from: (a) room night sales, (b) F&B, (c) spa/wellness, (d) branded residences, (e) experiences/activities, (f) other?</div>
+        <div class="q-intent"><em>Why this matters:</em> At ultra-luxury, ancillary revenue mix can be very different — and branded residence pre-sales are increasingly the primary profit driver for new Aman projects.</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">3</div>
+      <div class="q-body">
+        <div class="q-text">How does Aman's management fee structure work — base fee, incentive fee, brand royalty? Who absorbs renovation/capex risk?</div>
+        <div class="q-intent"><em>Why this matters:</em> Management agreements at this level are non-standard. RCC needs to understand whether we are in a "hotel owner" role or a "brand partner" role — the governance implications are very different.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">4</div>
+      <div class="q-body">
+        <div class="q-text">What is the branded residence model at Aman — how are residences priced, sold, managed, and what revenue flows back to the hotel OpCo vs. the residences entity?</div>
+        <div class="q-intent"><em>Why this matters:</em> Aman Residences (NYC, Tokyo, etc.) sell at $10M–$75M/unit. This is increasingly Aman's growth engine. As an equity investor, understanding whether we participate in this upside is critical.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">5</div>
+      <div class="q-body">
+        <div class="q-text">Does Aman have an Aman Club or loyalty program? How does the "Aman Junkies" community (self-organized superfans) interact with Aman commercially — and does Aman monetize or protect this?</div>
+        <div class="q-intent"><em>Why this matters:</em> Aman has a cult following unlike any other brand. Understanding the informal loyalty ecosystem — and whether Aman can or should formalize it — is a growth lever we've never encountered at RCC's current level.</div>
+        <span class="tag tag-self">Self-Learn</span><span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 2 ══ -->
+<div class="section-block">
+  <div class="section-header sh-gold">
+    <span class="section-icon">👤</span>
+    <span class="section-title">II. The Aman Guest — Who They Are & How They're Served</span>
+    <span class="section-sub">The guest relationship is the product. Understanding this is non-negotiable before investing.</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">6</div>
+      <div class="q-body">
+        <div class="q-text">Can you profile the Aman guest — NW bracket, nationality mix, booking lead time, average LOS (length of stay), and repeat visit frequency?</div>
+        <div class="q-intent"><em>Why this matters:</em> We need to understand whether Aman's guest base is growing (new UHNW cohorts in Asia, Middle East) or maturing. Demographic health = brand health.</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">7</div>
+      <div class="q-body">
+        <div class="q-text">How does Aman acquire a new guest — and what is the role of the General Manager vs. the brand in that relationship?</div>
+        <div class="q-intent"><em>Why this matters:</em> In conventional hospitality, the brand acquires guests through OTAs and marketing. At Aman, we suspect it's primarily referral/relationship-based through GMs, travel designers, and the existing guest network. We want to verify this — and understand the risk if a key GM leaves.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">8</div>
+      <div class="q-body">
+        <div class="q-text">What do Aman guests explicitly say they are paying for — and what would cause them to leave the brand?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC needs to understand what is sacred about the Aman experience from the guest's perspective. This shapes every operational and investment decision.</div>
+        <span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">9</div>
+      <div class="q-body">
+        <div class="q-text">Has Aman ever lost a significant cohort of loyal guests after a property renovation, ownership change, or management transition? What happened and how was it recovered?</div>
+        <div class="q-intent"><em>Why this matters:</em> This is the "unknown unknown" — we don't know how sensitive the Aman guest base is to ownership-level changes. The answer will inform how visible RCC should be (or not be) post-acquisition.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 3 ══ -->
+<div class="section-block">
+  <div class="section-header sh-green">
+    <span class="section-icon">⚙️</span>
+    <span class="section-title">III. Operations & People — The Hidden Complexity</span>
+    <span class="section-sub">Ultra-luxury operations are disproportionately people-dependent. RCC has zero experience at this staff-to-guest ratio.</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">10</div>
+      <div class="q-body">
+        <div class="q-text">What is the staff-to-guest ratio at a typical Aman property? How does this compare to a 5-star luxury property — and what does this mean for labor cost as % of revenue?</div>
+        <div class="q-intent"><em>Why this matters:</em> We expect Aman properties operate at 3:1 to 6:1 staff-to-guest ratio. The labor economics are completely different from what RCC models. This is an unknown that will reshape our EBITDA expectations.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">11</div>
+      <div class="q-body">
+        <div class="q-text">How does Aman recruit and retain General Managers? What is the average GM tenure, what does Aman pay them, and what is the succession planning model?</div>
+        <div class="q-intent"><em>Why this matters:</em> The GM at an Aman property is often the reason guests return. Losing a GM can mean losing 20-30% of a loyal guest base. As an investor, we need to understand this key-person risk.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">12</div>
+      <div class="q-body">
+        <div class="q-text">Can RCC as a new equity investor send team members to shadow operations at an existing Aman property for 2–4 weeks as part of the DD/onboarding process?</div>
+        <div class="q-intent"><em>Why this matters:</em> No briefing document can replace direct observation. This is the fastest way to compress the "unknown unknown" gap. We want to understand if this access is possible and under what conditions.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">13</div>
+      <div class="q-body">
+        <div class="q-text">What does "Aman service culture" mean operationally — is it codified, how is it trained, and how is it enforced across properties in different countries?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC understands service at the Marriott/IHG level. We want to understand whether Aman's culture is transferable or whether it's highly local/people-dependent. This impacts scalability of our investment thesis.</div>
+        <span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">14</div>
+      <div class="q-body">
+        <div class="q-text">When something goes wrong for an Aman guest — a serious complaint, a safety incident — what is the resolution protocol and what does it cost? Has Aman ever had a reputational incident?</div>
+        <div class="q-intent"><em>Why this matters:</em> At this guest profile, a botched complaint handling can result in a guest never returning and telling 50 other UHNW contacts. The risk management model at ultra-luxury is completely different.</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 4 ══ -->
+<div class="section-block">
+  <div class="section-header sh-purple">
+    <span class="section-icon">📈</span>
+    <span class="section-title">IV. Growth Strategy — Where Aman is Going</span>
+    <span class="section-sub">Understanding Aman's 5–10 year trajectory as a system — not just as individual assets</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">15</div>
+      <div class="q-body">
+        <div class="q-text">What is Aman's current pipeline — how many properties, in which markets, and at what investment stage? What is the capital requirement to execute this pipeline?</div>
+        <div class="q-intent"><em>Why this matters:</em> As an equity investor in Aman Group (HoldCo level), we are investing in the pipeline and brand, not just existing assets. We need to understand whether pipeline creates dilution, value, or both.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">16</div>
+      <div class="q-body">
+        <div class="q-text">How does Aman decide where to build a new property — what are the site selection criteria, and does Aman ever turn down money from investors who want to bring Aman to a location?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC is interested in potentially introducing Aman to Vietnam. But we need to understand: does Aman choose locations, or do investors propose locations? Who drives the conversation?</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">17</div>
+      <div class="q-body">
+        <div class="q-text">Aman has historically grown slowly (~36 properties in 30+ years). Is this changing? What is the risk that accelerated growth dilutes the brand — and how does Aman manage this internally?</div>
+        <div class="q-intent"><em>Why this matters:</em> Expansion speed is an existential question for ultra-luxury brands. Six Senses and COMO have faced this. RCC's investment thesis must account for whether Aman is entering a growth phase that could either create or destroy value.</div>
+        <span class="tag tag-self">Self-Learn</span><span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">18</div>
+      <div class="q-body">
+        <div class="q-text">What is Aman's strategy for Asia — specifically Southeast Asia — over the next 10 years? Are there planned properties in Vietnam, Indonesia beyond Bali, or other SEA markets?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC's home market is Vietnam. If Aman is planning SEA expansion, there may be a strategic role for RCC beyond pure equity — as a local development partner.</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">19</div>
+      <div class="q-body">
+        <div class="q-text">How does Aman's Janu brand (launched 2023) fit into the group strategy — is it a feeder to Aman, a standalone brand, or a test of scalability?</div>
+        <div class="q-intent"><em>Why this matters:</em> Janu represents Aman's attempt at a "second brand" — similar to how Bulgari is to Marriott. Understanding this tells us whether equity in Aman Group includes Janu exposure and what the blended brand risk looks like.</div>
+        <span class="tag tag-self">Self-Learn</span><span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 5 ══ -->
+<div class="section-block">
+  <div class="section-header sh-red">
+    <span class="section-icon">⚖️</span>
+    <span class="section-title">V. Governance & Investor Rights — What RCC Actually Controls</span>
+    <span class="section-sub">The most dangerous "unknown unknown" — how much decision-making power does a minority equity investor actually have?</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">20</div>
+      <div class="q-body">
+        <div class="q-text">What governance rights does a minority equity investor receive — board seat, observer seat, veto rights on major decisions, information rights?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC may be entering as a minority investor. Without governance rights, we are essentially a passive LP. We need to understand what "equity partner" actually means operationally in Aman's structure.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">21</div>
+      <div class="q-body">
+        <div class="q-text">Who are the other current equity investors in Aman Group — Mubadala, Saudi PIF, others? How is decision-making structured among them?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC will be co-investing alongside sovereign wealth funds with very different investment horizons and agendas. Understanding the investor coalition dynamics is critical.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">22</div>
+      <div class="q-body">
+        <div class="q-text">What are the exit mechanisms — IPO, secondary sale, strategic sale? What is the expected investment horizon, and is there a drag-along/tag-along structure?</div>
+        <div class="q-intent"><em>Why this matters:</em> RCC needs clarity on how we get our money out. Ultra-luxury brands are illiquid by nature — there is no public market. The exit path must be pre-agreed.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">23</div>
+      <div class="q-body">
+        <div class="q-text">Does Aman have a policy on investor behavior — i.e., are there conduct/reputational standards investors must maintain to protect the brand? What happens if an investor's actions create brand risk?</div>
+        <div class="q-intent"><em>Why this matters:</em> Aman's brand value is its most sensitive asset. Understanding whether there are investor behavioral covenants — and what remedies Aman has — is a governance issue RCC has likely never encountered.</div>
+        <span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 6 ══ -->
+<div class="section-block">
+  <div class="section-header sh-teal">
+    <span class="section-icon">🌱</span>
+    <span class="section-title">VI. Sustainability, ESG & The New Ultra-Luxury Standard</span>
+    <span class="section-sub">Ultra-luxury guests increasingly vote with their wallets on sustainability. This is a capex and ops question RCC has not faced at this level.</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">24</div>
+      <div class="q-body">
+        <div class="q-text">What is Aman's group-level sustainability commitment — net zero targets, biodiversity, water usage, single-use plastics? How is this enforced across individually-owned properties?</div>
+        <div class="q-intent"><em>Why this matters:</em> Aman guests increasingly select properties based on sustainability credentials. This is both a brand requirement and a capex commitment RCC must model into any investment.</div>
+        <span class="tag tag-ask">Ask Aman</span><span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">25</div>
+      <div class="q-body">
+        <div class="q-text">What does Aman's "conservation" positioning mean operationally and financially — for example, at Amanpulo, how much revenue comes from marine conservation programs vs. standard room nights?</div>
+        <div class="q-intent"><em>Why this matters:</em> At some Aman properties, conservation and sustainability are actual revenue drivers (premium experiences, philanthropic partnerships). RCC needs to understand whether this is marketing or genuine P&L contribution.</div>
+        <span class="tag tag-self">Self-Learn</span><span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SECTION 7 ══ -->
+<div class="section-block">
+  <div class="section-header sh-orange">
+    <span class="section-icon">🎓</span>
+    <span class="section-title">VII. Education Sessions — What RCC Should Formally Request from Aman</span>
+    <span class="section-sub">These are structured knowledge transfer requests — not questions for one meeting, but ongoing education tracks</span>
+  </div>
+  <div class="q-list">
+
+    <div class="q-item">
+      <div class="q-num">EDU-1</div>
+      <div class="q-body">
+        <div class="q-text">"Aman 101" — An investor education session: the history, philosophy, positioning, and what makes Aman fundamentally different from every other luxury hotel brand.</div>
+        <div class="q-intent">Suggested format: 90-min presentation by Aman Group CEO/Chief Brand Officer. Audience: full RCC Investment team. Pre-reading to be provided by Aman.</div>
+        <span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">EDU-2</div>
+      <div class="q-body">
+        <div class="q-text">A deep-dive walkthrough of a full Aman property P&L — from gross room revenue to EBITDA to owner distribution, with real numbers from a benchmark property.</div>
+        <div class="q-intent">Suggested format: 2-hour financial workshop with Aman CFO + property GM. NDA-protected. This is the most important education session for RCC to build investment conviction.</div>
+        <span class="tag tag-edu">Request Education</span><span class="tag tag-critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">EDU-3</div>
+      <div class="q-body">
+        <div class="q-text">An operational immersion: arrange for 2–3 RCC team members to stay as guests AND shadow operations at an Aman property in Asia (e.g., Amankila, Amanjiwo, or Amantaka).</div>
+        <div class="q-intent">Suggested duration: 4–7 days. This is the fastest way for RCC to understand the product from both the guest and operator perspective. No briefing replaces lived experience.</div>
+        <span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">EDU-4</div>
+      <div class="q-body">
+        <div class="q-text">A structured session on "Aman as an investment vehicle" — how current investors think about the asset class, what they've learned, and what they wish they had known before investing.</div>
+        <div class="q-intent">Suggested format: roundtable with 1–2 existing Aman investors (if Aman can arrange). Hearing from peers who have been through the investor journey would compress RCC's learning curve significantly.</div>
+        <span class="tag tag-edu">Request Education</span>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">EDU-5</div>
+      <div class="q-body">
+        <div class="q-text">A roadmap session: "How would Aman work with RCC specifically?" — mapping RCC's capabilities, network, and Vietnam/SEA footprint against Aman's strategy to identify genuine synergy areas.</div>
+        <div class="q-intent">This session flips the dynamic: RCC is not just asking to invest, but offering something. Understanding where RCC adds value — beyond capital — strengthens our negotiating position and long-term partnership potential.</div>
+        <span class="tag tag-edu">Request Education</span><span class="tag tag-ask">Ask Aman</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>RCC × Aman Equity Investment Questionnaire | Prepared by Zera AI | May 4, 2026</div>
+  <div>CONFIDENTIAL — Aman Portfolio Working Group Internal Use Only</div>
+</div>
+
+</body>
+</html>
