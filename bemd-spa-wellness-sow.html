@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f4f8;
+    padding: 24px;
+    width: 1100px;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: white;
+    padding: 22px 28px;
+    border-radius: 10px 10px 0 0;
+  }
+  .report-header h1 { font-size: 21px; font-weight: 700; letter-spacing: 0.5px; }
+  .report-header .sub { font-size: 11.5px; opacity: 0.75; margin-top: 5px; }
+  .report-header .contact { font-size: 11px; opacity: 0.6; margin-top: 3px; }
+
+  .body-wrap {
+    background: white;
+    border-radius: 0 0 10px 10px;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  /* ── Section header ── */
+  .section-hdr {
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 12.5px;
+    color: white;
+    letter-spacing: 0.3px;
+  }
+  .s-thermal { background: #b45309; }
+  .s-water   { background: #0369a1; }
+  .s-snow    { background: #4338ca; }
+  .s-hammam  { background: #9d174d; }
+  .s-eng     { background: #374151; }
+  .s-fitout  { background: #065f46; }
+  .s-payment { background: #1e293b; }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 8px 14px;
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  thead th:last-child { border-right: none; text-align: right; }
+
+  tbody tr { border-bottom: 1px solid #f1f5f9; }
+  tbody tr:hover { background: #fafcff; }
+  tbody td {
+    padding: 9px 14px;
+    color: #374151;
+    vertical-align: middle;
+    border-right: 1px solid #f1f5f9;
+  }
+  tbody td:last-child { border-right: none; text-align: right; }
+
+  td.no { color: #94a3b8; font-weight: 600; width: 36px; text-align: center; }
+  td.area-tag {
+    font-size: 11px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+  td.desc { color: #1e293b; }
+  td.cost {
+    font-weight: 700;
+    color: #1e40af;
+    white-space: nowrap;
+    font-size: 12.5px;
+  }
+
+  /* subtotal rows */
+  tr.subtotal td {
+    background: #f8fafc;
+    font-weight: 700;
+    font-size: 12px;
+    color: #1e293b;
+    border-top: 2px solid #e2e8f0;
+    padding: 10px 14px;
+  }
+  tr.subtotal td.cost-sub {
+    color: #b45309;
+    font-size: 13px;
+  }
+
+  /* ── Summary cards ── */
+  .cards {
+    display: flex;
+    gap: 0;
+    border-top: 2px solid #e2e8f0;
+  }
+  .card {
+    flex: 1;
+    padding: 18px 20px;
+    border-right: 1px solid #e2e8f0;
+    text-align: center;
+  }
+  .card:last-child { border-right: none; }
+  .card .label { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; }
+  .card .amount { font-size: 22px; font-weight: 800; color: #0f2d5e; }
+  .card .sub-amount { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+  .card.total-card { background: #0f2d5e; }
+  .card.total-card .label { color: #93c5fd; }
+  .card.total-card .amount { color: #ffffff; font-size: 26px; }
+  .card.total-card .sub-amount { color: #60a5fa; }
+
+  /* ── Payment terms ── */
+  .payment-grid {
+    display: flex;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+  .pay-block {
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pay-block .pay-title {
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 12px;
+    color: white;
+  }
+  .pay-block.eq .pay-title { background: #b45309; }
+  .pay-block.fitout .pay-title { background: #065f46; }
+  .pay-block .pay-body { background: #f8fafc; padding: 10px 14px; }
+  .pay-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 12px;
+  }
+  .pay-item:last-child { border-bottom: none; }
+  .pay-item .pct { font-weight: 700; color: #1e40af; }
+  .pay-item .trigger { color: #374151; }
+
+  /* ── Includes ── */
+  .includes {
+    padding: 14px 20px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .includes-title { font-weight: 700; font-size: 12px; color: #374151; margin-bottom: 8px; }
+  .inc-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .inc-tag {
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 12px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #6b7280;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .footer strong { color: #1e293b; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <h1>BeMD — Commercial Proposal: SPA & WELLNESS COMPLEX</h1>
+  <div class="sub">Ho Chi Minh City, Vietnam &nbsp;·&nbsp; Quotation by BeMD (Dubai, UAE)</div>
+  <div class="contact">License No. 1158947 &nbsp;|&nbsp; bemd.ae &nbsp;|&nbsp; info@bemd.ae &nbsp;|&nbsp; +971 52 363 3473 &nbsp;|&nbsp; CPO: Molodyanov Dmitry (NSF/COSBA Certified)</div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- ───── THERMAL ZONES ───── -->
+  <div class="section-hdr s-thermal">🔥 A. THERMAL ZONES — Saunas & Steam Rooms</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Zone / Description</th>
+        <th style="width:90px">Area (m²)</th>
+        <th style="width:110px">Spec</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">1</td><td class="desc">Finnish Sauna — EOS Bi-O, Swiss pine, thermo-abachi benches</td><td class="area-tag">6.04 m²</td><td class="area-tag">Compact premium</td><td class="cost">83,100</td></tr>
+      <tr><td class="no">2</td><td class="desc">Finnish Sauna — High-capacity</td><td class="area-tag">9.55 m²</td><td class="area-tag">High-cap</td><td class="cost">104,350</td></tr>
+      <tr><td class="no">3</td><td class="desc">Finnish Sauna — Compact premium</td><td class="area-tag">6.37 m²</td><td class="area-tag">Premium</td><td class="cost">85,600</td></tr>
+      <tr><td class="no">4</td><td class="desc">Finnish Sauna — Medium commercial</td><td class="area-tag">11.55 m²</td><td class="area-tag">Commercial</td><td class="cost">108,100</td></tr>
+      <tr><td class="no">5</td><td class="desc">Finnish Sauna — Large, intensive use</td><td class="area-tag">17.57 m²</td><td class="area-tag">Large</td><td class="cost">129,350</td></tr>
+      <tr><td class="no">6</td><td class="desc">Finnish Sauna — High-capacity</td><td class="area-tag">14.16 m²</td><td class="area-tag">High-cap</td><td class="cost">119,350</td></tr>
+      <tr><td class="no">7</td><td class="desc">Finnish Sauna — Medium-size</td><td class="area-tag">11.56 m²</td><td class="area-tag">Medium</td><td class="cost">108,100</td></tr>
+      <tr><td class="no">8</td><td class="desc">Steam Room — Kelo wood + EOS steam system</td><td class="area-tag">24.01 m²</td><td class="area-tag">EOS system</td><td class="cost">161,850</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Thermal Zones (7 Saunas + 1 Steam Room)</td><td class="cost-sub">€ 899,800</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── WATER SYSTEMS ───── -->
+  <div class="section-hdr s-water">💧 B. WATER SYSTEMS</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Zone / Description</th>
+        <th style="width:90px">Qty / Area</th>
+        <th style="width:110px">Brand / Spec</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">9</td><td class="desc">Swimming Pool — Filtration, heating/cooling, dosing, finishing</td><td class="area-tag">1 unit</td><td class="area-tag">Dinotec</td><td class="cost">107,000</td></tr>
+      <tr><td class="no">12</td><td class="desc">Cold Plunge Pools — Stainless steel basin, chiller, UV treatment</td><td class="area-tag">9 units</td><td class="area-tag">Dinotec / UV</td><td class="cost">264,000</td></tr>
+      <tr><td class="no">11</td><td class="desc">Bucket Showers — Cold water dumping buckets</td><td class="area-tag">12 units</td><td class="area-tag">Standard</td><td class="cost">13,200</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Water Systems (Pool + 9 Plunges + 12 Showers)</td><td class="cost-sub">€ 384,200</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── SNOW & COLD ───── -->
+  <div class="section-hdr s-snow">❄️ C. SNOW & COLD ZONES</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Zone / Description</th>
+        <th style="width:90px">Area</th>
+        <th style="width:110px">Brand / Spec</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">10</td><td class="desc">Snow Room — MSK snow generation, cooling, finishing</td><td class="area-tag">34.13 m²</td><td class="area-tag">MSK</td><td class="cost">368,300</td></tr>
+      <tr><td class="no">13</td><td class="desc">Additional Snow Generators (4 units)</td><td class="area-tag">4 pcs</td><td class="area-tag">MSK</td><td class="cost">88,000</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Snow & Cold Zones</td><td class="cost-sub">€ 434,300</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── HAMMAM ───── -->
+  <div class="section-hdr s-hammam">🕌 D. HAMMAM</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Zone / Description</th>
+        <th colspan="2">Spec</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">14</td><td class="desc">Hammam — Steam generator, waterproofing, stone, marble, lighting</td><td class="area-tag" colspan="2">Full build-out</td><td class="cost">120,000</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Hammam</td><td class="cost-sub">€ 120,000</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── ENGINEERING ───── -->
+  <div class="section-hdr s-eng">⚙️ E. ENGINEERING EQUIPMENT</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px">#</th>
+        <th>Description</th>
+        <th colspan="2">Spec</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">15</td><td class="desc">EOS heaters, control systems, power units</td><td class="area-tag" colspan="2">EOS brand</td><td class="cost">153,838</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Engineering Equipment</td><td class="cost-sub">€ 153,838</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── FIT-OUT ───── -->
+  <div class="section-hdr s-fitout">🏗️ F. GENERAL CONSTRUCTION & ENGINEERING (FIT-OUT)</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px"></th>
+        <th>Section</th>
+        <th colspan="2">Description</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">—</td><td class="desc">MEP Design</td><td class="area-tag" colspan="2">Mechanical, Electrical & Plumbing design</td><td class="cost">55,000</td></tr>
+      <tr><td class="no">—</td><td class="desc">Construction Design</td><td class="area-tag" colspan="2">Structural & architectural construction design</td><td class="cost">55,000</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — General Construction & Fit-Out</td><td class="cost-sub">€ 110,000</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── PROJECT MANAGEMENT ───── -->
+  <div class="section-hdr" style="background:#b45309;">📋 G. PROJECT MANAGEMENT (PM/CM)</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:36px"></th>
+        <th>Section</th>
+        <th colspan="2">Description</th>
+        <th style="width:120px">Cost (€)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">—</td><td class="desc">Project Management</td><td class="area-tag" colspan="2">Overall project coordination & management (PM/CM)</td><td class="cost">290,000</td></tr>
+      <tr class="subtotal"><td colspan="4">Subtotal — Project Management</td><td class="cost-sub">€ 290,000</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ───── SUMMARY CARDS ───── -->
+  <div class="cards">
+    <div class="card">
+      <div class="label">🔥 Thermal Zones</div>
+      <div class="amount">€ 899,800</div>
+      <div class="sub-amount">7 Saunas + 1 Steam Room</div>
+    </div>
+    <div class="card">
+      <div class="label">💧 Water Systems</div>
+      <div class="amount">€ 384,200</div>
+      <div class="sub-amount">Pool + 9 Plunges + 12 Showers</div>
+    </div>
+    <div class="card">
+      <div class="label">❄️ Snow & Cold</div>
+      <div class="amount">€ 434,300</div>
+      <div class="sub-amount">Snow Room + 4 Generators</div>
+    </div>
+    <div class="card">
+      <div class="label">🕌 Hammam</div>
+      <div class="amount">€ 120,000</div>
+      <div class="sub-amount">Full marble build-out</div>
+    </div>
+    <div class="card">
+      <div class="label">⚙️ Engineering</div>
+      <div class="amount">€ 153,838</div>
+      <div class="sub-amount">EOS control systems</div>
+    </div>
+    <div class="card">
+      <div class="label">🏗️ Fit-Out (F)</div>
+      <div class="amount">€ 110,000</div>
+      <div class="sub-amount">MEP + Construction Design</div>
+    </div>
+    <div class="card">
+      <div class="label">📋 PM/CM (G)</div>
+      <div class="amount">€ 290,000</div>
+      <div class="sub-amount">Project Management</div>
+    </div>
+    <div class="card total-card">
+      <div class="label">💰 GRAND TOTAL</div>
+      <div class="amount">€ 2,414,138</div>
+      <div class="sub-amount">Turnkey · EOS / Dinotec / MSK</div>
+    </div>
+  </div>
+
+  <!-- ───── INCLUDES ───── -->
+  <div class="includes">
+    <div class="includes-title">✅ Scope Includes (Turnkey Delivery)</div>
+    <div class="inc-grid">
+      <span class="inc-tag">Equipment supply (EOS / Dinotec / MSK)</span>
+      <span class="inc-tag">All construction & installation works</span>
+      <span class="inc-tag">Thermal & waterproofing systems</span>
+      <span class="inc-tag">Finishing materials (wood, stone, mosaic)</span>
+      <span class="inc-tag">Electrical works & control systems</span>
+      <span class="inc-tag">Commissioning works</span>
+      <span class="inc-tag">Full turnkey SPA zone implementation</span>
+      <span class="inc-tag">MEP design</span>
+      <span class="inc-tag">Construction design</span>
+      <span class="inc-tag">Project management</span>
+    </div>
+  </div>
+
+  <!-- ───── PAYMENT TERMS ───── -->
+  <div class="section-hdr s-payment" style="margin-top:1px;">💳 PAYMENT TERMS</div>
+  <div class="payment-grid">
+    <div class="pay-block eq">
+      <div class="pay-title">📄 Equipment & SPA Zones (€ 2,014,138)</div>
+      <div class="pay-body">
+        <div class="pay-item"><span class="trigger">Đợt 1 — Advance Payment</span><span class="pct">70% = € 1,409,897</span></div>
+        <div class="pay-item"><span class="trigger">Đợt 2 — After Equipment Installation</span><span class="pct">20% = € 402,828</span></div>
+        <div class="pay-item"><span class="trigger">Đợt 3 — After Commissioning</span><span class="pct">10% = € 201,414</span></div>
+      </div>
+    </div>
+    <div class="pay-block fitout">
+      <div class="pay-title">🏗️ Fit-Out / General Construction (€ 400,000)</div>
+      <div class="pay-body">
+        <div class="pay-item"><span class="trigger">Đợt 1 — Advance Payment</span><span class="pct">40% = € 160,000</span></div>
+        <div class="pay-item"><span class="trigger">Đợt 2 — By Project Stages</span><span class="pct">40% = € 160,000</span></div>
+        <div class="pay-item"><span class="trigger">Đợt 3 — Upon Completion</span><span class="pct">20% = € 80,000</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div>
+    <strong>Supplier:</strong> BeMD — Dubai, UAE &nbsp;|&nbsp; License No. 1158947 &nbsp;|&nbsp;
+    <strong>CPO:</strong> Molodyanov Dmitry (NSF Certified / COSBA / Dinotec Certified Germany) &nbsp;|&nbsp;
+    <strong>Equipment:</strong> EOS (Germany) / Dinotec (Germany) / MSK (Germany)
+  </div>
+  <div style="font-weight:700; font-size:13px; color:#0f2d5e; white-space:nowrap; margin-left:16px;">
+    TOTAL: <span style="color:#dc2626;">€ 2,414,138</span>
+  </div>
+</div>
+
+</body>
+</html>
