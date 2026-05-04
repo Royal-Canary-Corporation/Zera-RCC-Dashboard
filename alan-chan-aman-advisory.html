@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alan Chan — Aman Deal Advisory Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    font-size: 13px;
+    padding: 36px;
+    min-width: 1200px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #30363d;
+  }
+  .header-left { display: flex; gap: 20px; align-items: flex-start; }
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, #1c3a5a, #2d4a6a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+    border: 2px solid #30363d;
+  }
+  .header-name { font-size: 26px; font-weight: 700; color: #e6edf3; letter-spacing: -0.3px; }
+  .header-title { font-size: 13px; color: #58a6ff; margin-top: 4px; font-weight: 500; }
+  .header-meta { font-size: 11px; color: #8b949e; margin-top: 6px; line-height: 1.7; }
+  .header-right { text-align: right; }
+  .badge {
+    display: inline-block; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .badge-conf { background: #3d1e1e; color: #f85149; border: 1px solid #6e2a2a; }
+  .badge-gold { background: #2c2410; color: #d29922; border: 1px solid #4a3a10; }
+  .date-meta { font-size: 11px; color: #8b949e; margin-top: 8px; }
+
+  /* ── WHY ALAN ── */
+  .why-box {
+    background: linear-gradient(135deg, #0d1f33, #0a1e12);
+    border: 1px solid #1c3a5a;
+    border-left: 4px solid #58a6ff;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .why-box h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #58a6ff; margin-bottom: 10px; }
+  .why-box p { font-size: 13px; color: #8b949e; line-height: 1.7; }
+  .why-box strong { color: #e6edf3; }
+
+  /* ── SECTION ── */
+  .section-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: #8b949e;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px; margin: 24px 0 14px;
+  }
+  .section-label.gold { color: #d29922; }
+  .section-label.blue { color: #58a6ff; }
+  .section-label.green { color: #3fb950; }
+  .section-label.purple { color: #bc8cff; }
+
+  /* ── CAREER TIMELINE ── */
+  .timeline { margin-bottom: 8px; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #21262d;
+    align-items: start;
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-period { font-size: 11px; color: #8b949e; font-weight: 500; padding-top: 1px; }
+  .tl-content {}
+  .tl-role { font-size: 13px; font-weight: 700; color: #e6edf3; }
+  .tl-org { font-size: 12px; color: #58a6ff; margin-top: 2px; font-weight: 500; }
+  .tl-desc { font-size: 12px; color: #8b949e; margin-top: 6px; line-height: 1.6; }
+  .tl-highlight {
+    display: inline-block; margin-top: 6px;
+    background: #1c2a3a; border: 1px solid #2d4a6a;
+    border-radius: 6px; padding: 4px 10px;
+    font-size: 11px; color: #58a6ff;
+  }
+  .tl-highlight.gold { background: #1e1a0a; border-color: #4a3a10; color: #d29922; }
+  .tl-highlight.green { background: #0a1e12; border-color: #1a3d28; color: #3fb950; }
+
+  /* ── SOW CARD ── */
+  .sow-wrapper {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .sow-header {
+    background: linear-gradient(90deg, #0d1f33, #161b22);
+    border-bottom: 1px solid #30363d;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sow-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #58a6ff; color: #0d1117;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .sow-title { font-size: 14px; font-weight: 700; color: #e6edf3; }
+  .sow-subtitle { font-size: 11px; color: #8b949e; margin-left: auto; font-style: italic; }
+
+  .sow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .sow-col {
+    padding: 14px 18px;
+    border-right: 1px solid #21262d;
+  }
+  .sow-col:last-child { border-right: none; }
+  .sow-col-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .sow-col-label.req { color: #f0883e; }
+  .sow-col-label.rat { color: #bc8cff; }
+  .sow-col-label.del { color: #3fb950; }
+
+  .sow-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    margin-bottom: 10px; font-size: 12px; line-height: 1.5;
+  }
+  .sow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    margin-top: 5px; flex-shrink: 0;
+  }
+  .sow-dot.orange { background: #f0883e; }
+  .sow-dot.purple { background: #bc8cff; }
+  .sow-dot.green { background: #3fb950; }
+
+  /* ── KPI TABLE ── */
+  .kpi-table-wrap {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: #8b949e;
+    padding: 10px 14px; text-align: left;
+    background: #0d1117; border-bottom: 1px solid #30363d;
+  }
+  td {
+    font-size: 12px; padding: 10px 14px;
+    border-bottom: 1px solid #21262d; color: #e6edf3;
+    vertical-align: top; line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1c2128; }
+  td.gold { color: #d29922; }
+  td.green { color: #3fb950; }
+  td.blue { color: #58a6ff; }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; margin: 2px;
+  }
+  .tag-blue { background: #0d1f33; color: #58a6ff; }
+  .tag-gold { background: #2c2410; color: #d29922; }
+  .tag-green { background: #0a1e12; color: #3fb950; }
+  .tag-purple { background: #180f2e; color: #bc8cff; }
+
+  /* ── RETAINER BOX ── */
+  .retainer-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .ret-card {
+    background: #161b22; border: 1px solid #30363d;
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .ret-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #8b949e; margin-bottom: 6px; }
+  .ret-value { font-size: 20px; font-weight: 700; }
+  .ret-sub { font-size: 11px; color: #8b949e; margin-top: 3px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 32px; padding-top: 16px; border-top: 1px solid #30363d;
+    font-size: 10px; color: #6e7681; display: flex; justify-content: space-between;
+  }
+
+  @media print {
+    body { background: #fff; padding: 20px; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="avatar">👤</div>
+    <div>
+      <div class="header-name">Alan Thomas Chan</div>
+      <div class="header-title">Managing Director, ATC Advisors Pte Ltd · Singapore</div>
+      <div class="header-meta">
+        30+ years · Ultra-Luxury Hospitality Development & Strategic Advisory · Southeast Asia<br>
+        Former Special Assistant to Ong Beng Seng (HPL) · Owner's Rep: Four Seasons KL, JHB, Point Yamu
+      </div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-conf">Confidential</span>&nbsp;
+    <span class="badge badge-gold">Project Aman</span>
+    <div class="date-meta">RCC Advisory Engagement Brief · May 2026</div>
+  </div>
+</div>
+
+<!-- WHY ALAN -->
+<div class="why-box">
+  <h3>🎯 Why Alan Chan — for the Aman Deal</h3>
+  <p>
+    Alan Chan is one of the very few advisors in Southeast Asia who has operated at the intersection of <strong>ultra-luxury brand partnerships, owner-side hotel development, and UHNW investor relations</strong> — precisely the triangle RCC needs to navigate the Aman equity deal.
+    <br><br>
+    His 8 years at <strong>Hotel Properties Limited (HPL)</strong> as Special Assistant to <strong>Ong Beng Seng</strong> — one of Asia's most respected luxury hotel developers — gave him direct exposure to how owner-operator relationships function at the Four Seasons tier. Point Yamu by COMO (HPL/Phuket), Four Seasons KL, and Four Seasons JHB are all assets where Alan served as the <strong>owner's voice in negotiations with global brand operators</strong>.
+    <br><br>
+    This is exactly the lens RCC needs: not a hotel consultant, but someone who has sat <strong>on the same side of the table as RCC</strong> — negotiating with, structuring deals with, and holding accountable some of the world's most powerful luxury hotel brands.
+  </p>
+</div>
+
+<!-- CAREER TIMELINE -->
+<div class="section-label blue">Professional Background</div>
+<div class="kpi-table-wrap">
+  <div class="timeline" style="padding: 0 18px;">
+
+    <div class="tl-item">
+      <div class="tl-period">2023 – Present</div>
+      <div class="tl-content">
+        <div class="tl-role">Managing Director</div>
+        <div class="tl-org">ATC Advisors Pte Ltd · Singapore</div>
+        <div class="tl-desc">Boutique strategic advisory focused on luxury hospitality, lifestyle investments, and capital formation across SEA. Clients include family offices, developers, and brand groups seeking entry into or expansion within the ultra-luxury segment.</div>
+        <span class="tl-highlight">Current platform for Aman advisory engagement</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2020 – 2023</div>
+      <div class="tl-content">
+        <div class="tl-role">Director & Shareholder</div>
+        <div class="tl-org">67 Pall Mall Singapore</div>
+        <div class="tl-desc">Co-founded and built Asia's premier luxury wine members club from inception to operational scale. Raised SGD 20M+ in equity and debt. Built the UHNW member network and partnership infrastructure from zero — directly relevant to understanding how UHNW communities and hospitality brands intersect.</div>
+        <span class="tl-highlight gold">SGD 20M+ capital raised · UHNW network builder</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">~2010 – 2018</div>
+      <div class="tl-content">
+        <div class="tl-role">Special Assistant to Chairman (Ong Beng Seng)</div>
+        <div class="tl-org">Hotel Properties Limited (HPL) · Singapore</div>
+        <div class="tl-desc">
+          8 years as the direct representative of Ong Beng Seng — one of Asia's most legendary luxury hotel developers — in negotiations and coordination with global brand operators at the highest level.<br><br>
+          <strong>Owner's Representative for:</strong><br>
+          · <strong>Point Yamu by COMO</strong>, Phuket — 106-key ultra-luxury resort; supervised brand partnership, pre-opening, and operational standards with COMO Hotels<br>
+          · <strong>Four Seasons Kuala Lumpur</strong> — managed owner-operator interface through construction and opening phases<br>
+          · <strong>Four Seasons Johannesburg</strong> — owner's rep for pre-opening and early operations
+        </div>
+        <span class="tl-highlight gold">8 years · Owner-side luxury brand negotiations · Four Seasons + COMO tier</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">~2004 – 2010</div>
+      <div class="tl-content">
+        <div class="tl-role">Senior Role — Integrated Resort Development</div>
+        <div class="tl-org">Resorts World Sentosa · Singapore</div>
+        <div class="tl-desc">Involved in the development and launch of Singapore's first integrated resort — a $6.6B project encompassing Universal Studios, Hotel Michael, Hard Rock Hotel, Equarius Hotel, and multiple luxury F&B and entertainment components. Direct exposure to large-scale capital deployment, multi-brand coordination, and investor relations at sovereign/institutional level.</div>
+        <span class="tl-highlight">$6.6B Integrated Resort · Multi-brand hospitality at scale</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">Prior</div>
+      <div class="tl-content">
+        <div class="tl-role">Institutional Finance & Capital Markets</div>
+        <div class="tl-org">Maybank Kim Eng (Investment Banking) · Go-Jets (Private Aviation)</div>
+        <div class="tl-desc">Investment banking background provides financial structuring fluency. Private aviation experience (Go-Jets) adds understanding of the UHNW service ecosystem that overlaps heavily with the Aman guest profile.</div>
+        <span class="tl-highlight green">Financial structuring + UHNW ecosystem</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RETAINER SUMMARY -->
+<div class="section-label gold">Proposed Engagement — Project Aman</div>
+<div class="retainer-box">
+  <div class="ret-card">
+    <div class="ret-label">Retainer (Monthly)</div>
+    <div class="ret-value" style="color:#d29922">USD 7,000–10,000</div>
+    <div class="ret-sub">Aman deal workstream only</div>
+  </div>
+  <div class="ret-card">
+    <div class="ret-label">Engagement Type</div>
+    <div class="ret-value" style="font-size:15px;color:#58a6ff">Strategic Advisor</div>
+    <div class="ret-sub">Owner-side / RCC interests</div>
+  </div>
+  <div class="ret-card">
+    <div class="ret-label">Engagement Start</div>
+    <div class="ret-value" style="font-size:15px;color:#3fb950">May 2026</div>
+    <div class="ret-sub">Subject to LOI signing</div>
+  </div>
+  <div class="ret-card">
+    <div class="ret-label">Initial Term</div>
+    <div class="ret-value" style="font-size:15px;color:#e6edf3">6 Months</div>
+    <div class="ret-sub">Renewable · deal milestone-linked</div>
+  </div>
+</div>
+
+<!-- SOW -->
+<div class="section-label green">Scope of Work — Aman Equity Deal Advisory</div>
+
+<!-- PHASE 1 -->
+<div class="sow-wrapper">
+  <div class="sow-header">
+    <div class="sow-num">1</div>
+    <div>
+      <div class="sow-title">Phase 1 — Deal Intelligence & Investor Positioning</div>
+    </div>
+    <div class="sow-subtitle">Month 1–2 · Pre-VDR to LOI stage</div>
+  </div>
+  <div class="sow-grid">
+    <div class="sow-col">
+      <div class="sow-col-label req">Requirements</div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Decode Aman Group's current ownership structure (Mubadala, PIF, others) and the political dynamics between shareholders</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Map Aman's decision-making hierarchy — who actually approves a new equity partner at HoldCo level</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Assess RCC's positioning relative to other potential co-investors competing for the same equity</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label rat">Rationale from Alan's Experience</div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>At HPL, Alan negotiated alongside Ong Beng Seng in brand partnership structures where operator/brand dynamics were critical — the same dynamic applies at Aman Group level</div></div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>Alan's RWS background means he understands multi-stakeholder institutional deal processes from the inside</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label del">Deliverables</div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Stakeholder Map:</strong> Aman Group shareholder landscape, key decision-makers, and their likely priorities for any new investor</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>RCC Positioning Memo:</strong> How RCC should present itself to Aman — angle, narrative, value-add beyond capital</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Competitive Intelligence:</strong> Who else is in the room; how to differentiate RCC</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="sow-wrapper">
+  <div class="sow-header">
+    <div class="sow-num">2</div>
+    <div>
+      <div class="sow-title">Phase 2 — Due Diligence Guidance & Brand Education</div>
+    </div>
+    <div class="sow-subtitle">Month 2–4 · VDR access through DD completion</div>
+  </div>
+  <div class="sow-grid">
+    <div class="sow-col">
+      <div class="sow-col-label req">Requirements</div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Translate Aman's financial and operational data into RCC-relevant context — what metrics matter, what's normal at this tier</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Review Aman's management agreement structure and flag non-standard terms that disadvantage the owner</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Identify "unknown unknown" risks from an owner's perspective — the things Aman won't proactively disclose</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label rat">Rationale from Alan's Experience</div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>Alan has reviewed and negotiated HMAs (Hotel Management Agreements) with Four Seasons and COMO — he knows what standard terms look like vs. what operators try to impose on less-experienced owners</div></div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>At Point Yamu, Alan managed the full pre-opening phase — he knows where costs deviate from plan and why</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label del">Deliverables</div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>DD Review Annotations:</strong> Alan's commentary on VDR data — flagging anomalies, benchmarking against HPL/Four Seasons/COMO comparables</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>HMA Red Flag Report:</strong> Review of Aman's management agreement — owner-unfriendly clauses, negotiation priorities</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Owner's Education Session:</strong> 2-3hr workshop with RCC team on "how luxury brand operators think, what they protect, and where you can push back"</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="sow-wrapper">
+  <div class="sow-header">
+    <div class="sow-num">3</div>
+    <div>
+      <div class="sow-title">Phase 3 — Deal Structuring & Negotiation Support</div>
+    </div>
+    <div class="sow-subtitle">Month 3–6 · LOI through SPA / SHA signing</div>
+  </div>
+  <div class="sow-grid">
+    <div class="sow-col">
+      <div class="sow-col-label req">Requirements</div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Advise on equity stake sizing, governance rights, and board representation appropriate for RCC's investment objectives</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Support negotiation of SHA (Shareholders' Agreement) — specifically investor protections, information rights, exit provisions</div></div>
+      <div class="sow-item"><div class="sow-dot orange"></div><div>Facilitate introductions within Aman's network where Alan has existing relationships that can accelerate the process</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label rat">Rationale from Alan's Experience</div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>Alan has been through the full cycle — from concept through signed agreements — on multiple luxury hotel deals. He knows where negotiations typically stall and how to unlock them.</div></div>
+      <div class="sow-item"><div class="sow-dot purple"></div><div>His Singapore network (through RWS, HPL, 67 Pall Mall) likely includes advisors and principals with direct Aman relationships</div></div>
+    </div>
+    <div class="sow-col">
+      <div class="sow-col-label del">Deliverables</div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Term Sheet Advisory:</strong> RCC's negotiating position on key SHA terms — minimum acceptable governance rights, anti-dilution, exit triggers</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Network Activation:</strong> Warm introductions to 2-3 relevant Aman network contacts (investors, advisors, former GMs) to strengthen RCC's intelligence before final terms</div></div>
+      <div class="sow-item"><div class="sow-dot green"></div><div><strong>Post-Signing Onboarding Plan:</strong> 90-day plan for RCC as a new Aman equity partner — how to engage, what to avoid, and how to build trust with the Aman team</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- KPI TABLE -->
+<div class="section-label purple">Success Milestones & KPIs</div>
+<div class="kpi-table-wrap">
+  <table>
+    <tr>
+      <th>Milestone</th>
+      <th>Target Date</th>
+      <th>Success Metric</th>
+      <th>Alan's Role</th>
+    </tr>
+    <tr>
+      <td>Stakeholder Map + RCC Positioning Memo delivered</td>
+      <td class="gold">End May 2026</td>
+      <td>Approved by anh Quang / Bach</td>
+      <td>Lead author</td>
+    </tr>
+    <tr>
+      <td>DD review annotations complete (VDR Phase)</td>
+      <td class="gold">Mid Jun 2026</td>
+      <td>10+ flagged items with owner-side commentary</td>
+      <td>Primary reviewer</td>
+    </tr>
+    <tr>
+      <td>HMA Red Flag Report delivered</td>
+      <td class="gold">End Jun 2026</td>
+      <td>Reviewed by RCC legal + exec team</td>
+      <td>Lead author</td>
+    </tr>
+    <tr>
+      <td>Owner's Education Workshop (RCC team)</td>
+      <td class="gold">Jun 2026</td>
+      <td>2–3 hrs · RCC IC team attending</td>
+      <td>Facilitator</td>
+    </tr>
+    <tr>
+      <td>LOI negotiation support complete</td>
+      <td class="gold">Jul 2026</td>
+      <td>RCC LOI submitted / terms agreed in principle</td>
+      <td>Advisory + negotiation</td>
+    </tr>
+    <tr>
+      <td>SHA / SPA advisory complete</td>
+      <td class="gold">Aug–Oct 2026</td>
+      <td>Deal closed or investment decision made</td>
+      <td>Deal advisor</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Alan Chan — Aman Deal Advisory Brief | Prepared by Zera AI for RCC | May 4, 2026</div>
+  <div>CONFIDENTIAL — For Anh Quang, Bach & RCC Aman Working Group Only</div>
+</div>
+
+</body>
+</html>
