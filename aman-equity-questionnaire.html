@@ -846,8 +846,7 @@ async function loadAndRender(qId) {
   const listEl = document.getElementById('list_' + qId);
   if (!listEl) return;
   const cached = _issueCache[qId];
-  if (!cached) { listEl.innerHTML = ''; return; }
-  const comments = cached.comments || [];
+  const comments = (cached && cached.comments) || [];
   renderCommentList(qId, comments);
 }
 
@@ -881,6 +880,7 @@ async function submitComment(qId) {
     const item = document.querySelector(`.q-item[data-qid="${qId}"]`);
     const qText = item ? item.dataset.qtext : '';
     const c = await postGASComment(qId, qText, name, text);
+    if (!_issueCache[qId]) _issueCache[qId] = { comments: [] };
     if (!_issueCache[qId].comments) _issueCache[qId].comments = [];
     _issueCache[qId].comments.push(c);
     textEl.value = '';
@@ -900,6 +900,7 @@ async function deleteComment(qId, commentId) {
   if (!confirm('Delete this comment?')) return;
   try {
     await deleteGHComment(commentId);
+    if (!_issueCache[qId]) _issueCache[qId] = { comments: [] };
     _issueCache[qId].comments = (_issueCache[qId].comments || []).filter(c => c.id !== commentId);
     renderCommentList(qId, _issueCache[qId].comments);
     updateToggleLabel(qId);
