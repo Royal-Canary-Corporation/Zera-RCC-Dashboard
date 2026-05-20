@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La Victoire Club — Business Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Roboto',sans-serif;background:#0d1117;color:#e6edf3;font-size:13px;line-height:1.6;min-width:1200px}
+  .page{max-width:1280px;margin:0 auto;padding:40px 48px}
+
+  /* Header */
+  .doc-header{border-bottom:1px solid #30363d;padding-bottom:28px;margin-bottom:36px}
+  .doc-header .badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8b949e;margin-bottom:10px}
+  .doc-header h1{font-size:32px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:6px}
+  .doc-header .subtitle{font-size:15px;color:#8b949e;margin-bottom:18px}
+  .meta-row{display:flex;gap:32px;flex-wrap:wrap}
+  .meta-item{display:flex;flex-direction:column;gap:2px}
+  .meta-item .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e}
+  .meta-item .value{font-size:13px;font-weight:500;color:#e6edf3}
+
+  /* Vision block */
+  .vision-block{background:#161b22;border:1px solid #30363d;border-left:4px solid #d4a017;border-radius:10px;padding:24px 28px;margin-bottom:36px}
+  .vision-block .v-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#d4a017;margin-bottom:8px}
+  .vision-block p{font-size:14px;color:#c9d1d9;line-height:1.8}
+
+  /* Section */
+  .section{margin-bottom:40px}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid #21262d}
+  .section-num{width:32px;height:32px;border-radius:8px;background:#1f6feb22;border:1px solid #1f6feb44;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#58a6ff;flex-shrink:0}
+  .section-header h2{font-size:15px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px}
+  .section-header .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 8px;border-radius:4px;background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44}
+
+  /* Card grid */
+  .card-grid{display:grid;gap:16px}
+  .card-grid.cols-2{grid-template-columns:1fr 1fr}
+  .card-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+  .card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:18px 20px}
+  .card .card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:8px}
+  .card p{font-size:13px;color:#c9d1d9;line-height:1.7}
+
+  /* Obj + Direction layout */
+  .obj-box{background:#0f1a2e;border:1px solid #1f6feb44;border-radius:8px;padding:14px 18px;margin-bottom:14px}
+  .obj-box .obj-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#58a6ff;margin-bottom:4px}
+  .obj-box p{font-size:13px;color:#c9d1d9}
+
+  .dir-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+  .dir-list li{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#c9d1d9;padding:10px 14px;background:#161b22;border:1px solid #30363d;border-radius:8px}
+  .dir-list li::before{content:'→';color:#58a6ff;font-weight:700;flex-shrink:0;margin-top:1px}
+
+  /* Focus pills */
+  .focus-area{margin-top:12px}
+  .focus-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:8px}
+  .pills{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:#21262d;color:#c9d1d9;border:1px solid #30363d}
+
+  /* Positioning callout */
+  .positioning{background:#0d2b1a;border:1px solid #2ea04326;border-radius:8px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:flex-start}
+  .positioning .icon{color:#3fb950;font-size:14px;flex-shrink:0;margin-top:1px}
+  .positioning p{font-size:12px;color:#8b949e;font-style:italic;line-height:1.6}
+
+  /* Timeline */
+  .timeline{display:flex;flex-direction:column;gap:0}
+  .phase{display:flex;gap:24px;position:relative}
+  .phase:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;width:2px;height:calc(100% - 16px);background:#21262d}
+  .phase-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:4px;z-index:1}
+  .phase-dot.p1{background:#1f3a1f;border:2px solid #3fb950;color:#3fb950}
+  .phase-dot.p2{background:#1a2f4a;border:2px solid #58a6ff;color:#58a6ff}
+  .phase-dot.p3{background:#3a1f2e;border:2px solid #d2a8ff;color:#d2a8ff}
+  .phase-dot.ongoing{background:#2a2200;border:2px solid #d4a017;color:#d4a017}
+  .phase-body{padding-bottom:28px;flex:1}
+  .phase-body h3{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+  .phase-body .phase-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px;display:block}
+  .phase-items{display:flex;flex-direction:column;gap:4px}
+  .phase-item{display:flex;gap:8px;align-items:baseline;font-size:12px;color:#c9d1d9}
+  .phase-item span.status{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;flex-shrink:0}
+  .status.ongoing{background:#1f3a1f;color:#3fb950}
+  .status.initiate{background:#1a2f4a;color:#58a6ff}
+  .status.continuous{background:#2a2200;color:#d4a017}
+  .status.feasibility{background:#3a1f2e;color:#d2a8ff}
+
+  /* KPI metrics row */
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+  .kpi-card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px;text-align:center}
+  .kpi-card .kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:8px}
+  .kpi-card .kpi-value{font-size:20px;font-weight:700;color:#fff}
+  .kpi-card .kpi-sub{font-size:11px;color:#8b949e;margin-top:3px}
+
+  /* Conclusion */
+  .conclusion{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:28px 32px;margin-top:36px}
+  .conclusion h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:14px}
+  .conclusion p{font-size:14px;color:#c9d1d9;line-height:1.85}
+
+  /* Footer */
+  .doc-footer{border-top:1px solid #21262d;margin-top:48px;padding-top:20px;display:flex;justify-content:space-between;align-items:center}
+  .doc-footer span{font-size:11px;color:#8b949e}
+
+  @media print{body{background:#fff;color:#0d1117;min-width:unset}.page{padding:20px}.card,.obj-box,.dir-list li,.vision-block,.conclusion{background:#f8f9fa;border-color:#dee2e6}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="badge">Royal Canary Corp · La Victoire Club</div>
+    <h1>Business Plan 2026</h1>
+    <div class="subtitle">Strategic Framework — eGaming Operations, Growth &amp; Expansion</div>
+    <div class="meta-row">
+      <div class="meta-item"><span class="label">Property</span><span class="value">La Victoire Club, Le Méridien Saigon</span></div>
+      <div class="meta-item"><span class="label">Period</span><span class="value">2026 — 3 Phases</span></div>
+      <div class="meta-item"><span class="label">Market</span><span class="value">Vietnam · Southeast Asia</span></div>
+      <div class="meta-item"><span class="label">Classification</span><span class="value">Internal — Confidential</span></div>
+    </div>
+  </div>
+
+  <!-- Vision -->
+  <div class="vision-block">
+    <div class="v-label">Vision</div>
+    <p>Position <strong>La Victoire Club</strong> as one of the leading eGaming clubs in Vietnam, recognized for performance and player experience — while building RCC into a scalable gaming and entertainment brand across Asia. This will be achieved through a standardized and replicable operating model covering gaming operations, player development, reinvestment strategy, and brand standards, enabling consistent results and future expansion into new markets.</p>
+  </div>
+
+  <!-- Strategic Pillars KPI -->
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-label">Strategic Pillars</div><div class="kpi-value">6</div><div class="kpi-sub">Operational areas</div></div>
+    <div class="kpi-card"><div class="kpi-label">Execution Phases</div><div class="kpi-value">3</div><div class="kpi-sub">+ Ongoing</div></div>
+    <div class="kpi-card"><div class="kpi-label">Target Segments</div><div class="kpi-value">3</div><div class="kpi-sub">VIP · Expat · Inbound</div></div>
+    <div class="kpi-card"><div class="kpi-label">Growth Model</div><div class="kpi-value">Quality</div><div class="kpi-sub">Value over volume</div></div>
+  </div>
+
+  <!-- Section 1: Gaming Operations -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Gaming Operations Strategy</h2>
+      <span class="tag">Core</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Maximize gaming efficiency, productivity, and profitability while maintaining a strong player experience.</p>
+    </div>
+    <ul class="dir-list">
+      <li>Optimize machine performance and floor productivity through real-time data tools for quick decisions on floor management.</li>
+      <li>Maintain balanced hold rate vs. player satisfaction via regular review processes that keep the right equilibrium between engagement and house advantage.</li>
+      <li>Continuously refine game mix, denomination strategy, and floor layout using performance data and player behavior insights.</li>
+    </ul>
+    <div class="focus-area">
+      <div class="focus-label">Key Focus Areas</div>
+      <div class="pills">
+        <span class="pill">CPUPD-driven machine optimization</span>
+        <span class="pill">Underperforming machine replacement</span>
+        <span class="pill">Strategic jackpot design</span>
+        <span class="pill">Machine setting calibration</span>
+        <span class="pill">Hold rate alignment</span>
+      </div>
+    </div>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>Gaming operations will be managed as a dynamic, performance-driven system—not a static floor—driven by continuous monitoring, reliable data, and a consistently strong player experience.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: HR -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Human Resource Strategy</h2>
+      <span class="tag">People</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Build a high-performing, consistent, and scalable workforce capable of supporting operational excellence, leadership development, and future expansion.</p>
+    </div>
+    <ul class="dir-list">
+      <li>Develop internal talent pipeline — retain strong internal talent to ensure leadership continuity.</li>
+      <li>Institutionalize T&amp;D, SOPs, and control frameworks for consistent team performance.</li>
+      <li>Embed consistent service culture — define and reinforce standards that deliver professional, responsive, and personalized player experience across all touchpoints.</li>
+    </ul>
+    <div class="focus-area">
+      <div class="focus-label">Key Focus Areas</div>
+      <div class="pills">
+        <span class="pill">Structured onboarding &amp; training</span>
+        <span class="pill">Clear SOPs</span>
+        <span class="pill">Control frameworks</span>
+        <span class="pill">Service excellence</span>
+        <span class="pill">Leadership alignment</span>
+      </div>
+    </div>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>The organization will be structured around standardized processes and clear accountability, ensuring consistent performance and scalability as the business expands.</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Market Position -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Market Position &amp; Expansion Strategy</h2>
+      <span class="tag">Growth</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Strengthen LV Club's position as a leading eGaming destination in Vietnam by building a strong, loyal, and high-value player base. Growth will come from quality rather than volume.</p>
+    </div>
+    <div class="card-grid cols-2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-title">Target Segments</div>
+        <p>High-value players, expat business owners in HCM &amp; surrounding provinces, and inbound foreign casino players leveraging the integrated hotel-gaming offering at Le Méridien Saigon.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">VIP Development</div>
+        <p>Structured acquisition, retention, and reinvestment frameworks to maximize player value, ensure service excellence, and support long-term profitability through dedicated VIP management.</p>
+      </div>
+    </div>
+    <div class="card-grid cols-2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-title">Business Development</div>
+        <p>Build dedicated BD functions to identify new markets, develop strategic partnerships, and drive acquisition of high-value player segments across expat and inbound channels.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Entertainment Expansion</div>
+        <p>Expand entertainment offerings with VIP lounges, KTV, and complementary experiences through internal resources and strategic third-party operators to enhance engagement and total spend.</p>
+      </div>
+    </div>
+    <div class="focus-area">
+      <div class="focus-label">KPIs to Track</div>
+      <div class="pills">
+        <span class="pill">Revenue per nationality</span>
+        <span class="pill">Local Expat vs Inbound mix</span>
+        <span class="pill">Revenue per room occupancy</span>
+        <span class="pill">Gaming vs non-gaming conversion</span>
+      </div>
+    </div>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>Market leadership is achieved through consistency and credibility, not short-term visibility.</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Products & Services -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Products &amp; Services Ecosystem</h2>
+      <span class="tag">Experience</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Enhance total player value and revenue contribution by leveraging an integrated ecosystem across hospitality, dining, entertainment, and travel.</p>
+    </div>
+    <ul class="dir-list">
+      <li>Integrate hotel, F&amp;B, hospitality, and entertainment to deliver a seamless end-to-end customer experience and maximize total spend.</li>
+      <li>Position LV as a lifestyle destination — combining gaming with premium hospitality, dining, and entertainment for a differentiated proposition.</li>
+    </ul>
+    <div class="focus-area">
+      <div class="focus-label">Key Focus Areas</div>
+      <div class="pills">
+        <span class="pill">Hotel-to-casino conversion</span>
+        <span class="pill">Integrated loyalty &amp; cross-redemption</span>
+        <span class="pill">Curated F&amp;B offerings</span>
+        <span class="pill">VIP personalized journey</span>
+        <span class="pill">Seamless travel-to-gaming experience</span>
+      </div>
+    </div>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>We grow revenue by delivering a smooth and enjoyable player experience across the whole journey, not just on the gaming floor.</p>
+    </div>
+  </div>
+
+  <!-- Section 5: Technology -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Technology &amp; Innovation Strategy</h2>
+      <span class="tag">Tech</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Leverage technology to enhance operational efficiency, strengthen control, and elevate the player experience while enabling scalable growth.</p>
+    </div>
+    <ul class="dir-list">
+      <li>Implement automation &amp; analytics — deploy integrated digital platforms including mobile apps and CRM to streamline operations and enable data-driven decision-making.</li>
+      <li>Enhance speed, accuracy, and decision-making by integrating technology across key functions to reduce manual processes and improve data reliability.</li>
+    </ul>
+    <div class="focus-area">
+      <div class="focus-label">Key Focus Areas</div>
+      <div class="pills">
+        <span class="pill">Cashless systems</span>
+        <span class="pill">Player &amp; performance analytics</span>
+        <span class="pill">Automated reporting</span>
+        <span class="pill">AI for insights &amp; risk detection</span>
+        <span class="pill">CRM &amp; personalization</span>
+      </div>
+    </div>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>Technology enables scale without increasing complexity.</p>
+    </div>
+  </div>
+
+  <!-- Section 6: Execution Agility -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Execution Agility &amp; Decision-Making</h2>
+      <span class="tag">Operations</span>
+    </div>
+    <div class="obj-box">
+      <div class="obj-label">Objective</div>
+      <p>Improve speed and effectiveness of decision-making to ensure timely response to operational and market changes.</p>
+    </div>
+    <ul class="dir-list">
+      <li>Reduce unnecessary complexity in approval processes — shift from over-analysis to controlled execution.</li>
+      <li>Empower management to act within defined parameters with clear decision authority levels.</li>
+      <li>Introduce a test-and-adjust approach — pilot changes instead of prolonged analysis, with defined decision timelines.</li>
+    </ul>
+    <div class="positioning">
+      <span class="icon">↗</span>
+      <p>In a gaming environment, speed of execution directly impacts revenue. The ability to act quickly—while maintaining control—will be a key competitive advantage.</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Implementation Timeline -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>Implementation Timeline &amp; Priorities</h2>
+      <span class="tag">Roadmap</span>
+    </div>
+    <div class="timeline">
+
+      <div class="phase">
+        <div class="phase-dot p1">P1</div>
+        <div class="phase-body">
+          <h3>Phase 1 — Immediate Priorities</h3>
+          <span class="phase-tag">Foundation</span>
+          <div class="phase-items">
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Review gaming performance: CPUPD, machine mix, underperforming machines</div>
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Machine relocation and floor adjustments</div>
+            <div class="phase-item"><span class="status continuous">Continuous</span> Hold and configuration review</div>
+            <div class="phase-item"><span class="status continuous">Continuous</span> Establish weekly performance review process</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Align management team and define decision authority</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Identify key player segments: VIP, expat, inbound</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot p2">P2</div>
+        <div class="phase-body">
+          <h3>Phase 2 — Optimization</h3>
+          <span class="phase-tag">Build &amp; Scale</span>
+          <div class="phase-items">
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Execute machine optimization program</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Implement structured VIP management approach</div>
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Strengthen player retention programs</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Begin CRM and data visibility improvements</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Identify potential BD partnerships</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Launch targeted acquisition: expat + inbound</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Improve digital presence and engagement</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot p3">P3</div>
+        <div class="phase-body">
+          <h3>Phase 3 — Growth &amp; Expansion</h3>
+          <span class="phase-tag">Scale &amp; Expand</span>
+          <div class="phase-items">
+            <div class="phase-item"><span class="status initiate">Initiate</span> Strengthen BD channels and partnerships</div>
+            <div class="phase-item"><span class="status initiate">Initiate</span> Refine player segmentation and lifecycle programs</div>
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Enhance gaming experience: new games, upgrades</div>
+            <div class="phase-item"><span class="status feasibility">Feasibility</span> Explore entertainment and ecosystem opportunities</div>
+            <div class="phase-item"><span class="status ongoing">Ongoing</span> Improve VIP experience and premium services</div>
+            <div class="phase-item"><span class="status continuous">Continuous</span> Floor and performance optimization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot ongoing">∞</div>
+        <div class="phase-body">
+          <h3>Ongoing — Always On</h3>
+          <span class="phase-tag">Continuous Improvement</span>
+          <div class="phase-items">
+            <div class="phase-item"><span class="status continuous">Always</span> Continuous performance monitoring and optimization</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Regular refresh of product offering</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Review of player base and reinvestment effectiveness</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Gradual rollout: CRM, cashless, automation</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Continuous improvement of data analytics and reporting</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Refinement of VIP management and player development</div>
+            <div class="phase-item"><span class="status continuous">Always</span> Faster, clearer decision-making processes</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Conclusion -->
+  <div class="conclusion">
+    <h3>Conclusion</h3>
+    <p>At the end of the day, the focus is simple—improve performance, build the right player base, and make better use of what we already have. Growth will come from focusing on the right players, building long-term relationships, and delivering a consistent and reliable experience.<br><br>We will execute this in phases, adjust based on results, and make sure the business keeps improving over time. The priority is not just to grow, but to <strong>build a model that can consistently deliver results and be scaled over time.</strong></p>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>La Victoire Club · Royal Canary Corp · Business Plan 2026</span>
+    <span>Confidential — Internal Use Only</span>
+  </div>
+
+</div>
+</body>
+</html>
