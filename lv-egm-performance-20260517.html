@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LV EGM Performance Report — 17 May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Roboto',sans-serif;background:#0d1117;color:#e6edf3;font-size:13px;line-height:1.6;min-width:1200px}
+.page{max-width:1360px;margin:0 auto;padding:36px 48px}
+
+.doc-header{border-bottom:1px solid #30363d;padding-bottom:24px;margin-bottom:28px}
+.doc-header .badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8b949e;margin-bottom:8px}
+.doc-header h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:4px}
+.doc-header .sub{font-size:13px;color:#8b949e;margin-bottom:16px}
+.meta-row{display:flex;gap:28px;flex-wrap:wrap}
+.meta-item .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e}
+.meta-item .value{font-size:12px;font-weight:500;color:#e6edf3}
+
+/* KPI strip */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px}
+.kpi{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:14px 16px;text-align:center}
+.kpi .kl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:5px}
+.kpi .kv{font-size:20px;font-weight:700}
+.kpi .ks{font-size:10px;color:#8b949e;margin-top:3px}
+.kpi.blue .kv{color:#58a6ff}
+.kpi.green .kv{color:#3fb950}
+.kpi.gold .kv{color:#d4a017}
+.kpi.red .kv{color:#f85149}
+.kpi.purple .kv{color:#d2a8ff}
+.kpi.warn .kv{color:#ff7b00}
+
+/* Section */
+.section{margin-bottom:36px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #21262d}
+.sh-num{width:28px;height:28px;border-radius:7px;background:#1f6feb22;border:1px solid #1f6feb44;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#58a6ff;flex-shrink:0}
+.sh h2{font-size:13px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px}
+.sh .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:2px 8px;border-radius:4px;background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44}
+.sh .warn-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:2px 8px;border-radius:4px;background:#3a1a0022;color:#ff7b00;border:1px solid #ff7b0044}
+.sh .alert-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:2px 8px;border-radius:4px;background:#2a0d0d;color:#f85149;border:1px solid #f8514944}
+
+/* Grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* Highlight boxes */
+.hbox{border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.hbox.blue{background:#0d2040;border:1px solid #1f6feb44;border-left:4px solid #1f6feb}
+.hbox.green{background:#0d2b1a;border:1px solid #2ea04326;border-left:4px solid #3fb950}
+.hbox.gold{background:#1a1400;border:1px solid #d4a01744;border-left:4px solid #d4a017}
+.hbox.red{background:#2a0d0d;border:1px solid #f8514944;border-left:4px solid #f85149}
+.hbox.warn{background:#1a1000;border:1px solid #ff7b0044;border-left:4px solid #ff7b00}
+.hbox .hl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.hbox.blue .hl{color:#58a6ff}.hbox.green .hl{color:#3fb950}.hbox.gold .hl{color:#d4a017}
+.hbox.red .hl{color:#f85149}.hbox.warn .hl{color:#ff7b00}
+.hbox p,.hbox li{font-size:12px;color:#c9d1d9;line-height:1.75}
+.hbox ul{list-style:none;padding:0}
+.hbox ul li::before{content:'· ';color:inherit}
+
+/* Tables */
+.dt{width:100%;border-collapse:collapse;font-size:12px}
+.dt th{background:#1f2937;color:#8b949e;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:7px 10px;text-align:left;border-bottom:1px solid #30363d}
+.dt td{padding:7px 10px;border-bottom:1px solid #21262d;color:#c9d1d9}
+.dt tr:last-child td{border-bottom:none}
+.dt .bold-row td{font-weight:700;color:#fff;background:#161b22}
+.num{text-align:right;font-family:monospace;font-size:11px}
+.g{color:#3fb950;font-weight:600}
+.r{color:#f85149;font-weight:600}
+.b{color:#58a6ff;font-weight:600}
+.gold{color:#d4a017;font-weight:600}
+.w{color:#ff7b00;font-weight:600}
+
+/* Performance bar */
+.bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.bar-label{font-size:11px;color:#8b949e;width:120px;flex-shrink:0;text-align:right}
+.bar-outer{flex:1;background:#21262d;border-radius:4px;height:14px;overflow:hidden}
+.bar-inner{height:100%;border-radius:4px;transition:width .3s}
+.bar-val{font-size:11px;font-weight:600;width:60px;flex-shrink:0;text-align:right}
+
+/* Comparison 3-col */
+.perf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.perf-card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px}
+.perf-card .pc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.perf-card.today .pc-label{color:#58a6ff}
+.perf-card.mtd .pc-label{color:#3fb950}
+.perf-card.ytd .pc-label{color:#d4a017}
+.perf-card .pc-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d}
+.perf-card .pc-row:last-child{border:none}
+.perf-card .pk{font-size:11px;color:#8b949e}
+.perf-card .pv{font-size:12px;font-weight:600}
+.perf-card.today .pv{color:#58a6ff}
+.perf-card.mtd .pv{color:#3fb950}
+.perf-card.ytd .pv{color:#d4a017}
+
+/* Alert banner */
+.alert{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;border-radius:10px;margin-bottom:14px}
+.alert.red{background:#2a0d0d;border:1px solid #f8514944}
+.alert.warn{background:#1a1000;border:1px solid #ff7b0044}
+.alert.green{background:#0d2b1a;border:1px solid #2ea04326}
+.alert .icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.alert .body{font-size:12px;color:#c9d1d9;line-height:1.7}
+.alert .body strong{color:#fff}
+
+.doc-footer{border-top:1px solid #21262d;margin-top:40px;padding-top:14px;display:flex;justify-content:space-between}
+.doc-footer span{font-size:11px;color:#8b949e}
+@media print{body{background:#fff;color:#0d1117;min-width:unset}.page{padding:20px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Header -->
+<div class="doc-header">
+  <div class="badge">La Victoire Club · Royal Canary Corp · EGM Performance</div>
+  <h1>EGM Performance Report — 17 May 2026</h1>
+  <div class="sub">Slot + ETG · Today / MTD / YTD · vs Budget · Player Concentration Analysis</div>
+  <div class="meta-row">
+    <div class="meta-item"><div class="label">Report Date</div><div class="value">17 May 2026</div></div>
+    <div class="meta-item"><div class="label">Active Machines</div><div class="value">106 units (63 Slots · 43 ETG)</div></div>
+    <div class="meta-item"><div class="label">MTD Days</div><div class="value">17 of 31</div></div>
+    <div class="meta-item"><div class="label">YTD Days</div><div class="value">137 of 365</div></div>
+  </div>
+</div>
+
+<!-- KPI Strip -->
+<div class="kpi-strip">
+  <div class="kpi blue"><div class="kl">Today CoinIn</div><div class="kv">$1.33M</div><div class="ks">50% of MTD daily avg</div></div>
+  <div class="kpi green"><div class="kl">Today Win</div><div class="kv">$140K</div><div class="ks">Hold: 10.5%</div></div>
+  <div class="kpi blue"><div class="kl">MTD CoinIn</div><div class="kv">$45.2M</div><div class="ks">$2.66M/day avg</div></div>
+  <div class="kpi green"><div class="kl">MTD Win</div><div class="kv">$2.91M</div><div class="ks">Hold: 6.4%</div></div>
+  <div class="kpi gold"><div class="kl">YTD CoinIn</div><div class="kv">$283.6M</div><div class="ks">$2.07M/day avg</div></div>
+  <div class="kpi warn"><div class="kl">Annualized vs Budget</div><div class="kv">77.4%</div><div class="ks">$755M proj vs $976M target</div></div>
+</div>
+
+<!-- ALERT: Budget Gap -->
+<div class="alert red">
+  <span class="icon">🚨</span>
+  <div class="body">
+    <strong>Budget Tracking Alert:</strong> Annualized CoinIn from YTD run rate = <strong>$755.5M</strong> vs FY2026 budget of <strong>$975.8M</strong> — tracking at <strong>77.4% of budget</strong>. Gap of ~$220M CoinIn needs to close in H2. Today's performance ($1.33M CoinIn) is only <strong>50% of the MTD daily average</strong> ($2.66M) — indicating a slow day, not structural decline.
+  </div>
+</div>
+
+<!-- SECTION 1: TODAY vs MTD DAILY AVG -->
+<div class="section">
+  <div class="sh"><div class="sh-num">1</div><h2>Today vs MTD Daily Average</h2><span class="tag">17 May 2026</span><span class="warn-tag">Slow Day</span></div>
+
+  <div class="perf-grid">
+    <div class="perf-card today">
+      <div class="pc-label">Today — 17 May</div>
+      <div class="pc-row"><span class="pk">Total CoinIn</span><span class="pv">$1,333,504</span></div>
+      <div class="pc-row"><span class="pk">Total Win</span><span class="pv">$140,441</span></div>
+      <div class="pc-row"><span class="pk">Hold %</span><span class="pv">10.5%</span></div>
+      <div class="pc-row"><span class="pk">CPUPD</span><span class="pv">$12,580</span></div>
+      <div class="pc-row"><span class="pk">Active Units</span><span class="pv">106</span></div>
+      <div class="pc-row"><span class="pk">Slot CoinIn</span><span class="pv">$678,080</span></div>
+      <div class="pc-row"><span class="pk">ETG CoinIn</span><span class="pv">$655,424</span></div>
+    </div>
+    <div class="perf-card mtd">
+      <div class="pc-label">MTD — May 1–17</div>
+      <div class="pc-row"><span class="pk">Total CoinIn</span><span class="pv">$45,160,056</span></div>
+      <div class="pc-row"><span class="pk">Total Win</span><span class="pv">$2,911,278</span></div>
+      <div class="pc-row"><span class="pk">Hold %</span><span class="pv">6.4%</span></div>
+      <div class="pc-row"><span class="pk">Daily avg CoinIn</span><span class="pv">$2,656,474</span></div>
+      <div class="pc-row"><span class="pk">Daily avg Win</span><span class="pv">$171,252</span></div>
+      <div class="pc-row"><span class="pk">Slot CoinIn</span><span class="pv">$13,251,195</span></div>
+      <div class="pc-row"><span class="pk">ETG CoinIn</span><span class="pv">$31,908,861</span></div>
+    </div>
+    <div class="perf-card ytd">
+      <div class="pc-label">YTD — Jan 1 – May 17</div>
+      <div class="pc-row"><span class="pk">Total CoinIn</span><span class="pv">$283,552,525</span></div>
+      <div class="pc-row"><span class="pk">Total Win</span><span class="pv">$9,382,240</span></div>
+      <div class="pc-row"><span class="pk">Hold %</span><span class="pv">3.3%</span></div>
+      <div class="pc-row"><span class="pk">Daily avg CoinIn</span><span class="pv">$2,069,726</span></div>
+      <div class="pc-row"><span class="pk">Daily avg Win</span><span class="pv">$68,484</span></div>
+      <div class="pc-row"><span class="pk">Slot CoinIn</span><span class="pv">$97,938,662</span></div>
+      <div class="pc-row"><span class="pk">ETG CoinIn</span><span class="pv">$185,613,864</span></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px">TODAY vs MTD AVG — COINИН</div>
+      <div class="bar-wrap">
+        <span class="bar-label">Today CoinIn</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:50%;background:#58a6ff"></div></div>
+        <span class="bar-val b">$1.33M</span>
+      </div>
+      <div class="bar-wrap">
+        <span class="bar-label">MTD Daily Avg</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:100%;background:#3fb950"></div></div>
+        <span class="bar-val g">$2.66M</span>
+      </div>
+      <div class="bar-wrap">
+        <span class="bar-label">YTD Daily Avg</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:78%;background:#d4a017"></div></div>
+        <span class="bar-val gold">$2.07M</span>
+      </div>
+      <div class="bar-wrap">
+        <span class="bar-label">Budget Daily Req</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:100%;background:#f85149"></div></div>
+        <span class="bar-val r">$2.67M</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px">SLOT vs ETG — MTD MIX</div>
+      <div class="bar-wrap">
+        <span class="bar-label">ETG — CoinIn</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:70.7%;background:#58a6ff"></div></div>
+        <span class="bar-val b">70.7%</span>
+      </div>
+      <div class="bar-wrap">
+        <span class="bar-label">Slot — CoinIn</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:29.3%;background:#d4a017"></div></div>
+        <span class="bar-val gold">29.3%</span>
+      </div>
+      <div class="bar-wrap" style="margin-top:8px">
+        <span class="bar-label">ETG — Win</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:64.2%;background:#58a6ff"></div></div>
+        <span class="bar-val b">64.2%</span>
+      </div>
+      <div class="bar-wrap">
+        <span class="bar-label">Slot — Win</span>
+        <div class="bar-outer"><div class="bar-inner" style="width:35.8%;background:#d4a017"></div></div>
+        <span class="bar-val gold">35.8%</span>
+      </div>
+      <div class="hbox warn" style="margin-top:12px">
+        <div class="hl">ETG Dominance</div>
+        <p>ETG drives 70.7% of turnover but only 64.2% of Win — hold rate divergence. ETG Hold 5.9% vs Slot Hold 7.9% MTD. Slots are more efficient per dollar in. ETG volume is high due to Roulette avg bet $260–288.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: SLOT PERFORMANCE BREAKDOWN -->
+<div class="section">
+  <div class="sh"><div class="sh-num">2</div><h2>Slot Performance — Segment Breakdown</h2><span class="tag">63 Active Units</span></div>
+
+  <div class="g2" style="margin-bottom:14px">
+    <div>
+      <table class="dt">
+        <thead><tr><th>Segment</th><th class="num">Units</th><th class="num">MTD CoinIn</th><th class="num">MTD Win</th><th class="num">Hold%</th><th class="num">CPUPD</th></tr></thead>
+        <tbody>
+          <tr><td>Mass Slots (L3)</td><td class="num">38</td><td class="num">9,090,732</td><td class="num g">700,869</td><td class="num g">7.7%</td><td class="num">14,072</td></tr>
+          <tr><td>High Limit L3</td><td class="num">13</td><td class="num">1,635,368</td><td class="num w">71,235</td><td class="num w">4.4%</td><td class="num">8,017</td></tr>
+          <tr><td>High Limit L2</td><td class="num">12</td><td class="num">2,525,095</td><td class="num g">270,586</td><td class="num">10.7%</td><td class="num">12,378</td></tr>
+          <tr class="bold-row"><td>TOTAL SLOTS</td><td class="num">63</td><td class="num">13,251,195</td><td class="num g">1,042,691</td><td class="num g">7.9%</td><td class="num b">12,572</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="dt">
+        <thead><tr><th>Segment</th><th class="num">Units</th><th class="num">YTD CoinIn</th><th class="num">YTD Win</th><th class="num">Hold%</th><th class="num">CPUPD</th></tr></thead>
+        <tbody>
+          <tr><td>Mass Slots (L3)</td><td class="num">38</td><td class="num">60,553,692</td><td class="num g">3,936,161</td><td class="num g">6.5%</td><td class="num">11,632</td></tr>
+          <tr><td>High Limit L3</td><td class="num">13</td><td class="num">17,031,153</td><td class="num w">976,901</td><td class="num w">5.7%</td><td class="num">10,360</td></tr>
+          <tr><td>High Limit L2</td><td class="num">12</td><td class="num">20,353,817</td><td class="num g">1,447,629</td><td class="num">7.1%</td><td class="num">12,381</td></tr>
+          <tr class="bold-row"><td>TOTAL SLOTS</td><td class="num">63</td><td class="num">97,938,662</td><td class="num g">6,360,691</td><td class="num g">6.5%</td><td class="num b">11,530</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px">TOP SLOT PERFORMERS — MTD (by Win)</div>
+  <table class="dt" style="margin-bottom:14px">
+    <thead><tr><th>Game</th><th class="num">Units</th><th class="num">MTD CoinIn</th><th class="num">MTD Win</th><th class="num">Hold%</th><th class="num">CPUPD</th><th>Flag</th></tr></thead>
+    <tbody>
+      <tr><td class="g">5 Dragons Delux</td><td class="num">6</td><td class="num">1,913,499</td><td class="num g">253,644</td><td class="num g">13.3%</td><td class="num">18,760</td><td><span class="g">★ Best</span></td></tr>
+      <tr><td>5 Koi Legend</td><td class="num">6</td><td class="num">2,000,005</td><td class="num g">109,707</td><td class="num w">5.5%</td><td class="num">19,608</td><td><span class="b">High Vol</span></td></tr>
+      <tr><td>Endless Treasure</td><td class="num">4</td><td class="num">320,595</td><td class="num g">54,019</td><td class="num g">16.8%</td><td class="num">4,715</td><td><span class="g">Efficient</span></td></tr>
+      <tr><td>5 Dragons Pearl (L3)</td><td class="num">2</td><td class="num">1,070,193</td><td class="num g">101,752</td><td class="num g">9.5%</td><td class="num">31,476</td><td><span class="g">High CPUPD</span></td></tr>
+      <tr><td class="r">Fortune King Delux</td><td class="num">2</td><td class="num">604,068</td><td class="num w">2,213</td><td class="num r">0.4%</td><td class="num">17,767</td><td><span class="r">⚠ Low Hold</span></td></tr>
+      <tr><td class="r">Fortune King Gold</td><td class="num">1</td><td class="num">120,834</td><td class="num r">(3,440)</td><td class="num r">-2.8%</td><td class="num">7,108</td><td><span class="r">⚠ Loss</span></td></tr>
+      <tr><td class="r">5 Dragons Pearl HL-L3</td><td class="num">2</td><td class="num">655,281</td><td class="num r">(1,111)</td><td class="num r">-0.2%</td><td class="num">19,273</td><td><span class="r">⚠ Loss</span></td></tr>
+      <tr><td class="r">BFC Bats Dragon</td><td class="num">1</td><td class="num">69,424</td><td class="num r">(6,185)</td><td class="num r">-8.9%</td><td class="num">4,084</td><td><span class="r">⚠ Loss</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div class="hbox green">
+      <div class="hl">Strong Performers</div>
+      <ul>
+        <li>5 Dragons Delux (6 units): 13.3% hold, $18,760 CPUPD — highest Win contributor at $253K MTD</li>
+        <li>5 Dragons Pearl L3: 9.5% hold, exceptional CPUPD $31,476 — only 2 units, consider adding</li>
+        <li>Endless Treasure: 16.8% hold — highest hold rate on floor, strong player engagement</li>
+        <li>5 Dragons Rapid: 11.5% today hold — consistent outperformer</li>
+      </ul>
+    </div>
+    <div class="hbox red">
+      <div class="hl">Underperformers — Action Required</div>
+      <ul>
+        <li>Fortune King Delux: $604K CoinIn but only $2,213 Win (0.4% hold) — machine setting review needed</li>
+        <li>Fortune King Gold: Negative MTD Win (-$3,440) — consider relocation or configuration change</li>
+        <li>5 Dragons Pearl HL-L3: $655K CoinIn, negative Win (-$1,111) — player has been winning consistently</li>
+        <li>BFC Bats Dragon: -8.9% hold MTD — persistent underperformer, flag for replacement</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: ETG PERFORMANCE -->
+<div class="section">
+  <div class="sh"><div class="sh-num">3</div><h2>ETG Performance — Electronic Table Games</h2><span class="tag">43 Active Units</span></div>
+
+  <table class="dt" style="margin-bottom:14px">
+    <thead><tr><th>Hall / Game</th><th class="num">Units</th><th class="num">Today CoinIn</th><th class="num">Today Win</th><th class="num">Today Hold%</th><th class="num">MTD CoinIn</th><th class="num">MTD Win</th><th class="num">MTD Hold%</th><th class="num">YTD CoinIn</th><th class="num">YTD Hold%</th></tr></thead>
+    <tbody>
+      <tr><td>Hall A — Baccarat (L3)</td><td class="num">5</td><td class="num">86,075</td><td class="num r">(5,724)</td><td class="num r">-6.7%</td><td class="num">4,981,855</td><td class="num w">96,806</td><td class="num w">1.9%</td><td class="num">31,955,071</td><td class="num w">0.9%</td></tr>
+      <tr><td>Hall A — Roulette (L3)</td><td class="num">30</td><td class="num b">398,866</td><td class="num g">80,985</td><td class="num g">20.3%</td><td class="num b">22,005,534</td><td class="num g">1,192,003</td><td class="num g">5.4%</td><td class="num b">103,553,020</td><td class="num g">1.7%</td></tr>
+      <tr class="bold-row"><td>Hall A Total</td><td class="num">35</td><td class="num">484,941</td><td class="num g">75,261</td><td class="num g">15.5%</td><td class="num">26,987,389</td><td class="num g">1,288,809</td><td class="num g">4.8%</td><td class="num">137,080,134</td><td class="num">1.5%</td></tr>
+      <tr><td>Hall B — Roulette (L2)</td><td class="num">8</td><td class="num">170,483</td><td class="num g">17,640</td><td class="num g">10.3%</td><td class="num">4,921,472</td><td class="num g">579,779</td><td class="num g">11.8%</td><td class="num">48,533,730</td><td class="num g">1.9%</td></tr>
+      <tr class="bold-row"><td>TOTAL ETG</td><td class="num">43</td><td class="num">655,424</td><td class="num g">92,902</td><td class="num g">14.2%</td><td class="num">31,908,861</td><td class="num g">1,868,587</td><td class="num g">5.9%</td><td class="num">185,613,864</td><td class="num g">1.6%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div class="hbox blue">
+      <div class="hl">Roulette — Dominant Revenue Driver</div>
+      <p>
+        Hall A Roulette (30 units): $22M MTD CoinIn = 48.7% of ALL turnover. Today hold 20.3% — strong day.<br>
+        Hall B Roulette (8 units): 11.8% MTD hold — highest sustained hold rate in the room.<br>
+        Roulette avg bet: Hall A $122–288, Hall B $61–403 — high-denomination play confirmed.<br>
+        <strong>38 Roulette units = ~75% of total ETG turnover.</strong>
+      </p>
+    </div>
+    <div class="hbox red">
+      <div class="hl">Baccarat — Structural Concern</div>
+      <p>
+        Baccarat MTD hold: 1.9% | YTD hold: 0.9% — extremely low. Players winning consistently.<br>
+        Today: -6.7% hold (house lost $5,724 on $86K turnover).<br>
+        YTD $32M CoinIn generating only $284K Win = 0.9% — well below theoretical 2–3% for Baccarat.<br>
+        <strong>Recommend: review Baccarat configuration, player segment analysis, consider reducing units or repositioning.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: BUDGET TRACKING -->
+<div class="section">
+  <div class="sh"><div class="sh-num">4</div><h2>Budget Tracking — FY2026</h2><span class="tag">YTD vs Target</span><span class="alert-tag">Gap Alert</span></div>
+
+  <table class="dt" style="margin-bottom:14px">
+    <thead><tr><th>Metric</th><th class="num">YTD Actual</th><th class="num">Annualized (×365/137)</th><th class="num">FY2026 Budget</th><th class="num">Track%</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Total CoinIn</td><td class="num">$283,552,525</td><td class="num b">$755,450,158</td><td class="num">$975,840,446</td><td class="num r">77.4%</td><td><span class="r">⚠ Behind</span></td></tr>
+      <tr><td>Total Machine Win</td><td class="num">$9,382,240</td><td class="num b">$24,996,479</td><td class="num">~$29,400,000</td><td class="num w">85.0%</td><td><span class="w">Watch</span></td></tr>
+      <tr><td>Slot CoinIn</td><td class="num">$97,938,662</td><td class="num b">$260,823,000</td><td class="num">$279,070,879</td><td class="num w">93.5%</td><td><span class="g">Near Budget</span></td></tr>
+      <tr><td>ETG CoinIn</td><td class="num">$185,613,864</td><td class="num b">$494,500,000</td><td class="num">$696,769,567</td><td class="num r">70.9%</td><td><span class="r">⚠ Behind</span></td></tr>
+      <tr><td>Daily CoinIn avg (MTD May)</td><td class="num">$2,656,474</td><td class="num b">$82.4M/month</td><td class="num">$81.3M/month avg</td><td class="num g">101.4%</td><td><span class="g">On Track</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div class="hbox warn">
+      <div class="hl">The Real Picture</div>
+      <p>
+        YTD annualized at $755M — but <strong>May MTD daily avg is $2.66M/day = on budget pace ($81.3M/month avg)</strong>.<br>
+        The gap is from H1 underperformance (Jan–Apr weak months confirmed in budget: $69–78M/month).<br>
+        H2 budget ramps to $91–92M/month. MTD May run rate ($82.4M) suggests the ramp has started.<br>
+        <strong>Key question: Can June–Dec sustain $2.5–3M+ daily CoinIn to close the gap?</strong>
+      </p>
+    </div>
+    <div class="hbox green">
+      <div class="hl">Recovery Scenario</div>
+      <p>
+        Need ~$692M CoinIn in remaining 227 days (May 18 – Dec 31) to hit $976M budget.<br>
+        Required daily run rate: <strong>$3.05M/day</strong> — vs current MTD avg $2.66M/day.<br>
+        Gap = +$390K/day more needed = +14.6% acceleration from current pace.<br>
+        <strong>Achievable if H2 ramp holds + BD/VIP initiatives generate additional $1–2M/month CoinIn.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: PLAYER CONCENTRATION -->
+<div class="section">
+  <div class="sh"><div class="sh-num">5</div><h2>Player Concentration & VIP Analysis</h2><span class="tag">Top Players</span><span class="alert-tag">Concentration Risk</span></div>
+
+  <div class="g2" style="margin-bottom:14px">
+    <table class="dt">
+      <thead><tr><th>Period</th><th class="num">Top Loser Amount</th><th class="num">% of Total Win</th><th>Implication</th></tr></thead>
+      <tbody>
+        <tr><td>Today</td><td class="num r">$57,761</td><td class="num r">41.1%</td><td><span class="r">1 player = 41% of today's win</span></td></tr>
+        <tr><td>MTD</td><td class="num r">$935,075</td><td class="num r">32.1%</td><td><span class="r">1 player = 32% of MTD win</span></td></tr>
+        <tr><td>YTD</td><td class="num r">$866,903</td><td class="num w">9.2%</td><td><span class="w">Rotation present in top losers</span></td></tr>
+      </tbody>
+    </table>
+    <table class="dt">
+      <thead><tr><th>Nationality Mix (from Player Names)</th><th>Segment</th><th>Est. ADT Range</th></tr></thead>
+      <tbody>
+        <tr><td class="g">Korean (이, 김, 정, 황, 윤, 구도)</td><td>Dominant</td><td>High — $5K–$50K+</td></tr>
+        <tr><td class="b">Chinese (姜, 陈, 刘, 梁, 唐, 李)</td><td>Strong</td><td>High — $3K–$30K+</td></tr>
+        <tr><td>Japanese (Omichi, Uchida, Kudo)</td><td>Present</td><td>Medium-High</td></tr>
+        <tr><td>Malaysian (Lian Yew, Tang Meng)</td><td>Present</td><td>Medium-High</td></tr>
+        <tr><td>Middle East (Ahmad, Omair)</td><td>Emerging</td><td>High — $5K–$50K+</td></tr>
+        <tr><td>Vietnamese (Tran, Duong, Trang)</td><td>Local</td><td>Medium</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert red">
+    <span class="icon">⚠️</span>
+    <div class="body">
+      <strong>Critical Concentration Risk:</strong> MTD top single player loss = $935,075 = <strong>32.1% of total MTD win</strong>. If this player stops coming or starts winning, monthly performance swings $900K+. The YTD pattern ($866K from one player) confirms this is a recurring structural risk — not a one-off.<br>
+      <strong>Action:</strong> This player must receive maximum host attention, retention investment, and personalized service. Simultaneously, reduce dependency by acquiring 10–15 additional players at $50K–$200K MTD loss level.
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="hbox blue">
+      <div class="hl">Korean Segment — Priority #1</div>
+      <p>Korean names dominate both top winners and top losers lists (Today, MTD, YTD). This is your primary revenue-generating nationality. Dedicated Korean-speaking host and cultural touchpoints (Korean F&B, Korean entertainment nights) will maximize retention and referrals.</p>
+    </div>
+    <div class="hbox gold">
+      <div class="hl">Middle East — Emerging Opportunity</div>
+      <p>Ahmad Rafiq Moh'd Said appears in MTD top winners — indicating a high-ADT Middle Eastern player is active. This segment is underrepresented but has very high spend potential. BD focus on Dubai/GCC visitor network through Le Méridien's global Marriott channels could open this segment.</p>
+    </div>
+    <div class="hbox green">
+      <div class="hl">Player Base Breadth</div>
+      <p>7-day unique HC: 100–200 range visible in chart. Healthy diversity across 6+ nationalities confirms LV is not purely domestic-dependent. MTD player mix: Korean + Chinese = est. 60–70% of Win. Expanding Japanese and Malaysian player base (both present) could add $500K–$1M annual Win.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: ACTIONS -->
+<div class="section">
+  <div class="sh"><div class="sh-num">6</div><h2>Recommended Actions</h2><span class="tag">Priority Matrix</span></div>
+
+  <table class="dt">
+    <thead><tr><th>Priority</th><th>Action</th><th>Rationale</th><th>Owner</th><th>Timeline</th><th>Expected Impact</th></tr></thead>
+    <tbody>
+      <tr><td><span class="r">P1 — Urgent</span></td><td>Review Fortune King Delux (2 units) configuration</td><td>$604K CoinIn, only $2K Win (0.4% hold) — machine malfunction or misconfigured RTP</td><td>Slots Manager</td><td>This week</td><td class="g">+$50K–80K MTD Win recovery</td></tr>
+      <tr><td><span class="r">P1 — Urgent</span></td><td>Retain top MTD loser (Korean player ~$935K)</td><td>32% of MTD Win from 1 player — maximum retention effort needed</td><td>VIP Host</td><td>Now</td><td class="g">Protect $10M+ annual value</td></tr>
+      <tr><td><span class="r">P1 — Urgent</span></td><td>Replace/review BFC Bats Dragon (-8.9% hold MTD)</td><td>Persistent negative hold — floor is paying out net on this game</td><td>Gaming Ops</td><td>This week</td><td class="g">+$6K/month minimum</td></tr>
+      <tr><td><span class="w">P2 — This Month</span></td><td>Baccarat configuration review</td><td>YTD hold 0.9% (theoretical 2–3%) — $285K Win shortfall YTD vs expected</td><td>Gaming Ops + Vendor</td><td>May</td><td class="g">+$200K annualized</td></tr>
+      <tr><td><span class="w">P2 — This Month</span></td><td>5 Dragons Pearl HL-L3: player review</td><td>$655K MTD CoinIn, negative Win — specific player winning consistently, review play pattern</td><td>Gaming + Host</td><td>May</td><td class="w">Risk management</td></tr>
+      <tr><td><span class="b">P3 — June</span></td><td>Scale up 5 Dragons Delux and Endless Treasure</td><td>Highest hold efficiency on floor — consider adding 2 more units each if space allows</td><td>Floor Manager</td><td>June</td><td class="g">+$100K–$150K monthly Win</td></tr>
+      <tr><td><span class="b">P3 — June</span></td><td>Middle East player BD initiative</td><td>Ahmad Omair active in MTD — Marriott/Le Méridien GCC network to source similar players</td><td>BD Manager</td><td>June</td><td class="g">New $500K+ Win segment</td></tr>
+      <tr><td><span class="b">P3 — Q3</span></td><td>Accelerate daily CoinIn to $3.05M target</td><td>Need +14.6% acceleration to hit FY budget — achievable through VIP visit frequency + hotel conversion</td><td>GM + Marketing</td><td>Q3</td><td class="g">Close ~$220M CoinIn budget gap</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="doc-footer">
+  <span>La Victoire Club · EGM Performance Report · 17 May 2026</span>
+  <span>Confidential — Internal Use Only</span>
+</div>
+
+</div>
+</body>
+</html>
