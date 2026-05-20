@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LV Club — Market Expansion Plan 2026–2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Roboto',sans-serif;background:#0d1117;color:#e6edf3;font-size:13px;line-height:1.6;min-width:1200px}
+.page{max-width:1360px;margin:0 auto;padding:40px 48px}
+
+/* Doc header */
+.doc-header{border-bottom:1px solid #30363d;padding-bottom:28px;margin-bottom:32px}
+.doc-header .badge{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8b949e;margin-bottom:8px}
+.doc-header h1{font-size:30px;font-weight:700;color:#fff;margin-bottom:6px}
+.doc-header .sub{font-size:14px;color:#8b949e;margin-bottom:18px}
+.meta-row{display:flex;gap:28px;flex-wrap:wrap}
+.meta-item .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e}
+.meta-item .value{font-size:12px;font-weight:500;color:#e6edf3}
+
+/* Section */
+.section{margin-bottom:44px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #21262d}
+.sh-num{width:30px;height:30px;border-radius:8px;background:#1f6feb22;border:1px solid #1f6feb44;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#58a6ff;flex-shrink:0}
+.sh h2{font-size:14px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px}
+.sh .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 8px;border-radius:4px;background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44}
+
+/* Grid */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+/* Card */
+.card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px}
+.card .ct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:8px}
+.card p,.card li{font-size:12px;color:#c9d1d9;line-height:1.7}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.card ul li::before{content:'· ';color:#58a6ff}
+
+/* KPI card */
+.kpi{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px 18px;text-align:center}
+.kpi .kl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:6px}
+.kpi .kv{font-size:22px;font-weight:700;color:#fff}
+.kpi .ks{font-size:11px;color:#8b949e;margin-top:3px}
+.kpi.green .kv{color:#3fb950}
+.kpi.blue .kv{color:#58a6ff}
+.kpi.gold .kv{color:#d4a017}
+.kpi.red .kv{color:#f85149}
+
+/* Highlight box */
+.hbox{border-radius:10px;padding:16px 20px;margin-bottom:14px}
+.hbox.blue{background:#0d2040;border:1px solid #1f6feb44;border-left:4px solid #1f6feb}
+.hbox.green{background:#0d2b1a;border:1px solid #2ea04326;border-left:4px solid #3fb950}
+.hbox.gold{background:#1a1400;border:1px solid #d4a01744;border-left:4px solid #d4a017}
+.hbox.red{background:#2a0d0d;border:1px solid #f8514944;border-left:4px solid #f85149}
+.hbox .hl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.hbox.blue .hl{color:#58a6ff}.hbox.green .hl{color:#3fb950}.hbox.gold .hl{color:#d4a017}.hbox.red .hl{color:#f85149}
+.hbox p{font-size:12px;color:#c9d1d9;line-height:1.7}
+
+/* Table */
+.data-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;font-size:12px}
+.data-table th{background:#1f2937;color:#8b949e;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:8px 12px;text-align:left;border-bottom:1px solid #30363d}
+.data-table td{padding:9px 12px;border-bottom:1px solid #21262d;color:#c9d1d9}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#161b22}
+.num{text-align:right;font-family:monospace;font-size:11px}
+.green-text{color:#3fb950;font-weight:600}
+.red-text{color:#f85149;font-weight:600}
+.gold-text{color:#d4a017;font-weight:600}
+.blue-text{color:#58a6ff;font-weight:600}
+.bold-row td{font-weight:700;color:#fff;background:#161b22}
+
+/* Scenario comparison */
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.scenario{border-radius:10px;padding:20px;border:1px solid #30363d}
+.scenario.base{background:#0d2040;border-color:#1f6feb44}
+.scenario.mid{background:#0d2b1a;border-color:#2ea04326}
+.scenario.high{background:#1a1400;border-color:#d4a01744}
+.scenario .s-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.scenario.base .s-label{color:#58a6ff}
+.scenario.mid .s-label{color:#3fb950}
+.scenario.high .s-label{color:#d4a017}
+.scenario .s-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:12px}
+.scenario .s-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid #21262d}
+.scenario .s-row:last-child{border:none}
+.scenario .s-key{font-size:11px;color:#8b949e}
+.scenario .s-val{font-size:13px;font-weight:600}
+.scenario.base .s-val{color:#58a6ff}
+.scenario.mid .s-val{color:#3fb950}
+.scenario.high .s-val{color:#d4a017}
+
+/* Timeline phases */
+.phases{display:flex;gap:0;margin-bottom:20px}
+.phase-block{flex:1;padding:16px 18px;border:1px solid #30363d;border-radius:0}
+.phase-block:first-child{border-radius:10px 0 0 10px}
+.phase-block:last-child{border-radius:0 10px 10px 0}
+.phase-block:not(:last-child){border-right:none}
+.phase-block.p1{background:#0d2040}
+.phase-block.p2{background:#0d2b1a}
+.phase-block.p3{background:#1a1400}
+.phase-block .p-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.p1 .p-label{color:#58a6ff}.p2 .p-label{color:#3fb950}.p3 .p-label{color:#d4a017}
+.phase-block .p-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.phase-block .p-period{font-size:11px;color:#8b949e;margin-bottom:10px}
+.phase-block ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.phase-block ul li{font-size:11px;color:#c9d1d9}
+.phase-block ul li::before{content:'→ ';font-weight:700}
+.p1 ul li::before{color:#58a6ff}.p2 ul li::before{color:#3fb950}.p3 ul li::before{color:#d4a017}
+
+/* BD channels */
+.channel-row{display:grid;grid-template-columns:160px 1fr 80px 80px;gap:0;border-bottom:1px solid #21262d;padding:10px 0;align-items:start}
+.channel-row:first-child{border-top:1px solid #30363d}
+.ch-name{font-size:12px;font-weight:600;color:#fff}
+.ch-desc{font-size:11px;color:#8b949e;padding:0 12px}
+.ch-pot{font-size:12px;font-weight:600;color:#3fb950;text-align:right}
+.ch-time{font-size:11px;color:#8b949e;text-align:right}
+
+/* Footer */
+.doc-footer{border-top:1px solid #21262d;margin-top:48px;padding-top:16px;display:flex;justify-content:space-between}
+.doc-footer span{font-size:11px;color:#8b949e}
+
+@media print{body{background:#fff;color:#0d1117;min-width:unset}.page{padding:20px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Header -->
+<div class="doc-header">
+  <div class="badge">La Victoire Club · Royal Canary Corp · Confidential</div>
+  <h1>Market Expansion Plan 2026–2027</h1>
+  <div class="sub">Baseline Analysis · Growth Scenarios · BD & Player Acquisition · Financial Projections</div>
+  <div class="meta-row">
+    <div class="meta-item"><div class="label">Baseline FY2026 GGR</div><div class="value">USD 17,000,000</div></div>
+    <div class="meta-item"><div class="label">Baseline Turnover</div><div class="value">USD 975.8M</div></div>
+    <div class="meta-item"><div class="label">Avg GGR Margin</div><div class="value">1.74%</div></div>
+    <div class="meta-item"><div class="label">Prepared</div><div class="value">May 2026</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1: BASELINE -->
+<div class="section">
+  <div class="sh"><div class="sh-num">1</div><h2>Current Baseline — FY 2026 Forecast</h2><span class="tag">Baseline</span></div>
+
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="kpi blue"><div class="kl">Annual Turnover</div><div class="kv">$975.8M</div><div class="ks">FY 2026 forecast</div></div>
+    <div class="kpi green"><div class="kl">Annual GGR / Net Sales</div><div class="kv">$17.0M</div><div class="ks">1.74% of turnover</div></div>
+    <div class="kpi gold"><div class="kl">Machine Win/Loss</div><div class="kv">$29.4M</div><div class="ks">3.02% hold rate</div></div>
+    <div class="kpi"><div class="kl">Avg Monthly GGR</div><div class="kv">$1.42M</div><div class="ks">Range: $1.0M–$1.9M</div></div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Month</th><th class="num">Turnover (USD)</th><th class="num">Machine Win/Loss</th><th class="num">GGR / Net Sales</th><th class="num">GGR %</th><th class="num">MWL %</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Jan '26</td><td class="num">76,588,995</td><td class="num">2,119,574</td><td class="num green-text">1,207,295</td><td class="num">1.58%</td><td class="num">2.77%</td></tr>
+      <tr><td>Feb '26</td><td class="num">76,588,995</td><td class="num">2,206,705</td><td class="num green-text">1,294,426</td><td class="num">1.69%</td><td class="num">2.88%</td></tr>
+      <tr><td>Mar '26</td><td class="num">69,021,741</td><td class="num">1,903,947</td><td class="num green-text">1,081,803</td><td class="num">1.57%</td><td class="num">2.76%</td></tr>
+      <tr><td>Apr '26</td><td class="num">69,021,741</td><td class="num">1,847,809</td><td class="num green-text">1,025,665</td><td class="num">1.49%</td><td class="num">2.68%</td></tr>
+      <tr><td>May '26</td><td class="num">78,570,681</td><td class="num">2,246,253</td><td class="num green-text">1,310,368</td><td class="num">1.67%</td><td class="num">2.86%</td></tr>
+      <tr><td>Jun '26</td><td class="num">78,570,681</td><td class="num">2,257,753</td><td class="num green-text">1,321,868</td><td class="num">1.68%</td><td class="num">2.87%</td></tr>
+      <tr><td>Jul '26</td><td class="num">80,140,975</td><td class="num">2,239,817</td><td class="num green-text">1,285,228</td><td class="num">1.60%</td><td class="num">2.79%</td></tr>
+      <tr><td>Aug '26</td><td class="num">80,140,975</td><td class="num">2,564,607</td><td class="num green-text">1,410,018</td><td class="num">1.76%</td><td class="num">3.20%</td></tr>
+      <tr><td>Sep '26</td><td class="num">91,697,379</td><td class="num">3,033,078</td><td class="num green-text">1,740,836</td><td class="num">1.90%</td><td class="num">3.31%</td></tr>
+      <tr><td>Oct '26</td><td class="num">91,697,379</td><td class="num">2,978,609</td><td class="num green-text">1,686,367</td><td class="num">1.84%</td><td class="num">3.25%</td></tr>
+      <tr><td>Nov '26</td><td class="num">91,900,452</td><td class="num">3,055,522</td><td class="num green-text">1,760,862</td><td class="num">1.92%</td><td class="num">3.32%</td></tr>
+      <tr><td>Dec '26</td><td class="num">91,900,452</td><td class="num">2,969,922</td><td class="num green-text">1,875,262</td><td class="num">2.04%</td><td class="num">3.23%</td></tr>
+      <tr class="bold-row"><td>FY 2026 TOTAL</td><td class="num">975,840,446</td><td class="num">29,423,596</td><td class="num green-text">17,000,000</td><td class="num">1.74%</td><td class="num">3.02%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="hbox blue">
+      <div class="hl">Key Observations</div>
+      <p>
+        Strong H2 acceleration — Sep–Dec monthly GGR 37% above H1 average ($1.77M vs $1.29M).<br>
+        GGR margin improving month-on-month: Jan 1.58% → Dec 2.04%, indicating better hold calibration or player mix shift.<br>
+        RL/Table dominates at 71% of turnover ($697M) vs Slots 29% ($279M).
+      </p>
+    </div>
+    <div class="hbox red">
+      <div class="hl">Gaps to Address</div>
+      <p>
+        Mar–Apr dip ($69M/month turnover) vs peak months ($92M) = 25% variance — likely low-visitation period needing targeted activation.<br>
+        GGR% still below 2.0% for most months — optimization upside available through hold rate calibration and player quality improvement.<br>
+        No inbound/expat mix data — revenue concentration risk unknown.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: MARKET EXPANSION OPPORTUNITY -->
+<div class="section">
+  <div class="sh"><div class="sh-num">2</div><h2>Market Expansion Opportunity</h2><span class="tag">Opportunity</span></div>
+
+  <div class="grid g3" style="margin-bottom:16px">
+    <div class="card">
+      <div class="ct">Segment 1 — Local High Value</div>
+      <ul>
+        <li>Vietnamese nationals meeting eligibility criteria</li>
+        <li>Target: HCM business owners, HNWI, professionals</li>
+        <li>Est. addressable: 500–800 active players in market</li>
+        <li>Avg ADT target: $5,000–$15,000/visit</li>
+        <li>Channel: referral, member introduction, events</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Segment 2 — Expat Business Community</div>
+      <ul>
+        <li>Foreign residents: Korean, Chinese, Japanese, Taiwanese</li>
+        <li>Business owners in HCM manufacturing/trade/F&B</li>
+        <li>Highest density: District 1, 3, 7, Binh Thanh</li>
+        <li>Avg ADT target: $3,000–$10,000/visit</li>
+        <li>Channel: corporate partnerships, consulate networks</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">Segment 3 — Inbound International</div>
+      <ul>
+        <li>Hotel guests at Le Méridien Saigon (prime conversion)</li>
+        <li>MICE visitors, trade show delegates</li>
+        <li>High-spend leisure tourists from Korea, China, Singapore</li>
+        <li>Avg ADT target: $2,000–$8,000/visit</li>
+        <li>Channel: hotel concierge, OTA partnerships, travel agents</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="hbox green">
+      <div class="hl">Vietnam eGaming Market Tailwinds</div>
+      <p>
+        Vietnam inbound tourism: 8.8M arrivals H1 2026 (record pace). LV positioned at premium hotel intersection.<br>
+        Ritz-Carlton Vietnam debut (Masterise Towers HCMC, May 2026) confirms luxury spend demand in market.<br>
+        Major hotel groups (Ascott, Far East, Frasers) all expanding Vietnam — driving upscale traveler volume.<br>
+        MICE recovery post-COVID driving corporate group inbound — direct conversion target for LV.
+      </p>
+    </div>
+    <div class="hbox gold">
+      <div class="hl">LV Competitive Position</div>
+      <p>
+        Integrated hotel-gaming at Le Méridien = friction-free conversion vs standalone clubs.<br>
+        Location advantage: District 1 prime — highest density of expat business community.<br>
+        Capacity constraint = quality focus opportunity. Limited supply forces player quality curation.<br>
+        H2 2026 performance trend (+37% GGR vs H1) validates momentum. Must be sustained and accelerated.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: GROWTH SCENARIOS -->
+<div class="section">
+  <div class="sh"><div class="sh-num">3</div><h2>Growth Scenarios — FY 2027 Targets</h2><span class="tag">Targets</span></div>
+
+  <div class="scenario-grid">
+    <div class="scenario base">
+      <div class="s-label">Conservative</div>
+      <div class="s-name">+20% Growth</div>
+      <div class="s-row"><span class="s-key">Annual Turnover</span><span class="s-val">$1.171B</span></div>
+      <div class="s-row"><span class="s-key">Annual GGR</span><span class="s-val">$21.4M</span></div>
+      <div class="s-row"><span class="s-key">GGR Uplift</span><span class="s-val">+$4.4M</span></div>
+      <div class="s-row"><span class="s-key">Monthly GGR avg</span><span class="s-val">$1.78M</span></div>
+      <div class="s-row"><span class="s-key">GGR %</span><span class="s-val">1.83%</span></div>
+      <div class="s-row"><span class="s-key">Driver</span><span class="s-val">Player quality ↑</span></div>
+      <div class="s-row"><span class="s-key">Marketing invest</span><span class="s-val">~$800K</span></div>
+      <div class="s-row"><span class="s-key">ROI (incremental GGR)</span><span class="s-val">5.5x</span></div>
+    </div>
+    <div class="scenario mid">
+      <div class="s-label">Base Case</div>
+      <div class="s-name">+35% Growth</div>
+      <div class="s-row"><span class="s-key">Annual Turnover</span><span class="s-val">$1.317B</span></div>
+      <div class="s-row"><span class="s-key">Annual GGR</span><span class="s-val">$24.1M</span></div>
+      <div class="s-row"><span class="s-key">GGR Uplift</span><span class="s-val">+$7.1M</span></div>
+      <div class="s-row"><span class="s-key">Monthly GGR avg</span><span class="s-val">$2.01M</span></div>
+      <div class="s-row"><span class="s-key">GGR %</span><span class="s-val">1.83%</span></div>
+      <div class="s-row"><span class="s-key">Driver</span><span class="s-val">BD + VIP dev</span></div>
+      <div class="s-row"><span class="s-key">Marketing invest</span><span class="s-val">~$1.4M</span></div>
+      <div class="s-row"><span class="s-key">ROI (incremental GGR)</span><span class="s-val">5.1x</span></div>
+    </div>
+    <div class="scenario high">
+      <div class="s-label">Aggressive</div>
+      <div class="s-name">+50% Growth</div>
+      <div class="s-row"><span class="s-key">Annual Turnover</span><span class="s-val">$1.464B</span></div>
+      <div class="s-row"><span class="s-key">Annual GGR</span><span class="s-val">$26.8M</span></div>
+      <div class="s-row"><span class="s-key">GGR Uplift</span><span class="s-val">+$9.8M</span></div>
+      <div class="s-row"><span class="s-key">Monthly GGR avg</span><span class="s-val">$2.23M</span></div>
+      <div class="s-row"><span class="s-key">GGR %</span><span class="s-val">1.83%</span></div>
+      <div class="s-row"><span class="s-key">Driver</span><span class="s-val">New segments + BD</span></div>
+      <div class="s-row"><span class="s-key">Marketing invest</span><span class="s-val">~$2.2M</span></div>
+      <div class="s-row"><span class="s-key">ROI (incremental GGR)</span><span class="s-val">4.5x</span></div>
+    </div>
+  </div>
+
+  <div class="hbox blue">
+    <div class="hl">Recommended Target: Base Case +35%</div>
+    <p>The +35% scenario is achievable within 12 months given LV's H2 2026 momentum trajectory, the expanding Vietnam inbound market, and the untapped expat segment. Requires structured BD function, VIP program formalization, and hotel conversion optimization. GGR margin improvement from 1.74% → 1.83% adds incremental $900K on top of volume growth.</p>
+  </div>
+</div>
+
+<!-- SECTION 4: BD & PLAYER ACQUISITION -->
+<div class="section">
+  <div class="sh"><div class="sh-num">4</div><h2>Business Development & Player Acquisition Plan</h2><span class="tag">BD · Acquisition</span></div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px">BD CHANNELS — PRIORITY RANKING</div>
+      <div class="channel-row">
+        <div><div class="ch-name">🏨 Hotel Conversion</div></div>
+        <div class="ch-desc">Le Méridien guests → LV walk-in program. Concierge incentive, welcome offer, room key activation.</div>
+        <div class="ch-pot green-text">HIGH</div>
+        <div class="ch-time">Month 1</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">👥 Member Referral</div></div>
+        <div class="ch-desc">Structured referral program: existing VIP introduces qualified player → host incentive + tier upgrade.</div>
+        <div class="ch-pot green-text">HIGH</div>
+        <div class="ch-time">Month 1</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">🌏 Expat Networks</div></div>
+        <div class="ch-desc">Korean/Japanese/Taiwanese business associations in HCM. Private club nights, BD relationship managers.</div>
+        <div class="ch-pot green-text">HIGH</div>
+        <div class="ch-time">Month 2–3</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">🤝 Corporate Partnerships</div></div>
+        <div class="ch-desc">MICE venues, travel agencies, premium F&B partners, luxury retail. Cross-referral agreements.</div>
+        <div class="ch-pot gold-text">MED-HIGH</div>
+        <div class="ch-time">Month 2–4</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">✈️ Travel Agent Program</div></div>
+        <div class="ch-desc">Incentivize Korean/Chinese/Singaporean travel agents to route high-spend visitors to Le Méridien + LV.</div>
+        <div class="ch-pot gold-text">MEDIUM</div>
+        <div class="ch-time">Month 3–6</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">📱 Digital (WeChat/KakaoTalk)</div></div>
+        <div class="ch-desc">Private groups for expat HNWIs. Invite-only digital community, event announcements, exclusive offers.</div>
+        <div class="ch-pot gold-text">MEDIUM</div>
+        <div class="ch-time">Month 2–3</div>
+      </div>
+      <div class="channel-row">
+        <div><div class="ch-name">🎭 Premium Events</div></div>
+        <div class="ch-desc">Quarterly VIP nights, jackpot tournaments, private dining + gaming combos. New player introduction vehicle.</div>
+        <div class="ch-pot gold-text">MEDIUM</div>
+        <div class="ch-time">Quarterly</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px">VIP DEVELOPMENT FRAMEWORK</div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="ct">Tier Structure</div>
+        <table class="data-table" style="margin-top:4px">
+          <thead><tr><th>Tier</th><th>ADT Range</th><th>Monthly Visits</th><th>Benefits</th></tr></thead>
+          <tbody>
+            <tr><td class="gold-text">Diamond</td><td>$15,000+</td><td>4+</td><td>Dedicated host, suite upgrade, F&B credit, events</td></tr>
+            <tr><td style="color:#c9d1d9">Platinum</td><td>$8,000–$15,000</td><td>3+</td><td>Host access, room discount, priority cashback</td></tr>
+            <tr><td style="color:#3fb950">Gold</td><td>$3,000–$8,000</td><td>2+</td><td>Points bonus, F&B voucher, invitations</td></tr>
+            <tr><td style="color:#8b949e">Silver</td><td>$1,000–$3,000</td><td>1+</td><td>Standard reinvestment, event access</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="ct">Player Lifecycle Management</div>
+        <ul>
+          <li><strong>Acquisition:</strong> Welcome offer, host introduction, first-visit profiling</li>
+          <li><strong>Activation:</strong> 2nd visit incentive within 30 days, tier qualification path</li>
+          <li><strong>Retention:</strong> Monthly statement, personalized offers, birthday recognition</li>
+          <li><strong>Re-activation:</strong> Lapsed player (45+ days) outreach with tailored incentive</li>
+          <li><strong>Upgrade path:</strong> Quarterly tier review, upgrade notifications, aspirational messaging</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="hbox green">
+      <div class="hl">Hotel Conversion — Quick Win</div>
+      <p>
+        Le Méridien Saigon: ~200–300 rooms, avg 70% occupancy = 140–210 room-nights/night.<br>
+        If 5% of hotel guests visit LV = +7–10 new players/day.<br>
+        Avg first-timer ADT $1,500 → $10,500–$15,000 incremental daily turnover.<br>
+        <strong>Target: hotel conversion rate from ~2% → 8% within 6 months.</strong>
+      </p>
+    </div>
+    <div class="hbox blue">
+      <div class="hl">Expat Segment — Medium Term</div>
+      <p>
+        HCM has ~250,000 registered foreign residents. Top gaming nationalities: Korean, Chinese, Japanese.<br>
+        Target 50 active new expat players in Y1 at avg ADT $5,000 = $250,000 ADT base.<br>
+        Monthly: 2 visits avg = $500,000/month turnover = $6M annualized per 50 players.<br>
+        <strong>BD manager dedicated to expat segment pays back in 3–4 months at $6M/year.</strong>
+      </p>
+    </div>
+    <div class="hbox gold">
+      <div class="hl">VIP Deepening — Highest ROI</div>
+      <p>
+        Assume top 20 players currently = 50% of turnover (~$490M/year, $24.5M avg per player).<br>
+        Increase visit frequency of top tier by 1 visit/month = +15–20% turnover from existing base.<br>
+        Zero acquisition cost — purely retention/service investment.<br>
+        <strong>1 additional visit/month per Diamond player = $1.5–$2M additional GGR.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: MARKETING PLAN -->
+<div class="section">
+  <div class="sh"><div class="sh-num">5</div><h2>Marketing Plan</h2><span class="tag">Marketing</span></div>
+
+  <div class="grid g2" style="margin-bottom:16px">
+    <table class="data-table">
+      <thead><tr><th>Initiative</th><th>Target Segment</th><th>Budget</th><th>Timeline</th><th>KPI</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hotel Welcome Program</strong></td><td>Inbound guests</td><td class="num">$50K/yr</td><td>Month 1</td><td>Conversion rate %</td></tr>
+        <tr><td><strong>VIP Host Program</strong></td><td>Diamond/Platinum</td><td class="num">$150K/yr</td><td>Month 1</td><td>Visit freq, ADT</td></tr>
+        <tr><td><strong>Referral Incentive</strong></td><td>All VIP tiers</td><td class="num">$80K/yr</td><td>Month 1</td><td>New qualified players</td></tr>
+        <tr><td><strong>Expat BD Manager (x1)</strong></td><td>Korean/Chinese/JP expat</td><td class="num">$60K/yr</td><td>Month 2</td><td>New active players</td></tr>
+        <tr><td><strong>Quarterly VIP Events</strong></td><td>All VIP + prospects</td><td class="num">$120K/yr</td><td>Quarterly</td><td>Attendance, new sign-ups</td></tr>
+        <tr><td><strong>Digital (WeChat/Kakao)</strong></td><td>Expat community</td><td class="num">$30K/yr</td><td>Month 2</td><td>Community size, visits</td></tr>
+        <tr><td><strong>Travel Agent Program</strong></td><td>Inbound tourists</td><td class="num">$100K/yr</td><td>Month 3</td><td>Referred player visits</td></tr>
+        <tr><td><strong>F&B / Lifestyle Collateral</strong></td><td>Hotel, corporate</td><td class="num">$40K/yr</td><td>Month 1</td><td>Lead inquiries</td></tr>
+        <tr><td><strong>Jackpot Tournament Series</strong></td><td>Existing + new</td><td class="num">$200K/yr</td><td>Bi-monthly</td><td>Participation, turnover</td></tr>
+        <tr><td><strong>Corporate Partnership</strong></td><td>MICE, luxury brands</td><td class="num">$50K/yr</td><td>Month 3</td><td>Partner referrals</td></tr>
+        <tr class="bold-row"><td>TOTAL MARKETING BUDGET</td><td>All segments</td><td class="num green-text">~$880K/yr</td><td>12 months</td><td>GGR growth +35%</td></tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="ct">Reinvestment Strategy (Player Benefits)</div>
+        <ul>
+          <li><strong>Cash rebate:</strong> 0.33% of turnover (maintain current level)</li>
+          <li><strong>Mystery jackpot:</strong> 0.86–1.11% (key engagement driver — sustain)</li>
+          <li><strong>Promotional:</strong> 1.27–1.82% flexible budget (reduce in strong months)</li>
+          <li><strong>Total reinvestment rate:</strong> Target 2.5–2.8% of turnover (currently ~2.5%)</li>
+          <li><strong>VIP-specific:</strong> Comp rooms, dining, transfer — off P&L cost of hospitality</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ct">Offline vs Digital Split</div>
+        <ul>
+          <li><strong>Offline (65%):</strong> Events, hosting, referral, BD relationships, F&B</li>
+          <li><strong>Digital (20%):</strong> WeChat, KakaoTalk, private community management</li>
+          <li><strong>Travel/partnerships (15%):</strong> Agent commissions, hotel concierge, MICE</li>
+          <li>Gaming audience is relationship-driven — offline dominates ROI</li>
+          <li>Digital = discovery & engagement, not direct acquisition</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: FINANCIAL PROJECTIONS -->
+<div class="section">
+  <div class="sh"><div class="sh-num">6</div><h2>Financial Plan — FY 2027 Projection (Base Case +35%)</h2><span class="tag">Financials</span></div>
+
+  <table class="data-table" style="margin-bottom:16px">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th class="num">Turnover Target</th>
+        <th class="num">vs Baseline</th>
+        <th class="num">Projected GGR</th>
+        <th class="num">GGR %</th>
+        <th class="num">Marketing Cost</th>
+        <th class="num">Net Contribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Jan '27</td><td class="num">89,000,000</td><td class="num green-text">+16%</td><td class="num green-text">1,601,000</td><td class="num">1.80%</td><td class="num red-text">65,000</td><td class="num">1,536,000</td></tr>
+      <tr><td>Feb '27</td><td class="num">92,000,000</td><td class="num green-text">+20%</td><td class="num green-text">1,656,000</td><td class="num">1.80%</td><td class="num red-text">68,000</td><td class="num">1,588,000</td></tr>
+      <tr><td>Mar '27</td><td class="num">88,000,000</td><td class="num green-text">+27%</td><td class="num green-text">1,602,000</td><td class="num">1.82%</td><td class="num red-text">72,000</td><td class="num">1,530,000</td></tr>
+      <tr><td>Apr '27</td><td class="num">87,000,000</td><td class="num green-text">+26%</td><td class="num green-text">1,583,400</td><td class="num">1.82%</td><td class="num red-text">72,000</td><td class="num">1,511,400</td></tr>
+      <tr><td>May '27</td><td class="num">100,000,000</td><td class="num green-text">+27%</td><td class="num green-text">1,830,000</td><td class="num">1.83%</td><td class="num red-text">80,000</td><td class="num">1,750,000</td></tr>
+      <tr><td>Jun '27</td><td class="num">103,000,000</td><td class="num green-text">+31%</td><td class="num green-text">1,884,900</td><td class="num">1.83%</td><td class="num red-text">80,000</td><td class="num">1,804,900</td></tr>
+      <tr><td>Jul '27</td><td class="num">108,000,000</td><td class="num green-text">+35%</td><td class="num green-text">1,976,400</td><td class="num">1.83%</td><td class="num red-text">75,000</td><td class="num">1,901,400</td></tr>
+      <tr><td>Aug '27</td><td class="num">110,000,000</td><td class="num green-text">+37%</td><td class="num green-text">2,013,000</td><td class="num">1.83%</td><td class="num red-text">75,000</td><td class="num">1,938,000</td></tr>
+      <tr><td>Sep '27</td><td class="num">121,000,000</td><td class="num green-text">+32%</td><td class="num green-text">2,215,300</td><td class="num">1.83%</td><td class="num red-text">78,000</td><td class="num">2,137,300</td></tr>
+      <tr><td>Oct '27</td><td class="num">125,000,000</td><td class="num green-text">+36%</td><td class="num green-text">2,287,500</td><td class="num">1.83%</td><td class="num red-text">78,000</td><td class="num">2,209,500</td></tr>
+      <tr><td>Nov '27</td><td class="num">130,000,000</td><td class="num green-text">+41%</td><td class="num green-text">2,379,000</td><td class="num">1.83%</td><td class="num red-text">80,000</td><td class="num">2,299,000</td></tr>
+      <tr><td>Dec '27</td><td class="num">134,000,000</td><td class="num green-text">+46%</td><td class="num green-text">2,452,200</td><td class="num">1.83%</td><td class="num red-text">80,000</td><td class="num">2,372,200</td></tr>
+      <tr class="bold-row"><td>FY 2027 TOTAL</td><td class="num">1,287,000,000</td><td class="num green-text">+31.9%</td><td class="num green-text">23,480,700</td><td class="num">1.82%</td><td class="num red-text">903,000</td><td class="num green-text">22,577,700</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="kpi green"><div class="kl">FY27 GGR Target</div><div class="kv">$23.5M</div><div class="ks">+38% vs FY26 $17M</div></div>
+    <div class="kpi blue"><div class="kl">Marketing Investment</div><div class="kv">$903K</div><div class="ks">3.8% of GGR</div></div>
+    <div class="kpi gold"><div class="kl">Net GGR After Marketing</div><div class="kv">$22.6M</div><div class="ks">After all BD costs</div></div>
+    <div class="kpi"><div class="kl">Marketing ROI</div><div class="kv">7.1x</div><div class="ks">Incremental GGR / invest</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="hbox green">
+      <div class="hl">Revenue Growth Drivers (Waterfall)</div>
+      <p>
+        <strong>Baseline FY26:</strong> $17.0M GGR<br>
+        + Hotel conversion improvement (2% → 8%): <span class="green-text">+$1.8M</span><br>
+        + Expat BD (50 new players, $5K ADT avg): <span class="green-text">+$1.5M</span><br>
+        + VIP visit frequency +1/month (top 20): <span class="green-text">+$1.6M</span><br>
+        + Hold rate improvement (1.74% → 1.83%): <span class="green-text">+$0.9M</span><br>
+        + General volume growth (market tailwinds): <span class="green-text">+$0.7M</span><br>
+        <strong>= FY27 Target: ~$23.5M GGR</strong>
+      </p>
+    </div>
+    <div class="hbox blue">
+      <div class="hl">Key Financial Assumptions</div>
+      <p>
+        RTP maintained at 95.50% (unchanged — player trust critical).<br>
+        Cash promotion maintained at 0.33% of turnover.<br>
+        Mystery jackpot at 0.86–1.08% range.<br>
+        Promotional spend flex: 1.2–1.7% (tighten in strong months).<br>
+        Marketing budget: ~$880K hard costs + $23K contingency = $903K total.<br>
+        No floor expansion assumed — growth from player quality and visit frequency, not capacity.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: EXECUTION ROADMAP -->
+<div class="section">
+  <div class="sh"><div class="sh-num">7</div><h2>Execution Roadmap</h2><span class="tag">Roadmap</span></div>
+
+  <div class="phases">
+    <div class="phase-block p1">
+      <div class="p-label">Phase 1</div>
+      <div class="p-name">Foundation</div>
+      <div class="p-period">Months 1–3 (Jun–Aug 2026)</div>
+      <ul>
+        <li>Launch hotel concierge program</li>
+        <li>Formalize VIP tier structure</li>
+        <li>Deploy member referral program</li>
+        <li>Hire BD Manager (expat segment)</li>
+        <li>Establish weekly performance KPI cadence</li>
+        <li>Map top 50 players — profiling + host assignment</li>
+      </ul>
+    </div>
+    <div class="phase-block p2">
+      <div class="p-label">Phase 2</div>
+      <div class="p-name">Build & Acquire</div>
+      <div class="p-period">Months 4–6 (Sep–Nov 2026)</div>
+      <ul>
+        <li>Launch expat community outreach (Korean/Chinese/JP)</li>
+        <li>First VIP tournament event</li>
+        <li>Travel agent program activation</li>
+        <li>CRM data capture standardization</li>
+        <li>Hold rate calibration review</li>
+        <li>Hotel partnership formalization</li>
+      </ul>
+    </div>
+    <div class="phase-block p3">
+      <div class="p-label">Phase 3</div>
+      <div class="p-name">Scale & Optimize</div>
+      <div class="p-period">Months 7–12 (Dec 2026–May 2027)</div>
+      <ul>
+        <li>MICE / corporate partnerships live</li>
+        <li>Loyalty cross-redemption (hotel ↔ LV)</li>
+        <li>Jackpot tournament series (bi-monthly)</li>
+        <li>Player lifecycle automation (reactivation)</li>
+        <li>FY2027 financial review vs targets</li>
+        <li>Assess entertainment expansion (KTV / lounge)</li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr><th>KPI</th><th>FY26 Baseline</th><th>FY27 Target</th><th>Owner</th><th>Review</th></tr></thead>
+    <tbody>
+      <tr><td>Annual GGR</td><td>$17.0M</td><td class="green-text">$23.5M (+38%)</td><td>GM / Finance</td><td>Monthly</td></tr>
+      <tr><td>Monthly Turnover</td><td>$81.3M avg</td><td class="green-text">$107.3M avg (+32%)</td><td>Gaming Ops</td><td>Weekly</td></tr>
+      <tr><td>Hotel Conversion Rate</td><td>~2% (est.)</td><td class="green-text">8%+</td><td>Hotel GM + LV Host</td><td>Monthly</td></tr>
+      <tr><td>New Active Players (Expat)</td><td>Baseline</td><td class="green-text">+50 players</td><td>BD Manager</td><td>Monthly</td></tr>
+      <tr><td>VIP Visit Frequency (Diamond)</td><td>Baseline</td><td class="green-text">+1 visit/month</td><td>Host team</td><td>Monthly</td></tr>
+      <tr><td>GGR Margin</td><td>1.74%</td><td class="green-text">1.83%</td><td>Gaming Ops</td><td>Monthly</td></tr>
+      <tr><td>Marketing ROI</td><td>—</td><td class="green-text">7x+ incremental GGR</td><td>Marketing</td><td>Quarterly</td></tr>
+      <tr><td>Player Reactivation Rate</td><td>—</td><td class="green-text">30% of lapsed (45+ days)</td><td>CRM / Hosts</td><td>Monthly</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Footer -->
+<div class="doc-footer">
+  <span>La Victoire Club · Royal Canary Corp · Market Expansion Plan 2026–2027</span>
+  <span>Confidential — Internal Use Only · May 2026</span>
+</div>
+
+</div>
+</body>
+</html>
