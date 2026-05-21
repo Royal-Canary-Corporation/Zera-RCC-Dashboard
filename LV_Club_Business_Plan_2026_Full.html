@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>La Victoire Club — Business Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#fff;color:#1a1a2e;font-size:13px;line-height:1.6}
+.page{max-width:1100px;margin:0 auto;padding:0}
+
+/* COVER PAGE */
+.cover{min-height:100vh;background:linear-gradient(160deg,#0a0a1a 0%,#1a1040 40%,#0d2060 100%);display:flex;flex-direction:column;justify-content:space-between;padding:60px 80px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-100px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,0.12) 0%,transparent 70%)}
+.cover::after{content:'';position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(31,111,235,0.15) 0%,transparent 70%)}
+.cover-top{display:flex;justify-content:space-between;align-items:flex-start}
+.cover-logo{font-family:'Playfair Display',serif;font-size:18px;color:#d4a017;letter-spacing:3px;text-transform:uppercase}
+.cover-badge{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.2);padding:6px 14px;border-radius:20px}
+.cover-center{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0 40px}
+.cover-center .pre-title{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#d4a017;margin-bottom:20px}
+.cover-center h1{font-family:'Playfair Display',serif;font-size:60px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px}
+.cover-center h1 em{color:#d4a017;font-style:normal}
+.cover-center .sub{font-size:16px;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:40px}
+.cover-divider{width:60px;height:2px;background:linear-gradient(to right,#d4a017,transparent);margin-bottom:30px}
+.cover-desc{font-size:13px;color:rgba(255,255,255,0.55);max-width:480px;line-height:1.8}
+.cover-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.cover-meta{display:flex;gap:40px}
+.cover-meta-item .cl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:4px}
+.cover-meta-item .cv{font-size:12px;font-weight:500;color:rgba(255,255,255,0.7)}
+.cover-conf{font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:1px}
+
+/* AGENDA */
+.agenda-page{padding:70px 80px;background:#f8f9ff;border-bottom:3px solid #d4a017}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#d4a017;margin-bottom:8px}
+.section-title{font-family:'Playfair Display',serif;font-size:32px;color:#1a1a2e;margin-bottom:36px}
+.agenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.agenda-item{background:#fff;border-radius:12px;padding:24px 28px;border:1px solid #e8eaf0;display:flex;gap:20px;align-items:flex-start}
+.agenda-num{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a1a2e,#0d2060);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#d4a017;flex-shrink:0}
+.agenda-content .al{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:4px}
+.agenda-content .at{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:6px}
+.agenda-content .as{font-size:12px;color:#6b7280}
+
+/* CONTENT PAGES */
+.content-page{padding:60px 80px;border-bottom:1px solid #e8eaf0}
+.content-page.dark{background:linear-gradient(160deg,#0a0a1a,#1a1040);color:#e6edf3}
+.content-page.dark .section-title{color:#fff}
+.content-page.dark .section-eyebrow{color:#d4a017}
+.content-page.accent{background:#0d2060}
+
+/* KPI cards */
+.kpi-row{display:grid;gap:14px;margin-bottom:28px}
+.kpi-4{grid-template-columns:repeat(4,1fr)}
+.kpi-3{grid-template-columns:repeat(3,1fr)}
+.kpi-card{background:#fff;border-radius:12px;padding:20px 22px;border:1px solid #e8eaf0;text-align:center}
+.dark .kpi-card{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12)}
+.kpi-card .kl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#8b949e;margin-bottom:8px}
+.kpi-card .kv{font-size:24px;font-weight:700;color:#0d2060}
+.kpi-card .ks{font-size:11px;color:#8b949e;margin-top:4px}
+.dark .kpi-card .kv{color:#d4a017}
+.kpi-card.green .kv{color:#16a34a}
+.kpi-card.gold .kv{color:#d4a017}
+.kpi-card.red .kv{color:#dc2626}
+
+/* Cards / boxes */
+.card{background:#fff;border-radius:12px;padding:22px 24px;border:1px solid #e8eaf0;margin-bottom:14px}
+.dark .card{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)}
+.card .ct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:10px}
+.card p,.card li{font-size:12px;color:#374151;line-height:1.75}
+.dark .card p,.dark .card li{color:#c9d1d9}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.card ul li::before{content:'→ ';color:#0d2060;font-weight:700}
+.dark .card ul li::before{color:#d4a017}
+
+/* Grid layouts */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* Insight box */
+.insight{border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.insight.blue{background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #0d2060}
+.insight.gold{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #d4a017}
+.insight.green{background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #16a34a}
+.insight.red{background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #dc2626}
+.insight .il{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.insight.blue .il{color:#1e40af}
+.insight.gold .il{color:#92400e}
+.insight.green .il{color:#166534}
+.insight.red .il{color:#991b1b}
+.insight p{font-size:12px;color:#374151;line-height:1.75}
+
+/* Tables */
+.dt{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+.dt th{background:#1a1a2e;color:#d4a017;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:9px 12px;text-align:left}
+.dt td{padding:8px 12px;border-bottom:1px solid #f0f0f8;color:#374151}
+.dt tr:nth-child(even) td{background:#f9fafb}
+.dt .bold-row td{font-weight:700;color:#0d2060;background:#eff6ff}
+.dt .highlight td{font-weight:700;color:#d4a017;background:#1a1a2e}
+.num{text-align:right;font-family:monospace}
+.g-text{color:#16a34a;font-weight:600}
+.r-text{color:#dc2626;font-weight:600}
+.gold-text{color:#d4a017;font-weight:600}
+.b-text{color:#0d2060;font-weight:600}
+
+/* Section divider */
+.sec-div{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.sec-div-line{flex:1;height:1px;background:linear-gradient(to right,#d4a017,transparent)}
+.sec-div-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#d4a017;white-space:nowrap}
+
+/* Pillar cards */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.pillar{border-radius:12px;padding:24px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04)}
+.pillar .pnum{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#d4a017;margin-bottom:8px}
+.pillar .ptitle{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
+.pillar ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.pillar ul li{font-size:12px;color:rgba(255,255,255,0.65)}
+.pillar ul li::before{content:'· ';color:#d4a017}
+
+/* Action plan items */
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+.action-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px}
+.action-item .an{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#d4a017;margin-bottom:6px}
+.action-item .at{font-size:13px;font-weight:700;color:#fff;margin-bottom:8px}
+.action-item p{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.65}
+
+/* Competitive table */
+.comp-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr 1fr;gap:0;border-bottom:1px solid #e8eaf0}
+.comp-row.header{background:#1a1a2e}
+.comp-row.header div{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#d4a017;padding:10px 14px}
+.comp-row div{padding:10px 14px;font-size:12px;color:#374151}
+.comp-row.highlight-col div:nth-child(5){background:#fffbeb;font-weight:700;color:#0d2060}
+.comp-row.header div:nth-child(5){background:#d4a017;color:#0d2060}
+
+/* Footer */
+.pg-footer{padding:20px 80px;background:#1a1a2e;display:flex;justify-content:space-between;align-items:center}
+.pg-footer span{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px}
+
+@media print{body{font-size:11px}.cover{min-height:auto;padding:40px}.content-page{padding:40px}.pg-footer{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER PAGE
+══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">La Victoire Club</div>
+    <div class="cover-badge">Confidential · Internal Use Only</div>
+  </div>
+  <div class="cover-center">
+    <div class="pre-title">Royal Canary Corp · Le Méridien Saigon</div>
+    <h1>Business<br>Plan <em>2026</em></h1>
+    <div class="cover-divider"></div>
+    <div class="cover-desc">A comprehensive strategic and financial roadmap for La Victoire Club — covering current performance baseline, market expansion strategy, marketing & player acquisition initiatives, and a 10-year financial projection.</div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="cl">Property</div><div class="cv">La Victoire Club, Le Méridien Saigon</div></div>
+      <div class="cover-meta-item"><div class="cl">Active Machines</div><div class="cv">106 EGM (63 Slots · 43 ETG)</div></div>
+      <div class="cover-meta-item"><div class="cl">FY2026 GGR Target</div><div class="cv">USD 17,000,000</div></div>
+      <div class="cover-meta-item"><div class="cl">Document Date</div><div class="cv">May 2026</div></div>
+    </div>
+    <div class="cover-conf">Confidential — Not for Distribution</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     AGENDA
+══════════════════════════════════════════════════════ -->
+<div class="agenda-page">
+  <div class="section-eyebrow">Contents</div>
+  <div class="section-title">Agenda</div>
+  <div class="agenda-grid">
+    <div class="agenda-item">
+      <div class="agenda-num">01</div>
+      <div class="agenda-content">
+        <div class="al">Section 1</div>
+        <div class="at">Company & Property Profile</div>
+        <div class="as">RCC overview · LV Club profile · Le Méridien Saigon · HCMC gaming market</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">02</div>
+      <div class="agenda-content">
+        <div class="al">Section 2</div>
+        <div class="at">Project Overview & Market Position</div>
+        <div class="as">Project highlights · Competitive landscape · Current performance baseline · Market opportunity</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">03</div>
+      <div class="agenda-content">
+        <div class="al">Section 3</div>
+        <div class="at">Financing Summary</div>
+        <div class="as">Current P&L baseline · 10-year financial projection · CAPEX · Tax structure</div>
+      </div>
+    </div>
+    <div class="agenda-item">
+      <div class="agenda-num">04</div>
+      <div class="agenda-content">
+        <div class="al">Section 4</div>
+        <div class="at">Marketing & Player Acquisition</div>
+        <div class="as">Objectives · Strategy pillars · Target segments · Action plan · KPIs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1: COMPANY PROFILE
+══════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="section-eyebrow">Section 01</div>
+  <div class="section-title">Company & Property Profile</div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div>
+      <div class="card">
+        <div class="ct">Royal Canary Corp — Overview</div>
+        <table class="dt" style="margin-bottom:0">
+          <tbody>
+            <tr><td style="font-weight:600;width:140px">Company</td><td>Royal Canary Corp (RCC)</td></tr>
+            <tr><td style="font-weight:600">Industry</td><td>Hospitality & Gaming</td></tr>
+            <tr><td style="font-weight:600">Flagship Property</td><td>La Victoire Club, Le Méridien Saigon</td></tr>
+            <tr><td style="font-weight:600">Location</td><td>District 1, Ho Chi Minh City, Vietnam</td></tr>
+            <tr><td style="font-weight:600">Hotel Partner</td><td>Le Méridien Saigon (Marriott International)</td></tr>
+            <tr><td style="font-weight:600">Gaming Machines</td><td>106 EGM (63 Slots + 43 ETG)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="ct">Le Méridien Saigon — Hotel Overview</div>
+        <table class="dt" style="margin-bottom:0">
+          <tbody>
+            <tr><td style="font-weight:600;width:140px">Rating</td><td>5-Star · Marriott International</td></tr>
+            <tr><td style="font-weight:600">Location</td><td>District 1, Saigon River waterfront</td></tr>
+            <tr><td style="font-weight:600">Rooms</td><td>~350+ rooms</td></tr>
+            <tr><td style="font-weight:600">Facilities</td><td>Restaurant, Spa, Pool, Conference, Bar</td></tr>
+            <tr><td style="font-weight:600">Advantage</td><td>Marriott Bonvoy global loyalty network</td></tr>
+            <tr><td style="font-weight:600">Hotel-Casino</td><td>Integrated access — prime conversion opportunity</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">HCMC Gaming Market</div><div class="sec-div-line"></div></div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div>
+      <div class="card">
+        <div class="ct">Market Overview</div>
+        <ul>
+          <li>15 active E-Gaming Clubs in HCMC — all hotel-integrated, District 1 CBD</li>
+          <li>International tourist arrivals 2024: 6M | Target 2030: 13M</li>
+          <li>FDI 2024: $4.85B — driving expatriate community growth</li>
+          <li>~250,000 registered foreigners in HCMC (Korean ~80K, Chinese ~60K, Others ~110K)</li>
+          <li>Pilot program allowing Vietnamese citizens expanding — regulatory tailwind</li>
+          <li>Korean tourists to HCMC 2024: 468,000+ arrivals (Sep YTD)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="ct">LV Club Competitive Position</div>
+        <table class="dt" style="margin-bottom:0">
+          <tr><th>Club</th><th>Hotel</th><th>Main Market</th></tr>
+          <tr><td class="gold-text b-text">La Victoire</td><td>Le Méridien</td><td>Korean, Chinese, Inbound</td></tr>
+          <tr><td>Vegas Club</td><td>Caravelle</td><td>Korean Slot</td></tr>
+          <tr><td>Palazzo Club</td><td>Sheraton</td><td>International Slot</td></tr>
+          <tr><td>MCS Club</td><td>Park Hyatt</td><td>Premium International</td></tr>
+          <tr><td>Club V</td><td>Pullman</td><td>Mixed</td></tr>
+          <tr><td>Royale Club</td><td>Renaissance</td><td>Mixed</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight gold">
+    <div class="il">Market Opportunity</div>
+    <p>HCMC international tourist market is projected to more than double by 2030 (6M → 13M). Korean visitors are Vietnam's fastest-growing tourist nationality and LV's primary revenue segment. Le Méridien's Marriott Bonvoy affiliation provides a global referral network that most competitors lack. The integrated hotel-casino model is LV's strongest structural advantage.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2: PROJECT OVERVIEW
+══════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="section-eyebrow">Section 02</div>
+  <div class="section-title">Project Overview & Current Baseline</div>
+
+  <div class="kpi-row kpi-4" style="margin-bottom:20px">
+    <div class="kpi-card gold"><div class="kl">FY2026 Gross Revenue</div><div class="kv">$29.4M</div><div class="ks">Machine Win/Loss</div></div>
+    <div class="kpi-card"><div class="kl">FY2026 GGR / Net Sales</div><div class="kv">$17.0M</div><div class="ks">After RTP + Promo + Jackpot</div></div>
+    <div class="kpi-card"><div class="kl">Annual Turnover</div><div class="kv">$975.8M</div><div class="ks">CoinIn FY2026 budget</div></div>
+    <div class="kpi-card green"><div class="kl">FY2027 GGR Target</div><div class="kv">$23.5M</div><div class="ks">+38% growth · Base case</div></div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Performance Baseline — YTD May 17</div><div class="sec-div-line"></div></div>
+
+  <table class="dt" style="margin-bottom:20px">
+    <thead><tr><th>Metric</th><th class="num">Today (17 May)</th><th class="num">MTD May</th><th class="num">YTD Jan–May 17</th><th class="num">FY2026 Budget</th><th class="num">Track %</th></tr></thead>
+    <tbody>
+      <tr><td>Total CoinIn</td><td class="num">$1,333,504</td><td class="num">$45,160,056</td><td class="num">$283,552,525</td><td class="num">$975,840,446</td><td class="num gold-text">29.1% YTD</td></tr>
+      <tr><td>Machine Win/Loss (Gross Rev)</td><td class="num g-text">$140,441</td><td class="num g-text">$2,911,278</td><td class="num g-text">$9,382,240</td><td class="num">$29,423,595</td><td class="num gold-text">~85% ann.</td></tr>
+      <tr><td>GGR / Net Sales</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num g-text">$17,000,000</td><td class="num">Target</td></tr>
+      <tr><td>Hold % (MWL/CoinIn)</td><td class="num g-text">10.5%</td><td class="num g-text">6.4%</td><td class="num">3.3%</td><td class="num">3.02%</td><td class="num g-text">On track</td></tr>
+      <tr><td>Daily avg CoinIn</td><td class="num">$1,333,504</td><td class="num g-text">$2,656,474</td><td class="num">$2,069,726</td><td class="num">$2,673,535 req.</td><td class="num gold-text">Near budget</td></tr>
+      <tr><td>ETG CoinIn share</td><td class="num">49.1%</td><td class="num">70.7%</td><td class="num">65.5%</td><td class="num">71.4% budget</td><td class="num g-text">On mix</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div class="insight blue">
+      <div class="il">H2 2026 Acceleration</div>
+      <p>MTD May daily average ($2.66M) is tracking at budget pace. The full-year gap is from H1 underperformance. Budget H2 ramps to $91–92M/month — LV's May trajectory ($82.4M projected) is approaching this level. <strong>The momentum is building — the critical task is sustaining it through Q3–Q4.</strong></p>
+    </div>
+    <div class="insight red">
+      <div class="il">Concentration Risk</div>
+      <p>MTD top single player loss = $935,075 = <strong>32.1% of total MTD Win.</strong> This structural dependency must be addressed by expanding the high-value player base to 10–15 players contributing $50K–$200K/month each — reducing single-player revenue risk.</p>
+    </div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Player Nationality Mix</div><div class="sec-div-line"></div></div>
+  <div class="g3">
+    <div class="card">
+      <div class="ct">🇰🇷 Korean — Primary (est. 40%)</div>
+      <ul><li>Dominant in top winners + losers (Today, MTD, YTD)</li><li>HCMC Korean community: ~80,000 residents</li><li>Korean tourist arrivals 2024: 468,000+</li><li>Highest ADT segment — $5K–$50K+</li></ul>
+    </div>
+    <div class="card">
+      <div class="ct">🇨🇳 Chinese/Taiwanese — Strong (est. 35%)</div>
+      <ul><li>Strong representation in top player lists</li><li>HCMC Chinese community: ~60,000 residents</li><li>WeChat outreach channel available</li><li>ADT range: $3K–$30K+</li></ul>
+    </div>
+    <div class="card">
+      <div class="ct">🌏 Others — Emerging (est. 25%)</div>
+      <ul><li>Japanese (Omichi, Uchida, Kudo) — present and active</li><li>Malaysian players — present</li><li>Middle East (Ahmad Omair) — emerging high-ADT signal</li><li>ADT range: $2K–$50K+</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3: FINANCING SUMMARY
+══════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="section-eyebrow">Section 03</div>
+  <div class="section-title">Financing Summary</div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Vietnam Tax Structure — E-Gaming</div><div class="sec-div-line"></div></div>
+
+  <div class="g3" style="margin-bottom:20px">
+    <div class="kpi-card red"><div class="kl">VAT</div><div class="kv">10%</div><div class="ks">Applied on Gross Revenue</div></div>
+    <div class="kpi-card red"><div class="kl">Special Consumption Tax</div><div class="kv">35%</div><div class="ks">Applied on Gross Revenue</div></div>
+    <div class="kpi-card"><div class="kl">Corporate Income Tax</div><div class="kv">20%</div><div class="ks">Applied on Profit Before Tax</div></div>
+  </div>
+
+  <div class="insight gold">
+    <div class="il">Tax Impact on Revenue</div>
+    <p>Combined VAT + SCT = 45% of Gross Revenue goes directly to government taxes. On $29.4M Gross Revenue, ~$13.2M is paid in VAT+SCT, leaving Net Revenue of ~$16.2M. This is why GGR margin optimization and player quality (higher-ADT, lower promotional cost) is critical to bottom-line improvement.</p>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">10-Year Financial Projection — La Victoire Club</div><div class="sec-div-line"></div></div>
+
+  <table class="dt" style="margin-bottom:6px;font-size:11px">
+    <thead>
+      <tr><th>($M USD)</th><th class="num">Y1 '26</th><th class="num">Y2 '27</th><th class="num">Y3 '28</th><th class="num">Y4 '29</th><th class="num">Y5 '30</th><th class="num">5-Yr</th><th class="num">Y6 '31</th><th class="num">Y7 '32</th><th class="num">Y8 '33</th><th class="num">Y9 '34</th><th class="num">Y10 '35</th><th class="num">10-Yr</th></tr>
+    </thead>
+    <tbody>
+      <tr class="bold-row"><td>Gross Revenue (MWL)</td><td class="num">$29.4</td><td class="num">$33.5</td><td class="num">$37.2</td><td class="num">$40.8</td><td class="num">$43.5</td><td class="num gold-text">$184.4</td><td class="num">$46.0</td><td class="num">$48.5</td><td class="num">$51.0</td><td class="num">$53.5</td><td class="num">$56.0</td><td class="num gold-text">$439.4</td></tr>
+      <tr><td>VAT – 10%</td><td class="num r-text">(2.9)</td><td class="num r-text">(3.4)</td><td class="num r-text">(3.7)</td><td class="num r-text">(4.1)</td><td class="num r-text">(4.4)</td><td class="num r-text">(18.4)</td><td class="num r-text">(4.6)</td><td class="num r-text">(4.9)</td><td class="num r-text">(5.1)</td><td class="num r-text">(5.4)</td><td class="num r-text">(5.6)</td><td class="num r-text">(25.5)</td></tr>
+      <tr><td>SCT – 35%</td><td class="num r-text">(10.3)</td><td class="num r-text">(11.7)</td><td class="num r-text">(13.0)</td><td class="num r-text">(14.3)</td><td class="num r-text">(15.2)</td><td class="num r-text">(64.5)</td><td class="num r-text">(16.1)</td><td class="num r-text">(17.0)</td><td class="num r-text">(17.8)</td><td class="num r-text">(18.7)</td><td class="num r-text">(19.6)</td><td class="num r-text">(89.2)</td></tr>
+      <tr class="bold-row"><td>Net Revenue</td><td class="num">$16.2</td><td class="num">$18.4</td><td class="num">$20.5</td><td class="num">$22.4</td><td class="num">$23.9</td><td class="num">$101.4</td><td class="num">$25.3</td><td class="num">$26.7</td><td class="num">$28.1</td><td class="num">$29.4</td><td class="num">$30.8</td><td class="num">$140.2</td></tr>
+      <tr><td>Hotel/MGA Share</td><td class="num">(4.5)</td><td class="num">(4.8)</td><td class="num">(5.1)</td><td class="num">(5.9)</td><td class="num">(6.1)</td><td class="num">(26.4)</td><td class="num">(6.3)</td><td class="num">(7.3)</td><td class="num">(7.4)</td><td class="num">(7.6)</td><td class="num">(7.8)</td><td class="num">(36.4)</td></tr>
+      <tr class="bold-row"><td>Revenue to LV Club</td><td class="num g-text">$11.7</td><td class="num g-text">$13.6</td><td class="num g-text">$15.4</td><td class="num g-text">$16.5</td><td class="num g-text">$17.8</td><td class="num g-text">$75.0</td><td class="num g-text">$19.0</td><td class="num g-text">$19.4</td><td class="num g-text">$20.6</td><td class="num g-text">$21.8</td><td class="num g-text">$23.0</td><td class="num g-text">$103.8</td></tr>
+      <tr><td>Operating Expenses</td><td class="num">(5.2)</td><td class="num">(5.3)</td><td class="num">(5.4)</td><td class="num">(5.6)</td><td class="num">(5.7)</td><td class="num">(27.2)</td><td class="num">(5.8)</td><td class="num">(5.9)</td><td class="num">(6.0)</td><td class="num">(6.2)</td><td class="num">(6.3)</td><td class="num">(30.2)</td></tr>
+      <tr><td>Depreciation</td><td class="num">(1.6)</td><td class="num">(1.6)</td><td class="num">(1.6)</td><td class="num">(1.6)</td><td class="num">(0.8)</td><td class="num">(7.2)</td><td class="num">(0.8)</td><td class="num">(0.8)</td><td class="num">(0.2)</td><td class="num">(0.2)</td><td class="num">(0.2)</td><td class="num">(2.2)</td></tr>
+      <tr><td>Promotional / Reinvest</td><td class="num">(5.3)</td><td class="num">(6.3)</td><td class="num">(7.3)</td><td class="num">(8.2)</td><td class="num">(9.0)</td><td class="num">(36.2)</td><td class="num">(9.8)</td><td class="num">(10.5)</td><td class="num">(11.3)</td><td class="num">(12.0)</td><td class="num">(12.8)</td><td class="num">(56.4)</td></tr>
+      <tr><td>Total Expenses</td><td class="num">(12.1)</td><td class="num">(13.2)</td><td class="num">(14.3)</td><td class="num">(15.4)</td><td class="num">(15.5)</td><td class="num">(70.6)</td><td class="num">(16.4)</td><td class="num">(17.2)</td><td class="num">(17.5)</td><td class="num">(18.4)</td><td class="num">(19.3)</td><td class="num">(88.8)</td></tr>
+      <tr class="bold-row"><td>EBITDA</td><td class="num g-text">$1.2</td><td class="num g-text">$2.0</td><td class="num g-text">$2.7</td><td class="num g-text">$2.7</td><td class="num g-text">$3.1</td><td class="num gold-text">$11.6</td><td class="num g-text">$3.4</td><td class="num g-text">$3.0</td><td class="num g-text">$3.3</td><td class="num g-text">$3.6</td><td class="num g-text">$3.9</td><td class="num gold-text">$17.2</td></tr>
+      <tr><td>Profit Before Tax</td><td class="num r-text">(0.4)</td><td class="num g-text">$0.4</td><td class="num g-text">$1.1</td><td class="num g-text">$1.1</td><td class="num g-text">$2.3</td><td class="num">$4.4</td><td class="num g-text">$2.6</td><td class="num g-text">$2.2</td><td class="num g-text">$3.1</td><td class="num g-text">$3.4</td><td class="num g-text">$3.7</td><td class="num">$15.0</td></tr>
+      <tr><td>CIT – 20%</td><td class="num">—</td><td class="num r-text">(0.1)</td><td class="num r-text">(0.2)</td><td class="num r-text">(0.2)</td><td class="num r-text">(0.5)</td><td class="num r-text">(1.0)</td><td class="num r-text">(0.5)</td><td class="num r-text">(0.4)</td><td class="num r-text">(0.6)</td><td class="num r-text">(0.7)</td><td class="num r-text">(0.7)</td><td class="num r-text">(3.0)</td></tr>
+      <tr class="highlight"><td>Profit After Tax</td><td class="num">(0.4)</td><td class="num">$0.3</td><td class="num">$0.9</td><td class="num">$0.9</td><td class="num">$1.8</td><td class="num">$3.5</td><td class="num">$2.1</td><td class="num">$1.7</td><td class="num">$2.5</td><td class="num">$2.7</td><td class="num">$3.0</td><td class="num">$15.5</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight green" style="margin-top:16px">
+    <div class="il">10-Year Projection Highlights</div>
+    <p><strong>10-Year Total Gross Revenue: $439.4M</strong> · Net Revenue to Club: $178.8M · Cumulative PAT: $15.5M · EBITDA break-even from Y1 ($1.2M). The model grows Gross Revenue from $29.4M (Y1) to $56.0M (Y10) — a 91% increase over the decade, driven by player base expansion, hold rate improvement, and H2 acceleration. This assumes no major regulatory changes and modest 8–12% annual CoinIn growth.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4: MARKETING — dark background
+══════════════════════════════════════════════════════ -->
+<div class="content-page dark">
+  <div class="section-eyebrow">Section 04</div>
+  <div class="section-title">Marketing & Player Acquisition</div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Objectives</div><div class="sec-div-line"></div></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px">
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 01</div>
+      <p>Position La Victoire as the <strong style="color:#fff">premium eGaming destination</strong> for high-net-worth foreigners in HCMC — the most prestigious club in District 1.</p>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 02</div>
+      <p>Build a <strong style="color:#fff">loyal, high-ADT player base</strong> across Korean, Chinese, Japanese, and inbound segments — reducing single-player concentration risk.</p>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 03</div>
+      <p>Leverage the <strong style="color:#fff">Le Méridien / Marriott Bonvoy ecosystem</strong> for cross-promotional opportunities — hotel-to-casino conversion and loyalty integration.</p>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 04</div>
+      <p>Establish <strong style="color:#fff">dedicated BD functions</strong> per market segment (Korea, China, Japan, Middle East, SEA) — structured outreach and relationship management.</p>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 05</div>
+      <p>Close the FY2026 budget gap — accelerate CoinIn from $2.07M/day (YTD) to <strong style="color:#fff">$3.05M/day</strong> required in H2 through player quality and visit frequency improvement.</p>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.3)">
+      <div class="ct" style="color:#d4a017">Objective 06</div>
+      <p>Create and maintain a <strong style="color:#fff">luxury gaming experience</strong> mirroring Macau and Singapore's finest clubs — brand perception, service excellence, ambiance.</p>
+    </div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Marketing Strategy — 4 Pillars</div><div class="sec-div-line"></div></div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pnum">Pillar 01</div>
+      <div class="ptitle">Branding & Premium Positioning</div>
+      <ul>
+        <li>Luxury brand identity mirroring Macau/Singapore top-tier clubs</li>
+        <li>Interior and experiential design reflecting exclusivity and sophistication</li>
+        <li>Digital presence showcasing VIP services and exclusive events</li>
+        <li>Indirect marketing approach (gaming regulations compliance)</li>
+      </ul>
+    </div>
+    <div class="pillar">
+      <div class="pnum">Pillar 02</div>
+      <div class="ptitle">VIP Guest Experience & Service Excellence</div>
+      <ul>
+        <li>Personal host program for Diamond and Platinum tier players</li>
+        <li>Tailored rewards and anticipatory service delivery</li>
+        <li>Korean/Chinese/Japanese-speaking host team</li>
+        <li>Premium facilities, lounge access, and F&B integration</li>
+      </ul>
+    </div>
+    <div class="pillar">
+      <div class="pnum">Pillar 03</div>
+      <div class="ptitle">Hotel & Ecosystem Cross-Promotions</div>
+      <ul>
+        <li>Marriott Bonvoy loyalty integration — points earning at LV</li>
+        <li>Hotel concierge activation — target 8%+ hotel-to-club conversion</li>
+        <li>Minimum 250 room nights/month tied to player program</li>
+        <li>F&B cross-redemption — gaming points redeemable at hotel restaurants</li>
+      </ul>
+    </div>
+    <div class="pillar">
+      <div class="pnum">Pillar 04</div>
+      <div class="ptitle">Dedicated BD Teams by Market Segment</div>
+      <ul>
+        <li>Korea BD: dedicated manager, community outreach, KakaoTalk channels</li>
+        <li>China/Taiwan BD: WeChat community, F&B partnership, travel agents</li>
+        <li>Middle East: Marriott GCC network, Ahmad Omair signal activation</li>
+        <li>Inbound: MICE partnerships, travel agencies, OTA hotel bundles</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Target Market & VIP Tier Structure</div><div class="sec-div-line"></div></div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card" style="border-color:rgba(255,255,255,0.1)">
+      <div class="ct" style="color:#d4a017">Player Tier Structure</div>
+      <table class="dt" style="margin-bottom:0">
+        <thead><tr><th>Tier</th><th>ADT Range</th><th>Monthly Visits</th><th>Benefits</th></tr></thead>
+        <tbody>
+          <tr><td class="gold-text">◆ Diamond</td><td>$15,000+</td><td>4+</td><td>Dedicated host, suite, F&B comp, events</td></tr>
+          <tr><td style="color:#9ca3af">◆ Platinum</td><td>$8K–$15K</td><td>3+</td><td>Host access, room discount, cashback</td></tr>
+          <tr><td style="color:#16a34a">◆ Gold</td><td>$3K–$8K</td><td>2+</td><td>Points bonus, F&B voucher, invitations</td></tr>
+          <tr><td style="color:#6b7280">◆ Silver</td><td>$1K–$3K</td><td>1+</td><td>Standard reinvestment, event access</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="border-color:rgba(255,255,255,0.1)">
+      <div class="ct" style="color:#d4a017">Revenue Mix Target (FY2027)</div>
+      <table class="dt" style="margin-bottom:0">
+        <thead><tr><th>Market</th><th class="num">Est. Revenue %</th><th>Community Size</th><th>BD Priority</th></tr></thead>
+        <tbody>
+          <tr><td>🇰🇷 Korea</td><td class="num gold-text">40%</td><td>80,000 residents + 468K tourists</td><td>P1</td></tr>
+          <tr><td>🇨🇳 China / Taiwan</td><td class="num">30%</td><td>60,000 residents</td><td>P1</td></tr>
+          <tr><td>🌏 SEA / Others</td><td class="num">15%</td><td>110,000 residents</td><td>P2</td></tr>
+          <tr><td>🌍 Middle East</td><td class="num g-text">10%</td><td>Inbound — emerging</td><td>P2</td></tr>
+          <tr><td>✈️ Hotel Inbound</td><td class="num">5%</td><td>Hotel guests</td><td>P3</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION PLAN -->
+<div class="content-page dark" style="padding-top:40px">
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">12-Point Action Plan</div><div class="sec-div-line"></div></div>
+
+  <div class="action-grid">
+    <div class="action-item">
+      <div class="an">Action 01</div>
+      <div class="at">Hotel Conversion Program</div>
+      <p>Concierge incentive scheme — LV daily welcome offer for hotel guests. Target: conversion rate 2% → 8% within 6 months. Minimum 250 room nights/month tied to gaming visits.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 02</div>
+      <div class="at">VIP Host Program</div>
+      <p>Assign dedicated hosts to all Diamond/Platinum players. Personal contact on visit days. Birthday/event recognition. Host-to-player ratio: 1:8 for Diamond, 1:15 for Platinum.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 03</div>
+      <div class="at">Member Referral Initiative</div>
+      <p>Existing VIP introduces qualified new player → host incentive + tier upgrade points. Target: 5 qualified new players per month via referral within 90 days of launch.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 04</div>
+      <div class="at">Tiered Rewards Program</div>
+      <p>Launch formal tier system (Diamond/Platinum/Gold/Silver) with quarterly reviews. Benefits span gaming, hotel amenities, F&B, events, and travel packages.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 05</div>
+      <div class="at">Events Calendar</div>
+      <p>Quarterly VIP tournaments, monthly themed events, seasonal special nights. Bi-monthly jackpot tournament series. New player introduction vehicle — 20+ attendees per event.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 06</div>
+      <div class="at">Expat Community BD</div>
+      <p>Hire dedicated BD Manager for Korean + Chinese expat segments. KakaoTalk/WeChat private club communities. District 7 + Binh Thanh Korean business association outreach.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 07</div>
+      <div class="at">Digital & Mobile Platform</div>
+      <p>Mobile app for bookings, promotions, and rewards tracking. Digital ads via indirect channels (gaming regulation compliant). WeChat/KakaoTalk communities for invite-only engagement.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 08</div>
+      <div class="at">Travel Agent Program</div>
+      <p>Commission-based partnerships with Korean/Chinese/Singaporean travel agents routing high-spend clients to Le Méridien + LV. Target: 10 active agency partnerships by Q3.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 09</div>
+      <div class="at">MICE & Corporate Partnerships</div>
+      <p>Partner with MICE event organizers, luxury brand activations, and corporate event venues. Position LV as preferred post-event entertainment destination for international delegates.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 10</div>
+      <div class="at">Machine Floor Optimization</div>
+      <p>Fix Fortune King Delux (0.4% hold → target 7%). Replace BFC Bats Dragon (-8.9% hold). Scale up 5 Dragons Delux (+2 units). Review Baccarat configuration for hold improvement.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 11</div>
+      <div class="at">Player Lifecycle Automation</div>
+      <p>CRM-driven reactivation for lapsed players (45+ days). Personalized outreach with tailored incentive. Target: 30% reactivation rate. Automated monthly player statements and tier progress updates.</p>
+    </div>
+    <div class="action-item">
+      <div class="an">Action 12</div>
+      <div class="at">Analytics & Performance Monitoring</div>
+      <p>Weekly KPI dashboard review. Monthly player segment analysis. Quarterly hold rate review by game. Real-time daily performance monitoring vs budget. Forecast vs actuals reporting.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MARKETING BUDGET & KPIS -->
+<div class="content-page dark" style="padding-top:40px">
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Marketing Budget & KPIs</div><div class="sec-div-line"></div></div>
+
+  <div class="g2" style="margin-bottom:20px">
+    <div class="card" style="border-color:rgba(255,255,255,0.1)">
+      <div class="ct" style="color:#d4a017">Annual Marketing Investment — FY2027</div>
+      <table class="dt" style="margin-bottom:0;font-size:11px">
+        <thead><tr><th>Initiative</th><th class="num">Budget/yr</th><th>Timeline</th></tr></thead>
+        <tbody>
+          <tr><td>Hotel concierge program</td><td class="num">$50,000</td><td>Month 1</td></tr>
+          <tr><td>VIP host program</td><td class="num">$150,000</td><td>Month 1</td></tr>
+          <tr><td>Member referral incentive</td><td class="num">$80,000</td><td>Month 1</td></tr>
+          <tr><td>BD Manager — Expat segment</td><td class="num">$60,000</td><td>Month 2</td></tr>
+          <tr><td>Quarterly VIP events (×4)</td><td class="num">$120,000</td><td>Quarterly</td></tr>
+          <tr><td>Digital — WeChat/KakaoTalk</td><td class="num">$30,000</td><td>Month 2</td></tr>
+          <tr><td>Travel agent program</td><td class="num">$100,000</td><td>Month 3</td></tr>
+          <tr><td>Jackpot tournament series (×6)</td><td class="num">$200,000</td><td>Bi-monthly</td></tr>
+          <tr><td>Corporate & MICE partnerships</td><td class="num">$50,000</td><td>Month 3</td></tr>
+          <tr><td>Collateral + digital presence</td><td class="num">$40,000</td><td>Month 1</td></tr>
+          <tr class="bold-row"><td>TOTAL MARKETING BUDGET</td><td class="num gold-text">$880,000</td><td>12 months</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="border-color:rgba(255,255,255,0.1)">
+      <div class="ct" style="color:#d4a017">KPIs & Performance Monitoring</div>
+      <table class="dt" style="margin-bottom:0;font-size:11px">
+        <thead><tr><th>KPI</th><th>FY26 Baseline</th><th class="num">FY27 Target</th></tr></thead>
+        <tbody>
+          <tr><td>Annual GGR</td><td>$17.0M</td><td class="num g-text">$23.5M (+38%)</td></tr>
+          <tr><td>Annual CoinIn</td><td>$975.8M</td><td class="num g-text">$1.29B (+32%)</td></tr>
+          <tr><td>Hotel conversion rate</td><td>~2%</td><td class="num g-text">8%+</td></tr>
+          <tr><td>New active expat players</td><td>Baseline</td><td class="num g-text">+50 players</td></tr>
+          <tr><td>Diamond player visit freq.</td><td>Baseline</td><td class="num g-text">+1 visit/month</td></tr>
+          <tr><td>GGR margin (Net Sales/CoinIn)</td><td>1.74%</td><td class="num g-text">1.83%</td></tr>
+          <tr><td>Marketing ROI</td><td>—</td><td class="num g-text">7x+ incremental</td></tr>
+          <tr><td>Player reactivation rate</td><td>—</td><td class="num g-text">30% of lapsed</td></tr>
+          <tr><td>Single player Win concentration</td><td>32% MTD</td><td class="num g-text">&lt;15% MTD</td></tr>
+          <tr><td>Middle East player ADT</td><td>1 player</td><td class="num g-text">5+ active players</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec-div"><div class="sec-div-line"></div><div class="sec-div-label">Implementation Phasing</div><div class="sec-div-line"></div></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px">
+    <div class="card" style="border-color:rgba(31,111,235,0.4);background:rgba(31,111,235,0.08)">
+      <div class="ct" style="color:#58a6ff">Phase 1 — Foundation (Jun–Aug 2026)</div>
+      <ul>
+        <li>Hotel concierge program live</li>
+        <li>VIP tier structure formalized</li>
+        <li>Member referral program launched</li>
+        <li>BD Manager hired (expat segment)</li>
+        <li>Top 50 player profiling + host assignment</li>
+        <li>Fortune King Delux + floor fixes</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(22,163,74,0.4);background:rgba(22,163,74,0.08)">
+      <div class="ct" style="color:#3fb950">Phase 2 — Build & Acquire (Sep–Nov 2026)</div>
+      <ul>
+        <li>Korean/Chinese expat community outreach</li>
+        <li>First VIP tournament event</li>
+        <li>Travel agent program activation</li>
+        <li>CRM data capture standardized</li>
+        <li>Baccarat configuration vendor review</li>
+        <li>Hotel partnership formally agreed</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(212,160,23,0.4);background:rgba(212,160,23,0.08)">
+      <div class="ct" style="color:#d4a017">Phase 3 — Scale (Dec 2026 – May 2027)</div>
+      <ul>
+        <li>MICE / corporate partnerships live</li>
+        <li>Loyalty cross-redemption (hotel ↔ LV)</li>
+        <li>Jackpot tournament series (bi-monthly)</li>
+        <li>Player lifecycle automation</li>
+        <li>Middle East BD via Marriott GCC</li>
+        <li>FY2027 target review vs actuals</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);border-radius:12px;padding:24px;margin-top:8px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#d4a017;margin-bottom:12px">Strategic Summary</div>
+    <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.9">La Victoire Club is positioned at the intersection of two powerful growth vectors — HCMC's booming international tourism market and Le Méridien Saigon's premium hospitality infrastructure. The path to $23.5M GGR in FY2027 requires focused execution across three priorities: <strong style="color:#fff">retain and deepen existing high-value players</strong> (Korean segment), <strong style="color:#fff">activate the hotel-to-casino conversion opportunity</strong> (currently underutilized at ~2%), and <strong style="color:#fff">fix the floor inefficiencies</strong> (Fortune King Delux, Baccarat hold rate) that are costing $300K+ annually. The marketing investment of $880K/yr against an incremental GGR target of $6.5M+ represents a 7x+ return — one of the highest ROI marketing opportunities available to RCC.</p>
+  </div>
+</div>
+
+<div class="pg-footer">
+  <span>LA VICTOIRE CLUB · ROYAL CANARY CORP · BUSINESS PLAN 2026</span>
+  <span>CONFIDENTIAL — INTERNAL USE ONLY · MAY 2026</span>
+</div>
+
+</body>
+</html>
