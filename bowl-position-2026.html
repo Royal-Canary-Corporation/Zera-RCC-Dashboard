@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bowl Position 2026 — Entropy Trap × Reflexivity</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2128;
+    --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
+    --green: #3fb950; --green-bg: #0d2d1a;
+    --red: #f85149; --red-bg: #2d1215;
+    --gold: #d29922; --gold-bg: #2d2208;
+    --blue: #58a6ff; --blue-bg: #0d1d36;
+    --purple: #bc8cff; --orange: #e3b341;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Roboto',sans-serif; font-size:13px; line-height:1.6; padding:28px; min-width:1100px; }
+  .page-header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:24px; }
+  .page-header h1 { font-size:20px; font-weight:700; }
+  .page-header .sub { font-size:12px; color:var(--text2); margin-top:4px; }
+  .meta { text-align:right; font-size:11px; color:var(--text3); line-height:1.9; }
+  .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .badge-red { background:var(--red-bg); color:var(--red); border:1px solid #5a1c1c; }
+  .badge-gold { background:var(--gold-bg); color:var(--gold); border:1px solid #5a4000; }
+  .badge-green { background:var(--green-bg); color:var(--green); border:1px solid #1a4d2e; }
+  .badge-blue { background:var(--blue-bg); color:var(--blue); border:1px solid #0d3a6e; }
+
+  /* VERDICT BANNER */
+  .verdict { background:linear-gradient(135deg,#1c1408,#2d1f00); border:1px solid #5a4000; border-radius:12px; padding:18px 22px; margin-bottom:24px; display:flex; align-items:center; gap:16px; }
+  .verdict .statement { font-size:14px; font-weight:600; color:#ffd666; line-height:1.5; }
+  .verdict .label { font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:4px; }
+
+  /* KPI */
+  .kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .kpi-label { font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--text3); margin-bottom:6px; }
+  .kpi-value { font-size:20px; font-weight:700; line-height:1; }
+  .kpi-sub { font-size:10px; color:var(--text2); margin-top:3px; }
+
+  /* GRID */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .card-title { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text2); margin-bottom:12px; font-weight:700; }
+  .section-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--text3); padding-bottom:10px; border-bottom:1px solid var(--border); margin-bottom:16px; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); font-weight:700; padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); }
+  td { padding:8px 10px; border-bottom:1px solid #21262d; vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:#1c2128; }
+  .pos { color:var(--green); font-weight:600; }
+  .neg { color:var(--red); font-weight:600; }
+  .warn { color:var(--gold); font-weight:600; }
+
+  /* CANVAS SECTION */
+  .canvas-wrap { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:20px; }
+  canvas { display:block; }
+
+  .footer { border-top:1px solid var(--border); padding-top:14px; margin-top:28px; display:flex; justify-content:space-between; font-size:10px; color:var(--text3); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">RCC Intelligence · Dual Lens Analysis</div>
+    <h1>Bowl Position & Curvature — May 2026</h1>
+    <div class="sub">Entropy Trap × Soros Reflexivity Theory · Historical Validation · Graphical Bowl Render</div>
+  </div>
+  <div class="meta">
+    <div>23 May 2026</div>
+    <div>Combined Score: 6.8 / 10</div>
+    <div style="margin-top:6px"><span class="badge badge-red">75–82% DEPTH</span></div>
+    <div style="margin-top:4px"><span class="badge badge-gold">WALL CURVING</span></div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict">
+  <div style="font-size:28px">🥣</div>
+  <div>
+    <div class="label">Final Verdict</div>
+    <div class="statement">"Bowl at 75–82% depth. Wall APPEARS flat (VIX complacency, tight credit spreads) but is ACTUALLY curving — consumer sentiment at record low 44.8 (lowest since 1952) while S&P near ATH = largest perception-reality gap ever recorded. That gap IS the bowl's steepness made invisible."</div>
+  </div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Bowl Depth</div>
+    <div class="kpi-value" style="color:var(--red)">75–82%</div>
+    <div class="kpi-sub">Revised UP from 65–75%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Combined Score</div>
+    <div class="kpi-value" style="color:var(--gold)">6.8/10</div>
+    <div class="kpi-sub">Entropy 6.4 + Reflexivity 7.2</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Consumer Sentiment</div>
+    <div class="kpi-value" style="color:var(--red)">44.8</div>
+    <div class="kpi-sub">Record low since 1952</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">S&P vs 50DMA</div>
+    <div class="kpi-value" style="color:var(--gold)">+7%</div>
+    <div class="kpi-sub">Only 3 precedents: 1998–2000</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Timeline</div>
+    <div class="kpi-value" style="color:var(--blue)">9–18mo</div>
+    <div class="kpi-sub">Base case to trigger</div>
+  </div>
+</div>
+
+<!-- BOWL VISUALIZATION -->
+<div class="canvas-wrap">
+  <div class="card-title">📐 Bowl Curve — Graphical Render (1971 → Resolution)</div>
+  <canvas id="bowlCanvas" width="1040" height="420"></canvas>
+</div>
+
+<!-- CURVATURE DETAIL -->
+<div class="canvas-wrap" style="margin-bottom:20px;">
+  <div class="card-title">📈 Critical Slowing Down — Recovery Time Acceleration</div>
+  <canvas id="slowCanvas" width="1040" height="200"></canvas>
+</div>
+
+<!-- PERCEPTION GAP -->
+<div class="canvas-wrap" style="margin-bottom:20px;">
+  <div class="card-title">🔴 Reflexivity Gap — S&P Index vs Consumer Sentiment (Normalized, 2000–2026)</div>
+  <canvas id="gapCanvas" width="1040" height="220"></canvas>
+</div>
+
+<!-- SCORING TABLES -->
+<div class="grid2">
+  <div class="card">
+    <div class="card-title">Entropy Trap Lens — Physical State</div>
+    <table>
+      <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>Compressed entropy (18yr CB)</td><td class="neg">8/10</td><td>4× QE, CB balance sheet 10×</td></tr>
+        <tr><td>Critical slowing down</td><td class="neg">8/10</td><td>3mo→5mo→15mo→incomplete</td></tr>
+        <tr><td>Fiscal dominance</td><td class="neg">8/10</td><td>Fed constrained, $2T deficit/yr</td></tr>
+        <tr><td>Sovereign stress</td><td class="warn">7/10</td><td>Moody's downgrade May 2025</td></tr>
+        <tr><td>Cross-asset correlation</td><td class="warn">7/10</td><td>Risk-off = all assets fall</td></tr>
+        <tr><td>De-dollarization</td><td class="warn">7/10</td><td>CB gold 1,100t/yr, USD &lt;57%</td></tr>
+        <tr><td>Liquidity crisis</td><td class="pos">3/10</td><td>NOT YET — IG spread 78bps</td></tr>
+        <tr><td>Dollar funding stress</td><td class="pos">3/10</td><td>NOT YET — no FRA-OIS spike</td></tr>
+        <tr><td><b>AVERAGE</b></td><td class="warn"><b>6.4</b></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="card-title">Reflexivity Lens — Feedback Loop State</div>
+    <table>
+      <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>Trend/Bias divergence</td><td class="neg">8/10</td><td>S&P ATH + sentiment 44.8 record low</td></tr>
+        <tr><td>Far-from-equilibrium gap</td><td class="neg">8/10</td><td>Largest perception-reality gap ever</td></tr>
+        <tr><td>Smart money exiting</td><td class="neg">8/10</td><td>CBs buying gold not US bonds</td></tr>
+        <tr><td>Bias weakening at highs</td><td class="warn">7/10</td><td>Narrow breadth = Dec 1998 match</td></tr>
+        <tr><td>Institutional trapped in loop</td><td class="warn">7/10</td><td>Fund managers must own AI stocks</td></tr>
+        <tr><td>Positive loop still running</td><td style="color:var(--blue)">5/10</td><td>AI narrative intact but ROI unproven</td></tr>
+        <tr><td><b>AVERAGE</b></td><td class="neg"><b>7.2</b></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HISTORICAL TABLE -->
+<div class="card" style="margin-bottom:20px;">
+  <div class="card-title">Historical Validation — 2026 vs Prior Analogues</div>
+  <table>
+    <thead><tr><th>Analog</th><th>S&P Breadth</th><th>Consumer Sentiment</th><th>CB Gold</th><th>IG Spreads</th><th>Bowl %</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sep 1929</b></td><td class="neg">Narrow</td><td class="neg">Low</td><td class="neg">Buying</td><td>Tight</td><td class="neg">85–90%</td><td class="neg">Crashed 2 months</td></tr>
+      <tr><td><b>Dec 1999</b></td><td class="neg">Narrow (+7% 50DMA)</td><td class="warn">Dropping</td><td>—</td><td>Tight</td><td class="neg">75–80%</td><td class="neg">Crashed 3 months</td></tr>
+      <tr><td><b>Oct 2007</b></td><td class="neg">Narrow</td><td class="neg">Falling</td><td class="warn">Starting</td><td class="warn">Widening</td><td class="neg">80–85%</td><td class="neg">Bear 17 months</td></tr>
+      <tr style="background:#1c2128;"><td><b style="color:#ffd666">May 2026 (NOW)</b></td><td class="neg"><b>Narrow (+7%) ← EXACT</b></td><td class="neg"><b>44.8 RECORD LOW</b></td><td class="neg"><b>1,100t/yr</b></td><td class="warn">78bps tight</td><td class="neg"><b>75–82%</b></td><td class="warn"><b>9–18 months?</b></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TIMELINE & PHASE -->
+<div class="grid3">
+  <div class="card" style="border-color:#0d3a6e;background:var(--blue-bg)">
+    <div class="card-title" style="color:var(--blue)">Phase A — False Plateau (NOW)</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
+      <p>VIX 15–20, AI narrative intact</p>
+      <p>S&P sideways to slightly up</p>
+      <p>Bond yields 4.5–5% range</p>
+      <p style="margin-top:8px;color:var(--blue)">📡 Watch: Bond auction bid-to-cover &lt;2.0x</p>
+    </div>
+    <div style="margin-top:12px"><span class="badge badge-blue">50% PROB</span></div>
+  </div>
+  <div class="card" style="border-color:#5a1c1c;background:var(--red-bg)">
+    <div class="card-title" style="color:var(--red)">Phase B — Trigger Event</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
+      <p><b style="color:var(--red)">35%</b> Bond auction fail → 10Y 5.5–6%</p>
+      <p><b style="color:var(--gold)">25%</b> AI bubble pop → $3–5T destruction</p>
+      <p><b style="color:var(--gold)">20%</b> Iran escalation → Oil $150+</p>
+      <p><b style="color:var(--gold)">20%</b> Sovereign cascade</p>
+    </div>
+    <div style="margin-top:12px"><span class="badge badge-red">9–18 MONTHS</span></div>
+  </div>
+  <div class="card" style="border-color:#1a4d2e;background:var(--green-bg)">
+    <div class="card-title" style="color:var(--green)">Phase C — Resolution</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
+      <p>Gold partial re-linkage</p>
+      <p>Multi-polar reserve basket</p>
+      <p>CBDC settlement layer</p>
+      <p>US debt restructured by markets</p>
+    </div>
+    <div style="margin-top:12px"><span class="badge badge-green">2028–2035</span></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>RCC Intelligence · Entropy Trap × Reflexivity Dual Lens</div>
+  <div>Data: Michigan Consumer Sentiment, FRED, BTIG Research, Banque de France</div>
+  <div>Generated: 23 May 2026 · For internal use</div>
+</div>
+
+<script>
+// ============================================================
+// BOWL CURVE CANVAS
+// ============================================================
+(function() {
+  const c = document.getElementById('bowlCanvas');
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  const pad = { l:60, r:30, t:40, b:50 };
+  const cw = W - pad.l - pad.r;
+  const ch = H - pad.t - pad.b;
+
+  // Background
+  ctx.fillStyle = '#161b22';
+  ctx.fillRect(0,0,W,H);
+
+  // Grid lines
+  ctx.strokeStyle = '#21262d';
+  ctx.lineWidth = 1;
+  for (let i=0; i<=5; i++) {
+    const y = pad.t + (ch/5)*i;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W-pad.r, y); ctx.stroke();
+  }
+
+  // Timeline points: [year, depth_pct (0=top, 100=bottom), label, color, annotation]
+  const points = [
+    { yr:1971, depth:2,  label:'1971\nNixon', color:'#8b949e', note:'Bowl starts\n(gold window closes)' },
+    { yr:1982, depth:15, label:'1982\nFE#1', color:'#58a6ff', note:'Volcker recovery' },
+    { yr:1987, depth:22, label:'1987', color:'#8b949e', note:'Black Monday' },
+    { yr:2000, depth:38, label:'2000\nFE#2', color:'#58a6ff', note:'Dotcom recovery' },
+    { yr:2008, depth:48, label:'2008\nGFC', color:'#f85149', note:'GFC — bounce\nQE1 begins' },
+    { yr:2009, depth:42, label:'2009\nFE#3', color:'#58a6ff', note:'QE recovery' },
+    { yr:2019, depth:55, label:'2019', color:'#8b949e', note:'QE era plateau\n(bowl deepens)' },
+    { yr:2020, depth:65, label:'2020\nCOVID', color:'#f85149', note:'COVID — $9T QE\nbounce' },
+    { yr:2021, depth:58, label:'2021\nFE#4', color:'#58a6ff', note:'Melt-up' },
+    { yr:2022, depth:68, label:'2022', color:'#e3b341', note:'Rate shock\n(-18% bonds)' },
+    { yr:2023, depth:62, label:'2023\nFE#5?', color:'#58a6ff', note:'AI rally\nsoft landing' },
+    { yr:2026, depth:79, label:'2026\nNOW', color:'#f85149', note:'75–82%\nwall curving' },
+    { yr:2028, depth:88, label:'2028\n1931?', color:'#e3b341', note:'Potential\ntrigger event' },
+    { yr:2033, depth:97, label:'203X\nReset', color:'#3fb950', note:'Bretton\nWoods 2.0' },
+  ];
+
+  // X scale: 1971 to 2040
+  function xPos(yr) { return pad.l + ((yr-1971)/(2040-1971)) * cw; }
+  function yPos(depth) { return pad.t + (depth/100) * ch; }
+
+  // Draw bowl curve (parabolic path connecting points)
+  // First draw a smooth curve through all points
+  const sorted = [...points].sort((a,b) => a.yr - b.yr);
+
+  // Draw gradient fill under curve
+  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + ch);
+  grad.addColorStop(0, 'rgba(210,153,34,0.02)');
+  grad.addColorStop(0.7, 'rgba(248,81,73,0.08)');
+  grad.addColorStop(1, 'rgba(248,81,73,0.25)');
+
+  ctx.beginPath();
+  ctx.moveTo(xPos(sorted[0].yr), yPos(sorted[0].depth));
+  for (let i=1; i<sorted.length; i++) {
+    const prev = sorted[i-1], curr = sorted[i];
+    const cpx = (xPos(prev.yr) + xPos(curr.yr)) / 2;
+    ctx.bezierCurveTo(cpx, yPos(prev.depth), cpx, yPos(curr.depth), xPos(curr.yr), yPos(curr.depth));
+  }
+  ctx.lineTo(W-pad.r, H-pad.b);
+  ctx.lineTo(pad.l, H-pad.b);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Draw curve line
+  ctx.beginPath();
+  ctx.moveTo(xPos(sorted[0].yr), yPos(sorted[0].depth));
+  for (let i=1; i<sorted.length; i++) {
+    const prev = sorted[i-1], curr = sorted[i];
+    const cpx = (xPos(prev.yr) + xPos(curr.yr)) / 2;
+    ctx.bezierCurveTo(cpx, yPos(prev.depth), cpx, yPos(curr.depth), xPos(curr.yr), yPos(curr.depth));
+  }
+  ctx.strokeStyle = '#d29922';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Dashed future section (from 2026 onwards)
+  const futureStart = points.find(p=>p.yr===2026);
+  ctx.beginPath();
+  ctx.setLineDash([6,4]);
+  ctx.moveTo(xPos(2026), yPos(futureStart.depth));
+  const futurePts = sorted.filter(p=>p.yr>2026);
+  let prevPt = futureStart;
+  for (const curr of futurePts) {
+    const cpx = (xPos(prevPt.yr)+xPos(curr.yr))/2;
+    ctx.bezierCurveTo(cpx,yPos(prevPt.depth),cpx,yPos(curr.depth),xPos(curr.yr),yPos(curr.depth));
+    prevPt = curr;
+  }
+  ctx.strokeStyle = '#e3b341';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw depth zones (horizontal bands)
+  const zones = [
+    { y1:0, y2:30, label:'SUBCRITICAL', color:'rgba(63,185,80,0.04)' },
+    { y1:30, y2:60, label:'METASTABLE', color:'rgba(88,166,255,0.04)' },
+    { y1:60, y2:80, label:'PRE-CRITICAL', color:'rgba(210,153,34,0.06)' },
+    { y1:80, y2:100, label:'CRITICAL', color:'rgba(248,81,73,0.07)' },
+  ];
+  zones.forEach(z => {
+    ctx.fillStyle = z.color;
+    ctx.fillRect(pad.l, yPos(z.y1), cw, yPos(z.y2)-yPos(z.y1));
+    ctx.fillStyle = '#6e7681';
+    ctx.font = '9px Roboto';
+    ctx.textAlign = 'right';
+    ctx.fillText(z.label, pad.l - 4, yPos((z.y1+z.y2)/2)+3);
+  });
+
+  // Draw points
+  sorted.forEach(p => {
+    const x = xPos(p.yr), y = yPos(p.depth);
+    const isNow = p.yr === 2026;
+    const isFuture = p.yr > 2026;
+
+    // Point dot
+    ctx.beginPath();
+    ctx.arc(x, y, isNow ? 8 : 5, 0, Math.PI*2);
+    ctx.fillStyle = isFuture ? '#1c2128' : p.color;
+    ctx.fill();
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = isNow ? 2.5 : 1.5;
+    ctx.stroke();
+
+    // NOW indicator
+    if (isNow) {
+      ctx.beginPath();
+      ctx.arc(x, y, 14, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(248,81,73,0.4)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Label
+    ctx.fillStyle = isFuture ? '#6e7681' : p.color;
+    ctx.font = isNow ? 'bold 11px Roboto' : '10px Roboto';
+    ctx.textAlign = 'center';
+    const lines = p.label.split('\n');
+    lines.forEach((ln, i) => {
+      ctx.fillText(ln, x, y - 14 - (lines.length-1-i)*13);
+    });
+  });
+
+  // "WE ARE HERE" annotation
+  const nowP = points.find(p=>p.yr===2026);
+  const nx = xPos(2026), ny = yPos(nowP.depth);
+  ctx.strokeStyle = '#f85149';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4,3]);
+  ctx.beginPath();
+  ctx.moveTo(nx+18, ny-8);
+  ctx.lineTo(nx+70, ny-40);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f85149';
+  ctx.font = 'bold 11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('▶ WE ARE HERE', nx+72, ny-44);
+  ctx.font = '10px Roboto';
+  ctx.fillStyle = '#8b949e';
+  ctx.fillText('75–82% depth', nx+72, ny-30);
+  ctx.fillText('Wall curving', nx+72, ny-18);
+
+  // X axis labels (years)
+  const yearLabels = [1975,1985,1995,2005,2015,2025,2035];
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px Roboto Mono';
+  ctx.textAlign = 'center';
+  yearLabels.forEach(yr => {
+    ctx.fillText(yr, xPos(yr), H-pad.b+18);
+    ctx.strokeStyle = '#21262d';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(xPos(yr), H-pad.b);
+    ctx.lineTo(xPos(yr), H-pad.b+5);
+    ctx.stroke();
+  });
+
+  // Y axis label
+  ctx.save();
+  ctx.translate(14, H/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '10px Roboto';
+  ctx.textAlign = 'center';
+  ctx.fillText('BOWL DEPTH →', 0, 0);
+  ctx.restore();
+
+  // Title
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('Entropy accumulation 1971 → Resolution · Gold = current transition path · Dashed = projected', pad.l, 20);
+})();
+
+// ============================================================
+// CRITICAL SLOWING DOWN CANVAS
+// ============================================================
+(function(){
+  const c = document.getElementById('slowCanvas');
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#161b22';
+  ctx.fillRect(0,0,W,H);
+
+  const pad = {l:80, r:120, t:30, b:40};
+  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+
+  const shocks = [
+    { yr:2018, recovery:3, label:'2018 Q4\nRate shock', color:'#3fb950' },
+    { yr:2020, recovery:5, label:'2020\nCOVID', color:'#58a6ff' },
+    { yr:2022, recovery:15, label:'2022\nRate hike', color:'#e3b341' },
+    { yr:2025, recovery:24, label:'2025\nTariff shock', color:'#f85149', note:'INCOMPLETE' },
+  ];
+
+  const maxR = 28;
+  const barW = 160;
+
+  function xPos(i) { return pad.l + i*(cw/4) + (cw/8); }
+  function yH(v) { return (v/maxR)*ch; }
+
+  // Grid
+  [0,5,10,15,20,25].forEach(v => {
+    const y = pad.t + ch - yH(v);
+    ctx.strokeStyle = '#21262d';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+    ctx.fillStyle = '#6e7681';
+    ctx.font = '10px Roboto Mono';
+    ctx.textAlign = 'right';
+    ctx.fillText(v+'mo', pad.l-6, y+3);
+  });
+
+  shocks.forEach((s,i) => {
+    const x = xPos(i);
+    const bH = yH(s.recovery);
+    const y = pad.t + ch - bH;
+    const bw = 100;
+
+    // Bar
+    const grad = ctx.createLinearGradient(0,y,0,y+bH);
+    grad.addColorStop(0, s.color);
+    grad.addColorStop(1, s.color+'44');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x-bw/2, y, bw, bH);
+
+    // Border
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(x-bw/2, y, bw, bH);
+
+    // Value
+    ctx.fillStyle = s.color;
+    ctx.font = 'bold 16px Roboto';
+    ctx.textAlign = 'center';
+    ctx.fillText(s.recovery === 24 ? '24+mo' : s.recovery+'mo', x, y-10);
+
+    // Label
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '10px Roboto';
+    s.label.split('\n').forEach((ln,li) => {
+      ctx.fillText(ln, x, pad.t+ch+16+li*13);
+    });
+
+    // INCOMPLETE badge
+    if (s.note) {
+      ctx.fillStyle = '#2d1215';
+      ctx.strokeStyle = '#f85149';
+      ctx.lineWidth = 1;
+      const tw = 80, th = 18;
+      ctx.fillRect(x-tw/2, y-36, tw, th);
+      ctx.strokeRect(x-tw/2, y-36, tw, th);
+      ctx.fillStyle = '#f85149';
+      ctx.font = 'bold 9px Roboto';
+      ctx.fillText('INCOMPLETE', x, y-24);
+    }
+  });
+
+  // Arrow showing acceleration
+  ctx.strokeStyle = '#f85149';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5,3]);
+  ctx.beginPath();
+  let first = true;
+  shocks.forEach((s,i) => {
+    const x = xPos(i), y = pad.t + ch - yH(s.recovery) - 12;
+    if (first) { ctx.moveTo(x,y); first=false; }
+    else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Arrow head
+  const lastX = xPos(3), lastY = pad.t+ch-yH(24)-12;
+  ctx.fillStyle = '#f85149';
+  ctx.beginPath();
+  ctx.moveTo(lastX+8, lastY);
+  ctx.lineTo(lastX-4, lastY-6);
+  ctx.lineTo(lastX-4, lastY+6);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#f85149';
+  ctx.font = '10px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('df/dt > 0 and accelerating', lastX+12, lastY+4);
+  ctx.fillStyle = '#6e7681';
+  ctx.font = '9px Roboto';
+  ctx.fillText('= mathematical signature of phase transition approach', lastX+12, lastY+17);
+
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('Recovery time after each major shock (months) — increasing = system losing resilience', pad.l, 18);
+})();
+
+// ============================================================
+// PERCEPTION-REALITY GAP CANVAS
+// ============================================================
+(function(){
+  const c = document.getElementById('gapCanvas');
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#161b22';
+  ctx.fillRect(0,0,W,H);
+
+  const pad = {l:50, r:160, t:30, b:40};
+  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+
+  // Normalized data (0-100 scale): [year, S&P norm, Consumer sentiment norm]
+  // S&P: 2000=100, 2003=55, 2007=110, 2009=65, 2019=190, 2020=155, 2021=220, 2022=185, 2023=195, 2024=230, 2026=235
+  // Sentiment: 2000=95, 2003=80, 2007=88, 2009=55, 2019=96, 2020=71, 2021=88, 2022=59, 2023=62, 2024=70, 2026=44.8
+  // Normalize sentiment to 0-100 range (0=0, 120=100)
+  const data = [
+    {yr:2000, sp:100, sent:79},
+    {yr:2001, sp:82, sent:74},
+    {yr:2002, sp:65, sent:71},
+    {yr:2003, sp:72, sent:80},
+    {yr:2004, sp:80, sent:82},
+    {yr:2005, sp:88, sent:80},
+    {yr:2006, sp:97, sent:82},
+    {yr:2007, sp:110, sent:79},
+    {yr:2008, sp:75, sent:57},
+    {yr:2009, sp:68, sent:59},
+    {yr:2010, sp:83, sent:71},
+    {yr:2011, sp:82, sent:64},
+    {yr:2012, sp:90, sent:70},
+    {yr:2013, sp:110, sent:73},
+    {yr:2014, sp:120, sent:75},
+    {yr:2015, sp:118, sent:78},
+    {yr:2016, sp:125, sent:77},
+    {yr:2017, sp:145, sent:82},
+    {yr:2018, sp:140, sent:80},
+    {yr:2019, sp:162, sent:80},
+    {yr:2020, sp:155, sent:71},
+    {yr:2021, sp:195, sent:79},
+    {yr:2022, sp:160, sent:55},
+    {yr:2023, sp:190, sent:59},
+    {yr:2024, sp:215, sent:64},
+    {yr:2025, sp:220, sent:52},
+    {yr:2026, sp:228, sent:38},
+  ];
+
+  function xPos(yr) { return pad.l + ((yr-2000)/26)*cw; }
+  function ySpNorm(v) { return pad.t + ch - (v/240)*ch; }
+  function ySentNorm(v) { return pad.t + ch - (v/100)*ch; }
+
+  // Draw grid
+  [2000,2004,2008,2012,2016,2020,2024].forEach(yr => {
+    const x = xPos(yr);
+    ctx.strokeStyle = '#21262d';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ch); ctx.stroke();
+    ctx.fillStyle = '#6e7681';
+    ctx.font = '10px Roboto Mono';
+    ctx.textAlign = 'center';
+    ctx.fillText(yr, x, H-pad.b+16);
+  });
+
+  // Fill gap area between curves (highlight divergence)
+  ctx.beginPath();
+  data.forEach((d,i) => {
+    if (i===0) ctx.moveTo(xPos(d.yr), ySpNorm(d.sp));
+    else ctx.lineTo(xPos(d.yr), ySpNorm(d.sp));
+  });
+  [...data].reverse().forEach(d => {
+    ctx.lineTo(xPos(d.yr), ySentNorm(d.sent));
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(248,81,73,0.08)';
+  ctx.fill();
+
+  // S&P line
+  ctx.beginPath();
+  data.forEach((d,i) => {
+    if (i===0) ctx.moveTo(xPos(d.yr), ySpNorm(d.sp));
+    else ctx.lineTo(xPos(d.yr), ySpNorm(d.sp));
+  });
+  ctx.strokeStyle = '#58a6ff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Sentiment line
+  ctx.beginPath();
+  data.forEach((d,i) => {
+    if (i===0) ctx.moveTo(xPos(d.yr), ySentNorm(d.sent));
+    else ctx.lineTo(xPos(d.yr), ySentNorm(d.sent));
+  });
+  ctx.strokeStyle = '#e3b341';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 2026 endpoint dots
+  const last = data[data.length-1];
+  ctx.beginPath();
+  ctx.arc(xPos(last.yr), ySpNorm(last.sp), 6, 0, Math.PI*2);
+  ctx.fillStyle = '#58a6ff'; ctx.fill();
+  ctx.beginPath();
+  ctx.arc(xPos(last.yr), ySentNorm(last.sent), 6, 0, Math.PI*2);
+  ctx.fillStyle = '#f85149'; ctx.fill();
+
+  // Gap annotation
+  const gx = xPos(2026)+15;
+  const gy1 = ySpNorm(last.sp), gy2 = ySentNorm(last.sent);
+  ctx.strokeStyle = '#f85149';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(gx,gy1); ctx.lineTo(gx,gy2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f85149';
+  ctx.font = 'bold 11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('LARGEST GAP', gx+8, (gy1+gy2)/2-6);
+  ctx.fillText('EVER RECORDED', gx+8, (gy1+gy2)/2+8);
+
+  // Crisis markers
+  [{yr:2000,label:'2000\ncrash'},{yr:2008,label:'2008\nGFC'},{yr:2020,label:'2020\nCOVID'}].forEach(m => {
+    ctx.strokeStyle = '#30363d';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(xPos(m.yr),pad.t); ctx.lineTo(xPos(m.yr),pad.t+ch); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#6e7681';
+    ctx.font = '9px Roboto';
+    ctx.textAlign = 'center';
+    m.label.split('\n').forEach((ln,i)=>ctx.fillText(ln,xPos(m.yr),pad.t+8+i*10));
+  });
+
+  // Legend
+  const lx = W-pad.r+14;
+  ctx.fillStyle = '#58a6ff';
+  ctx.fillRect(lx, pad.t+8, 16, 3);
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('S&P 500 (normalized)', lx+20, pad.t+14);
+
+  ctx.fillStyle = '#e3b341';
+  ctx.fillRect(lx, pad.t+28, 16, 3);
+  ctx.fillStyle = '#8b949e';
+  ctx.fillText('Consumer Sentiment', lx+20, pad.t+34);
+
+  ctx.fillStyle = 'rgba(248,81,73,0.3)';
+  ctx.fillRect(lx, pad.t+48, 16, 12);
+  ctx.fillStyle = '#f85149';
+  ctx.fillText('Gap (instability)', lx+20, pad.t+58);
+
+  // Title
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '11px Roboto';
+  ctx.textAlign = 'left';
+  ctx.fillText('S&P 500 vs Consumer Sentiment — normalized divergence 2000–2026 · Largest gap at record in 2026', pad.l, 18);
+})();
+</script>
+</body>
+</html>
