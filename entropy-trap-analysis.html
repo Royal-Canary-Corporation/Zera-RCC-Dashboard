@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entropy Trap — Global System Analysis | RCC Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --green: #3fb950;
+    --green-bg: #0d2d1a;
+    --red: #f85149;
+    --red-bg: #2d1215;
+    --gold: #d29922;
+    --gold-bg: #2d2208;
+    --blue: #58a6ff;
+    --blue-bg: #0d1d36;
+    --purple: #bc8cff;
+    --purple-bg: #1d1135;
+    --orange: #e3b341;
+    --orange-bg: #2d1f00;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Roboto', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-width: 1200px;
+    padding: 32px;
+  }
+
+  /* HEADER */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .page-header .brand {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .page-header .subtitle {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+  .page-header .meta {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.8;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge-red { background: var(--red-bg); color: var(--red); border: 1px solid #5a1c1c; }
+  .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid #5a4000; }
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid #1a4d2e; }
+  .badge-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid #0d3a6e; }
+  .badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid #3d1d6e; }
+
+  /* VERDICT BANNER */
+  .verdict-banner {
+    background: linear-gradient(135deg, #1c1408 0%, #2d1f00 100%);
+    border: 1px solid #5a4000;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .verdict-banner .icon { font-size: 32px; }
+  .verdict-banner .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .verdict-banner .statement {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffd666;
+    line-height: 1.4;
+  }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .kpi-card .kpi-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+  .kpi-card .kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-card .kpi-sub {
+    font-size: 11px;
+    color: var(--text2);
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 28px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text3);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .step-num {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text2);
+  }
+
+  /* GRID 2 COL */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text2);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text3);
+    font-weight: 700;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #21262d;
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1c2128; }
+  .nowrap { white-space: nowrap; }
+
+  /* BOWL VISUALIZATION */
+  .bowl-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--text2);
+  }
+  .bowl-container .now { color: var(--red); font-weight: 700; }
+  .bowl-container .past { color: var(--text3); }
+  .bowl-container .future { color: var(--gold); }
+  .bowl-container .resolution { color: var(--green); }
+
+  /* PHASE CARDS */
+  .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .phase-card {
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid;
+  }
+  .phase-a { background: #0d1d36; border-color: #0d3a6e; }
+  .phase-b { background: #2d1215; border-color: #5a1c1c; }
+  .phase-c { background: #0d2d1a; border-color: #1a4d2e; }
+  .phase-card .phase-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .phase-card .phase-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .phase-card .phase-timeline { font-size: 11px; opacity: 0.7; margin-bottom: 12px; }
+  .phase-card ul { list-style: none; padding: 0; }
+  .phase-card ul li { font-size: 12px; padding: 3px 0; color: var(--text2); }
+  .phase-card ul li::before { content: "→ "; opacity: 0.5; }
+
+  /* SIGNAL GRID */
+  .signal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .signal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .signal-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .dot-red { background: var(--red); }
+  .dot-gold { background: var(--gold); }
+  .dot-green { background: var(--green); }
+  .signal-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .signal-desc { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+  /* ANALOG TABLE */
+  .analog-match { background: #1a2d1a; }
+  .match-icon { color: var(--green); font-weight: 700; }
+
+  /* INVESTMENT TABLE */
+  .survive { color: var(--green); font-weight: 600; }
+  .caution { color: var(--gold); font-weight: 600; }
+  .danger { color: var(--red); font-weight: 600; }
+
+  /* PROGRESS BAR */
+  .progress-bar-container { margin-top: 12px; }
+  .progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .progress-bar-track {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--red) 100%);
+  }
+
+  /* FOOTER */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    background: var(--surface2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin: 12px 0;
+    font-style: italic;
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 20px; min-width: auto; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <div class="brand">RCC Intelligence · Macro Research</div>
+    <h1>The Entropy Trap — Global System Analysis</h1>
+    <div class="subtitle">Failed Equilibrium Pattern × Current Market Signals × Phase Transition Forecast</div>
+  </div>
+  <div class="meta">
+    <div>Date: 23 May 2026</div>
+    <div>Based on: Entropy Trap (econophysics framework)</div>
+    <div>Methodology: Statistical Physics / SOC Theory</div>
+    <div style="margin-top:8px">
+      <span class="badge badge-red">PRE-CRITICAL</span>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT BANNER -->
+<div class="verdict-banner">
+  <div class="icon">⚠️</div>
+  <div>
+    <div class="label">One-Line Conclusion</div>
+    <div class="statement">"We are in the 1930 moment — after the false AI rally, before the final descent. The goal is not to optimize yield. The goal is to survive with optionality to win when Bretton Woods 2.0 resets the value of everything."</div>
+  </div>
+</div>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">Phase Pressure Score</div>
+    <div class="kpi-value" style="color: var(--gold)">6.5 / 10</div>
+    <div class="kpi-sub">Pre-Critical Zone</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Bowl Depth</div>
+    <div class="kpi-value" style="color: var(--red)">75–85%</div>
+    <div class="kpi-sub">Revised after FE#5 overlay</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Signal Match (1930)</div>
+    <div class="kpi-value" style="color: var(--red)">12 / 12</div>
+    <div class="kpi-sub">100% pattern overlap</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">FEs Completed</div>
+    <div class="kpi-value" style="color: var(--blue)">4</div>
+    <div class="kpi-sub">1–2 remaining before resolution</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">US 10Y Yield</div>
+    <div class="kpi-value" style="color: var(--gold)">4.57%</div>
+    <div class="kpi-sub">Highest since 2007</div>
+  </div>
+</div>
+
+<!-- STEP 1: PATTERN MAP -->
+<div class="section">
+  <div class="section-title"><span class="step-num">1</span> Failed Equilibrium Pattern — Historical Map</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Long Depression (1873–1944) → Current Transition (1971–?)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Long Depression</th>
+            <th>Year</th>
+            <th>Current Transition</th>
+            <th>Year</th>
+            <th>FE#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Panic (start)</td><td class="nowrap">1873</td><td>Nixon shock — gold window closes</td><td class="nowrap">1971</td><td><span class="badge badge-purple">START</span></td></tr>
+          <tr><td>Recovery</td><td>1879</td><td>Volcker disinflation recovery</td><td>1982</td><td><span class="badge badge-blue">FE#1</span></td></tr>
+          <tr><td>Gold rush recovery</td><td>1897</td><td>Post-dotcom / Iraq war boom</td><td>2003</td><td><span class="badge badge-blue">FE#2</span></td></tr>
+          <tr><td>QE recovery</td><td>1910</td><td>QE1 recovery post-GFC</td><td>2009</td><td><span class="badge badge-blue">FE#3</span></td></tr>
+          <tr><td>Roaring 20s prosperity</td><td>1920</td><td>COVID melt-up / soft landing</td><td>2021</td><td><span class="badge badge-blue">FE#4</span></td></tr>
+          <tr class="analog-match"><td><b>48% bear market rally</b></td><td><b>1930</b></td><td><b>AI bubble / soft landing narrative</b></td><td><b>2023–24</b></td><td><span class="badge badge-gold">FE#5?</span></td></tr>
+          <tr><td style="color:var(--red)"><b>Final collapse</b></td><td style="color:var(--red)"><b>1931</b></td><td style="color:var(--red)"><b>??? ← NOW</b></td><td style="color:var(--red)"><b>2025–26</b></td><td><span class="badge badge-red">NOW</span></td></tr>
+          <tr><td style="color:var(--green)">Bretton Woods</td><td style="color:var(--green)">1944</td><td style="color:var(--green)">New monetary order</td><td style="color:var(--green)">203X</td><td><span class="badge badge-green">RESET</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Core Thesis — Econophysics (The Entropy Trap)</div>
+      <div class="quote-block">
+        "No matter how different the society, the same pattern shows up: repeated efforts to stabilise, each one working less well, until finally the system is redesigned."
+      </div>
+      <div class="quote-block">
+        "The same laws of thermodynamics that control how particles behave also shape empires, currencies, and financial systems. The math works at every level."
+      </div>
+      <div style="margin-top:14px;">
+        <div style="font-size:12px; color:var(--text2); margin-bottom:10px;">Each intervention = artificial order injection → suppressed entropy accumulates. When released: faster and deeper than all fundamental models predict.</div>
+        <table>
+          <thead><tr><th>Intervention</th><th>Recovery Strength</th><th>Entropy Created</th></tr></thead>
+          <tbody>
+            <tr><td>QE1 2009</td><td style="color:var(--green)">Strong (+60% S&P, 3yr)</td><td>Asset bubble v1</td></tr>
+            <tr><td>QE2/QE3 2010–14</td><td style="color:var(--gold)">Medium (+45%)</td><td>Wealth inequality</td></tr>
+            <tr><td>COVID QE 2020</td><td style="color:var(--gold)">Fast (+100%, 18mo)</td><td>Inflation + fiscal dominance</td></tr>
+            <tr><td style="color:var(--red)"><b>Next intervention</b></td><td style="color:var(--red)"><b>Weak</b></td><td style="color:var(--red)"><b>Currency crisis?</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: SIGNAL OVERLAY -->
+<div class="section">
+  <div class="section-title"><span class="step-num">2</span> Signal Overlay — 12/12 Pattern Match (1930–1931 Analog)</div>
+  <div class="signal-grid">
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">48% Bear Market Rally</div><div class="signal-desc">1930 analog → S&P +40% AI-driven rally (2023–24)</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">"Soft Landing" Narrative</div><div class="signal-desc">Fed claims soft landing achieved — same as 1930 optimism</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Trade War (Smoot-Hawley Analog)</div><div class="signal-desc">US-China tariffs 2025 — largest since 1930s</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Sovereign Debt Stress</div><div class="signal-desc">Moody's downgraded US (May 2025) — first crack</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Central Bank Gold Buying Surge</div><div class="signal-desc">1,100+ tonnes/yr; gold >$4,600 (Jan 2026 peak $5,600)</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Dollar Reserve Share Declining</div><div class="signal-desc">USD share &lt;57% — lowest since 1995</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Bond Vigilantes Active</div><div class="signal-desc">10Y yield 4.57%; Dimon: "some kind of bond crisis ahead"</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Geopolitical Fragmentation</div><div class="signal-desc">US-Iran war, US-China decoupling, NATO-Russia tension</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Debt Deflation Risk</div><div class="signal-desc">Private credit $2T+ unwind risk building</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Banks Stressed (Not Failed Yet)</div><div class="signal-desc">Private credit defaults rising; US CRE stress</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Political Populism Rising</div><div class="signal-desc">Trump 2.0, global nationalist wave — same as 1930s</div></div>
+    </div>
+    <div class="signal-item">
+      <div class="signal-dot dot-red"></div>
+      <div><div class="signal-name">Unemployment Still Low at Peak</div><div class="signal-desc">US unemployment 4.2% — was 3.5% before 1929 crash too</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3: BOWL DEPTH -->
+<div class="section">
+  <div class="section-title"><span class="step-num">3</span> Bowl Depth — Current Position Estimate</div>
+  <div class="grid-2">
+    <div class="bowl-container">
+      <div style="color:var(--text2); margin-bottom:8px; font-family:'Roboto',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:1.5px;">Bowl Depth Visualization — 1971 to Resolution</div>
+<pre style="font-size:11px; line-height:2">
+<span class="past">100% ├── 1971: Nixon shock (bowl starts)</span>
+<span class="past">     │</span>
+<span class="past"> 85% ├── 1987: Black Monday</span>
+<span class="past">     │</span>
+<span class="past"> 70% ├── 2000–2008: Dotcom → GFC (bowl widens)</span>
+<span class="past">     │</span>
+<span class="past"> 50% ├── 2009–2019: QE era (false plateau)</span>
+<span class="past">     │    bowl gets DEEPER due to CB intervention</span>
+<span class="past">     │</span>
+<span class="past"> 30% ├── 2020: COVID (bounced off edge, $9T QE)</span>
+<span class="past">     │</span>
+<span class="past"> 20% ├── 2021–2022: Melt-up → Rate shock</span>
+<span class="past">     │</span>
+<span class="past"> 10% ├── 2023–2024: AI rally / soft landing = FE#5</span>
+<span class="past">     │    FALSE RECOVERY — 1930 analog</span>
+<span class="past">     │</span>
+<span class="now">  0% ├── 2025–2026: ← WE ARE HERE (~75–85% depth)</span>
+<span class="now">     │    Cracking: bond vigilantes, fiscal dominance</span>
+<span class="now">     │    Critical slowing down confirmed</span>
+<span class="future">     │</span>
+<span class="future">-20% ├── 2027–2028: "1931 moment"?</span>
+<span class="future">     │    Final institutional failure cascade</span>
+<span class="future">     │</span>
+<span class="resolution">-60% ├── 203X: RESOLUTION EVENT</span>
+<span class="resolution">    ─┘    Bretton Woods 2.0</span>
+</pre>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="card-title">Critical Slowing Down — Recovery Time Increasing</div>
+        <table>
+          <thead><tr><th>Shock Event</th><th>Recovery Time</th><th>CB Response</th></tr></thead>
+          <tbody>
+            <tr><td>2018 Q4</td><td style="color:var(--green)">3 months</td><td>Powell pivot (immediate)</td></tr>
+            <tr><td>2020 COVID</td><td style="color:var(--gold)">5 months</td><td>$4T QE (fastest ever)</td></tr>
+            <tr><td>2022 Rate shock</td><td style="color:var(--gold)">15 months</td><td>Delayed pivot</td></tr>
+            <tr><td style="color:var(--red)">2025 Tariff shock</td><td style="color:var(--red)">Still fragile</td><td style="color:var(--red)">Constrained by debt</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px; color:var(--text2); margin-top:10px;">↑ Recovery time increasing = hệ thống mất khả năng tự hồi phục = đặc trưng của phase transition trong vật lý thống kê</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Why Bowl 3 Is Deeper Than 1 & 2</div>
+        <table>
+          <thead><tr><th></th><th>Bowl 1 (→2008)</th><th>Bowl 2 (→2020)</th><th>Bowl 3 (NOW)</th></tr></thead>
+          <tbody>
+            <tr><td>CB Ammo</td><td style="color:var(--green)">High</td><td style="color:var(--gold)">Medium</td><td style="color:var(--red)"><b>Low</b></td></tr>
+            <tr><td>Debt/GDP</td><td>73%</td><td>135%</td><td style="color:var(--red)"><b>133% ↑</b></td></tr>
+            <tr><td>CB Tool</td><td style="color:var(--green)">Works</td><td style="color:var(--gold)">Still effective</td><td style="color:var(--red)"><b>Fiscal dominance</b></td></tr>
+            <tr><td>Depth</td><td>Medium</td><td>Deep</td><td style="color:var(--red)"><b>Very Deep</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: PREDICTIONS -->
+<div class="section">
+  <div class="section-title"><span class="step-num">4</span> Phase Prediction — 3-Phase Sequence</div>
+  <div class="phase-grid">
+    <div class="phase-card phase-a">
+      <div class="phase-label" style="color:var(--blue)">Phase A</div>
+      <div class="phase-title" style="color:var(--blue)">False Plateau Continues</div>
+      <div class="phase-timeline">NOW → 6–18 months | Probability: 50%</div>
+      <ul>
+        <li>Markets sideways/up, VIX 15–20</li>
+        <li>AI narrative holds S&P elevated</li>
+        <li>Fed holds, dovish talk</li>
+        <li>Bond yields 4.5–5% range</li>
+        <li>Gold consolidates $3,500–4,500</li>
+      </ul>
+      <div style="margin-top:12px; font-size:11px; color:var(--blue); background:#0a1520; border-radius:6px; padding:8px;">
+        📡 Signal to watch: Bond auction bid-to-cover &lt;2.0x on 10Y/30Y → Phase A ending
+      </div>
+    </div>
+    <div class="phase-card phase-b">
+      <div class="phase-label" style="color:var(--red)">Phase B</div>
+      <div class="phase-title" style="color:var(--red)">Trigger Event</div>
+      <div class="phase-timeline">6–18 months from now</div>
+      <ul>
+        <li><b style="color:var(--red)">35%:</b> Bond market dislocation → 10Y → 5.5–6%</li>
+        <li><b style="color:var(--gold)">25%:</b> AI bubble pop → $3–5T destruction</li>
+        <li><b style="color:var(--gold)">20%:</b> Iran escalation → Oil $150+ stagflation</li>
+        <li><b style="color:var(--gold)">20%:</b> Sovereign debt cascade (France/Italy/Japan)</li>
+      </ul>
+      <div style="margin-top:12px; font-size:11px; color:var(--red); background:#1a0a0a; border-radius:6px; padding:8px;">
+        ⚡ USD paradox: strengthens first (flee-to-safety), then weakens as Fed monetizes
+      </div>
+    </div>
+    <div class="phase-card phase-c">
+      <div class="phase-label" style="color:var(--green)">Phase C</div>
+      <div class="phase-title" style="color:var(--green)">Resolution Event</div>
+      <div class="phase-timeline">2028–2035 | Bretton Woods 2.0</div>
+      <ul>
+        <li>Gold partial re-linkage (neutral settlement)</li>
+        <li>Multi-polar basket: USD + EUR + RMB + Gold</li>
+        <li>CBDC as new settlement infrastructure</li>
+        <li>US debt restructuring by market forces</li>
+        <li>IMF SDR reform or replacement</li>
+      </ul>
+      <div style="margin-top:12px; font-size:11px; color:var(--green); background:#0a1a0a; border-radius:6px; padding:8px;">
+        ✅ Vietnam: manufacturing hub + no-bloc = strategic flexibility in new order
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: INVESTMENT IMPLICATIONS -->
+<div class="section">
+  <div class="section-title"><span class="step-num">5</span> Investment Implications — Survival & Optionality Framework</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Asset Behavior — "1931 Moment" → Resolution</div>
+      <table>
+        <thead><tr><th>Asset</th><th>During Trigger</th><th>After Resolution</th><th>Strategy</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>S&P 500</b></td>
+            <td class="danger">-50 to -70%</td>
+            <td style="color:var(--text2)">Recovers in new system</td>
+            <td class="caution">Reduce</td>
+          </tr>
+          <tr>
+            <td><b>Physical Gold</b></td>
+            <td class="caution">-20-30% first</td>
+            <td class="survive">+200-400%</td>
+            <td class="survive">CORE HOLD</td>
+          </tr>
+          <tr>
+            <td><b>Gold ETF/Paper</b></td>
+            <td class="danger">Same drop</td>
+            <td class="caution">Less upside (counterparty)</td>
+            <td class="caution">Secondary</td>
+          </tr>
+          <tr>
+            <td><b>USD Cash</b></td>
+            <td class="survive">Strengthens first</td>
+            <td class="danger">Weakens if monetized</td>
+            <td class="caution">Tactical (dry powder)</td>
+          </tr>
+          <tr>
+            <td><b>VND Real Estate</b></td>
+            <td class="survive">Better than USD assets</td>
+            <td class="survive">Holds value</td>
+            <td class="survive">Hold (VND-denom)</td>
+          </tr>
+          <tr>
+            <td><b>VN-Index ETF (FTSE)</b></td>
+            <td class="caution">Tactical down</td>
+            <td class="survive">Structural recovery</td>
+            <td class="caution">Tactical, not strategic</td>
+          </tr>
+          <tr>
+            <td><b>US Long Bonds (30Y)</b></td>
+            <td class="danger">Yield keeps rising</td>
+            <td class="danger">Restructured</td>
+            <td class="danger">AVOID</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="card-title">Portfolios That Survived 1929–1944</div>
+        <table>
+          <thead><tr><th>#</th><th>Asset Type</th><th>Why It Worked</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="survive"><b>Physical gold</b></td><td>Retained value across monetary reset</td></tr>
+            <tr><td>2</td><td class="survive"><b>Agricultural land (cash flow)</b></td><td>Real economy, not financial</td></tr>
+            <tr><td>3</td><td class="survive"><b>Geographic diversification</b></td><td>Not 100% in one monetary system</td></tr>
+            <tr><td>4</td><td class="survive"><b>Cash in NEW system</b></td><td>Those who predicted reset → jackpot</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Hierarchy of Priorities (Entropy-Consistent)</div>
+        <table>
+          <thead><tr><th>Priority</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-red">1st</span></td><td>Zero forced-selling risk — no leverage, no margin</td></tr>
+            <tr><td><span class="badge badge-gold">2nd</span></td><td>Hard assets surviving monetary reset (gold, stable RE)</td></tr>
+            <tr><td><span class="badge badge-gold">3rd</span></td><td>Geographic/currency diversification</td></tr>
+            <tr><td><span class="badge badge-blue">4th</span></td><td>Dry powder (25–30%) for resolution event</td></tr>
+            <tr><td><span class="badge badge-green">5th</span></td><td>Vietnam FTSE — tactical not strategic (local catalyst)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIETNAM SIGNAL -->
+<div class="section">
+  <div class="section-title"><span class="step-num">6</span> Vietnam Signal — Decoupled Positive (Local Catalyst Independent)</div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">✅ Positive Signals</div>
+      <table>
+        <tbody>
+          <tr><td><span class="badge badge-green">CONFIRMED</span></td><td style="font-size:12px;">FTSE EM upgrade → $6B passive inflow (Sept 2026 Tranche 1)</td></tr>
+          <tr><td><span class="badge badge-green">STRONG</span></td><td style="font-size:12px;">GDP growth 6.5–7%, FDI $7.4B YTD (peak)</td></tr>
+          <tr><td><span class="badge badge-green">STRONG</span></td><td style="font-size:12px;">Tourism: 8.8M arrivals H1 2026</td></tr>
+          <tr><td><span class="badge badge-green">POSITIVE</span></td><td style="font-size:12px;">VN-Index +11% Mar→Apr 2026 post-upgrade</td></tr>
+          <tr><td><span class="badge badge-green">STRATEGIC</span></td><td style="font-size:12px;">No-bloc positioning = flexibility in new order</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">⚠️ Risk Factors</div>
+      <table>
+        <tbody>
+          <tr><td><span class="badge badge-gold">WATCH</span></td><td style="font-size:12px;">Imports +27% vs exports +20% → trade balance pressure</td></tr>
+          <tr><td><span class="badge badge-gold">WATCH</span></td><td style="font-size:12px;">Foreigners net selling (pre-FTSE repositioning)</td></tr>
+          <tr><td><span class="badge badge-gold">WATCH</span></td><td style="font-size:12px;">USD strength → VND depreciation pressure</td></tr>
+          <tr><td><span class="badge badge-red">RISK</span></td><td style="font-size:12px;">Retail-driven market → panic risk in global shock</td></tr>
+          <tr><td><span class="badge badge-red">RISK</span></td><td style="font-size:12px;">VND USD-peg needs managed float in Phase C</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">FTSE Catalyst Timeline</div>
+      <table>
+        <tbody>
+          <tr><td class="nowrap" style="color:var(--gold)"><b>Apr 2026</b></td><td style="font-size:12px;">FTSE EM upgrade confirmed by FTSE Russell</td></tr>
+          <tr><td class="nowrap" style="color:var(--gold)"><b>Jun–Aug 2026</b></td><td style="font-size:12px;"><b>Accumulate ETF before Tranche 1</b></td></tr>
+          <tr><td class="nowrap" style="color:var(--green)"><b>Sep 2026</b></td><td style="font-size:12px;">Tranche 1 effective → passive funds buy in</td></tr>
+          <tr><td class="nowrap" style="color:var(--green)"><b>2026–2027</b></td><td style="font-size:12px;">4 tranches, total $6B+ inflow</td></tr>
+          <tr><td class="nowrap" style="color:var(--blue)"><b>MSCI 2030</b></td><td style="font-size:12px;">Vietnam targets MSCI EM → additional $10B+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIDENCE + DISCLAIMER -->
+<div class="section">
+  <div class="section-title"><span class="step-num">7</span> Confidence Assessment</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Confidence Levels by Dimension</div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-label"><span>Pattern match (1930 analog): 12/12</span><span style="color:var(--red)">HIGH</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-label"><span>Directional call (system resets)</span><span style="color:var(--gold)">HIGH</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-label"><span>Safe haven survival through reset</span><span style="color:var(--gold)">MEDIUM</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:55%; background:var(--gold)"></div></div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar-label"><span>Timing precision (when exactly)</span><span style="color:var(--text3)">LOW</span></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:25%; background:var(--blue)"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Key Unknown — AI Wildcard</div>
+      <div style="font-size:12px; color:var(--text2); line-height:1.8;">
+        <p>If AI generates <b style="color:var(--text)">real productivity gains (~1–2% GDP)</b>, it could extend the plateau 2–4 years.</p>
+        <p style="margin-top:8px;">Current evidence suggests AI boom is largely <b style="color:var(--red)">financial, not yet productive</b> (circular financing: NVDA→MSFT→Hyperscaler→NVDA).</p>
+        <p style="margin-top:8px;"><b style="color:var(--gold)">Nuclear deterrence factor:</b> No WW2-scale kinetic resolution possible. Resolution must be negotiated → transition longer but less violent than 1929–1944.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <div>RCC Intelligence · Macro Research · Entropy Trap Framework</div>
+  <div>Based on: Statistical Physics / SOC Theory / Failed Equilibrium Pattern</div>
+  <div>Generated: 23 May 2026 · For internal use only</div>
+</div>
+
+</body>
+</html>
