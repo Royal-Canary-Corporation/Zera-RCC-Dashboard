@@ -7,700 +7,786 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d1117; --surface: #161b22; --surface2: #1c2128;
-    --border: #30363d; --text: #e6edf3; --text2: #8b949e; --text3: #6e7681;
-    --green: #3fb950; --green-bg: #0d2d1a;
-    --red: #f85149; --red-bg: #2d1215;
-    --gold: #d29922; --gold-bg: #2d2208;
-    --blue: #58a6ff; --blue-bg: #0d1d36;
-    --purple: #bc8cff; --orange: #e3b341;
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2128;
+    --border:#30363d;--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+    --green:#3fb950;--green-bg:#0d2d1a;
+    --red:#f85149;--red-bg:#2d1215;
+    --gold:#d29922;--gold-bg:#2d2208;
+    --blue:#58a6ff;--blue-bg:#0d1d36;
+    --purple:#bc8cff;--orange:#e3b341;
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Roboto',sans-serif; font-size:13px; line-height:1.6; padding:28px; min-width:1100px; }
-  .page-header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:24px; }
-  .page-header h1 { font-size:20px; font-weight:700; }
-  .page-header .sub { font-size:12px; color:var(--text2); margin-top:4px; }
-  .meta { text-align:right; font-size:11px; color:var(--text3); line-height:1.9; }
-  .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-  .badge-red { background:var(--red-bg); color:var(--red); border:1px solid #5a1c1c; }
-  .badge-gold { background:var(--gold-bg); color:var(--gold); border:1px solid #5a4000; }
-  .badge-green { background:var(--green-bg); color:var(--green); border:1px solid #1a4d2e; }
-  .badge-blue { background:var(--blue-bg); color:var(--blue); border:1px solid #0d3a6e; }
-
-  /* VERDICT BANNER */
-  .verdict { background:linear-gradient(135deg,#1c1408,#2d1f00); border:1px solid #5a4000; border-radius:12px; padding:18px 22px; margin-bottom:24px; display:flex; align-items:center; gap:16px; }
-  .verdict .statement { font-size:14px; font-weight:600; color:#ffd666; line-height:1.5; }
-  .verdict .label { font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--gold); margin-bottom:4px; }
-
-  /* KPI */
-  .kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; }
-  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; }
-  .kpi-label { font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:var(--text3); margin-bottom:6px; }
-  .kpi-value { font-size:20px; font-weight:700; line-height:1; }
-  .kpi-sub { font-size:10px; color:var(--text2); margin-top:3px; }
-
-  /* GRID */
-  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
-  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px; }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
-  .card-title { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text2); margin-bottom:12px; font-weight:700; }
-  .section-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--text3); padding-bottom:10px; border-bottom:1px solid var(--border); margin-bottom:16px; }
-
-  table { width:100%; border-collapse:collapse; font-size:12px; }
-  th { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); font-weight:700; padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); }
-  td { padding:8px 10px; border-bottom:1px solid #21262d; vertical-align:top; }
-  tr:last-child td { border-bottom:none; }
-  tr:hover td { background:#1c2128; }
-  .pos { color:var(--green); font-weight:600; }
-  .neg { color:var(--red); font-weight:600; }
-  .warn { color:var(--gold); font-weight:600; }
-
-  /* CANVAS SECTION */
-  .canvas-wrap { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px; margin-bottom:20px; }
-  canvas { display:block; }
-
-  .footer { border-top:1px solid var(--border); padding-top:14px; margin-top:28px; display:flex; justify-content:space-between; font-size:10px; color:var(--text3); }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Roboto',sans-serif;font-size:13px;line-height:1.6;padding:28px;min-width:1120px;}
+  .page-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:18px;margin-bottom:22px;}
+  .page-header h1{font-size:20px;font-weight:700;}
+  .page-header .sub{font-size:12px;color:var(--text2);margin-top:4px;}
+  .meta{text-align:right;font-size:11px;color:var(--text3);line-height:2;}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+  .badge-red{background:var(--red-bg);color:var(--red);border:1px solid #5a1c1c;}
+  .badge-gold{background:var(--gold-bg);color:var(--gold);border:1px solid #5a4000;}
+  .badge-green{background:var(--green-bg);color:var(--green);border:1px solid #1a4d2e;}
+  .badge-blue{background:var(--blue-bg);color:var(--blue);border:1px solid #0d3a6e;}
+  .verdict{background:linear-gradient(135deg,#1c1408,#2d1f00);border:1px solid #5a4000;border-radius:12px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px;}
+  .verdict .icon{font-size:28px;flex-shrink:0;padding-top:2px;}
+  .verdict .label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:4px;}
+  .verdict .statement{font-size:13px;font-weight:500;color:#ffd666;line-height:1.6;}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:22px;}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;}
+  .kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:6px;}
+  .kpi-value{font-size:20px;font-weight:700;line-height:1;}
+  .kpi-sub{font-size:10px;color:var(--text2);margin-top:3px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+  .card-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:12px;font-weight:700;}
+  .sec-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--text3);padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .step{background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text2);flex-shrink:0;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:700;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+  td{padding:7px 10px;border-bottom:1px solid #21262d;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#1c2128;}
+  .pos{color:var(--green);font-weight:600;}
+  .neg{color:var(--red);font-weight:600;}
+  .warn{color:var(--gold);font-weight:600;}
+  .canvas-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:18px;}
+  .canvas-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:12px;font-weight:700;}
+  canvas{display:block;}
+  .quote{background:var(--surface2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;margin:10px 0;font-style:italic;color:var(--text2);font-size:12px;line-height:1.7;}
+  .signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .sig{display:flex;align-items:flex-start;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
+  .dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+  .dot-r{background:var(--red)}.dot-g{background:var(--green)}.dot-b{background:var(--blue)}.dot-o{background:var(--orange)}
+  .sig-name{font-size:12px;font-weight:600;}
+  .sig-desc{font-size:11px;color:var(--text2);margin-top:1px;}
+  .footer{border-top:1px solid var(--border);padding-top:14px;margin-top:26px;display:flex;justify-content:space-between;font-size:10px;color:var(--text3);}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="page-header">
   <div>
-    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">RCC Intelligence · Dual Lens Analysis</div>
-    <h1>Bowl Position & Curvature — May 2026</h1>
-    <div class="sub">Entropy Trap × Soros Reflexivity Theory · Historical Validation · Graphical Bowl Render</div>
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:5px;">RCC Intelligence · Macro Research · Dual Lens Analysis</div>
+    <h1>Bowl Position & Curvature Analysis — May 2026</h1>
+    <div class="sub">Entropy Trap (Econophysics) × Soros Reflexivity Theory · Historical Validation · Graphical Render</div>
   </div>
   <div class="meta">
     <div>23 May 2026</div>
-    <div>Combined Score: 6.8 / 10</div>
-    <div style="margin-top:6px"><span class="badge badge-red">75–82% DEPTH</span></div>
-    <div style="margin-top:4px"><span class="badge badge-gold">WALL CURVING</span></div>
+    <div>Entropy Score: 6.4 | Reflexivity Score: 7.2</div>
+    <div>Combined: <b style="color:var(--gold)">6.8 / 10</b></div>
+    <div style="margin-top:6px"><span class="badge badge-red">75–82% DEPTH</span>&nbsp;<span class="badge badge-gold">WALL CURVING</span></div>
   </div>
 </div>
 
 <!-- VERDICT -->
 <div class="verdict">
-  <div style="font-size:28px">🥣</div>
+  <div class="icon">🥣</div>
   <div>
-    <div class="label">Final Verdict</div>
-    <div class="statement">"Bowl at 75–82% depth. Wall APPEARS flat (VIX complacency, tight credit spreads) but is ACTUALLY curving — consumer sentiment at record low 44.8 (lowest since 1952) while S&P near ATH = largest perception-reality gap ever recorded. That gap IS the bowl's steepness made invisible."</div>
+    <div class="label">Final Verdict — Dual Lens</div>
+    <div class="statement">"Bowl at 75–82% depth. Wall APPEARS flat (VIX 15–20, IG spreads tight at 78bps, AI narrative intact) — but is ACTUALLY curving. Consumer sentiment at record low 44.8 (lowest since 1952) while S&P near ATH = largest perception-reality gap ever recorded. Critical slowing down confirmed (recovery time: 3mo → 5mo → 15mo → incomplete). That gap IS the bowl's steepness made invisible."</div>
   </div>
 </div>
 
 <!-- KPI -->
 <div class="kpi-row">
-  <div class="kpi">
-    <div class="kpi-label">Bowl Depth</div>
-    <div class="kpi-value" style="color:var(--red)">75–82%</div>
-    <div class="kpi-sub">Revised UP from 65–75%</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Combined Score</div>
-    <div class="kpi-value" style="color:var(--gold)">6.8/10</div>
-    <div class="kpi-sub">Entropy 6.4 + Reflexivity 7.2</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Consumer Sentiment</div>
-    <div class="kpi-value" style="color:var(--red)">44.8</div>
-    <div class="kpi-sub">Record low since 1952</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">S&P vs 50DMA</div>
-    <div class="kpi-value" style="color:var(--gold)">+7%</div>
-    <div class="kpi-sub">Only 3 precedents: 1998–2000</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Timeline</div>
-    <div class="kpi-value" style="color:var(--blue)">9–18mo</div>
-    <div class="kpi-sub">Base case to trigger</div>
-  </div>
+  <div class="kpi"><div class="kpi-label">Bowl Depth</div><div class="kpi-value" style="color:var(--red)">75–82%</div><div class="kpi-sub">Revised UP from 65–75%</div></div>
+  <div class="kpi"><div class="kpi-label">Combined Score</div><div class="kpi-value" style="color:var(--gold)">6.8/10</div><div class="kpi-sub">Entropy 6.4 + Reflexivity 7.2</div></div>
+  <div class="kpi"><div class="kpi-label">Consumer Sentiment</div><div class="kpi-value" style="color:var(--red)">44.8</div><div class="kpi-sub">Record low since 1952</div></div>
+  <div class="kpi"><div class="kpi-label">S&P vs 50DMA</div><div class="kpi-value" style="color:var(--orange)">+7%</div><div class="kpi-sub">Only 3 prior: Dec'98, Nov'99, Mar'00</div></div>
+  <div class="kpi"><div class="kpi-label">Base Case Timeline</div><div class="kpi-value" style="color:var(--blue)">9–18mo</div><div class="kpi-sub">To trigger event</div></div>
 </div>
 
-<!-- BOWL VISUALIZATION -->
+<!-- BOWL CURVE -->
 <div class="canvas-wrap">
-  <div class="card-title">📐 Bowl Curve — Graphical Render (1971 → Resolution)</div>
-  <canvas id="bowlCanvas" width="1040" height="420"></canvas>
+  <div class="canvas-title">📐 Bowl Curve — Entropy Accumulation 1971 → Resolution (Graphical Render)</div>
+  <canvas id="bowlCanvas" width="1060" height="440"></canvas>
 </div>
 
-<!-- CURVATURE DETAIL -->
-<div class="canvas-wrap" style="margin-bottom:20px;">
-  <div class="card-title">📈 Critical Slowing Down — Recovery Time Acceleration</div>
-  <canvas id="slowCanvas" width="1040" height="200"></canvas>
+<!-- CRITICAL SLOWING DOWN -->
+<div class="canvas-wrap">
+  <div class="canvas-title">📈 Critical Slowing Down — Recovery Time Acceleration (Mathematical Signature of Phase Transition)</div>
+  <canvas id="slowCanvas" width="1060" height="220"></canvas>
 </div>
 
 <!-- PERCEPTION GAP -->
-<div class="canvas-wrap" style="margin-bottom:20px;">
-  <div class="card-title">🔴 Reflexivity Gap — S&P Index vs Consumer Sentiment (Normalized, 2000–2026)</div>
-  <canvas id="gapCanvas" width="1040" height="220"></canvas>
+<div class="canvas-wrap">
+  <div class="canvas-title">🔴 Reflexivity Gap — S&P 500 vs Consumer Sentiment (Normalized 2000–2026) · Largest Divergence Ever Recorded</div>
+  <canvas id="gapCanvas" width="1060" height="240"></canvas>
 </div>
 
-<!-- SCORING TABLES -->
-<div class="grid2">
+<!-- PART 1: RAW DATA -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">1</span> Current Fiscal & Market Signal Data — May 2026</div>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-title">Fiscal Signals</div>
+      <table>
+        <tbody>
+          <tr><td>US Debt/GDP</td><td class="neg"><b>133%</b> — rising, deficit $2T/yr</td></tr>
+          <tr><td>10Y Treasury</td><td class="neg"><b>4.57%</b> — highest since 2007</td></tr>
+          <tr><td>30Y Treasury</td><td class="neg"><b>~4.9%</b> — highest since 2007</td></tr>
+          <tr><td>Interest cost/GDP</td><td class="warn"><b>~3.8%</b> — approaching WW2 levels</td></tr>
+          <tr><td>Fed balance sheet</td><td class="warn">Growing again (stealth QE)</td></tr>
+          <tr><td>Moody's downgrade</td><td class="neg">May 2025 — AAA→AA1, <b>first ever</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Market Structure</div>
+      <table>
+        <tbody>
+          <tr><td>S&P vs 50DMA</td><td class="warn"><b>+7%</b> — only 3 precedents: Dec 1998, Nov 1999, Mar 2000</td></tr>
+          <tr><td>Market breadth</td><td class="neg"><b>Narrow</b> — few mega-caps carry index</td></tr>
+          <tr><td>IG credit spread</td><td class="warn"><b>78bps</b> — tight = complacency</td></tr>
+          <tr><td>Yield curve (2s10s)</td><td class="warn">Positive but narrow, just exited inversion</td></tr>
+          <tr><td>VIX</td><td class="warn">15–20 — complacency zone</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Real Economy & Reflexivity Signals</div>
+      <table>
+        <tbody>
+          <tr><td>Michigan Consumer Sentiment</td><td class="neg"><b>44.8</b> — record low since 1952</td></tr>
+          <tr><td>Inflation expectations</td><td class="neg"><b>4.8%/yr</b> (from 3.4% in Feb 2026)</td></tr>
+          <tr><td>Consumer spending</td><td class="warn">Shifted to "cheap thrills"</td></tr>
+          <tr><td>CB gold buying</td><td class="neg"><b>1,100+ tonnes/yr</b> — CBs exiting USD</td></tr>
+          <tr><td>USD reserve share</td><td class="neg"><b>&lt;57%</b> — lowest since 1995</td></tr>
+          <tr><td>Bond vigilantes</td><td class="neg">Activated — Dimon warning Apr 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: DUAL LENS SCORING -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">2</span> Dual Lens Scoring Matrix</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Entropy Trap Lens — Physical State Indicators</div>
+      <table>
+        <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Compressed entropy (18yr CB)</td><td class="neg">8/10</td><td>4× QE cycles, CB balance sheet 10×</td></tr>
+          <tr><td>Critical slowing down</td><td class="neg">8/10</td><td>3mo → 5mo → 15mo → incomplete</td></tr>
+          <tr><td>Fiscal dominance</td><td class="neg">8/10</td><td>Fed constrained, $2T deficit/yr</td></tr>
+          <tr><td>Sovereign stress</td><td class="warn">7/10</td><td>Moody's downgrade May 2025</td></tr>
+          <tr><td>Cross-asset correlation</td><td class="warn">7/10</td><td>Risk-off = all assets fall together</td></tr>
+          <tr><td>De-dollarization</td><td class="warn">7/10</td><td>CB gold 1,100t/yr, USD &lt;57%</td></tr>
+          <tr><td>Liquidity crisis</td><td class="pos">3/10</td><td>NOT YET — IG spread 78bps, credit flowing</td></tr>
+          <tr><td>Dollar funding stress</td><td class="pos">3/10</td><td>NOT YET — no FRA-OIS spike</td></tr>
+          <tr><td style="font-weight:700">AVERAGE</td><td class="warn" style="font-weight:700">6.4</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Reflexivity Lens — Soros Feedback Loop State</div>
+      <table>
+        <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Trend/Bias divergence</td><td class="neg">8/10</td><td>S&P ATH + sentiment 44.8 (record low) — largest gap ever</td></tr>
+          <tr><td>Far-from-equilibrium gap</td><td class="neg">8/10</td><td>Soros: "The larger the gap, the more violent the correction"</td></tr>
+          <tr><td>Smart money exiting</td><td class="neg">8/10</td><td>CBs buying gold, not US bonds; hyperscalers flooding bond market</td></tr>
+          <tr><td>Bias weakening at highs</td><td class="warn">7/10</td><td>Narrow breadth = Dec 1998 / Nov 1999 exact match</td></tr>
+          <tr><td>Institutional trapped in loop</td><td class="warn">7/10</td><td>Fund managers must own AI stocks or underperform benchmark</td></tr>
+          <tr><td>Positive loop still running</td><td style="color:var(--blue);font-weight:600">5/10</td><td>AI narrative intact but ROI unproven — circular financing</td></tr>
+          <tr><td style="font-weight:700">AVERAGE</td><td class="neg" style="font-weight:700">7.2</td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="quote" style="margin-top:12px;">"Every boom-bust sequence starts with a prevailing bias AND a prevailing trend. The boom is sustainable only as long as both reinforce each other. When the trend can no longer support the bias, the sequence reverses." — Soros</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 3: HISTORICAL VALIDATION -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">3</span> Historical Validation — 2026 vs Prior Analogues</div>
   <div class="card">
-    <div class="card-title">Entropy Trap Lens — Physical State</div>
     <table>
-      <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+      <thead><tr><th>Analog</th><th>S&P Breadth</th><th>Consumer Sentiment</th><th>CB Gold</th><th>IG Spreads</th><th>Bowl %</th><th>Outcome</th></tr></thead>
       <tbody>
-        <tr><td>Compressed entropy (18yr CB)</td><td class="neg">8/10</td><td>4× QE, CB balance sheet 10×</td></tr>
-        <tr><td>Critical slowing down</td><td class="neg">8/10</td><td>3mo→5mo→15mo→incomplete</td></tr>
-        <tr><td>Fiscal dominance</td><td class="neg">8/10</td><td>Fed constrained, $2T deficit/yr</td></tr>
-        <tr><td>Sovereign stress</td><td class="warn">7/10</td><td>Moody's downgrade May 2025</td></tr>
-        <tr><td>Cross-asset correlation</td><td class="warn">7/10</td><td>Risk-off = all assets fall</td></tr>
-        <tr><td>De-dollarization</td><td class="warn">7/10</td><td>CB gold 1,100t/yr, USD &lt;57%</td></tr>
-        <tr><td>Liquidity crisis</td><td class="pos">3/10</td><td>NOT YET — IG spread 78bps</td></tr>
-        <tr><td>Dollar funding stress</td><td class="pos">3/10</td><td>NOT YET — no FRA-OIS spike</td></tr>
-        <tr><td><b>AVERAGE</b></td><td class="warn"><b>6.4</b></td><td></td></tr>
+        <tr><td><b>Sep 1929</b></td><td class="neg">Narrow</td><td class="neg">Low</td><td class="neg">Buying</td><td>Tight</td><td class="neg">85–90%</td><td class="neg">Crashed within 2 months</td></tr>
+        <tr><td><b>Dec 1999</b></td><td class="neg">Narrow <b>(+7% 50DMA)</b></td><td class="warn">Dropping</td><td>—</td><td>Tight</td><td class="neg">75–80%</td><td class="neg">Crashed within 3 months</td></tr>
+        <tr><td><b>Oct 2007</b></td><td class="neg">Narrow</td><td class="neg">Falling</td><td class="warn">Starting</td><td class="warn">Beginning to widen</td><td class="neg">80–85%</td><td class="neg">Bear market 17 months</td></tr>
+        <tr style="background:#1c2128;"><td><b style="color:#ffd666">May 2026 (NOW)</b></td><td class="neg"><b>Narrow (+7%) ← EXACT MATCH</b></td><td class="neg"><b>44.8 — RECORD LOW</b></td><td class="neg"><b>1,100t/yr</b></td><td class="warn">78bps — tight</td><td class="neg"><b>75–82%</b></td><td class="warn"><b>9–18 months?</b></td></tr>
       </tbody>
     </table>
+    <div style="margin-top:12px;font-size:12px;color:var(--text2);">
+      → Most comparable: <b style="color:var(--text)">Late 1999 / Mid-2007 hybrid</b> — both were 12–18 months before resolution event.<br>
+      → S&P breadth at +7% above 50DMA with narrow participation: only 3 prior dates with this exact pattern — all within 3–15 months of major correction.
+    </div>
+  </div>
+</div>
+
+<!-- PART 4: CURVATURE ANALYSIS -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">4</span> Bowl Curvature — How Flat Is The Wall Right Now?</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Evidence for "Appears Flat" (Complacency Layer)</div>
+      <div class="signal-grid">
+        <div class="sig"><div class="dot dot-b"></div><div><div class="sig-name">VIX 15–20</div><div class="sig-desc">Complacency zone — no panic signal</div></div></div>
+        <div class="sig"><div class="dot dot-b"></div><div><div class="sig-name">IG Spreads 78bps</div><div class="sig-desc">Tight = credit market still calm</div></div></div>
+        <div class="sig"><div class="dot dot-b"></div><div><div class="sig-name">AI Narrative Intact</div><div class="sig-desc">MSFT, Google still investing in capex</div></div></div>
+        <div class="sig"><div class="dot dot-b"></div><div><div class="sig-name">S&P Near ATH</div><div class="sig-desc">Price action = no visible cliff</div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Evidence "Actually Curving" (Structural Layer)</div>
+      <div class="signal-grid">
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">Consumer Sentiment 44.8</div><div class="sig-desc">Record low since 1952 — real economy cracking</div></div></div>
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">Recovery Time Accelerating</div><div class="sig-desc">3mo→5mo→15mo→INCOMPLETE — critical slowing down</div></div></div>
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">Narrow Breadth (1999 Match)</div><div class="sig-desc">Dec 1998 analog = 15 months before crash</div></div></div>
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">CB Gold Buying 1,100t/yr</div><div class="sig-desc">Smart money exiting USD system</div></div></div>
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">Bond Vigilantes Awakened</div><div class="sig-desc">Lagging indicator — means curve already steep</div></div></div>
+        <div class="sig"><div class="dot dot-r"></div><div><div class="sig-name">Inflation Expectations +4.8%</div><div class="sig-desc">Up from 3.4% in Feb — consumers pricing in crisis</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:0;">
+    <div class="card-title">Curvature Definition (Physics)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:12px;color:var(--text2);">
+      <div style="background:var(--green-bg);border:1px solid #1a4d2e;border-radius:8px;padding:12px;"><b style="color:var(--green)">FLAT: dV/dt ≈ 0</b><br>System stable, slow entropy release<br><span style="font-size:11px;">2009–2019: QE era plateau</span></div>
+      <div style="background:var(--gold-bg);border:1px solid #5a4000;border-radius:8px;padding:12px;"><b style="color:var(--gold)">CURVING: d²V/dt² > 0</b><br>Acceleration — entropy release speeding<br><span style="font-size:11px;color:var(--red)">← WE ARE HERE (2025–26)</span></div>
+      <div style="background:var(--red-bg);border:1px solid #5a1c1c;border-radius:8px;padding:12px;"><b style="color:var(--red)">STEEP: dV/dt >> 0</b><br>Transition active — cascade<br><span style="font-size:11px;">2008, 2020 equivalents</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 5: REFLEXIVITY MECHANISM -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">5</span> Reflexivity Mechanism — AI Bubble Anatomy</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Positive Reflexivity Loop (2023–24) — Still Running</div>
+      <div style="font-size:12px;color:var(--text2);line-height:2;">
+        <div style="background:var(--surface2);border-radius:8px;padding:12px;font-family:'Roboto Mono',monospace;font-size:11px;color:var(--text2);">
+          NVIDIA earnings beat<br>
+          → AI narrative strengthens<br>
+          → MSFT/GOOGL capex ↑ → buy more GPU<br>
+          → NVIDIA earnings beat again<br>
+          → Valuations ↑ → collateral ↑ → borrow → buy more<br>
+          <br>
+          <span style="color:var(--gold)">= CIRCULAR REFLEXIVITY (NVDA→MSFT→NVDA)</span><br>
+          <span style="color:var(--text3)">Soros: "Boom phase built on flawed premise"</span><br>
+          <span style="color:var(--text3)">Flawed premise = AI productivity not yet real</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">When Loop Reverses → Negative Reflexivity</div>
+      <div style="font-size:12px;color:var(--text2);line-height:2;">
+        <div style="background:var(--red-bg);border:1px solid #5a1c1c;border-radius:8px;padding:12px;font-family:'Roboto Mono',monospace;font-size:11px;">
+          NVIDIA/MSFT miss on capex ROI<br>
+          → Capex cuts announced<br>
+          → GPU inventory builds → earnings miss<br>
+          → Collateral falls → margin calls<br>
+          → Forced selling → prices fall further<br>
+          → More margin calls → cascade<br>
+          <br>
+          <span style="color:var(--red)">= SELF-REINFORCING NEGATIVE LOOP</span><br>
+          <span style="color:var(--text3)">Same speed, opposite direction</span><br>
+          <span style="color:var(--text3)">$3–5T market cap destruction window</span>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="card">
-    <div class="card-title">Reflexivity Lens — Feedback Loop State</div>
+    <div class="card-title">Fiscal Dominance — Reflexivity Reading</div>
+    <div style="font-size:12px;color:var(--text2);line-height:2;">
+      <div style="background:var(--surface2);border-radius:8px;padding:14px;font-family:'Roboto Mono',monospace;font-size:11px;">
+        <span style="color:var(--text3)">OLD LOOP (2009–2019):</span> "Fed will backstop everything" → buy risk → prices rise → belief reinforced ✅<br>
+        <span style="color:var(--text3)">LOOP CRACKING (2025–26):</span> "Maybe not this time?" → bond vigilantes price in risk → 10Y 4.57% → borrowing costs rise → loop reversal begins<br>
+        <br>
+        <span style="color:var(--gold)">Bond vigilantes = first signal of reflexivity loop reversal on fiscal dominance thesis</span><br>
+        <span style="color:var(--red)">Moody's downgrade = narrative crack = bias starting to collapse</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 6: FAILED EQUILIBRIUM MAP -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">6</span> Failed Equilibrium Pattern — Full Map (1971 → Resolution)</div>
+  <div class="card">
     <table>
-      <thead><tr><th>Indicator</th><th>Score</th><th>Evidence</th></tr></thead>
+      <thead><tr><th>FE#</th><th>Long Depression Analog</th><th>Current Transition</th><th>Year</th><th>Bowl %</th><th>Buy Dip?</th></tr></thead>
       <tbody>
-        <tr><td>Trend/Bias divergence</td><td class="neg">8/10</td><td>S&P ATH + sentiment 44.8 record low</td></tr>
-        <tr><td>Far-from-equilibrium gap</td><td class="neg">8/10</td><td>Largest perception-reality gap ever</td></tr>
-        <tr><td>Smart money exiting</td><td class="neg">8/10</td><td>CBs buying gold not US bonds</td></tr>
-        <tr><td>Bias weakening at highs</td><td class="warn">7/10</td><td>Narrow breadth = Dec 1998 match</td></tr>
-        <tr><td>Institutional trapped in loop</td><td class="warn">7/10</td><td>Fund managers must own AI stocks</td></tr>
-        <tr><td>Positive loop still running</td><td style="color:var(--blue)">5/10</td><td>AI narrative intact but ROI unproven</td></tr>
-        <tr><td><b>AVERAGE</b></td><td class="neg"><b>7.2</b></td><td></td></tr>
+        <tr><td><span class="badge badge-blue">START</span></td><td>1873 Panic</td><td>Nixon shock — gold window closes</td><td>1971</td><td>0%</td><td>—</td></tr>
+        <tr><td><span class="badge badge-blue">FE#1</span></td><td>1879 Recovery</td><td>Volcker disinflation recovery</td><td>1982</td><td>~15%</td><td class="pos">✅ Win</td></tr>
+        <tr><td><span class="badge badge-blue">FE#2</span></td><td>1897 Gold rush</td><td>Post-dotcom / Iraq war boom</td><td>2003</td><td>~35%</td><td class="pos">✅ Win</td></tr>
+        <tr><td><span class="badge badge-blue">FE#3</span></td><td>1910 QE recovery</td><td>QE1 recovery post-GFC</td><td>2009</td><td>~50%</td><td class="pos">✅ Win (+400%)</td></tr>
+        <tr><td><span class="badge badge-blue">FE#4</span></td><td>1920s Prosperity</td><td>COVID melt-up / soft landing</td><td>2021</td><td>~65%</td><td class="pos">✅ Win (+40%)</td></tr>
+        <tr><td><span class="badge badge-gold">FE#5?</span></td><td><b>1930 — 48% rally</b></td><td><b>AI bubble / soft landing narrative</b></td><td><b>2023–24</b></td><td><b>~72%</b></td><td class="warn"><b>⚠️ False rally?</b></td></tr>
+        <tr style="background:var(--red-bg)"><td><span class="badge badge-red">NOW</span></td><td style="color:var(--red)"><b>1931 — Final collapse begins</b></td><td style="color:var(--red)"><b>Fiscal crack, bond vigilantes, CB gold</b></td><td style="color:var(--red)"><b>2025–26</b></td><td class="neg"><b>75–82%</b></td><td class="neg"><b>❌ Destroys you</b></td></tr>
+        <tr><td><span class="badge badge-green">RESET</span></td><td style="color:var(--green)">1944 Bretton Woods</td><td style="color:var(--green)">New monetary order</td><td style="color:var(--green)">203X</td><td style="color:var(--green)">100%</td><td>—</td></tr>
       </tbody>
     </table>
+    <div class="quote" style="margin-top:12px;">"The lethal mistake is not the crisis. It is confusing a system that is wobbling with a system that has crossed the threshold. In disequilibrium, buying the dip works. In a phase transition, it destroys you. The difference is invisible from inside the system." — The Entropy Trap, Ch.3</div>
+    <div style="font-size:12px;color:var(--text2);margin-top:10px;"><b style="color:var(--red)">1930 data point:</b> Dow rallied +48% (Nov 1929→Apr 1930) — strongest FE in dataset. Every buy-the-dip investor was rewarded. Then: -86% over next 2 years.</div>
   </div>
 </div>
 
-<!-- HISTORICAL TABLE -->
-<div class="card" style="margin-bottom:20px;">
-  <div class="card-title">Historical Validation — 2026 vs Prior Analogues</div>
-  <table>
-    <thead><tr><th>Analog</th><th>S&P Breadth</th><th>Consumer Sentiment</th><th>CB Gold</th><th>IG Spreads</th><th>Bowl %</th><th>Outcome</th></tr></thead>
-    <tbody>
-      <tr><td><b>Sep 1929</b></td><td class="neg">Narrow</td><td class="neg">Low</td><td class="neg">Buying</td><td>Tight</td><td class="neg">85–90%</td><td class="neg">Crashed 2 months</td></tr>
-      <tr><td><b>Dec 1999</b></td><td class="neg">Narrow (+7% 50DMA)</td><td class="warn">Dropping</td><td>—</td><td>Tight</td><td class="neg">75–80%</td><td class="neg">Crashed 3 months</td></tr>
-      <tr><td><b>Oct 2007</b></td><td class="neg">Narrow</td><td class="neg">Falling</td><td class="warn">Starting</td><td class="warn">Widening</td><td class="neg">80–85%</td><td class="neg">Bear 17 months</td></tr>
-      <tr style="background:#1c2128;"><td><b style="color:#ffd666">May 2026 (NOW)</b></td><td class="neg"><b>Narrow (+7%) ← EXACT</b></td><td class="neg"><b>44.8 RECORD LOW</b></td><td class="neg"><b>1,100t/yr</b></td><td class="warn">78bps tight</td><td class="neg"><b>75–82%</b></td><td class="warn"><b>9–18 months?</b></td></tr>
-    </tbody>
-  </table>
+<!-- PART 7: PHASE PREDICTIONS -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">7</span> Phase Prediction — 3-Phase Sequence</div>
+  <div class="grid3">
+    <div class="card" style="border-color:#0d3a6e;background:var(--blue-bg)">
+      <div class="card-title" style="color:var(--blue)">Phase A — False Plateau (NOW)</div>
+      <div style="font-size:10px;color:var(--blue);margin-bottom:10px;font-weight:700;">50% PROBABILITY · NOW → 6–18 MONTHS</div>
+      <ul style="font-size:12px;color:var(--text2);list-style:none;line-height:2;">
+        <li>→ VIX 15–20, AI narrative holds</li>
+        <li>→ Markets sideways to slightly up</li>
+        <li>→ Fed holds, occasional dovish talk</li>
+        <li>→ Bond yields 4.5–5% range</li>
+        <li>→ Gold consolidates $3,500–4,500</li>
+      </ul>
+      <div style="margin-top:12px;background:#0a1520;border-radius:6px;padding:10px;font-size:11px;color:var(--blue);">
+        📡 Signal Phase A ending:<br>Bond auction bid-to-cover &lt;2.0x on 10Y/30Y
+      </div>
+    </div>
+    <div class="card" style="border-color:#5a1c1c;background:var(--red-bg)">
+      <div class="card-title" style="color:var(--red)">Phase B — Trigger Event</div>
+      <div style="font-size:10px;color:var(--red);margin-bottom:10px;font-weight:700;">6–18 MONTHS FROM NOW</div>
+      <ul style="font-size:12px;color:var(--text2);list-style:none;line-height:2;">
+        <li><b style="color:var(--red)">35%</b> Bond dislocation → 10Y 5.5–6%</li>
+        <li><b style="color:var(--orange)">25%</b> AI bubble pop → $3–5T destruction</li>
+        <li><b style="color:var(--orange)">20%</b> Iran escalation → Oil $150+</li>
+        <li><b style="color:var(--orange)">20%</b> Sovereign cascade (France/Italy/Japan)</li>
+      </ul>
+      <div style="margin-top:12px;background:#1a0a0a;border-radius:6px;padding:10px;font-size:11px;color:var(--red);">
+        ⚡ USD paradox: strengthens first (flee-to-safety) → weakens as Fed forced to monetize
+      </div>
+    </div>
+    <div class="card" style="border-color:#1a4d2e;background:var(--green-bg)">
+      <div class="card-title" style="color:var(--green)">Phase C — Resolution</div>
+      <div style="font-size:10px;color:var(--green);margin-bottom:10px;font-weight:700;">2028–2035 · BRETTON WOODS 2.0</div>
+      <ul style="font-size:12px;color:var(--text2);list-style:none;line-height:2;">
+        <li>→ Gold partial re-linkage (neutral layer)</li>
+        <li>→ Multi-polar basket: USD+EUR+RMB+Gold</li>
+        <li>→ CBDC infrastructure as settlement</li>
+        <li>→ US debt restructured by markets</li>
+        <li>→ IMF SDR reform or replacement</li>
+      </ul>
+      <div style="margin-top:12px;background:#0a1a0a;border-radius:6px;padding:10px;font-size:11px;color:var(--green);">
+        ✅ Vietnam: manufacturing hub + no-bloc = strategic flexibility in new order
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- TIMELINE & PHASE -->
-<div class="grid3">
-  <div class="card" style="border-color:#0d3a6e;background:var(--blue-bg)">
-    <div class="card-title" style="color:var(--blue)">Phase A — False Plateau (NOW)</div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
-      <p>VIX 15–20, AI narrative intact</p>
-      <p>S&P sideways to slightly up</p>
-      <p>Bond yields 4.5–5% range</p>
-      <p style="margin-top:8px;color:var(--blue)">📡 Watch: Bond auction bid-to-cover &lt;2.0x</p>
+<!-- PART 8: INVESTMENT IMPLICATIONS -->
+<div style="margin-bottom:18px;">
+  <div class="sec-title"><span class="step">8</span> Investment Implications — Revised Portfolio (Post Entropy Trap + Reflexivity)</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Finalized Allocation — &lt;$1M at Vietnam</div>
+      <table>
+        <thead><tr><th>Asset</th><th>%</th><th>Reasoning</th></tr></thead>
+        <tbody>
+          <tr><td><b>Physical Gold (SJC)</b></td><td class="neg"><b>30%</b></td><td>Only asset surviving both wobbling AND threshold. +200-400% post-resolution.</td></tr>
+          <tr><td><b>USD Cash (dry powder)</b></td><td class="warn"><b>25%</b></td><td>Strengthens in Phase B. Option to buy assets at -50-70% during cascade.</td></tr>
+          <tr><td><b>VN-Index ETF (E1VFVN30)</b></td><td class="warn"><b>25%</b></td><td>FTSE $6B structural catalyst — local, independent of global cycle. Hold through -30% shock.</td></tr>
+          <tr><td><b>TPCP VN 1yr</b></td><td style="color:var(--blue);font-weight:600"><b>15%</b></td><td>5.5% yield, VND hedge, short enough to not lock in phase transition</td></tr>
+          <tr><td><b>Bank deposit</b></td><td style="color:var(--text2)"><b>5%</b></td><td>Living expenses buffer only — 3–6 months. VND depreciation risk.</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div style="margin-top:12px"><span class="badge badge-blue">50% PROB</span></div>
-  </div>
-  <div class="card" style="border-color:#5a1c1c;background:var(--red-bg)">
-    <div class="card-title" style="color:var(--red)">Phase B — Trigger Event</div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
-      <p><b style="color:var(--red)">35%</b> Bond auction fail → 10Y 5.5–6%</p>
-      <p><b style="color:var(--gold)">25%</b> AI bubble pop → $3–5T destruction</p>
-      <p><b style="color:var(--gold)">20%</b> Iran escalation → Oil $150+</p>
-      <p><b style="color:var(--gold)">20%</b> Sovereign cascade</p>
+    <div class="card">
+      <div class="card-title">Asset Behavior Through Phase Transition</div>
+      <table>
+        <thead><tr><th>Asset</th><th>Phase B (Trigger)</th><th>Phase C (After Reset)</th></tr></thead>
+        <tbody>
+          <tr><td>S&P 500</td><td class="neg">-50 to -70%</td><td style="color:var(--text2)">Recovers in new system</td></tr>
+          <tr><td><b>Physical Gold</b></td><td class="warn">-20-30% initial</td><td class="pos"><b>+200-400%</b></td></tr>
+          <tr><td>USD Cash</td><td class="pos">Strengthens first</td><td class="neg">Weakens if monetized</td></tr>
+          <tr><td>VND Real Estate</td><td class="pos">Better than USD assets</td><td class="pos">Holds value</td></tr>
+          <tr><td>VN-Index ETF</td><td class="warn">-25-30% temporary</td><td class="pos">Structural recovery (FTSE)</td></tr>
+          <tr><td>US 30Y Bonds</td><td class="neg">Yield rises further</td><td class="neg">Restructured</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:12px;color:var(--text2);">
+        <b style="color:var(--text)">Portfolios that survived 1929–1944:</b><br>
+        Physical gold · Agricultural land with cash flow · Geographic diversification · Cash in the NEW monetary system
+      </div>
     </div>
-    <div style="margin-top:12px"><span class="badge badge-red">9–18 MONTHS</span></div>
-  </div>
-  <div class="card" style="border-color:#1a4d2e;background:var(--green-bg)">
-    <div class="card-title" style="color:var(--green)">Phase C — Resolution</div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.8;">
-      <p>Gold partial re-linkage</p>
-      <p>Multi-polar reserve basket</p>
-      <p>CBDC settlement layer</p>
-      <p>US debt restructured by markets</p>
-    </div>
-    <div style="margin-top:12px"><span class="badge badge-green">2028–2035</span></div>
   </div>
 </div>
 
 <div class="footer">
-  <div>RCC Intelligence · Entropy Trap × Reflexivity Dual Lens</div>
-  <div>Data: Michigan Consumer Sentiment, FRED, BTIG Research, Banque de France</div>
-  <div>Generated: 23 May 2026 · For internal use</div>
+  <div>RCC Intelligence · Entropy Trap × Soros Reflexivity Dual Lens</div>
+  <div>Sources: Michigan Consumer Sentiment, FRED, BTIG Research, Banque de France, The Entropy Trap (Ch.1–3), Soros — Alchemy of Finance</div>
+  <div>Generated: 23 May 2026 · Internal use only</div>
 </div>
 
 <script>
-// ============================================================
-// BOWL CURVE CANVAS
-// ============================================================
-(function() {
-  const c = document.getElementById('bowlCanvas');
-  const ctx = c.getContext('2d');
-  const W = c.width, H = c.height;
-  const pad = { l:60, r:30, t:40, b:50 };
-  const cw = W - pad.l - pad.r;
-  const ch = H - pad.t - pad.b;
+/* ============================================================
+   BOWL CURVE
+   ============================================================ */
+(function(){
+  const c=document.getElementById('bowlCanvas');
+  const ctx=c.getContext('2d');
+  const W=c.width,H=c.height;
+  const pad={l:70,r:200,t:50,b:50};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  ctx.fillStyle='#161b22';ctx.fillRect(0,0,W,H);
 
-  // Background
-  ctx.fillStyle = '#161b22';
-  ctx.fillRect(0,0,W,H);
-
-  // Grid lines
-  ctx.strokeStyle = '#21262d';
-  ctx.lineWidth = 1;
-  for (let i=0; i<=5; i++) {
-    const y = pad.t + (ch/5)*i;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W-pad.r, y); ctx.stroke();
-  }
-
-  // Timeline points: [year, depth_pct (0=top, 100=bottom), label, color, annotation]
-  const points = [
-    { yr:1971, depth:2,  label:'1971\nNixon', color:'#8b949e', note:'Bowl starts\n(gold window closes)' },
-    { yr:1982, depth:15, label:'1982\nFE#1', color:'#58a6ff', note:'Volcker recovery' },
-    { yr:1987, depth:22, label:'1987', color:'#8b949e', note:'Black Monday' },
-    { yr:2000, depth:38, label:'2000\nFE#2', color:'#58a6ff', note:'Dotcom recovery' },
-    { yr:2008, depth:48, label:'2008\nGFC', color:'#f85149', note:'GFC — bounce\nQE1 begins' },
-    { yr:2009, depth:42, label:'2009\nFE#3', color:'#58a6ff', note:'QE recovery' },
-    { yr:2019, depth:55, label:'2019', color:'#8b949e', note:'QE era plateau\n(bowl deepens)' },
-    { yr:2020, depth:65, label:'2020\nCOVID', color:'#f85149', note:'COVID — $9T QE\nbounce' },
-    { yr:2021, depth:58, label:'2021\nFE#4', color:'#58a6ff', note:'Melt-up' },
-    { yr:2022, depth:68, label:'2022', color:'#e3b341', note:'Rate shock\n(-18% bonds)' },
-    { yr:2023, depth:62, label:'2023\nFE#5?', color:'#58a6ff', note:'AI rally\nsoft landing' },
-    { yr:2026, depth:79, label:'2026\nNOW', color:'#f85149', note:'75–82%\nwall curving' },
-    { yr:2028, depth:88, label:'2028\n1931?', color:'#e3b341', note:'Potential\ntrigger event' },
-    { yr:2033, depth:97, label:'203X\nReset', color:'#3fb950', note:'Bretton\nWoods 2.0' },
+  // Zone bands
+  const zones=[
+    {d1:0,d2:30,col:'rgba(63,185,80,0.04)',label:'SUBCRITICAL'},
+    {d1:30,d2:60,col:'rgba(88,166,255,0.04)',label:'METASTABLE'},
+    {d1:60,d2:80,col:'rgba(210,153,34,0.06)',label:'PRE-CRITICAL'},
+    {d1:80,d2:100,col:'rgba(248,81,73,0.07)',label:'CRITICAL'},
   ];
+  function yD(d){return pad.t+(d/100)*ch;}
+  function xY(yr){return pad.l+((yr-1968)/(2040-1968))*cw;}
 
-  // X scale: 1971 to 2040
-  function xPos(yr) { return pad.l + ((yr-1971)/(2040-1971)) * cw; }
-  function yPos(depth) { return pad.t + (depth/100) * ch; }
-
-  // Draw bowl curve (parabolic path connecting points)
-  // First draw a smooth curve through all points
-  const sorted = [...points].sort((a,b) => a.yr - b.yr);
-
-  // Draw gradient fill under curve
-  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + ch);
-  grad.addColorStop(0, 'rgba(210,153,34,0.02)');
-  grad.addColorStop(0.7, 'rgba(248,81,73,0.08)');
-  grad.addColorStop(1, 'rgba(248,81,73,0.25)');
-
-  ctx.beginPath();
-  ctx.moveTo(xPos(sorted[0].yr), yPos(sorted[0].depth));
-  for (let i=1; i<sorted.length; i++) {
-    const prev = sorted[i-1], curr = sorted[i];
-    const cpx = (xPos(prev.yr) + xPos(curr.yr)) / 2;
-    ctx.bezierCurveTo(cpx, yPos(prev.depth), cpx, yPos(curr.depth), xPos(curr.yr), yPos(curr.depth));
-  }
-  ctx.lineTo(W-pad.r, H-pad.b);
-  ctx.lineTo(pad.l, H-pad.b);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Draw curve line
-  ctx.beginPath();
-  ctx.moveTo(xPos(sorted[0].yr), yPos(sorted[0].depth));
-  for (let i=1; i<sorted.length; i++) {
-    const prev = sorted[i-1], curr = sorted[i];
-    const cpx = (xPos(prev.yr) + xPos(curr.yr)) / 2;
-    ctx.bezierCurveTo(cpx, yPos(prev.depth), cpx, yPos(curr.depth), xPos(curr.yr), yPos(curr.depth));
-  }
-  ctx.strokeStyle = '#d29922';
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-
-  // Dashed future section (from 2026 onwards)
-  const futureStart = points.find(p=>p.yr===2026);
-  ctx.beginPath();
-  ctx.setLineDash([6,4]);
-  ctx.moveTo(xPos(2026), yPos(futureStart.depth));
-  const futurePts = sorted.filter(p=>p.yr>2026);
-  let prevPt = futureStart;
-  for (const curr of futurePts) {
-    const cpx = (xPos(prevPt.yr)+xPos(curr.yr))/2;
-    ctx.bezierCurveTo(cpx,yPos(prevPt.depth),cpx,yPos(curr.depth),xPos(curr.yr),yPos(curr.depth));
-    prevPt = curr;
-  }
-  ctx.strokeStyle = '#e3b341';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Draw depth zones (horizontal bands)
-  const zones = [
-    { y1:0, y2:30, label:'SUBCRITICAL', color:'rgba(63,185,80,0.04)' },
-    { y1:30, y2:60, label:'METASTABLE', color:'rgba(88,166,255,0.04)' },
-    { y1:60, y2:80, label:'PRE-CRITICAL', color:'rgba(210,153,34,0.06)' },
-    { y1:80, y2:100, label:'CRITICAL', color:'rgba(248,81,73,0.07)' },
-  ];
-  zones.forEach(z => {
-    ctx.fillStyle = z.color;
-    ctx.fillRect(pad.l, yPos(z.y1), cw, yPos(z.y2)-yPos(z.y1));
-    ctx.fillStyle = '#6e7681';
-    ctx.font = '9px Roboto';
-    ctx.textAlign = 'right';
-    ctx.fillText(z.label, pad.l - 4, yPos((z.y1+z.y2)/2)+3);
+  zones.forEach(z=>{
+    ctx.fillStyle=z.col;
+    ctx.fillRect(pad.l,yD(z.d1),cw,yD(z.d2)-yD(z.d1));
+    ctx.fillStyle='#6e7681';ctx.font='9px Roboto';ctx.textAlign='right';
+    ctx.fillText(z.label,pad.l-6,yD((z.d1+z.d2)/2)+3);
   });
 
-  // Draw points
-  sorted.forEach(p => {
-    const x = xPos(p.yr), y = yPos(p.depth);
-    const isNow = p.yr === 2026;
-    const isFuture = p.yr > 2026;
+  // Grid lines vertical
+  [1975,1985,1995,2005,2015,2025,2035].forEach(yr=>{
+    ctx.strokeStyle='#21262d';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(xY(yr),pad.t);ctx.lineTo(xY(yr),pad.t+ch);ctx.stroke();
+    ctx.fillStyle='#6e7681';ctx.font='10px Roboto Mono';ctx.textAlign='center';
+    ctx.fillText(yr,xY(yr),H-pad.b+16);
+  });
 
-    // Point dot
-    ctx.beginPath();
-    ctx.arc(x, y, isNow ? 8 : 5, 0, Math.PI*2);
-    ctx.fillStyle = isFuture ? '#1c2128' : p.color;
-    ctx.fill();
-    ctx.strokeStyle = p.color;
-    ctx.lineWidth = isNow ? 2.5 : 1.5;
-    ctx.stroke();
+  // Points definition
+  const pts=[
+    {yr:1971,d:2,label:'1971',sub:'Nixon',col:'#8b949e',fe:'START'},
+    {yr:1982,d:14,label:'1982',sub:'FE#1',col:'#58a6ff',fe:'FE1'},
+    {yr:1987,d:22,label:'1987',sub:'Black Monday',col:'#8b949e'},
+    {yr:2000,d:34,label:'2000',sub:'FE#2',col:'#58a6ff',fe:'FE2'},
+    {yr:2008,d:50,label:'2008',sub:'GFC',col:'#f85149'},
+    {yr:2009,d:43,label:'2009',sub:'FE#3',col:'#58a6ff',fe:'FE3'},
+    {yr:2019,d:55,label:'2019',sub:'QE Plateau',col:'#8b949e'},
+    {yr:2020,d:65,label:'2020',sub:'COVID',col:'#f85149'},
+    {yr:2021,d:60,label:'2021',sub:'FE#4',col:'#58a6ff',fe:'FE4'},
+    {yr:2022,d:68,label:'2022',sub:'Rate shock',col:'#e3b341'},
+    {yr:2023,d:64,label:'2023',sub:'FE#5?',col:'#bc8cff',fe:'FE5'},
+    {yr:2026,d:79,label:'2026',sub:'NOW',col:'#f85149',now:true},
+    {yr:2029,d:89,label:'2029',sub:'1931?',col:'#e3b341',future:true},
+    {yr:2034,d:97,label:'203X',sub:'Resolution',col:'#3fb950',future:true},
+  ];
 
-    // NOW indicator
-    if (isNow) {
-      ctx.beginPath();
-      ctx.arc(x, y, 14, 0, Math.PI*2);
-      ctx.strokeStyle = 'rgba(248,81,73,0.4)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
+  const sorted=[...pts].sort((a,b)=>a.yr-b.yr);
+
+  // Fill under curve
+  const grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);
+  grad.addColorStop(0,'rgba(210,153,34,0.02)');
+  grad.addColorStop(0.6,'rgba(248,81,73,0.07)');
+  grad.addColorStop(1,'rgba(248,81,73,0.22)');
+  ctx.beginPath();
+  ctx.moveTo(xY(sorted[0].yr),yD(sorted[0].d));
+  for(let i=1;i<sorted.length;i++){
+    const p=sorted[i-1],q=sorted[i];
+    const cx=(xY(p.yr)+xY(q.yr))/2;
+    ctx.bezierCurveTo(cx,yD(p.d),cx,yD(q.d),xY(q.yr),yD(q.d));
+  }
+  ctx.lineTo(W-pad.r,pad.t+ch);ctx.lineTo(pad.l,pad.t+ch);ctx.closePath();
+  ctx.fillStyle=grad;ctx.fill();
+
+  // Solid line up to 2026
+  const solidPts=sorted.filter(p=>p.yr<=2026);
+  ctx.beginPath();
+  ctx.moveTo(xY(solidPts[0].yr),yD(solidPts[0].d));
+  for(let i=1;i<solidPts.length;i++){
+    const p=solidPts[i-1],q=solidPts[i];
+    const cx=(xY(p.yr)+xY(q.yr))/2;
+    ctx.bezierCurveTo(cx,yD(p.d),cx,yD(q.d),xY(q.yr),yD(q.d));
+  }
+  ctx.strokeStyle='#d29922';ctx.lineWidth=2.5;ctx.stroke();
+
+  // Dashed future
+  const futurePts=sorted.filter(p=>p.yr>=2026);
+  ctx.beginPath();ctx.setLineDash([7,4]);
+  ctx.moveTo(xY(futurePts[0].yr),yD(futurePts[0].d));
+  for(let i=1;i<futurePts.length;i++){
+    const p=futurePts[i-1],q=futurePts[i];
+    const cx=(xY(p.yr)+xY(q.yr))/2;
+    ctx.bezierCurveTo(cx,yD(p.d),cx,yD(q.d),xY(q.yr),yD(q.d));
+  }
+  ctx.strokeStyle='#e3b341';ctx.lineWidth=1.8;ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw dots and labels — stagger labels above/below
+  sorted.forEach((p,idx)=>{
+    const x=xY(p.yr),y=yD(p.d);
+    const above=idx%2===0;
+
+    // Pulse ring for NOW
+    if(p.now){
+      ctx.beginPath();ctx.arc(x,y,14,0,Math.PI*2);
+      ctx.strokeStyle='rgba(248,81,73,0.35)';ctx.lineWidth=1;ctx.stroke();
+      ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);
+      ctx.strokeStyle='rgba(248,81,73,0.15)';ctx.lineWidth=1;ctx.stroke();
     }
 
-    // Label
-    ctx.fillStyle = isFuture ? '#6e7681' : p.color;
-    ctx.font = isNow ? 'bold 11px Roboto' : '10px Roboto';
-    ctx.textAlign = 'center';
-    const lines = p.label.split('\n');
-    lines.forEach((ln, i) => {
-      ctx.fillText(ln, x, y - 14 - (lines.length-1-i)*13);
-    });
+    // Dot
+    ctx.beginPath();ctx.arc(x,y,p.now?7:4,0,Math.PI*2);
+    ctx.fillStyle=p.future?'#1c2128':p.col;ctx.fill();
+    ctx.strokeStyle=p.col;ctx.lineWidth=p.now?2:1.5;ctx.stroke();
+
+    // Label — alternating above/below, shifted slightly to avoid overlap
+    const labelY = above ? y-18 : y+26;
+    ctx.fillStyle=p.future?'#6e7681':p.col;
+    ctx.font=(p.now?'bold ':'')+`10px Roboto`;
+    ctx.textAlign='center';
+    ctx.fillText(p.label,x,labelY);
+    ctx.fillStyle='#6e7681';ctx.font='9px Roboto';
+    ctx.fillText(p.sub,x,labelY+(above?-12:12));
   });
 
-  // "WE ARE HERE" annotation
-  const nowP = points.find(p=>p.yr===2026);
-  const nx = xPos(2026), ny = yPos(nowP.depth);
-  ctx.strokeStyle = '#f85149';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([4,3]);
-  ctx.beginPath();
-  ctx.moveTo(nx+18, ny-8);
-  ctx.lineTo(nx+70, ny-40);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = '#f85149';
-  ctx.font = 'bold 11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('▶ WE ARE HERE', nx+72, ny-44);
-  ctx.font = '10px Roboto';
-  ctx.fillStyle = '#8b949e';
-  ctx.fillText('75–82% depth', nx+72, ny-30);
-  ctx.fillText('Wall curving', nx+72, ny-18);
+  // NOW callout — positioned to right side to avoid overlap
+  const np=sorted.find(p=>p.now);
+  const nx=xY(np.yr),ny=yD(np.d);
+  ctx.strokeStyle='#f85149';ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(nx+24,ny-4);ctx.lineTo(nx+70,ny-30);ctx.stroke();
+  ctx.fillStyle='rgba(45,18,21,0.9)';
+  ctx.fillRect(nx+68,ny-54,145,32);
+  ctx.strokeStyle='#f85149';ctx.lineWidth=1;
+  ctx.strokeRect(nx+68,ny-54,145,32);
+  ctx.fillStyle='#f85149';ctx.font='bold 11px Roboto';ctx.textAlign='left';
+  ctx.fillText('▶ WE ARE HERE — 75–82%',nx+74,ny-37);
+  ctx.fillStyle='#8b949e';ctx.font='9px Roboto';
+  ctx.fillText('Wall curving · 9–18mo to trigger',nx+74,ny-23);
 
-  // X axis labels (years)
-  const yearLabels = [1975,1985,1995,2005,2015,2025,2035];
-  ctx.fillStyle = '#6e7681';
-  ctx.font = '10px Roboto Mono';
-  ctx.textAlign = 'center';
-  yearLabels.forEach(yr => {
-    ctx.fillText(yr, xPos(yr), H-pad.b+18);
-    ctx.strokeStyle = '#21262d';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(xPos(yr), H-pad.b);
-    ctx.lineTo(xPos(yr), H-pad.b+5);
-    ctx.stroke();
+  // Y-axis title
+  ctx.save();ctx.translate(14,H/2);ctx.rotate(-Math.PI/2);
+  ctx.fillStyle='#6e7681';ctx.font='10px Roboto';ctx.textAlign='center';
+  ctx.fillText('BOWL DEPTH (accumulated entropy) →',0,0);ctx.restore();
+
+  // Legend top-right
+  const lx=W-pad.r+14,ly=pad.t;
+  [[' Gold = actual path','#d29922',false],[' Dashed = projected','#e3b341',true]].forEach(([t,col,dash],i)=>{
+    if(dash){ctx.setLineDash([6,4]);}
+    ctx.beginPath();ctx.moveTo(lx,ly+i*18+4);ctx.lineTo(lx+24,ly+i*18+4);
+    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#8b949e';ctx.font='11px Roboto';ctx.textAlign='left';
+    ctx.fillText(t,lx+28,ly+i*18+8);
   });
 
-  // Y axis label
-  ctx.save();
-  ctx.translate(14, H/2);
-  ctx.rotate(-Math.PI/2);
-  ctx.fillStyle = '#6e7681';
-  ctx.font = '10px Roboto';
-  ctx.textAlign = 'center';
-  ctx.fillText('BOWL DEPTH →', 0, 0);
-  ctx.restore();
-
-  // Title
-  ctx.fillStyle = '#8b949e';
-  ctx.font = '11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('Entropy accumulation 1971 → Resolution · Gold = current transition path · Dashed = projected', pad.l, 20);
+  // Title annotation
+  ctx.fillStyle='#8b949e';ctx.font='11px Roboto';ctx.textAlign='left';
+  ctx.fillText('Entropy accumulation 1971→Resolution · Each intervention deepens the bowl · CB ammo depleted',pad.l,30);
 })();
 
-// ============================================================
-// CRITICAL SLOWING DOWN CANVAS
-// ============================================================
+/* ============================================================
+   CRITICAL SLOWING DOWN
+   ============================================================ */
 (function(){
-  const c = document.getElementById('slowCanvas');
-  const ctx = c.getContext('2d');
-  const W = c.width, H = c.height;
-  ctx.fillStyle = '#161b22';
-  ctx.fillRect(0,0,W,H);
+  const c=document.getElementById('slowCanvas');
+  const ctx=c.getContext('2d');
+  const W=c.width,H=c.height;
+  ctx.fillStyle='#161b22';ctx.fillRect(0,0,W,H);
 
-  const pad = {l:80, r:120, t:30, b:40};
-  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const pad={l:75,r:240,t:28,b:44};
+  const cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
 
-  const shocks = [
-    { yr:2018, recovery:3, label:'2018 Q4\nRate shock', color:'#3fb950' },
-    { yr:2020, recovery:5, label:'2020\nCOVID', color:'#58a6ff' },
-    { yr:2022, recovery:15, label:'2022\nRate hike', color:'#e3b341' },
-    { yr:2025, recovery:24, label:'2025\nTariff shock', color:'#f85149', note:'INCOMPLETE' },
+  const shocks=[
+    {yr:'2018 Q4\nRate shock',rec:3,col:'#3fb950',complete:true},
+    {yr:'2020\nCOVID',rec:5,col:'#58a6ff',complete:true},
+    {yr:'2022\nRate hike',rec:15,col:'#e3b341',complete:true},
+    {yr:'2025\nTariff shock',rec:22,col:'#f85149',complete:false},
   ];
+  const maxR=28;
+  const bw=120;
+  const spacing=cw/4;
 
-  const maxR = 28;
-  const barW = 160;
-
-  function xPos(i) { return pad.l + i*(cw/4) + (cw/8); }
-  function yH(v) { return (v/maxR)*ch; }
+  function xB(i){return pad.l+i*spacing+spacing/2;}
+  function yR(v){return pad.t+ch-(v/maxR)*ch;}
 
   // Grid
-  [0,5,10,15,20,25].forEach(v => {
-    const y = pad.t + ch - yH(v);
-    ctx.strokeStyle = '#21262d';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
-    ctx.fillStyle = '#6e7681';
-    ctx.font = '10px Roboto Mono';
-    ctx.textAlign = 'right';
-    ctx.fillText(v+'mo', pad.l-6, y+3);
+  [0,5,10,15,20,25].forEach(v=>{
+    const y=yR(v);
+    ctx.strokeStyle='#21262d';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    ctx.fillStyle='#6e7681';ctx.font='10px Roboto Mono';ctx.textAlign='right';
+    ctx.fillText(v+'mo',pad.l-6,y+3);
   });
 
-  shocks.forEach((s,i) => {
-    const x = xPos(i);
-    const bH = yH(s.recovery);
-    const y = pad.t + ch - bH;
-    const bw = 100;
-
-    // Bar
-    const grad = ctx.createLinearGradient(0,y,0,y+bH);
-    grad.addColorStop(0, s.color);
-    grad.addColorStop(1, s.color+'44');
-    ctx.fillStyle = grad;
-    ctx.fillRect(x-bw/2, y, bw, bH);
-
-    // Border
-    ctx.strokeStyle = s.color;
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(x-bw/2, y, bw, bH);
+  // Bars
+  shocks.forEach((s,i)=>{
+    const x=xB(i),bh=(s.rec/maxR)*ch,y=yR(s.rec);
+    const g=ctx.createLinearGradient(0,y,0,y+bh);
+    g.addColorStop(0,s.col);g.addColorStop(1,s.col+'33');
+    ctx.fillStyle=g;ctx.fillRect(x-bw/2,y,bw,bh);
+    ctx.strokeStyle=s.col;ctx.lineWidth=1.5;ctx.strokeRect(x-bw/2,y,bw,bh);
 
     // Value
-    ctx.fillStyle = s.color;
-    ctx.font = 'bold 16px Roboto';
-    ctx.textAlign = 'center';
-    ctx.fillText(s.recovery === 24 ? '24+mo' : s.recovery+'mo', x, y-10);
-
-    // Label
-    ctx.fillStyle = '#8b949e';
-    ctx.font = '10px Roboto';
-    s.label.split('\n').forEach((ln,li) => {
-      ctx.fillText(ln, x, pad.t+ch+16+li*13);
-    });
+    ctx.fillStyle=s.col;ctx.font='bold 17px Roboto';ctx.textAlign='center';
+    ctx.fillText(s.complete?s.rec+'mo':'24+mo',x,y-8);
 
     // INCOMPLETE badge
-    if (s.note) {
-      ctx.fillStyle = '#2d1215';
-      ctx.strokeStyle = '#f85149';
-      ctx.lineWidth = 1;
-      const tw = 80, th = 18;
-      ctx.fillRect(x-tw/2, y-36, tw, th);
-      ctx.strokeRect(x-tw/2, y-36, tw, th);
-      ctx.fillStyle = '#f85149';
-      ctx.font = 'bold 9px Roboto';
-      ctx.fillText('INCOMPLETE', x, y-24);
+    if(!s.complete){
+      ctx.fillStyle='rgba(45,18,21,0.95)';
+      ctx.strokeStyle='#f85149';ctx.lineWidth=1;
+      ctx.fillRect(x-44,y-28,88,18);ctx.strokeRect(x-44,y-28,88,18);
+      ctx.fillStyle='#f85149';ctx.font='bold 9px Roboto';
+      ctx.fillText('INCOMPLETE',x,y-16);
     }
+
+    // X label
+    ctx.fillStyle='#8b949e';ctx.font='11px Roboto';
+    s.yr.split('\n').forEach((ln,li)=>{
+      ctx.fillText(ln,x,pad.t+ch+18+li*13);
+    });
   });
 
-  // Arrow showing acceleration
-  ctx.strokeStyle = '#f85149';
-  ctx.lineWidth = 2;
-  ctx.setLineDash([5,3]);
+  // Trend arrow
+  ctx.strokeStyle='#f85149';ctx.lineWidth=1.8;ctx.setLineDash([5,3]);
   ctx.beginPath();
-  let first = true;
-  shocks.forEach((s,i) => {
-    const x = xPos(i), y = pad.t + ch - yH(s.recovery) - 12;
-    if (first) { ctx.moveTo(x,y); first=false; }
-    else ctx.lineTo(x,y);
+  shocks.forEach((s,i)=>{
+    const x=xB(i),y=yR(s.rec)-10;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
   });
-  ctx.stroke();
-  ctx.setLineDash([]);
+  ctx.stroke();ctx.setLineDash([]);
+  // Arrowhead
+  const lx=xB(3),ly=yR(22)-10;
+  ctx.fillStyle='#f85149';ctx.beginPath();
+  ctx.moveTo(lx+8,ly);ctx.lineTo(lx-4,ly-6);ctx.lineTo(lx-4,ly+6);ctx.closePath();ctx.fill();
 
-  // Arrow head
-  const lastX = xPos(3), lastY = pad.t+ch-yH(24)-12;
-  ctx.fillStyle = '#f85149';
-  ctx.beginPath();
-  ctx.moveTo(lastX+8, lastY);
-  ctx.lineTo(lastX-4, lastY-6);
-  ctx.lineTo(lastX-4, lastY+6);
-  ctx.closePath();
-  ctx.fill();
+  // Annotation — in legend area
+  const ax=W-pad.r+14;
+  ctx.fillStyle='#f85149';ctx.font='bold 11px Roboto';ctx.textAlign='left';
+  ctx.fillText('df/dt > 0 and accelerating',ax,pad.t+14);
+  ctx.fillStyle='#6e7681';ctx.font='10px Roboto';
+  ctx.fillText('= mathematical signature of',ax,pad.t+30);
+  ctx.fillText('phase transition approach',ax,pad.t+44);
+  ctx.fillStyle='#8b949e';ctx.font='10px Roboto';
+  ctx.fillText('Flat wall: fast recovery',ax,pad.t+66);
+  ctx.fillText('Curving wall: slow recovery',ax,pad.t+80);
+  ctx.fillStyle='#f85149';
+  ctx.fillText('→ We are on curving wall',ax,pad.t+94);
 
-  ctx.fillStyle = '#f85149';
-  ctx.font = '10px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('df/dt > 0 and accelerating', lastX+12, lastY+4);
-  ctx.fillStyle = '#6e7681';
-  ctx.font = '9px Roboto';
-  ctx.fillText('= mathematical signature of phase transition approach', lastX+12, lastY+17);
+  // Title
+  ctx.fillStyle='#8b949e';ctx.font='11px Roboto';ctx.textAlign='left';
+  ctx.fillText('Recovery time after each major shock (months)',pad.l,16);
 
-  ctx.fillStyle = '#8b949e';
-  ctx.font = '11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('Recovery time after each major shock (months) — increasing = system losing resilience', pad.l, 18);
+  // Y label
+  ctx.save();ctx.translate(15,H/2);ctx.rotate(-Math.PI/2);
+  ctx.fillStyle='#6e7681';ctx.font='9px Roboto';ctx.textAlign='center';
+  ctx.fillText('Months to recover',0,0);ctx.restore();
 })();
 
-// ============================================================
-// PERCEPTION-REALITY GAP CANVAS
-// ============================================================
+/* ============================================================
+   REFLEXIVITY GAP
+   ============================================================ */
 (function(){
-  const c = document.getElementById('gapCanvas');
-  const ctx = c.getContext('2d');
-  const W = c.width, H = c.height;
-  ctx.fillStyle = '#161b22';
-  ctx.fillRect(0,0,W,H);
+  const c=document.getElementById('gapCanvas');
+  const ctx=c.getContext('2d');
+  const W=c.width,H=c.height;
+  ctx.fillStyle='#161b22';ctx.fillRect(0,0,W,H);
 
-  const pad = {l:50, r:160, t:30, b:40};
-  const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const pad={l:55,r:190,t:34,b:42};
+  const cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
 
-  // Normalized data (0-100 scale): [year, S&P norm, Consumer sentiment norm]
-  // S&P: 2000=100, 2003=55, 2007=110, 2009=65, 2019=190, 2020=155, 2021=220, 2022=185, 2023=195, 2024=230, 2026=235
-  // Sentiment: 2000=95, 2003=80, 2007=88, 2009=55, 2019=96, 2020=71, 2021=88, 2022=59, 2023=62, 2024=70, 2026=44.8
-  // Normalize sentiment to 0-100 range (0=0, 120=100)
-  const data = [
-    {yr:2000, sp:100, sent:79},
-    {yr:2001, sp:82, sent:74},
-    {yr:2002, sp:65, sent:71},
-    {yr:2003, sp:72, sent:80},
-    {yr:2004, sp:80, sent:82},
-    {yr:2005, sp:88, sent:80},
-    {yr:2006, sp:97, sent:82},
-    {yr:2007, sp:110, sent:79},
-    {yr:2008, sp:75, sent:57},
-    {yr:2009, sp:68, sent:59},
-    {yr:2010, sp:83, sent:71},
-    {yr:2011, sp:82, sent:64},
-    {yr:2012, sp:90, sent:70},
-    {yr:2013, sp:110, sent:73},
-    {yr:2014, sp:120, sent:75},
-    {yr:2015, sp:118, sent:78},
-    {yr:2016, sp:125, sent:77},
-    {yr:2017, sp:145, sent:82},
-    {yr:2018, sp:140, sent:80},
-    {yr:2019, sp:162, sent:80},
-    {yr:2020, sp:155, sent:71},
-    {yr:2021, sp:195, sent:79},
-    {yr:2022, sp:160, sent:55},
-    {yr:2023, sp:190, sent:59},
-    {yr:2024, sp:215, sent:64},
-    {yr:2025, sp:220, sent:52},
-    {yr:2026, sp:228, sent:38},
+  // Normalized data: [yr, sp_norm (base 2000=100), sentiment_norm (0-100)]
+  const data=[
+    [2000,100,79],[2001,83,74],[2002,67,71],[2003,73,80],[2004,81,82],
+    [2005,89,80],[2006,98,82],[2007,111,79],[2008,76,57],[2009,69,59],
+    [2010,84,71],[2011,83,64],[2012,91,70],[2013,111,73],[2014,121,75],
+    [2015,119,78],[2016,126,77],[2017,146,82],[2018,141,80],[2019,163,80],
+    [2020,156,71],[2021,196,79],[2022,161,55],[2023,191,59],[2024,216,64],
+    [2025,221,49],[2026,229,38],
   ];
 
-  function xPos(yr) { return pad.l + ((yr-2000)/26)*cw; }
-  function ySpNorm(v) { return pad.t + ch - (v/240)*ch; }
-  function ySentNorm(v) { return pad.t + ch - (v/100)*ch; }
+  const spMax=250,sentMax=100;
+  function xP(yr){return pad.l+((yr-2000)/26)*cw;}
+  function ySP(v){return pad.t+ch-(v/spMax)*ch;}
+  function yST(v){return pad.t+ch-(v/sentMax)*ch;}
 
-  // Draw grid
-  [2000,2004,2008,2012,2016,2020,2024].forEach(yr => {
-    const x = xPos(yr);
-    ctx.strokeStyle = '#21262d';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ch); ctx.stroke();
-    ctx.fillStyle = '#6e7681';
-    ctx.font = '10px Roboto Mono';
-    ctx.textAlign = 'center';
-    ctx.fillText(yr, x, H-pad.b+16);
+  // Grid
+  [2000,2004,2008,2012,2016,2020,2024].forEach(yr=>{
+    ctx.strokeStyle='#21262d';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(xP(yr),pad.t);ctx.lineTo(xP(yr),pad.t+ch);ctx.stroke();
+    ctx.fillStyle='#6e7681';ctx.font='10px Roboto Mono';ctx.textAlign='center';
+    ctx.fillText(yr,xP(yr),H-pad.b+16);
   });
 
-  // Fill gap area between curves (highlight divergence)
+  // Fill gap
   ctx.beginPath();
-  data.forEach((d,i) => {
-    if (i===0) ctx.moveTo(xPos(d.yr), ySpNorm(d.sp));
-    else ctx.lineTo(xPos(d.yr), ySpNorm(d.sp));
+  data.forEach((d,i)=>{
+    if(i===0)ctx.moveTo(xP(d[0]),ySP(d[1]));
+    else ctx.lineTo(xP(d[0]),ySP(d[1]));
   });
-  [...data].reverse().forEach(d => {
-    ctx.lineTo(xPos(d.yr), ySentNorm(d.sent));
-  });
+  [...data].reverse().forEach(d=>ctx.lineTo(xP(d[0]),yST(d[2])));
   ctx.closePath();
-  ctx.fillStyle = 'rgba(248,81,73,0.08)';
-  ctx.fill();
+  ctx.fillStyle='rgba(248,81,73,0.09)';ctx.fill();
 
   // S&P line
   ctx.beginPath();
-  data.forEach((d,i) => {
-    if (i===0) ctx.moveTo(xPos(d.yr), ySpNorm(d.sp));
-    else ctx.lineTo(xPos(d.yr), ySpNorm(d.sp));
+  data.forEach((d,i)=>{
+    if(i===0)ctx.moveTo(xP(d[0]),ySP(d[1]));
+    else ctx.lineTo(xP(d[0]),ySP(d[1]));
   });
-  ctx.strokeStyle = '#58a6ff';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  ctx.strokeStyle='#58a6ff';ctx.lineWidth=2;ctx.stroke();
 
   // Sentiment line
   ctx.beginPath();
-  data.forEach((d,i) => {
-    if (i===0) ctx.moveTo(xPos(d.yr), ySentNorm(d.sent));
-    else ctx.lineTo(xPos(d.yr), ySentNorm(d.sent));
+  data.forEach((d,i)=>{
+    if(i===0)ctx.moveTo(xP(d[0]),yST(d[2]));
+    else ctx.lineTo(xP(d[0]),yST(d[2]));
   });
-  ctx.strokeStyle = '#e3b341';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  ctx.strokeStyle='#e3b341';ctx.lineWidth=2;ctx.stroke();
 
-  // 2026 endpoint dots
-  const last = data[data.length-1];
-  ctx.beginPath();
-  ctx.arc(xPos(last.yr), ySpNorm(last.sp), 6, 0, Math.PI*2);
-  ctx.fillStyle = '#58a6ff'; ctx.fill();
-  ctx.beginPath();
-  ctx.arc(xPos(last.yr), ySentNorm(last.sent), 6, 0, Math.PI*2);
-  ctx.fillStyle = '#f85149'; ctx.fill();
+  // End dots
+  const last=data[data.length-1];
+  ctx.beginPath();ctx.arc(xP(last[0]),ySP(last[1]),6,0,Math.PI*2);
+  ctx.fillStyle='#58a6ff';ctx.fill();
+  ctx.beginPath();ctx.arc(xP(last[0]),yST(last[2]),6,0,Math.PI*2);
+  ctx.fillStyle='#f85149';ctx.fill();
 
-  // Gap annotation
-  const gx = xPos(2026)+15;
-  const gy1 = ySpNorm(last.sp), gy2 = ySentNorm(last.sent);
-  ctx.strokeStyle = '#f85149';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4,3]);
-  ctx.beginPath(); ctx.moveTo(gx,gy1); ctx.lineTo(gx,gy2); ctx.stroke();
+  // Gap bracket
+  const gx=xP(2026)+14;
+  const gy1=ySP(last[1]),gy2=yST(last[2]);
+  ctx.strokeStyle='#f85149';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(gx,gy1);ctx.lineTo(gx,gy2);ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle = '#f85149';
-  ctx.font = 'bold 11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('LARGEST GAP', gx+8, (gy1+gy2)/2-6);
-  ctx.fillText('EVER RECORDED', gx+8, (gy1+gy2)/2+8);
+  // Tick marks
+  ctx.strokeStyle='#f85149';ctx.lineWidth=1.5;
+  [[gx-5,gx+5,gy1],[gx-5,gx+5,gy2]].forEach(([x1,x2,y])=>{
+    ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.stroke();
+  });
 
   // Crisis markers
-  [{yr:2000,label:'2000\ncrash'},{yr:2008,label:'2008\nGFC'},{yr:2020,label:'2020\nCOVID'}].forEach(m => {
-    ctx.strokeStyle = '#30363d';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([3,3]);
-    ctx.beginPath(); ctx.moveTo(xPos(m.yr),pad.t); ctx.lineTo(xPos(m.yr),pad.t+ch); ctx.stroke();
+  [{yr:2000,l:'2000'},{yr:2008,l:'2008\nGFC'},{yr:2020,l:'2020\nCOVID'}].forEach(m=>{
+    ctx.strokeStyle='#30363d';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(xP(m.yr),pad.t);ctx.lineTo(xP(m.yr),pad.t+ch);ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = '#6e7681';
-    ctx.font = '9px Roboto';
-    ctx.textAlign = 'center';
-    m.label.split('\n').forEach((ln,i)=>ctx.fillText(ln,xPos(m.yr),pad.t+8+i*10));
+    ctx.fillStyle='#6e7681';ctx.font='9px Roboto';ctx.textAlign='center';
+    m.l.split('\n').forEach((ln,i)=>ctx.fillText(ln,xP(m.yr),pad.t+8+i*10));
   });
 
-  // Legend
-  const lx = W-pad.r+14;
-  ctx.fillStyle = '#58a6ff';
-  ctx.fillRect(lx, pad.t+8, 16, 3);
-  ctx.fillStyle = '#8b949e';
-  ctx.font = '11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('S&P 500 (normalized)', lx+20, pad.t+14);
+  // Legend — in right area
+  const lx=W-pad.r+14,ly=pad.t+6;
+  ctx.fillStyle='#58a6ff';ctx.fillRect(lx,ly+2,18,2.5);
+  ctx.fillStyle='#8b949e';ctx.font='11px Roboto';ctx.textAlign='left';
+  ctx.fillText('S&P 500 (norm. base 2000=100)',lx+22,ly+10);
 
-  ctx.fillStyle = '#e3b341';
-  ctx.fillRect(lx, pad.t+28, 16, 3);
-  ctx.fillStyle = '#8b949e';
-  ctx.fillText('Consumer Sentiment', lx+20, pad.t+34);
+  ctx.fillStyle='#e3b341';ctx.fillRect(lx,ly+22,18,2.5);
+  ctx.fillStyle='#8b949e';ctx.fillText('Consumer Sentiment (0–100)',lx+22,ly+30);
 
-  ctx.fillStyle = 'rgba(248,81,73,0.3)';
-  ctx.fillRect(lx, pad.t+48, 16, 12);
-  ctx.fillStyle = '#f85149';
-  ctx.fillText('Gap (instability)', lx+20, pad.t+58);
+  ctx.fillStyle='rgba(248,81,73,0.3)';ctx.fillRect(lx,ly+42,18,12);
+  ctx.fillStyle='#f85149';ctx.fillText('Divergence gap',lx+22,ly+52);
+
+  ctx.fillStyle='#f85149';ctx.font='bold 11px Roboto';
+  ctx.fillText('⚠ RECORD GAP 2026',lx,ly+78);
+  ctx.fillStyle='#6e7681';ctx.font='10px Roboto';
+  ctx.fillText('Soros: "The larger the gap,',lx,ly+92);
+  ctx.fillText('the more violent the correction"',lx,ly+106);
 
   // Title
-  ctx.fillStyle = '#8b949e';
-  ctx.font = '11px Roboto';
-  ctx.textAlign = 'left';
-  ctx.fillText('S&P 500 vs Consumer Sentiment — normalized divergence 2000–2026 · Largest gap at record in 2026', pad.l, 18);
+  ctx.fillStyle='#8b949e';ctx.font='11px Roboto';ctx.textAlign='left';
+  ctx.fillText('S&P 500 vs Consumer Sentiment divergence 2000–2026',pad.l,20);
 })();
 </script>
 </body>
