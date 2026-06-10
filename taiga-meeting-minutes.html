@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meeting Minutes — Secret Gang × Taiga Visual Identity</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0f0e0c;
+      --surface:  #1a1814;
+      --border:   #2e2b25;
+      --red:      #c0392b;
+      --red-soft: #e8d5d2;
+      --gold:     #b89a5a;
+      --text:     #e8e3d8;
+      --muted:    #7a7265;
+      --moss:     #4a5c3f;
+      --moss-soft:#d4ddd0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 4px 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    h1 span {
+      color: var(--red);
+    }
+
+    .meta {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Section titles ── */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold);
+      margin: 52px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin: 28px 0 12px;
+    }
+
+    /* ── Outcome banner ── */
+    .outcome {
+      background: var(--surface);
+      border-left: 3px solid var(--red);
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .outcome strong { color: var(--text); font-weight: 600; }
+
+    /* ── Concept cards ── */
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .concept-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .concept-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .concept-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .preferred-tag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      padding: 4px 10px;
+    }
+
+    .concept-body { padding: 20px 24px; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+    }
+
+    thead tr {
+      background: #222018;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody td {
+      padding: 10px 14px;
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      width: 28%;
+    }
+
+    /* ── Feedback pills ── */
+    .feedback {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #141210;
+      border: 1px solid var(--border);
+    }
+
+    .feedback-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .feedback ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feedback li {
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .feedback li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .feedback li.warn::before { content: '⚠'; color: #b8860b; font-size: 11px; }
+    .feedback li.good::before { content: '✓'; color: var(--moss); }
+
+    /* ── Strategy section ── */
+    .thesis {
+      background: var(--surface);
+      border: 1px solid var(--red);
+      padding: 24px;
+      margin-bottom: 28px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .thesis em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+    /* ── Guardrails ── */
+    .guardrails {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .guardrail-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .guardrail-col h4 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .guardrail-col.do h4   { color: var(--moss); }
+    .guardrail-col.dont h4 { color: var(--red); }
+
+    .guardrail-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .guardrail-col li {
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 3px 0 3px 18px;
+      position: relative;
+    }
+
+    .guardrail-col.do   li::before { content: '✓'; position: absolute; left: 0; color: var(--moss); }
+    .guardrail-col.dont li::before { content: '✕'; position: absolute; left: 0; color: var(--red); }
+
+    /* ── Next Steps ── */
+    .next-steps {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .next-steps table thead tr { background: #1e1b16; }
+
+    /* ── Pending ── */
+    .pending {
+      margin-top: 32px;
+      border: 1px solid var(--gold);
+      padding: 18px 24px;
+      font-size: 13.5px;
+      color: var(--gold);
+      line-height: 1.7;
+    }
+
+    .pending strong {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* ── Integration table highlight ── */
+    .int-row td:nth-child(2) { color: var(--gold); }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 600px) {
+      .guardrails { grid-template-columns: 1fr; }
+      .preferred-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">Meeting Minutes</div>
+    <h1>Secret Gang <span>×</span> Taiga<br>Visual Identity</h1>
+    <p class="meta">Date: 10 June 2026 &nbsp;·&nbsp; Prepared by: Zera &nbsp;·&nbsp; Source: Брифинг — Александр Степанов</p>
+  </div>
+
+  <!-- Key Outcome -->
+  <h2>Key Outcome</h2>
+  <div class="outcome">
+    Three visual identity concepts were presented for the <strong>Taiga banya product</strong>.
+    The team is aligning toward <strong>Concept 3 as the primary direction</strong> — reinforced with
+    Russian cultural motifs drawn from Concept 1 — targeting the modern international consumer
+    through sensory-driven design with unmistakable Russian identity.
+  </div>
+
+  <!-- Concepts -->
+  <h2>Concepts Presented</h2>
+
+  <!-- Concept 1 -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <div class="concept-number">01</div>
+      <div class="concept-title">Slavic Ornamental</div>
+    </div>
+    <div class="concept-body">
+      <table>
+        <thead><tr><th>Element</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td>Visual Style</td><td>Classical Slavic patterns & ornaments from Old Russian culture</td></tr>
+          <tr><td>Color Palette</td><td>Red as primary accent (Old Slavic cultural significance) + monochrome system</td></tr>
+          <tr><td>Photography</td><td>Natural, unposed, minimal retouching</td></tr>
+          <tr><td>Typography</td><td>Elongated letterforms referencing tall taiga trees</td></tr>
+          <tr><td>Audience Fit</td><td>Foreigners → Russian cultural cues; Russian-speakers → cultural recognition</td></tr>
+        </tbody>
+      </table>
+      <div class="feedback">
+        <div class="feedback-title">Team Feedback</div>
+        <ul>
+          <li class="good">Strong Russia/banya cultural connection — reads clearly across audiences</li>
+          <li class="warn">Risk of leaning too archaic or folkloric for a premium international brand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 2 -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <div class="concept-number">02</div>
+      <div class="concept-title">Trace Metaphor</div>
+    </div>
+    <div class="concept-body">
+      <table>
+        <thead><tr><th>Element</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td>Central Metaphor</td><td>Imprints from banya processes (firewood char, wet marks on shelves)</td></tr>
+          <tr><td>Color System</td><td>Gradients: heated stone / frost & ice / birch branch / char / wood bark</td></tr>
+          <tr><td>Typography</td><td>Old Slavonic script adapted to Latin alphabet; elongated letterforms</td></tr>
+          <tr><td>Graphic Elements</td><td>Cave paintings, Slavic symbols</td></tr>
+          <tr><td>Photography</td><td>Artistic, conceptual, staged</td></tr>
+        </tbody>
+      </table>
+      <div class="feedback">
+        <div class="feedback-title">Team Feedback</div>
+        <ul>
+          <li class="good">Liked the gradients and atmosphere</li>
+          <li class="warn">Too abstract and complex for an international audience</li>
+          <li class="warn">Not carried forward</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 3 — PREFERRED -->
+  <div class="concept-card">
+    <div class="concept-header">
+      <div class="concept-number">03</div>
+      <div class="concept-title">Return to the Body</div>
+      <div class="preferred-tag">⭐ Preferred Direction</div>
+    </div>
+    <div class="concept-body">
+      <table>
+        <thead><tr><th>Element</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td>Metaphor</td><td>Conveying physical banya sensations through screen</td></tr>
+          <tr><td>Texture</td><td>Large-scale material textures (wood, flowers, ribbed surfaces)</td></tr>
+          <tr><td>Physical Execution</td><td>Embossing, raised relief on printed materials</td></tr>
+          <tr><td>Logo / Typography</td><td>Minimalist — contrast against heavy textures</td></tr>
+          <tr><td>Color Palette</td><td>Natural sources: wood, water, moss, greenery, charcoal</td></tr>
+          <tr><td>Photography</td><td>80% macro/texture shots, 20% other</td></tr>
+        </tbody>
+      </table>
+      <div class="feedback">
+        <div class="feedback-title">Team Feedback</div>
+        <ul>
+          <li class="good">Strongest sense of modernity, grandeur, and connection to nature</li>
+          <li class="good">Tactile and sensory approach resonates with international luxury consumers</li>
+          <li class="warn">In isolation, lacks explicit Russian cultural identity</li>
+          <li class="good">Selected as primary direction with Concept 1 integration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategic Direction -->
+  <h2>Strategic Direction: Concept 3 + Concept 1 Integration</h2>
+
+  <div class="thesis">
+    Ground the brand in the modern luxury sensory language of Concept 3 — textures, tactility, natural scale —
+    then layer in unmistakable Russian cultural cues from Concept 1, so that international audiences feel both
+    the <em>grandeur of nature</em> and the <em>depth of Russian identity</em> simultaneously.
+  </div>
+
+  <table>
+    <thead><tr><th>Layer</th><th>What to Integrate</th><th>How</th></tr></thead>
+    <tbody class="int-row">
+      <tr>
+        <td>Cultural Identity</td>
+        <td>Slavic ornamental motifs from Concept 1</td>
+        <td>Embed as subtle surface patterns on textured materials; use as secondary graphic system, not dominant</td>
+      </tr>
+      <tr>
+        <td>Color</td>
+        <td>Red accent from Concept 1</td>
+        <td>Introduce as deliberate punctuation within Concept 3's natural palette (wood, moss, charcoal)</td>
+      </tr>
+      <tr>
+        <td>Typography</td>
+        <td>Elongated letterforms from Concept 1</td>
+        <td>Apply to headlines and logo mark; reinforces taiga scale within Concept 3's minimalist framework</td>
+      </tr>
+      <tr>
+        <td>Photography</td>
+        <td>Natural, unposed style from Concept 1</td>
+        <td>Align Concept 3's macro texture shots with authentic, unstaged Russian banya environment</td>
+      </tr>
+      <tr>
+        <td>Graphic System</td>
+        <td>Slavic symbols as micro-details</td>
+        <td>Use on embossed/relief elements, packaging edges, stamp marks — tactile Russian identity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Brand Guardrails -->
+  <h2>Brand Guardrails</h2>
+  <div class="guardrails">
+    <div class="guardrail-col do">
+      <h4>✓ Do</h4>
+      <ul>
+        <li>Modern, premium sensory experience</li>
+        <li>Russian motifs as refined detail</li>
+        <li>Nature at grand scale (taiga, forest, sky)</li>
+        <li>Tactile materials that feel distinctly Russian</li>
+        <li>Minimalist structure with cultural depth</li>
+      </ul>
+    </div>
+    <div class="guardrail-col dont">
+      <h4>✕ Avoid</h4>
+      <ul>
+        <li>Folkloric, rustic, or archaic aesthetics</li>
+        <li>Russian motifs as dominant/literal decoration</li>
+        <li>Generic "spa" or neutral wellness aesthetics</li>
+        <li>European or Grecian visual drift</li>
+        <li>Overcrowding with pattern or ornament</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Next Steps -->
+  <h2>Next Steps</h2>
+  <div class="next-steps">
+    <table>
+      <thead><tr><th>Action</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>Revise Concept 3 with Concept 1 cultural integration</td><td>Design Team</td></tr>
+        <tr><td>Develop refined moodboard: textures + Russian motifs layered</td><td>Александр Степанов</td></tr>
+        <tr><td>Validate direction with primary decision-maker</td><td>Anh Bach</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pending -->
+  <div class="pending">
+    <strong>Pending</strong>
+    Final sign-off from primary decision-maker required before proceeding to full identity development.
+  </div>
+
+  <div class="footer">
+    Secret Gang × Taiga &nbsp;·&nbsp; Visual Identity Briefing &nbsp;·&nbsp; 10 June 2026 &nbsp;·&nbsp; Confidential
+  </div>
+
+</div>
+</body>
+</html>
