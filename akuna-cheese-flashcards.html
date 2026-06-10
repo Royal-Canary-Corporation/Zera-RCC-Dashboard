@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKUNA Cheese Training — Flashcards</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0b0f18;color:#e2e8f0;min-height:100vh;user-select:none}
+
+.header{background:#111827;border-bottom:1px solid #1e293b;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:16px;font-weight:700;color:#f1f5f9}
+.header p{font-size:11px;color:#64748b;margin-top:2px}
+.header-right{text-align:right;font-size:11px;color:#475569}
+
+.controls{padding:16px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #1e293b}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid #2d3748;background:transparent;color:#64748b;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.filter-btn.active{background:#1e40af;border-color:#3b82f6;color:#93c5fd}
+.progress-wrap{margin-left:auto;display:flex;align-items:center;gap:10px}
+.progress-text{font-size:12px;color:#64748b}
+.progress-bar{width:120px;height:6px;background:#1e293b;border-radius:3px;overflow:hidden}
+.progress-fill{height:6px;background:#22c55e;border-radius:3px;transition:width .3s}
+
+.deck-area{padding:32px 24px;display:flex;flex-direction:column;align-items:center;min-height:60vh}
+
+.card-counter{font-size:12px;color:#475569;margin-bottom:16px}
+
+/* Flip card */
+.flip-card{width:100%;max-width:680px;height:380px;perspective:1200px;cursor:pointer;margin-bottom:24px}
+.flip-inner{width:100%;height:100%;position:relative;transition:transform .5s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px;text-align:center}
+
+/* Front */
+.front{background:linear-gradient(135deg,#1e293b 0%,#111827 100%);border:1px solid #2d3748}
+.cheese-emoji{font-size:48px;margin-bottom:16px}
+.cheese-name{font-size:28px;font-weight:800;color:#f1f5f9;margin-bottom:8px;line-height:1.2}
+.cheese-category{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.cheese-origin{font-size:14px;color:#94a3b8}
+.flip-hint{font-size:11px;color:#334155;margin-top:20px}
+
+/* Back */
+.back{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);border:1px solid #312e81;transform:rotateY(180deg)}
+.back-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;text-align:left}
+.back-item{background:rgba(255,255,255,0.04);border-radius:8px;padding:10px 12px}
+.bi-label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:3px}
+.bi-value{font-size:12px;font-weight:600;color:#e2e8f0;line-height:1.3}
+.story-section{width:100%;margin-top:8px;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px 12px;text-align:left}
+.story-label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:4px}
+.story-text{font-size:11px;color:#94a3b8;line-height:1.5}
+
+/* Nav buttons */
+.nav-row{display:flex;gap:16px;align-items:center}
+.nav-btn{padding:10px 28px;border-radius:10px;border:1px solid #2d3748;background:#111827;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.nav-btn:hover{background:#1e293b;color:#e2e8f0}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.flip-btn{padding:10px 28px;border-radius:10px;border:1px solid #3b82f6;background:#1e3a8a;color:#93c5fd;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.flip-btn:hover{background:#1d4ed8}
+
+/* Known/Unknown */
+.mark-row{display:flex;gap:12px;margin-top:16px}
+.mark-btn{padding:8px 20px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.mark-known{background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid #166534}
+.mark-known:hover{background:rgba(34,197,94,0.25)}
+.mark-unknown{background:rgba(239,68,68,0.12);color:#ef4444;border:1px solid #991b1b}
+.mark-unknown:hover{background:rgba(239,68,68,0.2)}
+
+/* Category colors */
+.cat-hard{background:rgba(245,158,11,0.15);color:#f59e0b}
+.cat-soft{background:rgba(96,165,250,0.15);color:#60a5fa}
+.cat-goat{background:rgba(52,211,153,0.15);color:#34d399}
+.cat-blue{background:rgba(167,139,250,0.15);color:#a78bfa}
+.cat-washed{background:rgba(251,146,60,0.15);color:#fb923c}
+
+/* Score panel */
+.score-panel{width:100%;max-width:680px;display:flex;gap:16px;margin-top:8px}
+.score-card{flex:1;background:#111827;border:1px solid #1e293b;border-radius:10px;padding:14px;text-align:center}
+.score-val{font-size:24px;font-weight:800}
+.score-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-top:2px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🧀 AKUNA Cheese Training — Flashcards</h1>
+    <p>Click card to flip · Mark known/unknown · Filter by category</p>
+  </div>
+  <div class="header-right">
+    <div>Les Frères Marchand & Beillevaire Collection</div>
+    <div style="margin-top:2px">Source: AKUNA Training Documents 2025</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="filter-btn active" onclick="setFilter('all')">All (19)</button>
+  <button class="filter-btn" onclick="setFilter('hard')">Hard (7)</button>
+  <button class="filter-btn" onclick="setFilter('soft')">Soft & Creamy (4)</button>
+  <button class="filter-btn" onclick="setFilter('goat')">Goat (4)</button>
+  <button class="filter-btn" onclick="setFilter('blue')">Blue (3)</button>
+  <button class="filter-btn" onclick="setFilter('washed')">Washed Rind (5)</button>
+  <button class="filter-btn" onclick="setFilter('unknown')" id="btn-unknown">⚠️ Review (0)</button>
+  <div class="progress-wrap">
+    <span class="progress-text" id="progress-text">0 / 19 known</span>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="deck-area">
+  <div class="card-counter" id="card-counter">Card 1 of 19</div>
+  
+  <div class="flip-card" id="flipCard" onclick="toggleFlip()">
+    <div class="flip-inner" id="flipInner">
+      <div class="face front" id="frontFace"></div>
+      <div class="face back" id="backFace"></div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" id="btnPrev" onclick="navigate(-1)">← Prev</button>
+    <button class="flip-btn" onclick="toggleFlip()">Flip Card</button>
+    <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
+  </div>
+
+  <div class="mark-row">
+    <button class="mark-btn mark-known" onclick="markCard(true)">✓ I know this</button>
+    <button class="mark-btn mark-unknown" onclick="markCard(false)">✗ Review again</button>
+  </div>
+
+  <div class="score-panel" style="margin-top:24px">
+    <div class="score-card"><div class="score-val" style="color:#22c55e" id="s-known">0</div><div class="score-lbl">Known</div></div>
+    <div class="score-card"><div class="score-val" style="color:#ef4444" id="s-unknown">0</div><div class="score-lbl">Review</div></div>
+    <div class="score-card"><div class="score-val" style="color:#64748b" id="s-unseen">19</div><div class="score-lbl">Unseen</div></div>
+  </div>
+</div>
+
+<script>
+const cheeses = [
+  {name:"Mimolette Extra Vieille",emoji:"🟠",cat:"hard",catLabel:"Hard",origin:"Lille, Northern France",milk:"Cow — Pasteurized",aging:"18–24 months",flavor:"Buttery, nutty, caramelized — like salted egg yolk",texture:"Hard, crumbly",aroma:"Nutty, earthy, slightly fruity",story:"Created for Louis XIV to replace Dutch Edam. Colored with annatto for its signature orange hue. Nickname: 'Boule de Lille'. Tiny cheese-mites give its moon-like rind.",keyFact:"Orange color from annatto. Nicknamed the 'Boule de Lille'. Originally colored with carrot juice."},
+  {name:"Comté AOP (36 Months)",emoji:"🟡",cat:"hard",catLabel:"Hard",origin:"Jura Mountains, Eastern France",milk:"Cow — Pasteurized",aging:"36 months",flavor:"Brown butter, caramel, roasted nuts, umami",texture:"Firm, dense, slightly crumbly, crystalline",aroma:"Brown butter, toasty, cellar",story:"One of France's oldest cheeses (1000+ years). Each ~40kg wheel aged individually in caves. Summer = fruitier; Winter = nuttier. Only top-quality wheels aged 36 months.",keyFact:"Graded individually. Summer vs Winter milk flavor profile differs. 36mo = 'Très Grande Réserve'."},
+  {name:"Hercule Vieux",emoji:"💪",cat:"hard",catLabel:"Hard",origin:"Occitania, France",milk:"Goat & Sheep blend — Pasteurized",aging:"18 months",flavor:"Rich, nutty, caramelized, slightly dry",texture:"Firm, smooth, natural rind",aroma:"Complex, savory",story:"Named after the mythical strongman Hercules — symbolizing its powerful, bold taste. Unique goat+sheep blend creates balance of creaminess and tanginess.",keyFact:"Only MIXED MILK (goat+sheep) hard cheese on the board. Named for Hercules = strong, bold taste."},
+  {name:"Tomme Brûlée",emoji:"🔥",cat:"hard",catLabel:"Hard",origin:"Basque Country, France",milk:"Sheep — Unpasteurized",aging:"4–6 months",flavor:"Nutty, slightly sweet, smoky/toasty",texture:"Firm, smooth, edible caramelized rind",aroma:"Smoky, toasty",story:"Rind is singed with a hot iron just after molding, caramelizing surface proteins. The 'brûlée' (burned) technique creates its distinctive look and flavor.",keyFact:"Rind is burned/singed with hot iron = caramelized crust. Brûlée = French for 'burned'."},
+  {name:"Tête de Moine",emoji:"👨‍⚖️",cat:"hard",catLabel:"Hard",origin:"Jura, Switzerland",milk:"Cow — Unpasteurized",aging:"3–6 months",flavor:"Savory, earthy, aromatic",texture:"Firm but creamy",aroma:"Savory, complex",story:"Means 'Monk's Head'. Made by monks in Bellelay Monastery since the 12th century. Traditionally served using a special tool (girolle) to shave thin rosettes.",keyFact:"'Monk's Head'. Swiss, 12th century Bellelay Monastery. Served as thin rosettes scraped with a girolle tool."},
+  {name:"Manchego",emoji:"🐑",cat:"hard",catLabel:"Hard",origin:"La Mancha, Spain",milk:"Sheep — Unpasteurized",aging:"60 days to 2 years",flavor:"Nutty, buttery, slightly tangy",texture:"Firm, compact, crumbly with age",aroma:"Savory, grassy",story:"Distinctive zig-zag pattern on rind inspired by traditional grass baskets used in production. One of Spain's most famous cheeses.",keyFact:"Zig-zag pattern from traditional grass basket molds. Spain's most famous cheese. La Mancha region."},
+  {name:"Morbier AOP",emoji:"⬛",cat:"hard",catLabel:"Semi-Hard",origin:"Jura, France",milk:"Cow — Unpasteurized",aging:"Minimum 45 days",flavor:"Mild, milky, slightly tangy, earthy",texture:"Semi-soft, creamy, slightly crumbly",aroma:"Fruity, hay, grassy, earthy",story:"Blue/black line in the center = layers of evening and morning curd. Evening curd covered with wood ash overnight to preserve, then morning curd added on top. Historical preservation technique.",keyFact:"The BLACK LINE is wood ash — historical preservation method. Evening curd + ash overnight + morning curd = the 'midnight line'."},
+  {name:"Brillat-Savarin",emoji:"✨",cat:"soft",catLabel:"Soft & Creamy",origin:"Burgundy/Normandy, France",milk:"Cow — Pasteurized",aging:"4–5 weeks",flavor:"Rich, buttery, milky with lemon/sour notes and creamy center",texture:"Triple cream — ultra soft and velvety",aroma:"Mild, milky, hints of lemon and cream",story:"Created 1930s by Henri Androuët, named after French gastronome. Called the 'foie gras of cheese' and 'ice-cream of cheeses'. Triple cream = 75%+ fat content.",keyFact:"TRIPLE CREAM = highest fat content. Called 'foie gras of cheese' AND 'ice-cream of cheeses'. Named after gastronome Brillat-Savarin."},
+  {name:"Camembert de Normandy",emoji:"🥛",cat:"soft",catLabel:"Soft & Creamy",origin:"Normandy, France",milk:"Cow — Unpasteurized",aging:"3–5 weeks",flavor:"Earthy, mushroomy, rich, creamy, slightly tangy",texture:"Soft, bloomy white rind",aroma:"Mushroom, earthy, barn",story:"Birthplace: Normandy. First created in the late 18th century. The bloomy white rind is edible and is part of the flavor experience.",keyFact:"Normandy = birthplace. Bloomy white rind is edible. Late 18th century origin."},
+  {name:"Carré de l'Est",emoji:"🟥",cat:"soft",catLabel:"Soft & Creamy",origin:"Lorraine, Northeastern France",milk:"Cow — Pasteurized",aging:"3–5 weeks",flavor:"Smooth, creamy; becomes tangy and slightly smoky with age",texture:"Square-shaped, pale orange rind",aroma:"Strong, earthy, sometimes smoky",story:"Created early 20th century. Name means 'Square of the East', reflecting Lorraine's French-Germanic cultural influence. Flavor evolves like smoky ham with age.",keyFact:"'Square of the East'. Lorraine. Can taste like smoky ham/bacon when aged. Square shape is distinctive."},
+  {name:"Secret du Couvent",emoji:"🕍",cat:"soft",catLabel:"Soft & Creamy",origin:"Lorraine, France",milk:"Cow — Pasteurized",aging:"3–4 weeks",flavor:"Milky, sweet cream, slightly tangy",texture:"Soft to semi-soft",aroma:"Mild, fresh dairy",story:"'Secret of the Convent' — inspired by ancient monastic recipes. Each wheel hand-salted and flipped by hand. Associated with washed-rind tradition.",keyFact:"'Secret of the Convent'. Hand-salted rind. Monastic recipe inspiration."},
+  {name:"Selles-sur-Cher",emoji:"🪨",cat:"goat",catLabel:"Goat Cheese",origin:"Centre-Val de Loire, France",milk:"Goat — Unpasteurized",aging:"~1 month",flavor:"Tangy, slightly salty, earthy",texture:"Soft, dense interior, natural ash-coated rind",aroma:"Goaty, earthy, citrus",story:"The ash coating originally helped repel insects — today a hallmark of Loire goat cheeses.",keyFact:"Ash coating = originally for insect repellent. Loire Valley. Classic French goat cheese."},
+  {name:"Crottin de Chavignol",emoji:"🫙",cat:"goat",catLabel:"Goat Cheese",origin:"Chavignol, Loire Valley, France",milk:"Goat — Unpasteurized",aging:"~1 month",flavor:"Citrus, hazelnut, mushroom, earthy",texture:"Firm, chalky interior, mottled blue-grey rind",aroma:"Goaty, nutty, mushroom",story:"'Crottin' likely from old French for a small oil lamp or pot. Small cylindrical shape. Flavor intensifies with age.",keyFact:"'Crottin' = small oil lamp or pot in old French. Flavor intensifies with age. Loire Valley."},
+  {name:"Sainte-Maure",emoji:"🪵",cat:"goat",catLabel:"Goat Cheese",origin:"Loire Valley, France",milk:"Goat — Unpasteurized",aging:"10–45 days",flavor:"Mild, nutty, citrusy when fresh; more intense and tangy with age",texture:"Dense, fine, slightly creamy",aroma:"Citrus, hay, light goat",story:"Considered France's OLDEST goat cheese — dating to the 8th century. Log-shaped, rolled in vegetable ash. Has a straw running through center for air flow = AOP marker. Nickname: 'The black saint'.",keyFact:"OLDEST French goat cheese (8th century). Nickname: 'The Black Saint'. Straw inside = AOP marker. Log shape with ash coating."},
+  {name:"Valençay",emoji:"🔺",cat:"goat",catLabel:"Goat Cheese",origin:"Loire Valley, France",milk:"Goat — Unpasteurized",aging:"10–45 days",flavor:"Hazelnut, straw, gentle mushroom",texture:"Fine, dense, moist",aroma:"Citrus, earthy",story:"Legend: Napoleon ordered the top chopped off after defeat in Egypt — giving Valençay its distinctive flat-topped pyramid shape.",keyFact:"FLAT-TOPPED PYRAMID. Napoleon ordered the top cut off after Egypt defeat. Currently may be N/A at AKUNA."},
+  {name:"Stilton",emoji:"👑",cat:"blue",catLabel:"Blue Cheese",origin:"Leicestershire / Nottinghamshire / Derbyshire, England",milk:"Cow — Pasteurized",aging:"3–6 months",flavor:"Rich, salty, savory with balanced blue tang",texture:"Crumbly yet smooth",aroma:"Strong, earthy, mushroom, tangy dairy",story:"Named after the village of Stilton — but was NEVER actually made there. Nicknamed 'King of English Cheeses'. Traditional pairing: Port wine, especially at Christmas.",keyFact:"Never made in Stilton village. 'King of English Cheeses'. Classic pairing = Port wine. Christmas tradition."},
+  {name:"Bleu d'Auvergne",emoji:"💙",cat:"blue",catLabel:"Blue Cheese",origin:"Auvergne, Central France",milk:"Cow — Pasteurized",aging:"6–8 weeks",flavor:"Bold, tangy, salty, creamy finish",texture:"Semi-soft, creamy",aroma:"Strong, earthy, mushroomy",story:"Created mid-19th century by Antoine Roussel who experimented with blue mold and needle-piercing techniques. The volcanic soil and lush Auvergne pastures define its character.",keyFact:"Created by Antoine Roussel. Needle-piercing = creates blue veining channels. Auvergne volcanic region."},
+  {name:"Reblochon de Savoie AOP",emoji:"🏔️",cat:"washed",catLabel:"Washed Rind",origin:"Haut-Savoie, France",milk:"Cow — Unpasteurized",aging:"6–8 weeks (1.5–2 months)",flavor:"Fruity, nutty, mild, grassy",texture:"Soft, creamy, slightly elastic; thin orange-yellow crust",aroma:"Earthy, herbal",story:"In the 13th century, farmers under-milked cows during tax inspections. After the inspector left, they secretly milked again ('reblocher' = to re-milk) producing richer milk for this cheese.",keyFact:"'Reblocher' = to re-milk. 13th century tax evasion origin. Alpine tradition. Orange-yellow rind."},
+  {name:"Saint-Nectaire",emoji:"🌋",cat:"washed",catLabel:"Washed Rind",origin:"Auvergne, France",milk:"Cow — Unpasteurized",aging:"1–2.5 months",flavor:"Mild, creamy, nutty with savory, slightly funky notes",texture:"Semi-soft, washed rind",aroma:"Earthy, mushroom, hay, hazelnut",story:"Made in Auvergne mountains since the 17th century. Originally matured on rye straw in cool caves. Washed with salted water, regularly turned for its signature orange-grey rind.",keyFact:"Signature orange-grey rind from repeated salted water washing. 17th century Auvergne. Rye straw aging."},
+  {name:"Langres AOP",emoji:"🥂",cat:"washed",catLabel:"Washed Rind",origin:"Champagne Region, France",milk:"Cow — Pasteurized",aging:"5 weeks",flavor:"Creamy, tangy, salty, with bitter-orange finish",texture:"Soft, creamy; has concave top (fontaine)",aroma:"Pungent, earthy, yeasty, cellar",story:"Made since 18th century. The concave top (fontaine) forms because cheese is NEVER turned during aging. AKUNA service: fill the fontaine with Champagne or Marc de Bourgogne before serving.",keyFact:"FONTAINE (concave top) = never flipped during aging. AKUNA: pour Champagne/Marc de Bourgogne into the fontaine. Champagne region."},
+  {name:"Petit Gros Lorrain",emoji:"🔄",cat:"washed",catLabel:"Washed Rind",origin:"Lorraine, Northeastern France",milk:"Cow — Unpasteurized",aging:"3 months",flavor:"Delicate fruitiness, salty, tangy, savory umami",texture:"Soft, washed rind",aroma:"Strong, pungent, farmy, meaty",story:"Revived by Philippe Marchand (6th-gen) who found his grandmother's handwritten notebook in the family attic, describing a forgotten cheese (Gros Lorrain) that had vanished for 50+ years.",keyFact:"REVIVED LOST CHEESE. Philippe Marchand found grandmother's secret notebook in attic. Vanished for 50+ years before revival."},
+  {name:"Fleur du Maquis",emoji:"🌿",cat:"washed",catLabel:"Soft + Herbs",origin:"Corsica, France",milk:"Cow — Unpasteurized",aging:"2–3 weeks",flavor:"Citrusy, mildly sour, creamy, refreshing tangy finish",texture:"Soft to semi-soft, moist",aroma:"Rosemary, fennel, juniper berries, hint of bird's eye chilli",story:"Inspired by Corsica's wild aromatic landscape. Coated with rosemary, fennel seeds, juniper berries, and bird's eye chilli. The herbs create a distinctive flavor profile.",keyFact:"Coated with rosemary + fennel + juniper + bird's eye chilli. Corsican 'maquis' = wild scrubland landscape. Lacaune cows."}
+];
+
+// State
+let currentFilter = 'all';
+let currentDeck = [];
+let currentIndex = 0;
+let knownSet = new Set();
+let unknownSet = new Set();
+let isFlipped = false;
+
+function getCategory(cat) {
+  const map = {hard:'cat-hard',soft:'cat-soft',goat:'cat-goat',blue:'cat-blue',washed:'cat-washed'};
+  return map[cat] || 'cat-hard';
+}
+
+function buildDeck() {
+  if (currentFilter === 'all') currentDeck = cheeses.map((_,i)=>i);
+  else if (currentFilter === 'unknown') currentDeck = cheeses.map((_,i)=>i).filter(i=>unknownSet.has(i));
+  else currentDeck = cheeses.map((_,i)=>i).filter(i=>cheeses[i].cat===currentFilter);
+  currentIndex = 0;
+  isFlipped = false;
+  renderCard();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  buildDeck();
+}
+
+function toggleFlip() {
+  isFlipped = !isFlipped;
+  const card = document.getElementById('flipCard');
+  isFlipped ? card.classList.add('flipped') : card.classList.remove('flipped');
+}
+
+function navigate(dir) {
+  currentIndex = Math.max(0, Math.min(currentDeck.length-1, currentIndex+dir));
+  isFlipped = false;
+  document.getElementById('flipCard').classList.remove('flipped');
+  renderCard();
+}
+
+function markCard(known) {
+  const idx = currentDeck[currentIndex];
+  if (known) { knownSet.add(idx); unknownSet.delete(idx); }
+  else { unknownSet.add(idx); knownSet.delete(idx); }
+  updateScore();
+  if (currentIndex < currentDeck.length-1) {
+    currentIndex++;
+    isFlipped = false;
+    document.getElementById('flipCard').classList.remove('flipped');
+    renderCard();
+  }
+}
+
+function updateScore() {
+  const total = cheeses.length;
+  const known = knownSet.size;
+  const unknown = unknownSet.size;
+  const unseen = total - known - unknown;
+  document.getElementById('s-known').textContent = known;
+  document.getElementById('s-unknown').textContent = unknown;
+  document.getElementById('s-unseen').textContent = unseen;
+  document.getElementById('progress-text').textContent = known + ' / ' + total + ' known';
+  document.getElementById('progress-fill').style.width = (known/total*100) + '%';
+  document.getElementById('btn-unknown').textContent = '⚠️ Review (' + unknown + ')';
+}
+
+function renderCard() {
+  if (currentDeck.length === 0) {
+    document.getElementById('frontFace').innerHTML = '<div style="color:#64748b;font-size:16px">No cards in this category</div>';
+    document.getElementById('backFace').innerHTML = '';
+    document.getElementById('card-counter').textContent = 'Empty deck';
+    return;
+  }
+
+  const idx = currentDeck[currentIndex];
+  const c = cheeses[idx];
+  const catClass = getCategory(c.cat);
+
+  document.getElementById('card-counter').textContent = 'Card ' + (currentIndex+1) + ' of ' + currentDeck.length;
+  document.getElementById('btnPrev').disabled = currentIndex === 0;
+  document.getElementById('btnNext').disabled = currentIndex === currentDeck.length-1;
+
+  const knownBadge = knownSet.has(idx) ? '<span style="color:#22c55e;font-size:11px;font-weight:700">✓ Known</span>' : unknownSet.has(idx) ? '<span style="color:#ef4444;font-size:11px;font-weight:700">✗ Review</span>' : '';
+
+  document.getElementById('frontFace').innerHTML = `
+    <div class="cheese-emoji">${c.emoji}</div>
+    <div class="cheese-name">${c.name}</div>
+    <div class="cheese-category ${catClass}">${c.catLabel}</div>
+    <div class="cheese-origin">${c.origin}</div>
+    ${knownBadge}
+    <div class="flip-hint">Click to reveal details →</div>
+  `;
+
+  document.getElementById('backFace').innerHTML = `
+    <div class="cheese-name" style="font-size:18px;margin-bottom:12px">${c.name}</div>
+    <div class="back-grid">
+      <div class="back-item"><div class="bi-label">🥛 Milk</div><div class="bi-value">${c.milk}</div></div>
+      <div class="back-item"><div class="bi-label">📍 Origin</div><div class="bi-value">${c.origin}</div></div>
+      <div class="back-item"><div class="bi-label">⏳ Aging</div><div class="bi-value">${c.aging}</div></div>
+      <div class="back-item"><div class="bi-label">🤲 Texture</div><div class="bi-value">${c.texture}</div></div>
+      <div class="back-item" style="grid-column:span 2"><div class="bi-label">👅 Flavor</div><div class="bi-value">${c.flavor}</div></div>
+    </div>
+    <div class="story-section">
+      <div class="story-label">⭐ Key Fact for Guests</div>
+      <div class="story-text">${c.keyFact}</div>
+    </div>
+    <div class="story-section" style="margin-top:4px">
+      <div class="story-label">📖 Story</div>
+      <div class="story-text">${c.story}</div>
+    </div>
+  `;
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') navigate(-1);
+  else if (e.key === 'ArrowRight') navigate(1);
+  else if (e.key === ' ') { e.preventDefault(); toggleFlip(); }
+  else if (e.key === 'k' || e.key === 'K') markCard(true);
+  else if (e.key === 'r' || e.key === 'R') markCard(false);
+});
+
+// Init
+buildDeck();
+updateScore();
+</script>
+</body>
+</html>
