@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Méridien Saigon — Full Dashboard 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0b0f18;color:#e2e8f0;min-height:100vh}
+
+.header{background:linear-gradient(135deg,#111827,#0b0f18);border-bottom:1px solid #1e293b;padding:20px 28px;display:flex;justify-content:space-between;align-items:center}
+.hL h1{font-size:20px;font-weight:700;color:#f1f5f9;letter-spacing:.3px}
+.hL p{font-size:12px;color:#64748b;margin-top:3px}
+.hR{text-align:right}
+.hR .rm{font-size:14px;font-weight:600;color:#60a5fa}
+.hR .ds{font-size:11px;color:#475569;margin-top:2px}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid #1e293b;background:#0d1117;padding:0 28px}
+.tab{padding:12px 20px;font-size:12px;font-weight:600;color:#475569;cursor:pointer;border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.8px;transition:all .2s}
+.tab.active{color:#60a5fa;border-bottom-color:#60a5fa}
+.tab:hover:not(.active){color:#94a3b8}
+
+.page{display:none;padding:24px 28px}
+.page.active{display:block}
+
+/* KPI Grid */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kc{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:18px}
+.kl{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:#475569;margin-bottom:8px}
+.kv{font-size:26px;font-weight:700;line-height:1;margin-bottom:5px}
+.ks{font-size:11px;color:#334155;margin-bottom:3px}
+.kp{font-size:13px;font-weight:600}
+
+/* YTD Banner */
+.ytd{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:18px 22px;margin-bottom:24px;display:flex;gap:36px;align-items:center}
+.ytd-item .yl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:4px}
+.ytd-item .yv{font-size:20px;font-weight:700}
+.ytd-item .ys{font-size:11px;color:#334155;margin-top:2px}
+.ytd-big{margin-left:auto;text-align:right}
+.ytd-big .yp{font-size:32px;font-weight:800}
+.ytd-big .ypv{font-size:11px;color:#475569;margin-top:2px}
+
+/* Chart grids */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.chart-card{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:18px}
+.chart-card.wide{grid-column:span 2}
+.ct{font-size:12px;font-weight:600;color:#94a3b8;margin-bottom:14px}
+.cw{height:200px;position:relative}
+.cw.tall{height:240px}
+.cw.sm{height:160px}
+
+/* Section title */
+.st{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:#334155;margin:20px 0 12px}
+
+/* BU Table */
+.bu-card{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:18px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#334155;font-weight:600;padding:8px 10px;border-bottom:1px solid #1e293b;text-align:left}
+tbody tr{border-bottom:1px solid #151c28;transition:background .15s}
+tbody tr:hover{background:#161e2e}
+tbody tr:last-child{border:none}
+td{padding:10px 10px;font-size:12px}
+.bn{font-weight:600;color:#e2e8f0}
+.bt{color:#334155;font-size:11px}
+.ba,.bp{font-weight:600}
+.bp{font-size:11px}
+.bb{width:150px}
+.bg{height:7px;background:#1a2236;border-radius:4px;position:relative;overflow:visible}
+.bf{height:7px;border-radius:4px}
+.b100{position:absolute;top:-3px;left:100%;width:1px;height:13px;background:#2d3748}
+.bd{font-size:11px;font-weight:600;text-align:right}
+
+/* Rooms page */
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.metric-card{background:#111827;border:1px solid #1e293b;border-radius:10px;padding:16px}
+.ml{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:6px}
+.mv{font-size:22px;font-weight:700}
+.ms{font-size:11px;color:#334155;margin-top:3px}
+
+/* Alerts */
+.alert-banner{background:#1a1208;border:1px solid #92400e;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#fcd34d}
+.good-banner{background:#0a1f12;border:1px solid #166534;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#4ade80}
+
+.footer{text-align:center;padding:14px;font-size:10px;color:#1e293b;border-top:1px solid #111827;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="hL">
+    <h1>🏨 Le Méridien Saigon — Performance Dashboard 2026</h1>
+    <p>Full dataset · 2026-01 → 2026-06 · All Business Units · Actual vs. Target</p>
+  </div>
+  <div class="hR">
+    <div class="rm">Latest: Jun 2026 (7 days)</div>
+    <div class="ds">Source: RCC-AITransformation SharePoint · Generated 10 Jun 2026 10:29 UTC</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview')">Overview</div>
+  <div class="tab" onclick="showTab('rooms')">Rooms</div>
+  <div class="tab" onclick="showTab('fb')">F&amp;B</div>
+  <div class="tab" onclick="showTab('bu')">All BUs</div>
+</div>
+
+<!-- TAB: OVERVIEW -->
+<div class="page active" id="tab-overview">
+  <div class="kpi-grid"><div class="kc">
+      <div class="kl">Net Sales</div>
+      <div class="kv" style="color:#f59e0b">₫10.4B</div>
+      <div class="ks">vs Target ₫11.0B</div>
+      <div class="kp" style="color:#f59e0b">▼ 94.1%</div></div><div class="kc">
+      <div class="kl">Occupancy</div>
+      <div class="kv" style="color:#f59e0b">71.0%</div>
+      <div class="ks">vs Target 82.3%</div>
+      <div class="kp" style="color:#f59e0b">▼ 86.3%</div></div><div class="kc">
+      <div class="kl">ADR</div>
+      <div class="kv" style="color:#f59e0b">₫4027K</div>
+      <div class="ks">vs Target ₫4311K</div>
+      <div class="kp" style="color:#f59e0b">▼ 93.4%</div></div><div class="kc">
+      <div class="kl">RevPAR</div>
+      <div class="kv" style="color:#ef4444">₫2858K</div>
+      <div class="ks">vs Target ₫3548K</div>
+      <div class="kp" style="color:#ef4444">▼ 80.6%</div></div></div>
+  
+  <div class="ytd">
+    <div class="ytd-item"><div class="yl">YTD Net Sales</div><div class="yv" style="color:#f59e0b">₫270.7B</div><div class="ys">vs Target ₫273.1B</div></div>
+    <div class="ytd-item"><div class="yl">YTD Rooms Revenue</div><div class="yv" style="color:#60a5fa">₫195.4B</div><div class="ys">6 months active</div></div>
+    <div class="ytd-item"><div class="yl">YTD Avg Occupancy</div><div class="yv" style="color:#a78bfa">79.5%</div><div class="ys">Jan–Jun 2026</div></div>
+    <div class="ytd-big"><div class="yp" style="color:#f59e0b">99.1%</div><div class="ypv">of YTD Target</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Monthly Net Sales — Actual vs Target (₫B)</div>
+      <div class="cw tall"><canvas id="nsChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">BU Revenue Mix — Jun 2026 (₫M)</div>
+      <div class="cw tall"><canvas id="pieChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Occupancy % by Month</div>
+      <div class="cw"><canvas id="occChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">ADR — Actual vs Target (₫K)</div>
+      <div class="cw"><canvas id="adrChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: ROOMS -->
+<div class="page" id="tab-rooms">
+  <div class="st">Rooms Performance — Monthly Trend</div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Rooms Revenue — Actual vs Target (₫B)</div>
+      <div class="cw tall"><canvas id="rmChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">RevPAR — Actual vs Target (₫K)</div>
+      <div class="cw tall"><canvas id="revparChart"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Occupancy % — Monthly</div>
+      <div class="cw"><canvas id="occChart2"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">ADR Monthly (₫K)</div>
+      <div class="cw"><canvas id="adrChart2"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: F&B -->
+<div class="page" id="tab-fb">
+  <div class="st">F&amp;B Outlets — Monthly Revenue Trend (₫B)</div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Latest Recipe — Monthly Revenue (₫B)</div>
+      <div class="cw"><canvas id="lrChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">AKUNA — Monthly Revenue (₫B)</div>
+      <div class="cw"><canvas id="akChart"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="ct">Barson — Monthly Revenue (₫B)</div>
+      <div class="cw"><canvas id="barChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="ct">Catering / Banquet — Monthly Revenue (₫B)</div>
+      <div class="cw"><canvas id="catChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: ALL BUs -->
+<div class="page" id="tab-bu">
+  <div class="st">Business Unit Breakdown — Jun 2026</div>
+  <div class="bu-card">
+    <table>
+      <thead><tr><th>Business Unit</th><th>Target</th><th>Actual</th><th>% Tgt</th><th>Performance</th><th style="text-align:right">+/−</th></tr></thead>
+      <tbody><tr>
+      <td class="bn">Rooms</td>
+      <td class="bt">₫8.5B</td>
+      <td class="ba" style="color:#ef4444">₫6.9B</td>
+      <td class="bp" style="color:#ef4444">80.6%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:80.6%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-1.7B</td></tr><tr>
+      <td class="bn">Latest Recipe</td>
+      <td class="bt">₫1.1B</td>
+      <td class="ba" style="color:#f59e0b">₫976M</td>
+      <td class="bp" style="color:#f59e0b">92.5%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:92.5%;background:#f59e0b"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#f59e0b">₫-79M</td></tr><tr>
+      <td class="bn">AKUNA</td>
+      <td class="bt">₫741M</td>
+      <td class="ba" style="color:#ef4444">₫402M</td>
+      <td class="bp" style="color:#ef4444">54.2%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:54.2%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-339M</td></tr><tr>
+      <td class="bn">Barson</td>
+      <td class="bt">₫356M</td>
+      <td class="ba" style="color:#f59e0b">₫354M</td>
+      <td class="bp" style="color:#f59e0b">99.4%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:99.4%;background:#f59e0b"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#f59e0b">₫-2M</td></tr><tr>
+      <td class="bn">Catering</td>
+      <td class="bt">₫136M</td>
+      <td class="ba" style="color:#22c55e">₫1.5B</td>
+      <td class="bp" style="color:#22c55e">1115.6%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:130%;background:#22c55e"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#22c55e">+₫1.4B</td></tr><tr>
+      <td class="bn">IRD</td>
+      <td class="bt">₫132M</td>
+      <td class="ba" style="color:#ef4444">₫81M</td>
+      <td class="bp" style="color:#ef4444">61.8%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:61.8%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-50M</td></tr><tr>
+      <td class="bn">Art Cacao</td>
+      <td class="bt">₫32M</td>
+      <td class="ba" style="color:#ef4444">₫8M</td>
+      <td class="bp" style="color:#ef4444">25.2%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:25.2%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-24M</td></tr><tr>
+      <td class="bn">Speakeasy</td>
+      <td class="bt">₫13M</td>
+      <td class="ba" style="color:#ef4444">₫4M</td>
+      <td class="bp" style="color:#ef4444">29.5%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:29.5%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-9M</td></tr><tr>
+      <td class="bn">Mini Bar</td>
+      <td class="bt">₫19M</td>
+      <td class="ba" style="color:#ef4444">₫0K</td>
+      <td class="bp" style="color:#ef4444">0.0%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:0.0%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-19M</td></tr><tr>
+      <td class="bn">La Victoire</td>
+      <td class="bt">₫18M</td>
+      <td class="ba" style="color:#ef4444">₫13M</td>
+      <td class="bp" style="color:#ef4444">69.9%</td>
+      <td class="bb"><div class="bg"><div class="bf" style="width:69.9%;background:#ef4444"></div><div class="b100"></div></div></td>
+      <td class="bd" style="color:#ef4444">₫-6M</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">Le Méridien Saigon · RCC Dashboard 2026 · 2026-01 → 2026-06 · 10 Jun 2026 10:29 UTC · Source: RCC-AITransformation SharePoint</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+const DEFAULTS = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{ legend:{ labels:{ color:'#64748b', font:{size:10} } } },
+  scales:{ x:{ grid:{color:'#111827'}, ticks:{color:'#475569',font:{size:10}} }, y:{ grid:{color:'#111827'}, ticks:{color:'#475569',font:{size:10}} } }
+};
+function barChart(id, labels, act, tgt, colorAct='rgba(96,165,250,0.85)', colorTgt='rgba(71,85,105,0.5)') {
+  new Chart(document.getElementById(id), { type:'bar', data:{ labels,
+    datasets:[
+      {label:'Actual',data:act,backgroundColor:colorAct,borderRadius:3,borderSkipped:false},
+      {label:'Target',data:tgt,backgroundColor:colorTgt,borderRadius:3,borderSkipped:false,borderWidth:1,borderColor:'#2d3748'}
+    ]}, options:{...DEFAULTS} });
+}
+function lineChart(id, labels, datasets) {
+  new Chart(document.getElementById(id), { type:'line', data:{ labels, datasets }, options:{...DEFAULTS,scales:{x:{grid:{color:'#111827'},ticks:{color:'#475569',font:{size:10}}},y:{grid:{color:'#111827'},ticks:{color:'#475569',font:{size:10}}}}} });
+}
+function singleBar(id, labels, data, color) {
+  new Chart(document.getElementById(id), { type:'bar', data:{ labels, datasets:[{label:'Actual',data,backgroundColor:color,borderRadius:3}]}, options:{...DEFAULTS} });
+}
+
+const L=["Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26"], NS_A=[63.62, 34.52, 64.65, 47.58, 49.96, 10.35], NS_T=[60.05, 37.75, 61.24, 51.56, 51.51, 11.0], OCC=[89.6, 63.3, 86.8, 75.3, 82.7, 71.0];
+const ADR_A=[4706.0, 4086.0, 5130.0, 4438.0, 4234.0, 4027.0], ADR_T=[4636.0, 4195.0, 4916.0, 4409.0, 4242.0, 4311.0], REVPAR_A=[4214.0, 2585.0, 4453.0, 3342.0, 3500.0, 2858.0], REVPAR_T=[4174.0, 3096.0, 4407.0, 3708.0, 3541.0, 3548.0];
+const RM_A=[44.81, 24.82, 47.35, 34.39, 37.22, 6.86], RM_T=[44.39, 29.74, 46.86, 38.16, 37.65, 8.52];
+const LR_A=[4.796, 3.87, 5.068, 3.829, 4.163, 0.976], BAR_A=[1.508, 1.037, 1.754, 1.155, 1.55, 0.354], AK_A=[3.126, 1.579, 2.28, 2.372, 2.008, 0.402], CAT_A=[7.092, 2.419, 6.23, 4.777, 3.656, 1.517];
+
+// Overview
+barChart('nsChart', L, NS_A, NS_T);
+new Chart(document.getElementById('pieChart'), {
+  type:'doughnut',
+  data:{ labels:["Rooms", "Latest Recipe", "AKUNA", "Barson", "Catering", "IRD", "Art Cacao", "Speakeasy", "Mini Bar", "Other"], datasets:[{ data:[6862.8, 975.6, 401.9, 353.9, 1517.0, 81.5, 8.0, 3.7, 0.0, 150.2], backgroundColor:["#60a5fa", "#34d399", "#a78bfa", "#f59e0b", "#fb7185", "#38bdf8", "#e879f9", "#4ade80", "#fbbf24", "#94a3b8"], borderWidth:1, borderColor:'#0b0f18' }]},
+  options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ color:'#64748b', font:{size:9}, boxWidth:12, padding:8 } } } }
+});
+lineChart('occChart', L, [{ label:'Occupancy %', data:OCC, borderColor:'#a78bfa', backgroundColor:'rgba(167,139,250,0.1)', borderWidth:2, fill:true, tension:0.4, pointBackgroundColor:'#a78bfa', pointRadius:3 }]);
+barChart('adrChart', L, ADR_A, ADR_T, 'rgba(52,211,153,0.85)');
+
+// Rooms tab
+barChart('rmChart', L, RM_A, RM_T);
+barChart('revparChart', L, REVPAR_A, REVPAR_T, 'rgba(251,146,60,0.85)');
+lineChart('occChart2', L, [{ label:'Occupancy %', data:OCC, borderColor:'#a78bfa', backgroundColor:'rgba(167,139,250,0.1)', borderWidth:2, fill:true, tension:0.4, pointBackgroundColor:'#a78bfa', pointRadius:3 }]);
+barChart('adrChart2', L, ADR_A, ADR_T, 'rgba(52,211,153,0.85)');
+
+// F&B tab
+singleBar('lrChart', L, LR_A, 'rgba(52,211,153,0.8)');
+singleBar('akChart', L, AK_A, 'rgba(167,139,250,0.8)');
+singleBar('barChart', L, BAR_A, 'rgba(251,146,60,0.8)');
+singleBar('catChart', L, CAT_A, 'rgba(251,113,133,0.8)');
+</script>
+</body>
+</html>
