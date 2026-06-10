@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Enhancement — AI Makes People Sharper</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0b0f18;color:#e2e8f0}
+
+/* Slide engine */
+.slide{position:absolute;inset:0;display:none;flex-direction:column;opacity:0;transition:opacity .4s}
+.slide.active{display:flex;opacity:1}
+.slide.exit{opacity:0}
+
+/* Navigation */
+.nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:100;background:rgba(11,15,24,0.85);backdrop-filter:blur(8px);padding:10px 20px;border-radius:40px;border:1px solid #1e293b}
+.nav-btn{padding:8px 20px;border-radius:20px;border:1px solid #2d3748;background:transparent;color:#94a3b8;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.nav-btn:hover{background:#1e293b;color:#e2e8f0}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.slide-counter{font-size:11px;color:#475569;min-width:60px;text-align:center}
+.dot-nav{display:flex;gap:6px;align-items:center}
+.dot{width:6px;height:6px;border-radius:3px;background:#334155;cursor:pointer;transition:all .2s}
+.dot.active{background:#60a5fa;width:18px}
+
+/* Progress bar */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#3b82f6,#a78bfa);transition:width .4s;z-index:200}
+
+/* ── SLIDE STYLES ── */
+
+/* Cover */
+.cover{background:radial-gradient(ellipse at 30% 50%, #1e1b4b 0%, #0b0f18 60%);justify-content:center;align-items:center;text-align:center;padding:60px}
+.cover-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#6366f1;margin-bottom:24px}
+.cover-title{font-size:64px;font-weight:900;line-height:1.05;color:#f1f5f9;margin-bottom:20px}
+.cover-title span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cover-sub{font-size:18px;color:#64748b;max-width:560px;line-height:1.6}
+.cover-org{margin-top:40px;font-size:12px;color:#334155;letter-spacing:1px}
+
+/* Section divider */
+.divider{justify-content:center;align-items:center;text-align:center;padding:60px}
+.div-num{font-size:100px;font-weight:900;opacity:.06;position:absolute;color:#e2e8f0}
+.div-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;margin-bottom:16px}
+.div-title{font-size:48px;font-weight:800;line-height:1.1;color:#f1f5f9;margin-bottom:16px}
+.div-sub{font-size:16px;color:#64748b;max-width:500px;line-height:1.6}
+
+/* Standard layout */
+.std{padding:48px 60px;justify-content:flex-start}
+.slide-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#475569;margin-bottom:6px}
+.slide-heading{font-size:36px;font-weight:800;color:#f1f5f9;line-height:1.15;margin-bottom:32px}
+.slide-heading span{color:#60a5fa}
+
+/* Two-col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;align-items:start}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;flex:1}
+
+/* Cards */
+.card{background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px}
+.card-icon{font-size:28px;margin-bottom:12px}
+.card-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-bottom:6px}
+.card-title{font-size:17px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+.card-body{font-size:13px;color:#94a3b8;line-height:1.6}
+
+.problem-box{background:#1a0d0d;border:1px solid #7f1d1d;border-radius:10px;padding:16px 20px;margin-bottom:16px}
+.problem-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#ef4444;margin-bottom:6px}
+.problem-text{font-size:14px;color:#fca5a5;line-height:1.5}
+
+.solution-box{background:#0a1f12;border:1px solid #166534;border-radius:10px;padding:16px 20px}
+.solution-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#22c55e;margin-bottom:6px}
+.solution-text{font-size:14px;color:#86efac;line-height:1.5}
+
+/* Metric highlight */
+.metric-row{display:flex;gap:16px;margin-top:16px}
+.metric-card{flex:1;background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:16px;text-align:center}
+.metric-val{font-size:28px;font-weight:800;color:#60a5fa}
+.metric-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#475569;margin-top:4px}
+
+/* Live example badge */
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,0.1);border:1px solid #166534;border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.live-dot{width:6px;height:6px;border-radius:3px;background:#22c55e;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Screenshot embed */
+.demo-frame{background:#111827;border:1px solid #2d3748;border-radius:10px;overflow:hidden;flex:1}
+.demo-header{background:#1e293b;padding:10px 16px;display:flex;align-items:center;gap:8px}
+.demo-dot{width:8px;height:8px;border-radius:4px}
+.demo-url{font-size:10px;color:#475569;margin-left:4px}
+.demo-body{padding:16px;font-size:12px;color:#64748b}
+
+/* Table */
+.metrics-table{width:100%;border-collapse:collapse;margin-top:8px}
+.metrics-table th{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#334155;font-weight:600;padding:10px 14px;border-bottom:1px solid #1e293b;text-align:left}
+.metrics-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid #0f172a}
+.metrics-table tr:last-child td{border:none}
+.metrics-table td:first-child{font-weight:600;color:#e2e8f0}
+.metrics-table td:last-child{color:#64748b}
+
+/* Pill */
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pill-blue{background:rgba(96,165,250,0.15);color:#60a5fa}
+.pill-green{background:rgba(34,197,94,0.15);color:#22c55e}
+.pill-purple{background:rgba(167,139,250,0.15);color:#a78bfa}
+.pill-orange{background:rgba(245,158,11,0.15);color:#f59e0b}
+
+/* Flow */
+.flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flow-step{background:#111827;border:1px solid #1e293b;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:600;color:#e2e8f0}
+.flow-arrow{color:#334155;font-size:16px}
+
+/* Quote */
+.quote-block{border-left:3px solid #6366f1;padding:16px 20px;background:#111827;border-radius:0 10px 10px 0;margin:16px 0}
+.quote-text{font-size:15px;color:#c7d2fe;line-height:1.6;font-style:italic}
+.quote-attr{font-size:11px;color:#475569;margin-top:8px}
+
+/* Loop diagram */
+.loop{display:flex;justify-content:center;align-items:center;gap:0;margin:24px 0}
+.loop-item{text-align:center;padding:16px 20px;background:#111827;border:1px solid #1e293b;border-radius:10px;min-width:130px}
+.loop-emoji{font-size:24px;margin-bottom:6px}
+.loop-label{font-size:11px;font-weight:700;color:#e2e8f0}
+.loop-sub{font-size:10px;color:#475569;margin-top:3px}
+.loop-arrow{font-size:20px;color:#334155;margin:0 4px}
+
+/* URL links */
+.demo-link{display:inline-flex;align-items:center;gap:6px;color:#60a5fa;font-size:12px;font-weight:600;text-decoration:none;padding:6px 14px;border:1px solid #1e3a8a;border-radius:8px;background:rgba(96,165,250,0.08)}
+.demo-link:hover{background:rgba(96,165,250,0.15)}
+
+/* System slide */
+.sys-title{font-size:42px;font-weight:800;color:#f1f5f9;text-align:center;margin-bottom:8px}
+.sys-sub{font-size:15px;color:#64748b;text-align:center;margin-bottom:36px}
+.sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sys-card{background:#111827;border:1px solid #1e293b;border-radius:14px;padding:28px;text-align:center;position:relative}
+.sys-number{font-size:48px;font-weight:900;opacity:.07;position:absolute;top:12px;right:16px}
+.sys-icon{font-size:40px;margin-bottom:16px}
+.sys-name{font-size:18px;font-weight:800;color:#f1f5f9;margin-bottom:8px}
+.sys-desc{font-size:12px;color:#64748b;line-height:1.6}
+.sys-connector{text-align:center;font-size:12px;color:#334155;margin-top:20px}
+
+/* Final slide */
+.final{justify-content:center;align-items:center;text-align:center;padding:60px;background:radial-gradient(ellipse at 70% 40%, #1e1b4b 0%, #0b0f18 60%)}
+.final-title{font-size:52px;font-weight:900;color:#f1f5f9;margin-bottom:20px;line-height:1.1}
+.final-title span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.final-cta{font-size:16px;color:#64748b;max-width:480px;line-height:1.7;margin-bottom:32px}
+.cta-link{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#3b82f6,#6366f1);border-radius:10px;font-size:14px;font-weight:700;color:white;text-decoration:none;margin:6px}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- ══════════════════════ SLIDE 1: COVER ══════════════════════ -->
+<div class="slide cover active" id="s1">
+  <div class="cover-tag">Royal Canary Corporation · AI Strategy 2026</div>
+  <div class="cover-title">The Enhancement:<br><span>AI Makes People Sharper</span></div>
+  <div class="cover-sub">Our approach to AI answers one question: how do you become more valuable <em>because</em> of it?</div>
+  <div class="cover-org">One system · Three relationships · Measurable outcomes</div>
+</div>
+
+<!-- ══════════════════════ SLIDE 2: THE SYSTEM ══════════════════════ -->
+<div class="slide std" id="s2">
+  <div class="slide-title">Overview</div>
+  <div class="slide-heading">One system. <span>Three relationships.</span></div>
+  <div class="sys-grid">
+    <div class="sys-card" style="border-top:3px solid #60a5fa">
+      <div class="sys-number">①</div>
+      <div class="sys-icon">👁️</div>
+      <div class="sys-name">Live Dashboard</div>
+      <div style="margin:8px 0"><span class="pill pill-blue">AI as your Eyes</span></div>
+      <div class="sys-desc">Surfaces what needs your judgment today — pushes to you, you don't go looking</div>
+    </div>
+    <div class="sys-card" style="border-top:3px solid #22c55e">
+      <div class="sys-number">②</div>
+      <div class="sys-icon">🤝</div>
+      <div class="sys-name">Working Partner</div>
+      <div style="margin:8px 0"><span class="pill pill-green">AI as your Partner</span></div>
+      <div class="sys-desc">Grounded in real data — executes, challenges, improves your work output</div>
+    </div>
+    <div class="sys-card" style="border-top:3px solid #a78bfa">
+      <div class="sys-number">③</div>
+      <div class="sys-icon">🎓</div>
+      <div class="sys-name">Skill Training</div>
+      <div style="margin:8px 0"><span class="pill pill-purple">AI as your Coach</span></div>
+      <div class="sys-desc">Delivers knowledge from your own SOPs, in each person's preferred learning style</div>
+    </div>
+  </div>
+  <div class="sys-connector">
+    All three run on the same data layer — RCC deals, metrics, people, documentation. Build once. Three tools on top.
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 3: SECTION DIVIDER 1 ══════════════════════ -->
+<div class="slide divider" id="s3" style="background:radial-gradient(ellipse at 20% 60%,#0c1a3a,#0b0f18)">
+  <div class="div-num">①</div>
+  <div class="div-tag" style="color:#60a5fa">First Relationship</div>
+  <div class="div-title" style="color:#60a5fa">The Live Dashboard</div>
+  <div class="div-sub">AI as your eyes — surfaces what needs judgment, right now</div>
+</div>
+
+<!-- ══════════════════════ SLIDE 4: DASHBOARD PROBLEM + SOLUTION ══════════════════════ -->
+<div class="slide std" id="s4">
+  <div class="slide-title">① Live Dashboard</div>
+  <div class="slide-heading">Information overload <span>≠</span> clarity</div>
+  <div class="two-col">
+    <div>
+      <div class="problem-box">
+        <div class="problem-label">The Problem</div>
+        <div class="problem-text">Leaders are flooded with information but starved of signals that tell them <strong>what to do</strong>. Data exists. Action doesn't follow.</div>
+      </div>
+      <div class="solution-box">
+        <div class="solution-label">How Agentic AI Helps</div>
+        <div class="solution-text">Build a surface that answers <strong>"what needs your judgment today"</strong> — it pushes to you. You don't go looking for it.</div>
+      </div>
+      <div class="metric-row" style="margin-top:20px">
+        <div class="metric-card"><div class="metric-val">⏱️</div><div class="metric-lbl">Time-to-Decision</div></div>
+        <div class="metric-card"><div class="metric-val">📲</div><div class="metric-lbl">Decisions Triggered</div></div>
+        <div class="metric-card"><div class="metric-val">✅</div><div class="metric-lbl">Alert Action Rate</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-label">The real metric</div>
+        <div class="card-title">Decisions triggered — not views</div>
+        <div class="card-body" style="margin-bottom:12px">Not how many people opened the dashboard. How many decisions it created.</div>
+        <div class="flow-row">
+          <div class="flow-step">Alert fires</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Reaches leader</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">Action taken</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="color:#22c55e">Logged ✓</div>
+        </div>
+        <div style="margin-top:16px;font-size:11px;color:#334155">Every alert, every response time, every ignored signal = behavioral dataset. You're not just building a tool, you're running the experiment at the same time.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 5: DASHBOARD LIVE EXAMPLE ══════════════════════ -->
+<div class="slide std" id="s5">
+  <div class="slide-title">① Live Dashboard — Live Example</div>
+  <div class="slide-heading">LMSG Monthly <span>Performance Dashboard</span></div>
+  <div class="live-badge"><div class="live-dot"></div>Live · Built today from real SharePoint data</div>
+  <div class="two-col">
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-label">Data Source</div>
+        <div class="card-title">99 days · Jan–Jun 2026</div>
+        <div class="card-body">Pulled directly from RCC-AITransformation SharePoint. 6 months of LMSG daily reports — rooms, F&B, all BUs. Zero manual work.</div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-label">What it shows</div>
+        <div class="card-title">4 tabs · 6 charts · 10 BUs</div>
+        <div class="card-body">Overview KPIs · Rooms (ADR, RevPAR, Occupancy) · F&B trends · BU vs Target table with alert colors</div>
+      </div>
+      <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/lmsg-full-dashboard.html" target="_blank">🔗 Open Live Dashboard →</a>
+    </div>
+    <div>
+      <div class="card" style="border:1px solid #1e3a8a">
+        <div class="card-label" style="color:#60a5fa">Alert layer demo</div>
+        <div class="card-title">Le Méridien daily report missing</div>
+        <div class="card-body" style="margin-bottom:16px">08:01 VN — report not uploaded<br>→ Alert auto-fires to anh Bach<br>→ Acknowledgment logged with timestamp<br>→ Time-to-action: tracked</div>
+        <div class="flow-row">
+          <div class="flow-step" style="font-size:11px">08:01 Missing</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="font-size:11px">Push alert</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step" style="font-size:11px;color:#22c55e">Ack ✓</div>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:#334155">This is happening already. The measurement layer is what's missing.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 6: SECTION DIVIDER 2 ══════════════════════ -->
+<div class="slide divider" id="s6" style="background:radial-gradient(ellipse at 80% 30%,#0a1f12,#0b0f18)">
+  <div class="div-num">②</div>
+  <div class="div-tag" style="color:#22c55e">Second Relationship</div>
+  <div class="div-title" style="color:#22c55e">The Working Partner</div>
+  <div class="div-sub">Conversation AI vs. Agentic AI — grounded in your actual data</div>
+</div>
+
+<!-- ══════════════════════ SLIDE 7: WORKING PARTNER CONCEPT ══════════════════════ -->
+<div class="slide std" id="s7">
+  <div class="slide-title">② Working Partner</div>
+  <div class="slide-heading">Is AI <span>talking to you</span> — or working with you?</div>
+  <div class="two-col">
+    <div>
+      <div class="problem-box">
+        <div class="problem-label">The Problem</div>
+        <div class="problem-text">Most AI chatbots are fluent but ungrounded. No real data, no guardrails, no organizational memory. Output sounds confident — <strong>can't be trusted</strong>.</div>
+      </div>
+      <div class="solution-box" style="margin-top:16px">
+        <div class="solution-label">Agentic AI Difference</div>
+        <div class="solution-text">Connected directly to your actual data. It doesn't agree by default — it argues from evidence. It doesn't forget — because its memory <strong>is</strong> your organization's data.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-label">Connected to real data</div>
+        <div class="card-title">The four sources of truth</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:center"><span class="pill pill-blue">Ops</span><span style="font-size:12px;color:#94a3b8">ADR, Occupancy, RevPAR, revenue by dept</span></div>
+          <div style="display:flex;gap:10px;align-items:center"><span class="pill pill-green">Guests</span><span style="font-size:12px;color:#94a3b8">Surveys, reviews, real feedback</span></div>
+          <div style="display:flex;gap:10px;align-items:center"><span class="pill pill-purple">History</span><span style="font-size:12px;color:#94a3b8">Past deals, market comps, campaigns</span></div>
+          <div style="display:flex;gap:10px;align-items:center"><span class="pill pill-orange">Docs</span><span style="font-size:12px;color:#94a3b8">Contracts, reports, policies, SOPs</span></div>
+        </div>
+        <div class="quote-block" style="margin-top:16px">
+          <div class="quote-text">"An ordinary chatbot is a good conversationalist. An Agentic working partner knows your history, knows your numbers, and will tell you when you're wrong."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 8: WORKING PARTNER LIVE EXAMPLE ══════════════════════ -->
+<div class="slide std" id="s8">
+  <div class="slide-title">② Working Partner — Live Example</div>
+  <div class="slide-heading">Barson Nights of the Best — <span>From prompt to report</span></div>
+  <div class="live-badge"><div class="live-dot"></div>Live · Built today from 5 event nights of real data</div>
+  <div class="two-col">
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-label">The old way</div>
+        <div class="card-title">Manual spreadsheet pull</div>
+        <div class="card-body">Someone downloads daily reports, filters dates, builds pivot table, copies to slides. Takes hours. Done quarterly if lucky.</div>
+      </div>
+      <div class="card" style="border:1px solid #166534">
+        <div class="card-label" style="color:#22c55e">The Agentic way</div>
+        <div class="card-title">Single prompt → full report</div>
+        <div class="card-body">Ingest event posters → match to LMSG daily data → compute revenue, vs target, vs monthly avg, guest count → visual dashboard with insight layer. Minutes, not hours.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-label">Results — 5 event nights tracked</div>
+        <table class="metrics-table">
+          <thead><tr><th>Event</th><th>Revenue</th><th>vs Tgt</th></tr></thead>
+          <tbody>
+            <tr><td>Iron Balls (2 nights)</td><td style="color:#ef4444">₫55M</td><td style="color:#ef4444">~50%</td></tr>
+            <tr><td>Zest (Noah Kwon)</td><td style="color:#f59e0b">₫54.7M</td><td style="color:#f59e0b">98%</td></tr>
+            <tr><td style="color:#22c55e;font-weight:700">Smoke & Bitters D1</td><td style="color:#22c55e">₫99.9M</td><td style="color:#22c55e">184% 🔥</td></tr>
+            <tr><td>Smoke & Bitters D2</td><td style="color:#f59e0b">₫41.1M</td><td style="color:#f59e0b">76%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/barson-events-dashboard.html" target="_blank">🔗 Open Barson Events Report →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 9: WORKING PARTNER METRICS ══════════════════════ -->
+<div class="slide std" id="s9">
+  <div class="slide-title">② Working Partner — What Gets Measured</div>
+  <div class="slide-heading">Concrete, <span>auditable, loggable</span> payoff</div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+    <div class="card" style="border-color:#1e3a8a">
+      <div class="card-label" style="color:#60a5fa">90-day proof point for leadership</div>
+      <div class="quote-text" style="font-size:14px;color:#c7d2fe;font-style:italic;line-height:1.7">"143 work decisions logged. 61% were grounded in actual data pulled by AI. AI flagged risk in 23 decisions — user revised 14 of them. Of the 9 that weren't revised, 6 resulted in suboptimal outcomes."</div>
+    </div>
+    <div class="three-col">
+      <div class="card">
+        <div class="card-label">Decision grounding rate</div>
+        <div class="card-title" style="font-size:14px">% backed by data vs gut call</div>
+        <div class="card-body" style="font-size:11px">Auto-tagged per session: "data-backed" or "ungrounded"</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Challenge acceptance rate</div>
+        <div class="card-title" style="font-size:14px">When AI flags risk, did user revise?</div>
+        <div class="card-body" style="font-size:11px">Logged per session: revised / not revised. Validated against outcomes.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Time to first data point</div>
+        <div class="card-title" style="font-size:14px">Question in → source cited</div>
+        <div class="card-body" style="font-size:11px">Timestamp delta: question received to grounded answer delivered</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 10: SECTION DIVIDER 3 ══════════════════════ -->
+<div class="slide divider" id="s10" style="background:radial-gradient(ellipse at 50% 70%,#1a0b3b,#0b0f18)">
+  <div class="div-num">③</div>
+  <div class="div-tag" style="color:#a78bfa">Third Relationship</div>
+  <div class="div-title" style="color:#a78bfa">Skill Training</div>
+  <div class="div-sub">AI as your coach — same knowledge, every person, their way</div>
+</div>
+
+<!-- ══════════════════════ SLIDE 11: TRAINING CONCEPT ══════════════════════ -->
+<div class="slide std" id="s11">
+  <div class="slide-title">③ Skill Training</div>
+  <div class="slide-heading">SOPs in folders <span>nobody reads</span></div>
+  <div class="two-col">
+    <div>
+      <div class="problem-box">
+        <div class="problem-label">The Problem</div>
+        <div class="problem-text">Institutional knowledge lives in the heads of senior staff — and walks out the door when they leave. Onboarding is inconsistent. Training is a one-off event, not a system.</div>
+      </div>
+      <div class="solution-box" style="margin-top:16px">
+        <div class="solution-label">How Agentic AI Helps</div>
+        <div class="solution-text">Feed your SOPs into a training agent. Every employee learns from the same source of truth — but in their own format. The agent adapts.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-label">Learning style adaptation</div>
+        <div class="card-title">One SOP. Five ways to absorb it.</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:7px;font-size:12px">
+          <div style="display:flex;gap:10px"><span class="pill pill-blue">Visual</span><span style="color:#94a3b8">Diagrams, walkthroughs, annotated screenshots</span></div>
+          <div style="display:flex;gap:10px"><span class="pill" style="background:rgba(52,211,153,0.1);color:#34d399">Reader</span><span style="color:#94a3b8">Summaries, bullet checklists, structured guides</span></div>
+          <div style="display:flex;gap:10px"><span class="pill pill-purple">Chat</span><span style="color:#94a3b8">Q&A back and forth, "quiz me on this"</span></div>
+          <div style="display:flex;gap:10px"><span class="pill pill-orange">Flashcard</span><span style="color:#94a3b8">Spaced repetition, daily 5-minute sessions</span></div>
+          <div style="display:flex;gap:10px"><span class="pill" style="background:rgba(251,113,133,0.1);color:#fb7185">Simulation</span><span style="color:#94a3b8">"What would you do if..." scenario practice</span></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:#334155">The agent can't teach something that contradicts your real policy — the source is your actual documentation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 12: TRAINING LIVE EXAMPLE ══════════════════════ -->
+<div class="slide std" id="s12">
+  <div class="slide-title">③ Skill Training — Live Example</div>
+  <div class="slide-heading">AKUNA Cheese Service — <span>Flashcard Training</span></div>
+  <div class="live-badge"><div class="live-dot"></div>Live · Built today from AKUNA Training Documents (SharePoint)</div>
+  <div class="two-col">
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-label">Source documents ingested</div>
+        <div class="card-title">AKUNA Training Docs → Flashcards</div>
+        <div class="card-body">Akuna Cheese Guidelines.pdf + Akuna Cheese Training.pdf → read, extracted, structured → 19 cheese cards with full detail.</div>
+      </div>
+      <div class="card" style="border:1px solid #4c1d95">
+        <div class="card-label" style="color:#a78bfa">What's in each card</div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:12px;color:#94a3b8">
+          <div>🧀 Name, category, origin</div>
+          <div>🥛 Milk type + aging</div>
+          <div>👅 Flavor, texture, aroma</div>
+          <div>⭐ Key fact for guests</div>
+          <div>📖 Historical story</div>
+          <div>✓/✗ Self-mark: Known / Review again</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="card-label">19 cheeses · 5 categories</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+          <span class="pill pill-orange">Hard (7)</span>
+          <span class="pill pill-blue">Soft & Creamy (4)</span>
+          <span class="pill pill-green">Goat (4)</span>
+          <span class="pill pill-purple">Blue (3)</span>
+          <span class="pill" style="background:rgba(251,146,60,0.1);color:#fb923c">Washed Rind (5)</span>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:#475569">Keyboard shortcuts: Space=flip · K=known · R=review · ←→=navigate</div>
+        <div style="margin-top:8px;font-size:11px;color:#334155">Progress tracked · Filter by category · Spaced repetition ready</div>
+      </div>
+      <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/akuna-cheese-flashcards.html" target="_blank">🔗 Open Cheese Flashcards →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 13: TRAINING METRICS ══════════════════════ -->
+<div class="slide std" id="s13">
+  <div class="slide-title">③ Skill Training — What Gets Measured</div>
+  <div class="slide-heading">Knowledge transfer, <span>tracked and auditable</span></div>
+  <div style="flex:1">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;overflow:hidden;margin-bottom:20px">
+      <table class="metrics-table" style="margin:0">
+        <thead><tr><th>Metric</th><th>What it shows</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Topic completion rate per person</td><td>Who knows what</td><td>Gap map across the team</td></tr>
+          <tr><td>Learning format preference by role</td><td>Visual vs. conversational by dept</td><td>Optimize delivery per person type</td></tr>
+          <tr><td>Assessment score before → after</td><td>Did knowledge transfer?</td><td>ROI on training investment</td></tr>
+          <tr><td>Time-to-competency for new hires</td><td>Faster onboarding, tracked</td><td>Hard cost savings on ramp time</td></tr>
+          <tr><td>SOP version compliance rate</td><td>Are staff learning the current policy?</td><td>Policy drift prevention</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote-block">
+      <div class="quote-text">"Knowledge is no longer locked in a PDF — it becomes accessible on demand, in the format that actually sticks."</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 14: THE LOOP ══════════════════════ -->
+<div class="slide std" id="s14">
+  <div class="slide-title">The System</div>
+  <div class="slide-heading">The loop: how each part <span>enables the next</span></div>
+  <div class="loop">
+    <div class="loop-item" style="border-top:3px solid #60a5fa">
+      <div class="loop-emoji">👁️</div>
+      <div class="loop-label">See clearly</div>
+      <div class="loop-sub">Dashboard</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item" style="border-top:3px solid #22c55e">
+      <div class="loop-emoji">🧠</div>
+      <div class="loop-label">Think sharper</div>
+      <div class="loop-sub">Working Partner</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item" style="border-top:3px solid #a78bfa">
+      <div class="loop-emoji">📈</div>
+      <div class="loop-label">Grow faster</div>
+      <div class="loop-sub">Training</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item" style="border-top:3px solid #f59e0b">
+      <div class="loop-emoji">💪</div>
+      <div class="loop-label">Handle harder work</div>
+      <div class="loop-sub">More valuable</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item" style="border:1px dashed #334155">
+      <div class="loop-emoji">🔄</div>
+      <div class="loop-label">Repeat</div>
+      <div class="loop-sub">Compounding</div>
+    </div>
+  </div>
+  <div class="three-col" style="margin-top:4px">
+    <div class="card" style="border-top:2px solid #60a5fa">
+      <div class="card-label">Rollout sequence</div>
+      <div class="card-title" style="font-size:14px">Dashboard first</div>
+      <div class="card-body" style="font-size:11px">Low threat, high visibility. Builds the data and trust layer. Easiest entry point.</div>
+    </div>
+    <div class="card" style="border-top:2px solid #22c55e">
+      <div class="card-label">Then</div>
+      <div class="card-title" style="font-size:14px">Working Partner</div>
+      <div class="card-body" style="font-size:11px">Highest value, requires trust. Dashboard data feeds it. Hardest to build well.</div>
+    </div>
+    <div class="card" style="border-top:2px solid #a78bfa">
+      <div class="card-label">Then</div>
+      <div class="card-title" style="font-size:14px">Training</div>
+      <div class="card-body" style="font-size:11px">Long game. Can run off Working Partner interaction data. Builds compounding capability.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SLIDE 15: FINAL / CTA ══════════════════════ -->
+<div class="slide final" id="s15">
+  <div class="final-title">The Enhancement:<br><span>AI Makes People Sharper</span></div>
+  <div class="final-cta">Not AI replacing people. AI making people more capable, more confident, and more valuable — with every decision they make.</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px">
+    <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/lmsg-full-dashboard.html" target="_blank">① Live Dashboard</a>
+    <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/barson-events-dashboard.html" target="_blank">② Working Partner Demo</a>
+    <a class="demo-link" href="https://royal-canary-corporation.github.io/Zera-RCC-Dashboard/akuna-cheese-flashcards.html" target="_blank">③ Training Flashcards</a>
+  </div>
+  <div style="font-size:11px;color:#1e293b">Royal Canary Corporation · AI Strategy 2026 · Built with real RCC data</div>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>←</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span class="slide-counter" id="counter">1 / 15</span>
+  <button class="nav-btn" id="btnNext" onclick="navigate(1)">→</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+function buildDots() {
+  const nav = document.getElementById('dotNav');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    nav.appendChild(d);
+  }
+}
+
+function goTo(idx) {
+  slides[current].classList.remove('active');
+  document.querySelectorAll('.dot')[current].classList.remove('active');
+  current = Math.max(0, Math.min(total - 1, idx));
+  slides[current].classList.add('active');
+  document.querySelectorAll('.dot')[current].classList.add('active');
+  document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').disabled = current === total - 1;
+  document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+}
+
+function navigate(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+});
+
+buildDots();
+goTo(0);
+</script>
+</body>
+</html>
