@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCC Group — Sales Dashboard · 07 Jun 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --green: #15803d;
+    --green-light: #dcfce7;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --amber: #d97706;
+    --amber-light: #fef3c7;
+    --blue: #2563eb;
+    --bar-actual: #1e40af;
+    --bar-target: #cbd5e1;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; padding: 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+  .header-left h1 { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .header-left p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .header-right { text-align: right; }
+  .report-date { background: var(--accent-light); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+  .rate-tag { color: var(--muted); font-size: 11px; margin-top: 6px; }
+
+  /* KPI Grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 28px; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .kpi-sub { font-size: 12px; margin-top: 4px; font-weight: 500; }
+  .kpi-sub2 { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Charts row */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .card-sub { font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+
+  /* Bar charts */
+  .bar-table { width: 100%; border-collapse: collapse; }
+  .bar-table tr { border-bottom: 1px solid var(--border); }
+  .bar-table tr:last-child { border-bottom: none; }
+  .bar-table td { padding: 6px 4px; vertical-align: middle; }
+  .month-label, .bu-name { width: 90px; font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+  .bu-name { width: 120px; }
+  .bar-cell { width: 160px; }
+  .bar-wrap { display: flex; align-items: center; gap: 6px; }
+  .bar { height: 8px; border-radius: 4px; min-width: 2px; transition: width 0.3s; }
+  .bar.actual { background: var(--bar-actual); }
+  .bar.target { background: var(--bar-target); }
+  .bar-val { font-size: 11px; color: var(--muted); white-space: nowrap; min-width: 36px; }
+  .diff-cell { font-size: 12px; font-weight: 600; text-align: right; white-space: nowrap; width: 60px; }
+
+  /* Legend */
+  .legend { display: flex; gap: 16px; margin-bottom: 12px; }
+  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+  .leg-dot.actual { background: var(--bar-actual); }
+  .leg-dot.target { background: var(--bar-target); }
+
+  /* Full table */
+  .full-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
+  .full-table-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+  table.full-table { width: 100%; border-collapse: collapse; }
+  .full-table thead tr { background: #f1f5f9; }
+  .full-table th { padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
+  .full-table th.num, .full-table td.num { text-align: right; }
+  .full-table tbody tr { border-bottom: 1px solid var(--border); }
+  .full-table tbody tr:last-child { border-bottom: none; }
+  .full-table tbody tr:hover { background: #f8fafc; }
+  .full-table td { padding: 10px 14px; font-size: 13px; }
+  .full-table td.bu-name { font-weight: 600; color: var(--text); }
+  .full-table td.num { font-variant-numeric: tabular-nums; color: var(--text); }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-blue { background: var(--accent-light); color: var(--accent); }
+
+  /* Rooms card */
+  .rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .rooms-kpi { text-align: center; padding: 12px; background: var(--bg); border-radius: 8px; }
+  .rooms-kpi .label { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+  .rooms-kpi .val { font-size: 18px; font-weight: 700; color: var(--accent); margin: 4px 0; }
+  .rooms-kpi .sub { font-size: 11px; color: var(--muted); }
+
+  /* Footer */
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; }
+
+  @media (max-width: 900px) {
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+    .charts-row { grid-template-columns: 1fr; }
+    .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-value { font-size: 18px; }
+    body { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>RCC Group — Le Méridien Saigon</h1>
+      <p>Sales Performance Dashboard · Source: LM Daily Data (AI Transformation SharePoint)</p>
+    </div>
+    <div class="header-right">
+      <div class="report-date">📅 Report Date: 07 Jun 2026</div>
+      <div class="rate-tag">USD/VND: 26,800</div>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid"><div class="kpi-card">
+      <div class="kpi-label">Group MTD Revenue</div>
+      <div class="kpi-value">3.42B</div>
+      <div class="kpi-sub" style="color:#dc2626">-95.9% vs target</div>
+      <div class="kpi-sub2">Target: 83.80B</div>
+    </div><div class="kpi-card">
+      <div class="kpi-label">Group YTD Revenue</div>
+      <div class="kpi-value">428.69B</div>
+      <div class="kpi-sub" style="color:#dc2626">-16.1% vs target</div>
+      <div class="kpi-sub2">Target: 511.14B</div>
+    </div><div class="kpi-card">
+      <div class="kpi-label">La Victoire MTD</div>
+      <div class="kpi-value">$259K</div>
+      <div class="kpi-sub" style="color:#dc2626">-119.6% vs target</div>
+      <div class="kpi-sub2">Target: $1322K</div>
+    </div><div class="kpi-card">
+      <div class="kpi-label">Occupancy (MTD)</div>
+      <div class="kpi-value">70.8%</div>
+      <div class="kpi-sub" style="color:#6b7280">YTD: 79.2%</div>
+      
+    </div><div class="kpi-card">
+      <div class="kpi-label">RevPAR (MTD)</div>
+      <div class="kpi-value">2850K ₫</div>
+      <div class="kpi-sub" style="color:#6b7280">YTD: 3596K ₫</div>
+      
+    </div><div class="kpi-card">
+      <div class="kpi-label">Rooms Sold (MTD)</div>
+      <div class="kpi-value">1,704</div>
+      <div class="kpi-sub" style="color:#6b7280">Total avail: 344/day</div>
+      
+    </div></div>
+
+  <!-- Charts Row -->
+  <div class="charts-row">
+    <!-- Monthly Revenue Trend -->
+    <div class="card">
+      <div class="card-title">Monthly Revenue Trend (VND)</div>
+      <div class="card-sub">Jan – Jun 2026 · Group Total</div>
+      <div class="legend">
+        <div class="leg-item"><div class="leg-dot actual"></div> Actual</div>
+        <div class="leg-item"><div class="leg-dot target"></div> Target</div>
+      </div>
+      <table class="bar-table">
+        <thead>
+          <tr>
+            <th style="width:50px;font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">Month</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">Actual</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">Target</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;text-align:right;">Δ</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+      <td class="month-label">Jan</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:75.0%"></div>
+          <span class="bar-val">88.2B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:79.7%"></div>
+          <span class="bar-val">93.6B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#dc2626">-5.5B</td>
+    </tr><tr>
+      <td class="month-label">Feb</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:36.3%"></div>
+          <span class="bar-val">42.6B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:62.5%"></div>
+          <span class="bar-val">73.4B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#dc2626">-30.8B</td>
+    </tr><tr>
+      <td class="month-label">Mar</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:88.6%"></div>
+          <span class="bar-val">104.1B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:78.3%"></div>
+          <span class="bar-val">91.9B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#15803d">+12.1B</td>
+    </tr><tr>
+      <td class="month-label">Apr</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:62.1%"></div>
+          <span class="bar-val">72.9B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:68.4%"></div>
+          <span class="bar-val">80.4B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#dc2626">-7.5B</td>
+    </tr><tr>
+      <td class="month-label">May</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:100.0%"></div>
+          <span class="bar-val">117.5B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:74.9%"></div>
+          <span class="bar-val">88.0B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#15803d">+29.5B</td>
+    </tr><tr>
+      <td class="month-label">Jun</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:2.9%"></div>
+          <span class="bar-val">3.4B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:71.3%"></div>
+          <span class="bar-val">83.8B</span>
+        </div>
+      </td>
+      <td class="diff-cell" style="color:#dc2626">-80.4B</td>
+    </tr></tbody>
+      </table>
+    </div>
+
+    <!-- BU MTD Performance -->
+    <div class="card">
+      <div class="card-title">BU Performance — MTD</div>
+      <div class="card-sub">Actual vs. Target · Current month to date</div>
+      <div class="legend">
+        <div class="leg-item"><div class="leg-dot actual"></div> Actual</div>
+        <div class="leg-item"><div class="leg-dot target"></div> Target</div>
+      </div>
+      <table class="bar-table">
+        <thead>
+          <tr>
+            <th style="width:100px;font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">BU</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">Actual</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">Target</th>
+            <th style="font-size:10px;color:#94a3b8;font-weight:600;padding:4px;">%</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+      <td class="bu-name">Banquet/Catering</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:4.2%"></div>
+          <span class="bar-val">1.52B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:1.6%"></div>
+          <span class="bar-val">0.58B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-green">260.3%</span></td>
+    </tr><tr>
+      <td class="bu-name">Barson</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:1.0%"></div>
+          <span class="bar-val">0.35B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:4.2%"></div>
+          <span class="bar-val">1.53B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">23.2%</span></td>
+    </tr><tr>
+      <td class="bu-name">Latest Recipe</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:2.7%"></div>
+          <span class="bar-val">0.98B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:12.4%"></div>
+          <span class="bar-val">4.52B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">21.6%</span></td>
+    </tr><tr>
+      <td class="bu-name">Rooms</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:18.8%"></div>
+          <span class="bar-val">6.86B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:100.0%"></div>
+          <span class="bar-val">36.51B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">18.8%</span></td>
+    </tr><tr>
+      <td class="bu-name">In-room Dining</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:0.2%"></div>
+          <span class="bar-val">0.08B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:1.5%"></div>
+          <span class="bar-val">0.57B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">14.4%</span></td>
+    </tr><tr>
+      <td class="bu-name">AKUNA</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:1.1%"></div>
+          <span class="bar-val">0.40B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:8.5%"></div>
+          <span class="bar-val">3.11B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">12.9%</span></td>
+    </tr><tr>
+      <td class="bu-name">Speakeasy</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:0.0%"></div>
+          <span class="bar-val">0.00B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:0.1%"></div>
+          <span class="bar-val">0.05B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">6.9%</span></td>
+    </tr><tr>
+      <td class="bu-name">Art Cacao</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:0.0%"></div>
+          <span class="bar-val">0.01B</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:0.4%"></div>
+          <span class="bar-val">0.14B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">5.9%</span></td>
+    </tr><tr>
+      <td class="bu-name">Riverbank Place</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:0.0%"></div>
+          <span class="bar-val">0</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:28.3%"></div>
+          <span class="bar-val">10.34B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">0.0%</span></td>
+    </tr><tr>
+      <td class="bu-name">Mini Bar</td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar actual" style="width:0.0%"></div>
+          <span class="bar-val">0</span>
+        </div>
+      </td>
+      <td class="bar-cell">
+        <div class="bar-wrap">
+          <div class="bar target" style="width:0.2%"></div>
+          <span class="bar-val">0.08B</span>
+        </div>
+      </td>
+      <td><span class="badge badge-red">0.0%</span></td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Rooms Metrics -->
+  <div class="card" style="margin-bottom:28px;">
+    <div class="card-title">Rooms Performance</div>
+    <div class="card-sub" style="margin-bottom:14px;">Le Méridien Saigon · 344 keys</div>
+    <div class="rooms-grid">
+      <div class="rooms-kpi">
+        <div class="label">Occupancy Today</div>
+        <div class="val">68.3%</div>
+        <div class="sub">Sold: 235 / 344 rooms</div>
+      </div>
+      <div class="rooms-kpi">
+        <div class="label">Occupancy MTD</div>
+        <div class="val">70.8%</div>
+        <div class="sub">YTD: 79.2%</div>
+      </div>
+      <div class="rooms-kpi">
+        <div class="label">RevPAR Today</div>
+        <div class="val">2553K ₫</div>
+        <div class="sub">MTD: 2850K · YTD: 3596K</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full BU Table -->
+  <div class="full-table-wrap">
+    <div class="full-table-header">
+      <div class="card-title">Full Business Unit Breakdown</div>
+      <div class="card-sub">VND unless marked USD · MTD = Month-to-Date · YTD = Year-to-Date</div>
+    </div>
+    <table class="full-table">
+      <thead>
+        <tr>
+          <th>Business Unit</th>
+          <th class="num">Today</th>
+          <th class="num">MTD Actual</th>
+          <th class="num">MTD Target</th>
+          <th class="num">% Target</th>
+          <th class="num">YTD Actual</th>
+          <th class="num">YTD Target</th>
+        </tr>
+      </thead>
+      <tbody><tr>
+      <td class="bu-name">Royal Canary </td>
+      <td class="num">-0.42B</td>
+      <td class="num">3.42B</td>
+      <td class="num">83.80B</td>
+      <td class="num"><span class="badge badge-red">-95.9%</span></td>
+      <td class="num">428.69B</td>
+      <td class="num">511.14B</td>
+    </tr><tr>
+      <td class="bu-name">La Victoire <span class="badge badge-blue">USD</span></td>
+      <td class="num">$-57K</td>
+      <td class="num">$-259K</td>
+      <td class="num">$1322K</td>
+      <td class="num"><span class="badge badge-red">-119.6%</span></td>
+      <td class="num">$5896K</td>
+      <td class="num">$7241K</td>
+    </tr><tr>
+      <td class="bu-name">Riverbank Place </td>
+      <td class="num">0</td>
+      <td class="num">0</td>
+      <td class="num">10.34B</td>
+      <td class="num"><span class="badge badge-red">-100.0%</span></td>
+      <td class="num">28.29B</td>
+      <td class="num">60.36B</td>
+    </tr><tr>
+      <td class="bu-name">Rooms </td>
+      <td class="num">0.88B</td>
+      <td class="num">6.86B</td>
+      <td class="num">36.51B</td>
+      <td class="num"><span class="badge badge-red">-81.2%</span></td>
+      <td class="num">195.45B</td>
+      <td class="num">233.30B</td>
+    </tr><tr>
+      <td class="bu-name">Latest Recipe </td>
+      <td class="num">0.17B</td>
+      <td class="num">0.98B</td>
+      <td class="num">4.52B</td>
+      <td class="num"><span class="badge badge-red">-78.4%</span></td>
+      <td class="num">22.70B</td>
+      <td class="num">26.40B</td>
+    </tr><tr>
+      <td class="bu-name">Barson </td>
+      <td class="num">0.01B</td>
+      <td class="num">0.35B</td>
+      <td class="num">1.53B</td>
+      <td class="num"><span class="badge badge-red">-76.8%</span></td>
+      <td class="num">7.36B</td>
+      <td class="num">9.34B</td>
+    </tr><tr>
+      <td class="bu-name">AKUNA </td>
+      <td class="num">0</td>
+      <td class="num">0.40B</td>
+      <td class="num">3.11B</td>
+      <td class="num"><span class="badge badge-red">-87.1%</span></td>
+      <td class="num">11.77B</td>
+      <td class="num">16.34B</td>
+    </tr><tr>
+      <td class="bu-name">Art Cacao </td>
+      <td class="num">0</td>
+      <td class="num">0.01B</td>
+      <td class="num">0.14B</td>
+      <td class="num"><span class="badge badge-red">-94.1%</span></td>
+      <td class="num">0.36B</td>
+      <td class="num">1.06B</td>
+    </tr><tr>
+      <td class="bu-name">In-room Dining </td>
+      <td class="num">0.02B</td>
+      <td class="num">0.08B</td>
+      <td class="num">0.57B</td>
+      <td class="num"><span class="badge badge-red">-85.6%</span></td>
+      <td class="num">2.26B</td>
+      <td class="num">3.31B</td>
+    </tr><tr>
+      <td class="bu-name">Mini Bar </td>
+      <td class="num">0</td>
+      <td class="num">0</td>
+      <td class="num">0.08B</td>
+      <td class="num"><span class="badge badge-red">-100.0%</span></td>
+      <td class="num">0.08B</td>
+      <td class="num">0.42B</td>
+    </tr><tr>
+      <td class="bu-name">Speakeasy </td>
+      <td class="num">0</td>
+      <td class="num">0.00B</td>
+      <td class="num">0.05B</td>
+      <td class="num"><span class="badge badge-red">-93.1%</span></td>
+      <td class="num">0.29B</td>
+      <td class="num">0.28B</td>
+    </tr><tr>
+      <td class="bu-name">Banquet/Catering </td>
+      <td class="num">0</td>
+      <td class="num">1.52B</td>
+      <td class="num">0.58B</td>
+      <td class="num"><span class="badge badge-green">+160.3%</span></td>
+      <td class="num">25.69B</td>
+      <td class="num">18.75B</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>RCC Group · Le Méridien Saigon · Sales Dashboard · Confidential</span>
+    <span>Data: SharePoint / RCC-AI Transformation · Generated by Zera 🌟 · 12/06/2026</span>
+  </div>
+
+</div>
+</body>
+</html>
