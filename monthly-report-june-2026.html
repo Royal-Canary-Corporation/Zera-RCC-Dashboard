@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Monthly Report — June 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    background: #0d1117;
+    color: #e6edf3;
+    min-width: 1200px;
+    padding: 28px 32px;
+  }
+  /* ---------- HEADER ---------- */
+  .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #30363d;
+  }
+  .report-title { font-size: 22px; font-weight: 700; color: #e6edf3; letter-spacing: 0.5px; }
+  .report-subtitle { font-size: 12px; color: #8b949e; margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .report-meta { text-align: right; font-size: 11px; color: #8b949e; line-height: 1.8; }
+  .report-meta span { color: #e6edf3; font-weight: 500; }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+    color: #8b949e; margin: 24px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid #21262d;
+  }
+
+  /* ---------- KPI GRID ---------- */
+  .kpi-grid { display: grid; gap: 12px; margin-bottom: 4px; }
+  .kpi-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .kpi-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .kpi-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .kpi-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 16px; position: relative; overflow: hidden;
+  }
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent, #58a6ff);
+  }
+  .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #8b949e; margin-bottom: 8px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: #e6edf3; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: #8b949e; margin-top: 6px; }
+  .kpi-badge {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 2px 7px; border-radius: 4px; margin-top: 6px;
+  }
+  .badge-green { background: #0d2d1a; color: #3fb950; border: 1px solid #238636; }
+  .badge-red   { background: #2d1219; color: #f85149; border: 1px solid #da3633; }
+  .badge-blue  { background: #0d2040; color: #58a6ff; border: 1px solid #1f6feb; }
+  .badge-gold  { background: #2d2207; color: #e3b341; border: 1px solid #9e6a03; }
+  .accent-green { --accent: #3fb950; }
+  .accent-red   { --accent: #f85149; }
+  .accent-blue  { --accent: #58a6ff; }
+  .accent-gold  { --accent: #e3b341; }
+  .accent-purple{ --accent: #a371f7; }
+
+  /* ---------- TABLES ---------- */
+  .table-wrap { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    background: #21262d; padding: 9px 12px; text-align: left;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+    color: #8b949e; border-bottom: 1px solid #30363d;
+  }
+  thead th.right { text-align: right; }
+  tbody tr { border-bottom: 1px solid #21262d; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #1c2128; }
+  tbody td { padding: 9px 12px; color: #e6edf3; }
+  tbody td.right { text-align: right; }
+  tbody td.muted { color: #8b949e; font-size: 11px; }
+  .val-green { color: #3fb950; font-weight: 600; }
+  .val-red   { color: #f85149; font-weight: 600; }
+  .val-gold  { color: #e3b341; font-weight: 600; }
+  .val-blue  { color: #58a6ff; font-weight: 600; }
+  .rank-badge {
+    display: inline-block; width: 22px; height: 22px; border-radius: 50%;
+    background: #21262d; color: #8b949e; font-size: 10px; font-weight: 700;
+    text-align: center; line-height: 22px;
+  }
+  .rank-1 { background: #2d2207; color: #e3b341; }
+  .rank-2 { background: #1c2a3a; color: #58a6ff; }
+  .rank-3 { background: #1f2937; color: #8b949e; }
+  .tbl-sub-header td { background: #0d1117; color: #58a6ff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 7px 12px; }
+
+  /* ---------- 2-COL LAYOUT ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* ---------- HEADCOUNT BAR ---------- */
+  .hc-bar-grid { display: grid; grid-template-columns: 80px 1fr 50px; align-items: center; gap: 8px; padding: 5px 0; }
+  .hc-bar-label { font-size: 11px; color: #8b949e; }
+  .hc-bar-track { background: #21262d; border-radius: 3px; height: 8px; overflow: hidden; }
+  .hc-bar-fill { height: 100%; border-radius: 3px; background: #1f6feb; }
+  .hc-bar-val { font-size: 11px; color: #e6edf3; font-weight: 600; text-align: right; }
+  .hc-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px; }
+  .hc-card-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #8b949e; margin-bottom: 14px; }
+
+  /* ---------- DIVIDER ---------- */
+  .spacer { height: 6px; }
+  .divider { height: 1px; background: #21262d; margin: 20px 0; }
+
+  /* ---------- FOOTNOTE ---------- */
+  .footnote { font-size: 10px; color: #8b949e; margin-top: 24px; padding-top: 12px; border-top: 1px solid #21262d; }
+
+  @media print {
+    body { background: #fff; color: #0d1117; padding: 20px; }
+    .kpi-card, .table-wrap, .hc-card { border: 1px solid #ccc; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="report-header">
+  <div>
+    <div class="report-title">Club Performance Report</div>
+    <div class="report-subtitle">Comprehensive Monthly Analysis · All Sheets</div>
+  </div>
+  <div class="report-meta">
+    <div>Period (MTD): <span>June 2026 (1–21 Jun)</span></div>
+    <div>YTD: <span>January – June 2026</span></div>
+    <div>Data source: <span>Monthly_report file (7 sheets)</span></div>
+    <div>Generated: <span>22 Jun 2026</span></div>
+  </div>
+</div>
+
+
+<!-- ===== SECTION 1: OVERALL PERFORMANCE ===== -->
+<div class="section-label">1 · Overall EGM Performance — Grand Total</div>
+
+<div class="kpi-grid kpi-grid-4">
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">MTD Total Coin-In (Turnover)</div>
+    <div class="kpi-value">$34.96M</div>
+    <div class="kpi-sub">June 2026 · 106 active units</div>
+  </div>
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">MTD Net Win (Machine)</div>
+    <div class="kpi-value">$320,285</div>
+    <div class="kpi-sub">Hold% = <strong>0.92%</strong> overall</div>
+    <div class="kpi-badge badge-green">After Promo Deducted</div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">YTD Total Coin-In</div>
+    <div class="kpi-value">$341.49M</div>
+    <div class="kpi-sub">Jan–Jun 2026 · Full year running</div>
+  </div>
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">YTD Net Win (Machine)</div>
+    <div class="kpi-value">$10.34M</div>
+    <div class="kpi-sub">Hold% = <strong>3.03%</strong> overall</div>
+    <div class="kpi-badge badge-green">24.86M games played YTD</div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+<div class="kpi-grid kpi-grid-4">
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">MTD Play Meters Win</div>
+    <div class="kpi-value">$1.30M</div>
+    <div class="kpi-sub">Gross before promo</div>
+  </div>
+  <div class="kpi-card accent-red">
+    <div class="kpi-label">MTD Promo / Reinvestment</div>
+    <div class="kpi-value">$984,178</div>
+    <div class="kpi-sub">2.82% of Coin-In</div>
+  </div>
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">MTD Games Played</div>
+    <div class="kpi-value">2,666,346</div>
+    <div class="kpi-sub">Avg 120 HC/day · 22 days reported</div>
+  </div>
+  <div class="kpi-card accent-purple">
+    <div class="kpi-label">YTD Promo / Reinvestment</div>
+    <div class="kpi-value">$5.50M</div>
+    <div class="kpi-sub">1.61% of YTD Coin-In</div>
+  </div>
+</div>
+
+
+<!-- ===== SECTION 2: SLOT vs ETG ===== -->
+<div class="section-label">2 · Slot Machines vs Electronic Table Games (ETG)</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Segment</th>
+        <th>Units</th>
+        <th class="right">MTD Coin-In</th>
+        <th class="right">MTD Win</th>
+        <th class="right">MTD Hold%</th>
+        <th class="right">YTD Coin-In</th>
+        <th class="right">YTD Win</th>
+        <th class="right">YTD Hold%</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Total SLOT</strong></td>
+        <td>63</td>
+        <td class="right val-blue">$15,204,429</td>
+        <td class="right val-green">$871,868</td>
+        <td class="right val-green">5.73%</td>
+        <td class="right">$121,990,000</td>
+        <td class="right val-green">$7,767,348</td>
+        <td class="right val-green">6.37%</td>
+        <td class="muted">Healthy margins</td>
+      </tr>
+      <tr class="tbl-sub-header">
+        <td colspan="9">Slot Subsegments</td>
+      </tr>
+      <tr>
+        <td class="muted">&nbsp;&nbsp;Mass Level 3</td>
+        <td>38</td>
+        <td class="right">$11,092,109</td>
+        <td class="right val-green">$486,066</td>
+        <td class="right">4.38%</td>
+        <td class="right">$77,883,648</td>
+        <td class="right val-green">$4,843,558</td>
+        <td class="right">6.22%</td>
+        <td class="muted">Volume driver</td>
+      </tr>
+      <tr>
+        <td class="muted">&nbsp;&nbsp;High Limit Level 3</td>
+        <td>13</td>
+        <td class="right">$2,759,027</td>
+        <td class="right val-green">$267,318</td>
+        <td class="right val-green">9.69%</td>
+        <td class="right">$20,925,415</td>
+        <td class="right val-green">$1,304,397</td>
+        <td class="right val-green">6.23%</td>
+        <td class="muted">Best hold%</td>
+      </tr>
+      <tr>
+        <td class="muted">&nbsp;&nbsp;High Limit Level 2</td>
+        <td>12</td>
+        <td class="right">$1,353,293</td>
+        <td class="right val-green">$118,484</td>
+        <td class="right val-green">8.76%</td>
+        <td class="right">$23,180,930</td>
+        <td class="right val-green">$1,619,393</td>
+        <td class="right val-green">6.99%</td>
+        <td class="muted">High yield/unit</td>
+      </tr>
+      <tr>
+        <td><strong>Total ETG</strong></td>
+        <td>43</td>
+        <td class="right val-blue">$19,757,543</td>
+        <td class="right val-red">–$551,583</td>
+        <td class="right val-red">–2.79%</td>
+        <td class="right">$219,502,776</td>
+        <td class="right val-green">$2,575,664</td>
+        <td class="right">1.17%</td>
+        <td class="muted">MTD player-favoured run</td>
+      </tr>
+      <tr class="tbl-sub-header">
+        <td colspan="9">ETG Subsegments</td>
+      </tr>
+      <tr>
+        <td class="muted">&nbsp;&nbsp;ETG Hall A (Mass)</td>
+        <td>35</td>
+        <td class="right">$13,413,564</td>
+        <td class="right val-red">–$154,463</td>
+        <td class="right val-red">–1.15%</td>
+        <td class="right">$162,032,191</td>
+        <td class="right val-green">$2,061,204</td>
+        <td class="right">1.27%</td>
+        <td class="muted">Roulette dominant</td>
+      </tr>
+      <tr>
+        <td class="muted">&nbsp;&nbsp;ETG Hall B (High Limit)</td>
+        <td>8</td>
+        <td class="right">$6,343,979</td>
+        <td class="right val-red">–$397,121</td>
+        <td class="right val-red">–6.26%</td>
+        <td class="right">$57,470,585</td>
+        <td class="right val-green">$514,460</td>
+        <td class="right">0.90%</td>
+        <td class="muted">Volatile — player winning run</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== SECTION 3: SLOT GAME THEMES ===== -->
+<div class="section-label">3 · Slot Performance by Game Theme (MTD)</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Game Theme</th>
+        <th>Segment</th>
+        <th class="right">Units</th>
+        <th class="right">MTD Coin-In</th>
+        <th class="right">MTD Win</th>
+        <th class="right">Hold%</th>
+        <th class="right">YTD Coin-In</th>
+        <th class="right">YTD Win</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tbl-sub-header"><td colspan="8">Mass — Level 3 (Aristocrat)</td></tr>
+      <tr>
+        <td>5 Dragons (all variants)</td>
+        <td class="muted">Mass L3</td>
+        <td class="right">various</td>
+        <td class="right">$7,133,155</td>
+        <td class="right val-green">$344,078</td>
+        <td class="right">4.82%</td>
+        <td class="right">$47,561,429</td>
+        <td class="right val-green">$2,651,364</td>
+      </tr>
+      <tr>
+        <td>5 Koi Legend</td>
+        <td class="muted">Mass L3</td>
+        <td class="right">6</td>
+        <td class="right">$2,520,034</td>
+        <td class="right val-green">$141,135</td>
+        <td class="right">5.60%</td>
+        <td class="right">$16,000,135</td>
+        <td class="right val-green">$954,220</td>
+      </tr>
+      <tr>
+        <td>Fortune King variants</td>
+        <td class="muted">Mass L3</td>
+        <td class="right">4</td>
+        <td class="right">$848,765</td>
+        <td class="right val-green">$52,261</td>
+        <td class="right">6.16%</td>
+        <td class="right">$6,468,313</td>
+        <td class="right val-green">$300,378</td>
+      </tr>
+      <tr>
+        <td>Eco Fortune / Endless Treasure</td>
+        <td class="muted">SG — Mass</td>
+        <td class="right">8</td>
+        <td class="right">$408,502</td>
+        <td class="right val-green">$30,832</td>
+        <td class="right">7.55%</td>
+        <td class="right">$6,989,397</td>
+        <td class="right val-green">$599,387</td>
+      </tr>
+      <tr class="tbl-sub-header"><td colspan="8">High Limit — Level 3 / Level 2</td></tr>
+      <tr>
+        <td>5 Dragons Pearl (HL)</td>
+        <td class="muted">High Limit L3</td>
+        <td class="right">2</td>
+        <td class="right">$1,358,201</td>
+        <td class="right val-green">$184,684</td>
+        <td class="right val-green">13.60%</td>
+        <td class="right">$8,249,950</td>
+        <td class="right val-green">$439,776</td>
+      </tr>
+      <tr>
+        <td>Buffalo Gold (HL)</td>
+        <td class="muted">High Limit L3</td>
+        <td class="right">2</td>
+        <td class="right">$402,482</td>
+        <td class="right val-green">$32,142</td>
+        <td class="right">7.99%</td>
+        <td class="right">$4,849,653</td>
+        <td class="right val-green">$365,815</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== SECTION 4: ETG BREAKDOWN ===== -->
+<div class="section-label">4 · ETG Breakdown — Roulette & Baccarat (MTD)</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Game</th>
+        <th>Hall</th>
+        <th class="right">Units</th>
+        <th class="right">MTD Coin-In</th>
+        <th class="right">MTD Win</th>
+        <th class="right">Hold%</th>
+        <th class="right">YTD Coin-In</th>
+        <th class="right">YTD Win</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Roulette</strong></td>
+        <td class="muted">Hall A (Mass)</td>
+        <td class="right">30</td>
+        <td class="right">$10,861,000</td>
+        <td class="right val-red">–$192,492</td>
+        <td class="right val-red">–1.77%</td>
+        <td class="right">$123,480,042</td>
+        <td class="right val-green">$1,673,730</td>
+        <td><span class="kpi-badge badge-red">Player Run MTD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Baccarat</strong></td>
+        <td class="muted">Hall A (Mass)</td>
+        <td class="right">5</td>
+        <td class="right">$2,552,564</td>
+        <td class="right val-green">$38,030</td>
+        <td class="right">1.49%</td>
+        <td class="right">$36,980,106</td>
+        <td class="right val-green">$354,608</td>
+        <td><span class="kpi-badge badge-green">Positive MTD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Blackjack</strong></td>
+        <td class="muted">Hall A</td>
+        <td class="right">—</td>
+        <td class="right val-red">$0</td>
+        <td class="right">—</td>
+        <td class="right">—</td>
+        <td class="right">$1,572,043</td>
+        <td class="right val-green">$32,866</td>
+        <td><span class="kpi-badge badge-gold">Inactive MTD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Roulette (HL)</strong></td>
+        <td class="muted">Hall B (High Limit)</td>
+        <td class="right">4</td>
+        <td class="right">$3,394,275</td>
+        <td class="right val-red">–$256,544</td>
+        <td class="right val-red">–7.56%</td>
+        <td class="right">$43,233,714</td>
+        <td class="right val-green">$449,563</td>
+        <td><span class="kpi-badge badge-red">Significant Loss MTD</span></td>
+      </tr>
+      <tr>
+        <td><strong>Baccarat (HL)</strong></td>
+        <td class="muted">Hall B (High Limit)</td>
+        <td class="right">4</td>
+        <td class="right">$2,949,704</td>
+        <td class="right val-red">–$140,577</td>
+        <td class="right val-red">–4.77%</td>
+        <td class="right">$14,236,871</td>
+        <td class="right val-green">$64,897</td>
+        <td><span class="kpi-badge badge-red">Player Favoured</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== SECTION 5: PLAYER HEADCOUNT ===== -->
+<div class="section-label">5 · Player Headcount — Unique Visitors</div>
+
+<div class="two-col">
+  <div class="hc-card">
+    <div class="hc-card-title">Monthly Unique Visitors — 2026</div>
+    <div style="margin-bottom:8px;">
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">January</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:66.2%"></div></div>
+        <div class="hc-bar-val">914</div>
+      </div>
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">February</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:50.9%; background:#f85149;"></div></div>
+        <div class="hc-bar-val" style="color:#f85149;">702</div>
+      </div>
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">March</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:66.2%"></div></div>
+        <div class="hc-bar-val">914</div>
+      </div>
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">April</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:71.0%"></div></div>
+        <div class="hc-bar-val">980</div>
+      </div>
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">May</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:100%; background:#3fb950;"></div></div>
+        <div class="hc-bar-val" style="color:#3fb950;">1,380</div>
+      </div>
+      <div class="hc-bar-grid">
+        <div class="hc-bar-label">June (MTD)</div>
+        <div class="hc-bar-track"><div class="hc-bar-fill" style="width:74.7%; background:#e3b341;"></div></div>
+        <div class="hc-bar-val" style="color:#e3b341;">1,031*</div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#8b949e;margin-top:8px;">*June shown as month-to-date total (partial month). YTD Jan–May total = 4,890 visitors.</div>
+  </div>
+
+  <div class="hc-card">
+    <div class="hc-card-title">June 2026 — Daily Headcount Highlights</div>
+    <div class="kpi-grid kpi-grid-3" style="margin-bottom:14px;">
+      <div style="text-align:center;padding:10px;background:#21262d;border-radius:8px;">
+        <div style="font-size:10px;color:#8b949e;margin-bottom:4px;">Days Reported</div>
+        <div style="font-size:18px;font-weight:700;color:#58a6ff;">22</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:#21262d;border-radius:8px;">
+        <div style="font-size:10px;color:#8b949e;margin-bottom:4px;">Avg Daily HC</div>
+        <div style="font-size:18px;font-weight:700;color:#e6edf3;">120</div>
+      </div>
+      <div style="text-align:center;padding:10px;background:#21262d;border-radius:8px;">
+        <div style="font-size:10px;color:#8b949e;margin-bottom:4px;">Peak Day</div>
+        <div style="font-size:18px;font-weight:700;color:#3fb950;">193</div>
+        <div style="font-size:10px;color:#8b949e;">21 Jun</div>
+      </div>
+    </div>
+    <!-- Simplified daily bar chart -->
+    <div style="display:flex; align-items:flex-end; gap:3px; height:70px; padding-top:4px;">
+      <!-- 22 days -->
+      <div style="flex:1;background:#1f6feb;height:62.2%;border-radius:2px 2px 0 0;" title="01-Jun: 120"></div>
+      <div style="flex:1;background:#1f6feb;height:44.6%;border-radius:2px 2px 0 0;" title="02-Jun: 86"></div>
+      <div style="flex:1;background:#1f6feb;height:54.4%;border-radius:2px 2px 0 0;" title="03-Jun: 105"></div>
+      <div style="flex:1;background:#1f6feb;height:56.5%;border-radius:2px 2px 0 0;" title="04-Jun: 109"></div>
+      <div style="flex:1;background:#1f6feb;height:66.3%;border-radius:2px 2px 0 0;" title="05-Jun: 128"></div>
+      <div style="flex:1;background:#1f6feb;height:76.7%;border-radius:2px 2px 0 0;" title="06-Jun: 148"></div>
+      <div style="flex:1;background:#1f6feb;height:57.5%;border-radius:2px 2px 0 0;" title="07-Jun: 111"></div>
+      <div style="flex:1;background:#1f6feb;height:54.4%;border-radius:2px 2px 0 0;" title="08-Jun: 105"></div>
+      <div style="flex:1;background:#1f6feb;height:57.0%;border-radius:2px 2px 0 0;" title="09-Jun: 110"></div>
+      <div style="flex:1;background:#1f6feb;height:63.7%;border-radius:2px 2px 0 0;" title="10-Jun: 123"></div>
+      <div style="flex:1;background:#1f6feb;height:63.2%;border-radius:2px 2px 0 0;" title="11-Jun: 122"></div>
+      <div style="flex:1;background:#1f6feb;height:63.7%;border-radius:2px 2px 0 0;" title="12-Jun: 123"></div>
+      <div style="flex:1;background:#3fb950;height:79.8%;border-radius:2px 2px 0 0;" title="13-Jun: 154"></div>
+      <div style="flex:1;background:#1f6feb;height:61.1%;border-radius:2px 2px 0 0;" title="14-Jun: 118"></div>
+      <div style="flex:1;background:#1f6feb;height:54.9%;border-radius:2px 2px 0 0;" title="15-Jun: 106"></div>
+      <div style="flex:1;background:#1f6feb;height:68.9%;border-radius:2px 2px 0 0;" title="16-Jun: 133"></div>
+      <div style="flex:1;background:#1f6feb;height:58.0%;border-radius:2px 2px 0 0;" title="17-Jun: 112"></div>
+      <div style="flex:1;background:#1f6feb;height:65.8%;border-radius:2px 2px 0 0;" title="18-Jun: 127"></div>
+      <div style="flex:1;background:#1f6feb;height:75.1%;border-radius:2px 2px 0 0;" title="19-Jun: 145"></div>
+      <div style="flex:1;background:#3fb950;height:83.9%;border-radius:2px 2px 0 0;" title="20-Jun: 162"></div>
+      <div style="flex:1;background:#3fb950;height:100%;border-radius:2px 2px 0 0;" title="21-Jun: 193"></div>
+      <div style="flex:1;background:#f85149;height:1%;border-radius:2px 2px 0 0;" title="22-Jun: 2 (partial)"></div>
+    </div>
+    <div style="font-size:10px;color:#8b949e;margin-top:6px;">Daily bars 1–22 Jun · 22 Jun = 2 (partial/early snapshot)</div>
+  </div>
+</div>
+
+
+<!-- ===== SECTION 6: TOP PLAYERS MTD ===== -->
+<div class="section-label">6 · Top Players — MTD June 2026 (869 Tracked)</div>
+
+<div class="two-col">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th class="right">MTD Turnover</th>
+          <th class="right">Player Win / Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="rank-badge rank-1">1</span></td><td>Chui Chi Ho</td><td class="right val-blue">$3,270,622</td><td class="right val-red">+$83,750 <span style="font-size:10px;">(P.Win)</span></td></tr>
+        <tr><td><span class="rank-badge rank-2">2</span></td><td>Chen Zhi Wen</td><td class="right val-blue">$2,804,872</td><td class="right val-green">–$20,692 <span style="font-size:10px;">(Club)</span></td></tr>
+        <tr><td><span class="rank-badge rank-3">3</span></td><td>Duong Minh Nhut</td><td class="right val-blue">$2,257,679</td><td class="right val-green">–$230,550 <span style="font-size:10px;">(Club)</span></td></tr>
+        <tr><td><span class="rank-badge">4</span></td><td>Kwak Du Hwa</td><td class="right">$2,026,465</td><td class="right val-green">–$4,777</td></tr>
+        <tr><td><span class="rank-badge">5</span></td><td>Lin Shun Ping</td><td class="right">$1,463,372</td><td class="right val-green">–$95,441</td></tr>
+        <tr><td><span class="rank-badge">6</span></td><td>Lin Shan Chao</td><td class="right">$1,222,894</td><td class="right val-green">–$28,362</td></tr>
+        <tr><td><span class="rank-badge">7</span></td><td>Marcus Tong Seng Tat</td><td class="right">$1,180,685</td><td class="right val-red">+$62,075 <span style="font-size:10px;">(P.Win)</span></td></tr>
+        <tr><td><span class="rank-badge">8</span></td><td>Van Simon Vinh</td><td class="right">$1,070,165</td><td class="right val-red">+$67,379 <span style="font-size:10px;">(P.Win)</span></td></tr>
+        <tr><td><span class="rank-badge">9</span></td><td>Yoon Kweon Jung</td><td class="right">$1,067,242</td><td class="right val-red">+$21,149 <span style="font-size:10px;">(P.Win)</span></td></tr>
+        <tr><td><span class="rank-badge">10</span></td><td>Meng Jin Qun</td><td class="right">$632,235</td><td class="right val-green">–$27,087</td></tr>
+        <tr><td><span class="rank-badge">11</span></td><td>Jung Sung Su</td><td class="right">$356,476</td><td class="right val-green">–$10,754</td></tr>
+        <tr><td><span class="rank-badge">12</span></td><td>Jeong Du Hyeon</td><td class="right">$368,584</td><td class="right val-green">–$31,136</td></tr>
+        <tr><td><span class="rank-badge">13</span></td><td>Liu Zhi Shan</td><td class="right">$532,899</td><td class="right val-green">–$88,509</td></tr>
+        <tr><td><span class="rank-badge">14</span></td><td>Park Chul Woo</td><td class="right">$279,763</td><td class="right val-green">–$26,912</td></tr>
+        <tr><td><span class="rank-badge">15</span></td><td>Hong Byung Sik</td><td class="right">$172,370</td><td class="right val-green">–$16,750</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <div class="table-wrap" style="margin-bottom:12px;">
+      <table>
+        <thead>
+          <tr><th colspan="2">Top 5 — Biggest Player Loss (Club Win MTD)</th></tr>
+          <tr><th>Player</th><th class="right">Club Won From Player</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Duong Minh Nhut</td><td class="right val-green">$230,550</td></tr>
+          <tr><td>Lin Shun Ping</td><td class="right val-green">$95,441</td></tr>
+          <tr><td>Liu Zhi Shan</td><td class="right val-green">$88,509</td></tr>
+          <tr><td>Jeong Du Hyeon</td><td class="right val-green">$31,136</td></tr>
+          <tr><td>Lin Shan Chao</td><td class="right val-green">$28,362</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th colspan="2">Top 5 — Biggest Player Win (Club Paid Out MTD)</th></tr>
+          <tr><th>Player</th><th class="right">Player Net Won</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lai Chung Nan</td><td class="right val-red">$102,340</td></tr>
+          <tr><td>Chui Chi Ho</td><td class="right val-red">$83,750</td></tr>
+          <tr><td>Wang Zi Heng</td><td class="right val-red">$77,914</td></tr>
+          <tr><td>Van Simon Vinh</td><td class="right val-red">$67,379</td></tr>
+          <tr><td>Lee Kang Wei</td><td class="right val-red">$62,751</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SECTION 7: YTD TOP PLAYERS ===== -->
+<div class="section-label">7 · Top Players — YTD 2026 (3,123 Tracked)</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th class="right">YTD Turnover</th>
+        <th class="right">Player Win / Loss</th>
+        <th>Profile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="rank-badge rank-1">1</span></td><td>Park Sang Yong</td><td class="right val-gold">$29,882,838</td><td class="right val-green">–$13,628 (Club +)</td><td class="muted">Volume king · near break-even</td></tr>
+      <tr><td><span class="rank-badge rank-2">2</span></td><td>Wang Zi Heng</td><td class="right val-gold">$18,719,532</td><td class="right val-green">–$126,329</td><td class="muted">High frequency · club profit</td></tr>
+      <tr><td><span class="rank-badge rank-3">3</span></td><td>Duong Minh Nhut</td><td class="right">$16,405,450</td><td class="right val-green">–$432,577</td><td class="muted">Strong club contributor</td></tr>
+      <tr><td><span class="rank-badge">4</span></td><td>Jiang Hong Ping</td><td class="right">$15,884,302</td><td class="right val-green">–$685,759</td><td class="muted">Top loss for player YTD</td></tr>
+      <tr><td><span class="rank-badge">5</span></td><td>Yoon Kweon Jung</td><td class="right">$14,425,098</td><td class="right val-green">–$776,378</td><td class="muted">Highest player loss YTD</td></tr>
+      <tr><td><span class="rank-badge">6</span></td><td>Lin Shun Ping</td><td class="right">$11,923,769</td><td class="right val-green">–$562,387</td><td class="muted">Consistent player</td></tr>
+      <tr><td><span class="rank-badge">7</span></td><td>Lee Joo Hyong 2</td><td class="right">$11,176,331</td><td class="right val-green">–$370,330</td><td class="muted">Regular high roller</td></tr>
+      <tr><td><span class="rank-badge">8</span></td><td>Chui Chi Ho</td><td class="right">$9,915,956</td><td class="right val-green">–$48,651</td><td class="muted">Net winning player YTD (close)</td></tr>
+      <tr><td><span class="rank-badge">9</span></td><td>Dai Chuan Jiang</td><td class="right">$8,847,547</td><td class="right val-green">–$149,846</td><td class="muted"></td></tr>
+      <tr><td><span class="rank-badge">10</span></td><td>Liu Zhi Shan</td><td class="right">$6,156,123</td><td class="right val-red">+$54,206 (P.Win)</td><td class="muted">Net winning player YTD</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ===== SECTION 8: KEY OBSERVATIONS ===== -->
+<div class="section-label">8 · Key Observations & Takeaways</div>
+
+<div class="three-col">
+  <div class="kpi-card accent-red">
+    <div class="kpi-label">⚠ ETG MTD Concern</div>
+    <div style="font-size:13px;line-height:1.6;margin-top:8px;color:#e6edf3;">
+      ETG total is running <strong style="color:#f85149;">–$551K</strong> in June (–2.79% hold). Both Roulette (Mass & HL) and Baccarat (HL) are in player-winning territory. This is likely variance-driven but warrants monitoring. YTD ETG remains positive at +$2.58M.
+    </div>
+  </div>
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">✅ Slot Performance Solid</div>
+    <div style="font-size:13px;line-height:1.6;margin-top:8px;color:#e6edf3;">
+      Slots delivering <strong style="color:#3fb950;">5.73% hold MTD</strong> on $15.2M coin-in = $871K gross win. High Limit slots performing exceptionally well at <strong>9.69%</strong> (HL L3). 5 Dragons Pearl HL at 13.6% hold is the standout. YTD slots = $7.77M win on $122M coin-in.
+    </div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">📈 Headcount Trending Up</div>
+    <div style="font-size:13px;line-height:1.6;margin-top:8px;color:#e6edf3;">
+      May 2026 was a record month at <strong>1,380 unique visitors</strong>. June is on track to close similarly with 1,031 already counted through day 21 (avg 120/day). Peak day 21 Jun hit <strong>193 visitors</strong>. Feb was the weakest at 702.
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="two-col">
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">🏆 Player Base Insights</div>
+    <div style="font-size:13px;line-height:1.6;margin-top:8px;color:#e6edf3;">
+      <strong>869 active players MTD</strong>, 3,123 YTD. Diverse nationalities: Korean, Vietnamese, Chinese, Australian clientele. <strong>Park Sang Yong</strong> is the club's volume leader at $29.9M YTD turnover. <strong>Yoon Kweon Jung</strong> and <strong>Jiang Hong Ping</strong> are the biggest net contributors (–$776K and –$686K losses). Note: <strong>Lai Chung Nan</strong> is the top net winner this month (+$102K) — worth tracking.
+    </div>
+  </div>
+  <div class="kpi-card accent-purple">
+    <div class="kpi-label">📊 YTD Summary Snapshot</div>
+    <div style="font-size:13px;line-height:1.6;margin-top:8px;color:#e6edf3;">
+      YTD total coin-in: <strong>$341.49M</strong> across 106 machines and 24.86M games. Net machine win: <strong>$10.34M</strong> (3.03% hold net of promo). Promo reinvestment: $5.50M (1.61%). Slot drives higher margin (6.37% hold YTD) while ETG drives volume ($219.5M coin-in). Fleet of 43 ETG + 63 Slots across Mass and High Limit areas.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== FOOTNOTE ===== -->
+<div class="footnote">
+  Data source: Monthly_report file (7 sheets: Data, LinkName, EGMData, EGM, Daily Headcount, Top Players, MTD Player Machines) · 123 machines tracked · Currency: USD · 
+  Note: June 2026 data is month-to-date (1–21 Jun); 22 Jun entry = 2 visitors (snapshot at report time). YTD headcount does not include June daily rollup in the 4,890 figure shown. 
+  Generated by Zera 🌟 · Harold Private AI Chat · 22 Jun 2026
+</div>
+
+</body>
+</html>
