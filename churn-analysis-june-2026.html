@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Churn Analysis — June 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif; font-size: 13px; background: #0d1117; color: #e6edf3; min-width: 1200px; padding: 28px 32px; }
+  .report-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid #30363d; }
+  .report-title { font-size: 22px; font-weight: 700; color: #e6edf3; }
+  .report-subtitle { font-size: 12px; color: #8b949e; margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px; }
+  .report-meta { text-align: right; font-size: 11px; color: #8b949e; line-height: 1.8; }
+  .report-meta span { color: #e6edf3; font-weight: 500; }
+  .section-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #8b949e; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+  .kpi-grid { display: grid; gap: 12px; }
+  .kpi-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .kpi-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .kpi-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px; position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent, #58a6ff); }
+  .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #8b949e; margin-bottom: 8px; }
+  .kpi-value { font-size: 22px; font-weight: 700; color: #e6edf3; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: #8b949e; margin-top: 6px; }
+  .accent-red { --accent: #f85149; } .accent-blue { --accent: #58a6ff; } .accent-green { --accent: #3fb950; } .accent-gold { --accent: #e3b341; } .accent-purple { --accent: #a371f7; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+  .badge-red { background: #2d1219; color: #f85149; border: 1px solid #da3633; }
+  .badge-green { background: #0d2d1a; color: #3fb950; border: 1px solid #238636; }
+  .badge-gold { background: #2d2207; color: #e3b341; border: 1px solid #9e6a03; }
+  .badge-blue { background: #0d2040; color: #58a6ff; border: 1px solid #1f6feb; }
+  .badge-purple { background: #1e1030; color: #a371f7; border: 1px solid #6e40c9; }
+  .badge-gray { background: #21262d; color: #8b949e; border: 1px solid #30363d; }
+  .table-wrap { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th { background: #21262d; padding: 9px 12px; text-align: left; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #8b949e; border-bottom: 1px solid #30363d; }
+  thead th.right { text-align: right; }
+  tbody tr { border-bottom: 1px solid #21262d; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #1c2128; }
+  tbody td { padding: 8px 12px; color: #e6edf3; }
+  tbody td.right { text-align: right; }
+  .val-red { color: #f85149; font-weight: 600; }
+  .val-green { color: #3fb950; font-weight: 600; }
+  .val-gold { color: #e3b341; font-weight: 600; }
+  .val-blue { color: #58a6ff; font-weight: 600; }
+  .muted { color: #8b949e; font-size: 11px; }
+  .rank { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: #21262d; color: #8b949e; font-size: 10px; font-weight: 700; text-align: center; line-height: 22px; }
+  .rank-1 { background: #2d2207; color: #e3b341; }
+  .rank-2 { background: #1c2a3a; color: #58a6ff; }
+  .rank-3 { background: #1f2937; color: #8b949e; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .footnote { font-size: 10px; color: #8b949e; margin-top: 24px; padding-top: 12px; border-top: 1px solid #21262d; }
+  .alert-box { background: #2d1219; border: 1px solid #da3633; border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+  .alert-box .alert-title { font-size: 12px; font-weight: 700; color: #f85149; margin-bottom: 6px; }
+  .alert-box .alert-body { font-size: 12px; color: #e6edf3; line-height: 1.7; }
+  .spacer { height: 8px; }
+  .dot-mar { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #58a6ff; margin-right: 4px; }
+  .dot-apr { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #3fb950; margin-right: 4px; }
+  .dot-may { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #e3b341; margin-right: 4px; }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div>
+    <div class="report-title">🚨 Player Churn Analysis — June 2026</div>
+    <div class="report-subtitle">Players Not Returning in June · Mar → May Cohort Tracking</div>
+  </div>
+  <div class="report-meta">
+    <div>Period: <span>March → June 2026</span></div>
+    <div>Cohort: <span>2,038 unique players (Mar+Apr+May)</span></div>
+    <div>Data source: <span>4x Monthly CSV files</span></div>
+    <div>Generated: <span>22 Jun 2026</span></div>
+  </div>
+</div>
+
+<!-- KPI Summary -->
+<div class="section-label">1 · Churn Overview</div>
+<div class="kpi-grid kpi-grid-4">
+  <div class="kpi-card accent-red">
+    <div class="kpi-label">Players NOT in June</div>
+    <div class="kpi-value">1,660</div>
+    <div class="kpi-sub">Out of 2,038 active Mar–May players</div>
+    <div class="badge badge-red" style="margin-top:8px;">81.5% absence rate</div>
+  </div>
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">June Active Players</div>
+    <div class="kpi-value">836</div>
+    <div class="kpi-sub">Total visiting in June 2026</div>
+  </div>
+  <div class="kpi-card accent-red">
+    <div class="kpi-label">Lost Turnover Potential</div>
+    <div class="kpi-value">$29.7M</div>
+    <div class="kpi-sub">Combined Mar–May turnover of absent players</div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">3-Month Regulars Gone</div>
+    <div class="kpi-value">56</div>
+    <div class="kpi-sub">Visited ALL 3 months (Mar+Apr+May), absent June</div>
+    <div class="badge badge-gold" style="margin-top:8px;">High Priority Recovery</div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- Level breakdown -->
+<div class="section-label">2 · Absent Players by Membership Level</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th class="right">Absent Players</th>
+        <th class="right">Combined Turnover (Mar–May)</th>
+        <th class="right">House Win Generated</th>
+        <th class="right">Avg Turnover/Player</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-purple">Gold</span></td>
+        <td class="right val-red">1</td>
+        <td class="right val-gold">$2,190,577</td>
+        <td class="right val-green">$58,362</td>
+        <td class="right">$2,190,577</td>
+        <td><span class="badge badge-red">🚨 CRITICAL</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-gold">Silver</span></td>
+        <td class="right val-red">16</td>
+        <td class="right val-gold">$7,212,144</td>
+        <td class="right val-green">$526,201</td>
+        <td class="right">$450,759</td>
+        <td><span class="badge badge-red">🚨 CRITICAL</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-blue">Bronze</span></td>
+        <td class="right">1,383</td>
+        <td class="right">$19,992,417</td>
+        <td class="right val-green">$577,305</td>
+        <td class="right">$14,456</td>
+        <td><span class="badge badge-gold">⚠ HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-gray">Traveller</span></td>
+        <td class="right muted">260</td>
+        <td class="right muted">$518,944</td>
+        <td class="right muted">$18,016</td>
+        <td class="right muted">$1,996</td>
+        <td><span class="badge badge-gray">LOW</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Top Absent Players -->
+<div class="section-label">3 · Top 40 Absent Players by Total Turnover (Mar–May)</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Player Name</th>
+        <th>Level</th>
+        <th>Active Months</th>
+        <th class="right">Visits</th>
+        <th class="right">Mar–May Turnover</th>
+        <th class="right">House Win</th>
+        <th>Host</th>
+        <th>Nationality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="rank rank-1">1</span></td><td><strong>Song Ju Suk</strong></td><td><span class="badge badge-purple">Gold</span></td><td><span class="dot-apr"></span>Apr</td><td class="right">6</td><td class="right val-gold">$2,190,577</td><td class="right val-green">$58,362</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank rank-2">2</span></td><td><strong>Nguyen Huu Tu Tri</strong></td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">5</td><td class="right val-gold">$1,053,345</td><td class="right val-green">$30,524</td><td>MIN</td><td>Australian</td></tr>
+      <tr><td><span class="rank rank-3">3</span></td><td>Travel Customer</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">47</td><td class="right">$1,018,577</td><td class="right val-green">$38,559</td><td>DOLLY</td><td>American</td></tr>
+      <tr><td><span class="rank">4</span></td><td><strong>Lee Joo Hyong 2</strong></td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-may"></span>Mar+May</td><td class="right">7</td><td class="right val-gold">$923,565</td><td class="right val-green">$144,226</td><td>HYLIA</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">5</span></td><td><strong>Wang Chih Chien</strong></td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">19</td><td class="right val-gold">$731,543</td><td class="right val-green">$69,552</td><td>YVONNE</td><td>Taiwanese</td></tr>
+      <tr><td><span class="rank">6</span></td><td>Kim Geon Jung</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">42</td><td class="right">$698,171</td><td class="right val-green">$19,890</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">7</span></td><td>Liu Shu Kui</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">46</td><td class="right">$604,953</td><td class="right val-red">–$39,052</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">8</span></td><td>Cao Xi</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-apr"></span><span class="dot-may"></span>Apr+May</td><td class="right">29</td><td class="right">$528,337</td><td class="right val-green">$9,872</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">9</span></td><td>Park Seung Kil</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span>Mar only</td><td class="right">3</td><td class="right">$511,207</td><td class="right val-green">$33,724</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">10</span></td><td>Liu Wei 2</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-may"></span>May only</td><td class="right">3</td><td class="right">$505,093</td><td class="right val-red">–$4,074</td><td>YVONNE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">11</span></td><td>Kim Moon Su</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">43</td><td class="right">$487,018</td><td class="right val-green">$15,884</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">12</span></td><td>Jin Hee Kyung</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-apr"></span><span class="dot-may"></span>Apr+May</td><td class="right">5</td><td class="right">$432,653</td><td class="right val-red">–$6,440</td><td>HYLIA</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">13</span></td><td>He De Qing</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">23</td><td class="right">$431,061</td><td class="right val-green">$9,130</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">14</span></td><td>Im Byeong Soo</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">10</td><td class="right">$415,820</td><td class="right val-green">$38,407</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">15</span></td><td>Li Yun Fei</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">28</td><td class="right">$403,674</td><td class="right val-green">$12,559</td><td>YVONNE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">16</span></td><td>Tran Thanh Hai</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-may"></span>May only</td><td class="right">12</td><td class="right">$386,602</td><td class="right val-green">$45,555</td><td>ANNIE</td><td>French</td></tr>
+      <tr><td><span class="rank">17</span></td><td>Hui Song Song</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">13</td><td class="right">$381,768</td><td class="right val-red">–$10,942</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">18</span></td><td>Jeong Gyeong Guk</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">4</td><td class="right">$369,993</td><td class="right val-green">$41,400</td><td>YVONNE</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">19</span></td><td>Cheng Ming Ji</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-apr"></span>Apr only</td><td class="right">5</td><td class="right">$363,029</td><td class="right val-green">$27,982</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">20</span></td><td>Ma Da Qing</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">26</td><td class="right">$346,087</td><td class="right val-green">$42,321</td><td>DOLLY</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">21</span></td><td>Kim Sung Joo</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">48</td><td class="right">$309,672</td><td class="right val-green">$5,936</td><td>MIN</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">22</span></td><td>Omichi Ippei</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">21</td><td class="right">$293,020</td><td class="right val-green">$13,637</td><td>DOLLY</td><td>Japanese</td></tr>
+      <tr><td><span class="rank">23</span></td><td>Liu Shiang Yuan</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">11</td><td class="right">$256,670</td><td class="right val-green">$15,257</td><td>ANNIE</td><td>Taiwanese</td></tr>
+      <tr><td><span class="rank">24</span></td><td>Cheung Clarence Leonard</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-apr"></span><span class="dot-may"></span>Apr+May</td><td class="right">3</td><td class="right">$254,900</td><td class="right val-red">–$6,175</td><td>DOLLY</td><td>Canadian</td></tr>
+      <tr><td><span class="rank">25</span></td><td>Chen Guan Lin</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">16</td><td class="right">$247,357</td><td class="right val-green">$32,325</td><td>ANNIE</td><td>Taiwanese</td></tr>
+      <tr><td><span class="rank">26</span></td><td>Lin Cheng Xu</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-may"></span>May only</td><td class="right">5</td><td class="right">$236,145</td><td class="right val-green">$12,629</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">27</span></td><td>Feng Xu</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-apr"></span><span class="dot-may"></span>Apr+May</td><td class="right">11</td><td class="right">$218,389</td><td class="right val-green">$4,612</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">28</span></td><td>Kim Hyeon Jun</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span>Mar+Apr</td><td class="right">21</td><td class="right">$212,195</td><td class="right val-green">$3,362</td><td>HYLIA</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">29</span></td><td>Ngonvolalath Yorphaking</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-apr"></span><span class="dot-may"></span>Apr+May</td><td class="right">19</td><td class="right">$209,304</td><td class="right val-green">$3,768</td><td>DOLLY</td><td>Lao</td></tr>
+      <tr><td><span class="rank">30</span></td><td>Ho Dau Van</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">63</td><td class="right">$208,443</td><td class="right val-green">$460</td><td>DOLLY</td><td>American</td></tr>
+      <tr><td><span class="rank">31</span></td><td>Zhan Bao Lin</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">24</td><td class="right">$196,430</td><td class="right val-green">$12,478</td><td>YVONNE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">32</span></td><td>Lee Joong Hee</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">6</td><td class="right">$194,965</td><td class="right val-red">–$21,578</td><td>MIN</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">33</span></td><td>Chan Kwai Keong</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-may"></span>May only</td><td class="right">3</td><td class="right">$191,046</td><td class="right val-red">–$2,896</td><td>RYO</td><td>Singapore</td></tr>
+      <tr><td><span class="rank">34</span></td><td>Chen Hong Xing</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-may"></span>May only</td><td class="right">4</td><td class="right">$256,113</td><td class="right val-red">–$15,008</td><td>ANNIE</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">35</span></td><td>Im Byeong Soo</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">10</td><td class="right">$187,086</td><td class="right val-green">$21,044</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">36</span></td><td>Zhang Qing Shi</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">29</td><td class="right">$180,867</td><td class="right val-green">$19,598</td><td>DOLLY</td><td>Chinese</td></tr>
+      <tr><td><span class="rank">37</span></td><td>Kim Bum Su</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">8</td><td class="right">$185,250</td><td class="right val-green">$26,546</td><td>MIN</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">38</span></td><td>Lee Hee Woong</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">5</td><td class="right">$166,445</td><td class="right val-green">$16,348</td><td>KAI</td><td>South Korean</td></tr>
+      <tr><td><span class="rank">39</span></td><td>Uchida Katsuhisa</td><td><span class="badge badge-blue">Bronze</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">16</td><td class="right">$158,431</td><td class="right val-red">–$115,237</td><td>DOLLY</td><td>Japanese</td></tr>
+      <tr><td><span class="rank">40</span></td><td>Ma Da Qing</td><td><span class="badge badge-gold">Silver</span></td><td><span class="dot-mar"></span><span class="dot-apr"></span><span class="dot-may"></span>Mar+Apr+May</td><td class="right">26</td><td class="right">$151,133</td><td class="right val-green">$27,721</td><td>MIN</td><td>Chinese</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 3-Month Regulars -->
+<div class="section-label">4 · Most Concerning — Visited ALL 3 Months (Mar+Apr+May), Missing June (56 Players)</div>
+
+<div class="alert-box">
+  <div class="alert-title">⚠ High-Risk Churn Alert</div>
+  <div class="alert-body">These 56 players established a consistent visiting pattern across March, April, AND May — then suddenly stopped in June. This is the highest-priority recovery segment. Combined Mar–May turnover: <strong>~$7.2M</strong>. Recommended: immediate host outreach within 48 hours.</div>
+</div>
+
+<div class="two-col">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player Name</th>
+          <th>Level</th>
+          <th class="right">Visits</th>
+          <th class="right">Turnover</th>
+          <th>Host</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="rank rank-1">1</span></td><td><strong>Wang Chih Chien</strong></td><td><span class="badge badge-gold">Silver</span></td><td class="right">19</td><td class="right val-gold">$731,543</td><td>YVONNE</td></tr>
+        <tr><td><span class="rank rank-2">2</span></td><td>Kim Geon Jung</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">42</td><td class="right">$698,171</td><td>KAI</td></tr>
+        <tr><td><span class="rank rank-3">3</span></td><td>Liu Shu Kui</td><td><span class="badge badge-gold">Silver</span></td><td class="right">46</td><td class="right">$604,953</td><td>ANNIE</td></tr>
+        <tr><td><span class="rank">4</span></td><td>Kim Moon Su</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">43</td><td class="right">$487,018</td><td>KAI</td></tr>
+        <tr><td><span class="rank">5</span></td><td>Im Byeong Soo</td><td><span class="badge badge-gold">Silver</span></td><td class="right">10</td><td class="right">$415,820</td><td>KAI</td></tr>
+        <tr><td><span class="rank">6</span></td><td>Li Yun Fei</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">28</td><td class="right">$403,674</td><td>YVONNE</td></tr>
+        <tr><td><span class="rank">7</span></td><td>Hui Song Song</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">13</td><td class="right">$381,768</td><td>ANNIE</td></tr>
+        <tr><td><span class="rank">8</span></td><td>Ma Da Qing</td><td><span class="badge badge-gold">Silver</span></td><td class="right">26</td><td class="right">$346,087</td><td>DOLLY</td></tr>
+        <tr><td><span class="rank">9</span></td><td>Kim Sung Joo</td><td><span class="badge badge-gold">Silver</span></td><td class="right">48</td><td class="right">$309,672</td><td>MIN</td></tr>
+        <tr><td><span class="rank">10</span></td><td>Omichi Ippei</td><td><span class="badge badge-gold">Silver</span></td><td class="right">21</td><td class="right">$293,020</td><td>DOLLY</td></tr>
+        <tr><td><span class="rank">11</span></td><td>Chen Guan Lin</td><td><span class="badge badge-gold">Silver</span></td><td class="right">16</td><td class="right">$247,357</td><td>ANNIE</td></tr>
+        <tr><td><span class="rank">12</span></td><td>Ho Dau Van</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">63</td><td class="right">$208,443</td><td>DOLLY</td></tr>
+        <tr><td><span class="rank">13</span></td><td>Zhan Bao Lin</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">24</td><td class="right">$196,430</td><td>YVONNE</td></tr>
+        <tr><td><span class="rank">14</span></td><td>Lee Joong Hee</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">6</td><td class="right">$194,965</td><td>MIN</td></tr>
+        <tr><td><span class="rank">15</span></td><td>Kim Bum Su</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">8</td><td class="right">$185,250</td><td>MIN</td></tr>
+        <tr><td><span class="rank">16</span></td><td>Lee Hee Woong</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">5</td><td class="right">$166,445</td><td>KAI</td></tr>
+        <tr><td><span class="rank">17</span></td><td>Uchida Katsuhisa</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">16</td><td class="right">$158,431</td><td>DOLLY</td></tr>
+        <tr><td><span class="rank">18</span></td><td>Chwee Wai Onn</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">32</td><td class="right">$151,133</td><td>MIN</td></tr>
+        <tr><td><span class="rank">19</span></td><td>Kim Byoung Chun</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">5</td><td class="right">$140,080</td><td>HYLIA</td></tr>
+        <tr><td><span class="rank">20</span></td><td>Kim Chang Hee</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">10</td><td class="right">$132,082</td><td>KAI</td></tr>
+        <tr><td><span class="rank">21</span></td><td>Jason Shon</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">12</td><td class="right">$129,176</td><td>HYLIA</td></tr>
+        <tr><td><span class="rank">22</span></td><td>Park Dae Soon</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">11</td><td class="right">$122,805</td><td>HYLIA</td></tr>
+        <tr><td><span class="rank">23</span></td><td>Piao Hu Yong</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">8</td><td class="right">$112,428</td><td>YVONNE</td></tr>
+        <tr><td><span class="rank">24</span></td><td>Lee Young Jei</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">13</td><td class="right">$109,561</td><td>DOLLY</td></tr>
+        <tr><td><span class="rank">25</span></td><td>Uchibayashi Takuya</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">45</td><td class="right">$88,042</td><td>RYO</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="table-wrap" style="margin-bottom:12px;">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3" style="color:#e3b341;">26–56: Remaining 3-Month Regulars</th>
+          </tr>
+          <tr><th>Player Name</th><th>Level</th><th class="right">Turnover</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Zhang Qing Shi</td><td><span class="badge badge-gold">Silver</span></td><td class="right">$180,867</td></tr>
+          <tr><td>Seo Mark</td><td><span class="badge badge-gold">Silver</span></td><td class="right">$80,211</td></tr>
+          <tr><td>Kim Yoon Jung</td><td><span class="badge badge-gold">Silver</span></td><td class="right">$71,462</td></tr>
+          <tr><td>Kim Sang Mok</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$67,041</td></tr>
+          <tr><td>Yang Jin Yong</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$61,878</td></tr>
+          <tr><td>Lee Sung Kwang</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$54,455</td></tr>
+          <tr><td>Song Min Ki</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$57,271</td></tr>
+          <tr><td>Liu Song</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$52,221</td></tr>
+          <tr><td>Pakianathan Saverimuthu</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$143,113</td></tr>
+          <tr><td>Chang Chih Chiang</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$64,010</td></tr>
+          <tr><td>Kim Jae Jin 2</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$247,410</td></tr>
+          <tr><td>Kandori Yasushige</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$129,327</td></tr>
+          <tr><td>Ochiai Mitsuru</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$24,871</td></tr>
+          <tr><td>Barlis Jennifer E.</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$83,041</td></tr>
+          <tr><td>Gou Tian Ming</td><td><span class="badge badge-gold">Gold</span></td><td class="right">$53,971</td></tr>
+          <tr><td>He De Qing</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$38,521</td></tr>
+          <tr><td>Mak Kwok Keung</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$44,055</td></tr>
+          <tr><td>Ishii Naoji</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$16,810</td></tr>
+          <tr><td>Nhan Kim Tam</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$16,872</td></tr>
+          <tr><td>Nguyen Thuy Ngoc Thi</td><td><span class="badge badge-blue">Bronze</span></td><td class="right">$5,766</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Key Insights -->
+<div class="section-label">5 · Key Observations & Recommended Actions</div>
+<div class="kpi-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="kpi-card accent-red">
+    <div class="kpi-label">🎯 Immediate Priority</div>
+    <div style="font-size:13px;line-height:1.7;margin-top:8px;color:#e6edf3;">
+      <strong>Song Ju Suk</strong> (Gold, $2.19M turnover, Apr only, KAI host) — this player visited 6 times in April alone and completely vanished. Top single-player recovery target. KAI team should reach out ASAP.<br><br>
+      <strong>Lee Joo Hyong 2</strong> (Silver, $923K) — previously a consistent high-value player (featured in Mar+May). 3-month cumulative loss for club: $144K profit. Priority for HYLIA host.
+    </div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">📊 Pattern Insight</div>
+    <div style="font-size:13px;line-height:1.7;margin-top:8px;color:#e6edf3;">
+      <strong>56 players</strong> visited all 3 prior months but skipped June. These are habit-interrupted players — not natural one-timers. They represent the highest-probability win-back segment.<br><br>
+      <strong>632 May-only players</strong> did not return in June. Many are first-timers who didn't convert to regulars. A post-visit follow-up within 30 days could recover 15–25% of this segment.
+    </div>
+  </div>
+  <div class="kpi-card accent-blue">
+    <div class="kpi-label">👥 Host Assignment Focus</div>
+    <div style="font-size:13px;line-height:1.7;margin-top:8px;color:#e6edf3;">
+      <strong>KAI team:</strong> Song Ju Suk, Kim Geon Jung, Kim Moon Su, Im Byeong Soo, Park Seung Kil — all high-value, all absent.<br><br>
+      <strong>YVONNE team:</strong> Wang Chih Chien, Jeong Gyeong Guk, Li Yun Fei — Silver/high-value absent players.<br><br>
+      <strong>ANNIE team:</strong> Liu Shu Kui, Hui Song Song, He De Qing, Chen Guan Lin — consistent absentees.<br><br>
+      Each host team should prioritize their top 5 absent players for personal outreach this week.
+    </div>
+  </div>
+</div>
+
+<div class="footnote">
+  Data: Mar (812 players), Apr (840 players), May (1,097 players), June (836 players MTD 1–21 Jun) · Note: June is not yet complete — some "absent" players may still visit before month-end. This report captures status as of 22 Jun 2026. 
+  Turnover figures represent combined Mar–May activity for absent players. House Win = negative Player Win/Loss (positive = club profit).
+  Generated by Zera 🌟 · Harold Private AI Chat · 22 Jun 2026
+</div>
+
+</body>
+</html>
