@@ -12,10 +12,9 @@
     color: #2c2c2c;
     font-size: 13px;
     padding: 28px;
-    width: 960px;
+    width: 1080px;
   }
 
-  /* HEADER */
   .header {
     background: linear-gradient(135deg, #2c1810 0%, #5c3a1e 100%);
     color: #f5ede0;
@@ -33,149 +32,141 @@
     text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    margin-bottom: 3px;
-  }
-  .header h2 {
-    font-size: 13px;
-    font-weight: 400;
-    opacity: 0.75;
-    margin-bottom: 16px;
-  }
-  .meta {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .meta-item {
-    font-size: 11px;
-    opacity: 0.7;
-  }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .header h2 { font-size: 13px; font-weight: 400; opacity: 0.75; margin-bottom: 16px; }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { font-size: 11px; opacity: 0.7; }
   .meta-item b { opacity: 1; color: #f5ede0; }
 
-  /* BODY */
-  .body {
-    background: #fff;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  /* SHARED COMMITMENT BANNER */
+  .commitment-banner {
+    background: linear-gradient(90deg, #1e3a5f 0%, #2d5a8e 100%);
+    color: white;
+    padding: 14px 28px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
   }
+  .commit-item { display: flex; align-items: center; gap: 10px; }
+  .commit-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+  .commit-value { font-size: 16px; font-weight: 700; }
+  .commit-sub { font-size: 11px; opacity: 0.8; }
+  .commit-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); }
 
-  .section {
-    padding: 20px 28px;
-    border-bottom: 1px solid #ede8e0;
-  }
+  .body { background: #fff; border-radius: 0 0 10px 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+  .section { padding: 20px 28px; border-bottom: 1px solid #ede8e0; }
   .section:last-child { border-bottom: none; }
 
   .section-title {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: #5c3a1e;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.2px; color: #5c3a1e; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
   }
   .section-title::before {
-    content: '';
-    width: 3px;
-    height: 13px;
-    background: #5c3a1e;
-    border-radius: 2px;
-    display: block;
+    content: ''; width: 3px; height: 13px;
+    background: #5c3a1e; border-radius: 2px; display: block;
   }
 
-  /* TABLES */
-  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  /* ROLE LEGEND */
+  .legend { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; padding: 4px 10px;
+    border-radius: 20px; border: 1px solid;
+  }
+  .leg-owner { background: #fff3e0; border-color: #fed7aa; color: #92400e; }
+  .leg-pm    { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+  .leg-des   { background: #fdf4ff; border-color: #e9d5ff; color: #6b21a8; }
+  .leg-caly  { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
   th {
-    background: #2c1810;
-    color: #f5ede0;
-    padding: 8px 12px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    background: #2c1810; color: #f5ede0;
+    padding: 8px 10px; text-align: left;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
   }
-  td {
-    padding: 7px 12px;
-    border-bottom: 1px solid #ede8e0;
-    vertical-align: top;
-    line-height: 1.5;
-  }
+  td { padding: 7px 10px; border-bottom: 1px solid #ede8e0; vertical-align: top; line-height: 1.5; }
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: #faf8f5; }
 
-  /* BADGES */
-  .b-owner { background: #fff3e0; color: #b45309; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-  .b-pm { background: #eff6ff; color: #1d4ed8; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-  .b-caly { background: #f0fdf4; color: #15803d; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-  .b-red { background: #fef2f2; color: #dc2626; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-  .b-yellow { background: #fffbeb; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  /* ROLE COLOR CHIPS */
+  .b-owner { background:#fff3e0; color:#b45309; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .b-pm    { background:#eff6ff; color:#1d4ed8; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .b-des   { background:#fdf4ff; color:#7e22ce; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .b-caly  { background:#f0fdf4; color:#15803d; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .b-red   { background:#fef2f2; color:#dc2626; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; }
+  .b-yellow{ background:#fffbeb; color:#d97706; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:600; }
 
-  .icon-approve { color: #15803d; font-weight: 700; }
-  .icon-advise  { color: #1d4ed8; font-weight: 700; }
-  .icon-exec    { color: #5c3a1e; font-weight: 700; }
-  .icon-na      { color: #cbd5e1; }
+  .icon-approve { color:#15803d; font-weight:700; }
+  .icon-advise  { color:#1d4ed8; font-weight:700; }
+  .icon-des     { color:#7e22ce; font-weight:700; }
+  .icon-exec    { color:#5c3a1e; font-weight:700; }
+  .icon-na      { color:#cbd5e1; }
 
-  /* CONTRACT TYPE BOX */
-  .contract-box {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 4px;
-  }
-  .ct-card {
-    flex: 1;
-    border-radius: 8px;
-    padding: 12px 16px;
-    border: 1px solid;
-  }
-  .ct-card.lumpsum { background: #fff7ed; border-color: #fed7aa; }
-  .ct-card.openbook { background: #f0fdf4; border-color: #bbf7d0; }
-  .ct-card .ct-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .ct-card.lumpsum .ct-label { color: #b45309; }
-  .ct-card.openbook .ct-label { color: #15803d; }
-  .ct-card p { font-size: 12px; line-height: 1.5; color: #374151; }
-
-  /* DEADLINE TABLE */
   .deadline-critical { background: #fef2f2 !important; }
   .deadline-warning  { background: #fffbeb !important; }
 
-  /* FOOTER */
-  .footer {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 10px;
-    color: #9ca3af;
+  .note-fred {
+    background: #fdf4ff; border: 1px solid #e9d5ff;
+    border-radius: 6px; padding: 8px 14px;
+    font-size: 11.5px; color: #5b21b6; margin-bottom: 12px;
   }
+
+  .footer { margin-top: 16px; text-align: center; font-size: 10px; color: #9ca3af; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="badge">Project Document · Internal</div>
+  <div class="badge">Project Document · Internal · v2.0</div>
   <h1>Château de Corvier — Renovation Project</h1>
-  <h2>Responsibility & Expectations Matrix · Owner ↔ PM ↔ Caly (General Contractor)</h2>
+  <h2>Responsibility & Expectations Matrix · Owner ↔ PM/Designer (Fred) ↔ Caly (General Contractor)</h2>
   <div class="meta">
-    <div class="meta-item">📅 <b>Prepared:</b> July 2026</div>
+    <div class="meta-item">📅 <b>Updated:</b> July 2026</div>
     <div class="meta-item">🏗️ <b>Contract Form:</b> Lump Sum + Open Book (sub-contracts)</div>
     <div class="meta-item">🔑 <b>Hard Deadline:</b> Jul 31, 2026 — Contractor & Window contracts</div>
   </div>
 </div>
 
+<!-- SHARED COMMITMENT BANNER -->
+<div class="commitment-banner">
+  <div class="commit-item">
+    <div>
+      <div class="commit-label">Shared Commitment — All Parties</div>
+      <div class="commit-value">Total Budget: €4,400,000</div>
+      <div class="commit-sub">Lump sum — fixed ceiling, no overrun permitted</div>
+    </div>
+  </div>
+  <div class="commit-divider"></div>
+  <div class="commit-item">
+    <div>
+      <div class="commit-label">Project Completion Target</div>
+      <div class="commit-value">April 2027</div>
+      <div class="commit-sub">All parties committed to this delivery date</div>
+    </div>
+  </div>
+  <div class="commit-divider"></div>
+  <div class="commit-item">
+    <div>
+      <div class="commit-label">Note — Dual Role</div>
+      <div class="commit-value" style="font-size:13px">Fred = PM + Designer</div>
+      <div class="commit-sub">Single person holds both PM and Design responsibilities</div>
+    </div>
+  </div>
+</div>
+
 <div class="body">
 
-  <!-- B. OWNER REQUIREMENTS -->
+  <!-- A. OWNER REQUIREMENTS -->
   <div class="section">
-    <div class="section-title">B. Owner Requirements</div>
+    <div class="section-title">A. Owner Requirements</div>
     <table>
       <tr>
-        <th style="width:40px">#</th>
-        <th style="width:220px">Requirement</th>
+        <th style="width:36px">#</th>
+        <th style="width:210px">Requirement</th>
         <th>Detail</th>
       </tr>
       <tr>
@@ -186,30 +177,43 @@
       <tr>
         <td>2</td>
         <td><strong>Lump Sum Total Budget</strong></td>
-        <td>Owner sets one fixed total budget. PM and Caly allocate internally. No line-item approval required by Owner except for large direct contracts</td>
+        <td>Owner sets fixed total budget of <strong>€4.4M</strong>. PM and Caly allocate internally. No line-item approval required except for large direct contracts</td>
       </tr>
       <tr>
         <td>3</td>
         <td><strong>PM + Caly Autonomy</strong></td>
-        <td>PM and Caly manage internal distribution. May propose additional large contracts directly with Owner (e.g. windows, built-in furniture) when necessary</td>
+        <td>PM and Caly manage internal distribution and may propose additional large contracts directly with Owner (e.g. windows, built-in furniture) when necessary</td>
       </tr>
       <tr>
         <td>4</td>
         <td><strong>Open Book on Sub-contracts</strong></td>
-        <td>Owner has right to inspect all sub-contract costs under Caly at any time. No savings-sharing mechanism — visibility only</td>
+        <td>Owner has right to inspect all sub-contract costs under Caly at any time — visibility only, no savings-sharing mechanism</td>
       </tr>
     </table>
   </div>
 
-  <!-- C. RESPONSIBILITY MATRIX -->
+  <!-- B. RESPONSIBILITY MATRIX -->
   <div class="section">
-    <div class="section-title">C. Responsibility Matrix</div>
+    <div class="section-title">B. Responsibility Matrix</div>
+
+    <div class="note-fred">
+      🎨 <strong>Fred</strong> holds dual role: <strong>PM</strong> (project management, coordination, budget oversight) <strong>+ Designer</strong> (design decisions, specifications, technical drawings, supplier selection guidance). Both columns below reflect Fred's responsibilities split by function.
+    </div>
+
+    <div class="legend">
+      <div class="legend-item leg-owner">🏠 Owner</div>
+      <div class="legend-item leg-pm">📋 PM (Fred)</div>
+      <div class="legend-item leg-des">🎨 Designer (Fred)</div>
+      <div class="legend-item leg-caly">🔨 Caly (GC)</div>
+    </div>
+
     <table>
       <tr>
-        <th style="width:220px">Item</th>
+        <th style="width:190px">Item</th>
         <th style="width:120px">Owner</th>
-        <th style="width:120px">PM</th>
-        <th style="width:120px">Caly (GC)</th>
+        <th style="width:120px">PM (Fred)</th>
+        <th style="width:140px">Designer (Fred)</th>
+        <th style="width:130px">Caly (GC)</th>
         <th>Notes</th>
       </tr>
       <tr>
@@ -217,47 +221,70 @@
         <td><span class="icon-approve">✅ Approve</span></td>
         <td><span class="icon-advise">📋 Advise</span></td>
         <td><span class="icon-na">—</span></td>
-        <td>Fixed lump sum</td>
+        <td><span class="icon-na">—</span></td>
+        <td>Fixed at €4.4M lump sum</td>
+      </tr>
+      <tr>
+        <td><strong>Budget internal allocation</strong></td>
+        <td><span class="icon-approve">✅ Review & Approve</span></td>
+        <td><span class="icon-exec">✅ Manage flexibly within €4.4M</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Input & propose</span></td>
+        <td>PM linh động cân đối ngân sách trong tổng €4.4M được duyệt; Caly tiếp nhận và quản lý subs theo mục tiêu ngân sách</td>
       </tr>
       <tr>
         <td><strong>Contractor selection</strong></td>
         <td><span class="icon-approve">✅ Approve</span></td>
         <td><span class="icon-advise">📋 Recommend</span></td>
         <td><span class="icon-na">—</span></td>
-        <td>Caly preferred/default</td>
+        <td><span class="icon-na">—</span></td>
+        <td>Caly preferred/default GC</td>
+      </tr>
+      <tr>
+        <td><strong>Design brief & specifications</strong></td>
+        <td><span class="icon-approve">✅ Approve</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Author & own</span></td>
+        <td><span class="icon-exec">✅ Implement</span></td>
+        <td>Designer sets all technical specs; Caly executes to spec</td>
+      </tr>
+      <tr>
+        <td><strong>Design changes / variations</strong></td>
+        <td><span class="icon-approve">✅ Approve (if cost impact)</span></td>
+        <td><span class="icon-advise">📋 Assess cost impact</span></td>
+        <td><span class="icon-exec">✅ Initiate & document</span></td>
+        <td><span class="icon-advise">📋 Flag feasibility</span></td>
+        <td>Any design change with budget impact requires Owner approval</td>
       </tr>
       <tr>
         <td><strong>Sub-contractor management</strong></td>
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-advise">👁 Oversee</span></td>
-        <td><span class="icon-exec">✅ Execute</span></td>
-        <td>Caly manages subs directly</td>
+        <td><span class="icon-advise">📋 Technical review</span></td>
+        <td><span class="icon-exec">✅ Manage to budget target</span></td>
+        <td>Caly tiếp nhận và quản lý các sub theo mục tiêu ngân sách được giao</td>
       </tr>
       <tr>
         <td><strong>Sub-contract cost disclosure</strong></td>
         <td><span class="icon-approve">✅ Right to audit</span></td>
         <td><span class="icon-advise">👁 Monitor</span></td>
+        <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Must disclose</span></td>
-        <td>Open book — all sub-contract costs visible on request</td>
+        <td>Open book — all sub-contract costs available on request</td>
       </tr>
       <tr>
         <td><strong>Large direct contracts</strong></td>
         <td><span class="icon-approve">✅ Sign</span></td>
         <td><span class="icon-advise">📋 Propose</span></td>
+        <td><span class="icon-advise">📋 Specify requirements</span></td>
         <td><span class="icon-advise">📋 Propose</span></td>
-        <td>E.g. windows, built-in furniture if scope warrants direct agreement</td>
-      </tr>
-      <tr>
-        <td><strong>Budget internal allocation</strong></td>
-        <td><span class="icon-approve">✅ Review & Approve</span></td>
-        <td><span class="icon-exec">✅ Manage</span></td>
-        <td><span class="icon-exec">✅ Input</span></td>
-        <td>PM + Caly distribute within lump sum; Owner reviews and approves allocation</td>
+        <td>e.g. windows, built-in furniture — Designer specs, PM proposes, Owner signs</td>
       </tr>
       <tr>
         <td><strong>Cost overrun</strong></td>
         <td><span class="icon-approve">✅ Protected</span></td>
         <td><span class="icon-advise">📋 Flag early</span></td>
+        <td><span class="icon-advise">📋 Minimise via spec</span></td>
         <td><span class="icon-exec">✅ Absorb</span></td>
         <td>Lump sum — overrun is Caly's liability</td>
       </tr>
@@ -266,19 +293,22 @@
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Ensure</span></td>
         <td><span class="icon-exec">✅ Ensure</span></td>
-        <td>Per Clause 4.10 — must remain available throughout project</td>
+        <td><span class="icon-exec">✅ Ensure</span></td>
+        <td>Per Clause 4.10 — all Key Personnel must remain available throughout</td>
       </tr>
       <tr>
         <td><strong>Key Personnel change</strong></td>
         <td><span class="icon-approve">✅ Approve (written)</span></td>
         <td><span class="icon-advise">📋 Request</span></td>
         <td><span class="icon-advise">📋 Request</span></td>
-        <td>Prior written approval required — no exceptions</td>
+        <td><span class="icon-advise">📋 Request</span></td>
+        <td>Prior written approval required — no exceptions (Clause 4.10)</td>
       </tr>
       <tr>
         <td><strong>Manpower Deployment Schedule</strong></td>
         <td><span class="icon-approve">✅ Review</span></td>
         <td><span class="icon-exec">✅ Submit</span></td>
+        <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Input</span></td>
         <td>Must align with project implementation schedule</td>
       </tr>
@@ -286,50 +316,56 @@
         <td><strong>Contractor mobilisation on site</strong></td>
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Coordinate</span></td>
+        <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Execute</span></td>
         <td>Target: <strong>beginning of September 2026</strong></td>
       </tr>
       <tr>
         <td><strong>Window contract</strong></td>
         <td><span class="icon-approve">✅ Approve</span></td>
-        <td><span class="icon-exec">✅ Secure</span></td>
+        <td><span class="icon-exec">✅ Secure by Jul 31</span></td>
+        <td><span class="icon-exec">✅ Define specs</span></td>
         <td><span class="icon-na">—</span></td>
-        <td>Factory production slot — must be confirmed by <strong>Jul 31</strong></td>
+        <td>Factory production slot — confirmed by <strong>Jul 31</strong></td>
       </tr>
       <tr>
         <td><strong>Built-in furniture sourcing</strong></td>
         <td><span class="icon-approve">✅ Approve award</span></td>
-        <td><span class="icon-exec">✅ Price comparison</span></td>
+        <td><span class="icon-exec">✅ Comparison & award</span></td>
+        <td><span class="icon-exec">✅ Specify & shortlist</span></td>
         <td><span class="icon-advise">📋 Input</span></td>
-        <td>Identify, price, compare, award — by <strong>mid-October 2026</strong></td>
+        <td>Designer shortlists, PM compares price, award by <strong>mid-Oct 2026</strong></td>
       </tr>
       <tr>
         <td><strong>Local suppliers (flooring, etc.)</strong></td>
         <td><span class="icon-na">—</span></td>
-        <td><span class="icon-exec">✅ Source</span></td>
+        <td><span class="icon-exec">✅ Source & manage</span></td>
+        <td><span class="icon-exec">✅ Specify materials</span></td>
         <td><span class="icon-exec">✅ Execute</span></td>
-        <td>Locally sourced — flexible timeline</td>
+        <td>Local sourcing — flexible timeline</td>
       </tr>
       <tr>
         <td><strong>Quality oversight</strong></td>
         <td><span class="icon-approve">✅ Final sign-off</span></td>
         <td><span class="icon-exec">✅ Daily oversight</span></td>
+        <td><span class="icon-exec">✅ Design conformance check</span></td>
         <td><span class="icon-exec">✅ Responsible</span></td>
-        <td>PM = day-to-day; Owner = final acceptance</td>
+        <td>Designer checks work matches spec; PM monitors; Owner final acceptance</td>
       </tr>
       <tr>
         <td><strong>Reporting to Owner</strong></td>
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Single point</span></td>
+        <td><span class="icon-advise">📋 Via PM</span></td>
         <td><span class="icon-advise">📋 Support</span></td>
-        <td>PM is sole interface to Owner for all project matters</td>
+        <td>PM is sole interface to Owner. Designer reports through PM role</td>
       </tr>
     </table>
   </div>
 
-  <!-- D. MUTUAL EXPECTATIONS -->
+  <!-- C. MUTUAL EXPECTATIONS -->
   <div class="section">
-    <div class="section-title">D. Mutual Expectations</div>
+    <div class="section-title">C. Mutual Expectations</div>
     <table>
       <tr>
         <th style="width:160px">Party</th>
@@ -338,49 +374,54 @@
       <tr>
         <td><span class="b-owner">Owner</span></td>
         <td>
-          · Lump sum must not be exceeded — any scope change requires written proposal before execution<br>
-          · PM is the single reporting point — no direct Owner–sub-contractor communication<br>
-          · Open book right exercised on request, not as ongoing audit burden<br>
-          · Fast approvals (&lt;48h) for time-sensitive decisions, especially pre-August lockdowns
+          · Total budget €4.4M is the absolute ceiling — any scope change requires written proposal before execution<br>
+          · PM/Fred is the single reporting interface — no direct Owner–sub-contractor communication<br>
+          · Open book right exercised on request, not as an ongoing audit burden<br>
+          · Fast approvals (&lt;48h) for time-sensitive decisions, especially pre-August deadline
         </td>
       </tr>
       <tr>
-        <td><span class="b-pm">PM</span></td>
+        <td><span class="b-pm">PM / <span class="b-des">Designer</span> (Fred)</span></td>
         <td>
-          · Timely escalation of scope change or budget risk — no surprises<br>
-          · Secure all critical contracts before Jul 31 deadline<br>
-          · Maintain full open book records of Caly sub-contracts, available on Owner request<br>
-          · Submit Manpower Deployment Schedule aligned to project phases
+          · <strong>PM:</strong> Flexibly manage and rebalance budget allocation within €4.4M — proactively flag risk before overrun occurs<br>
+          · <strong>PM:</strong> Secure all critical contracts (contractor + windows) before Jul 31 hard deadline<br>
+          · <strong>PM:</strong> Maintain full open book records of all Caly sub-contracts, available on Owner request<br>
+          · <strong>Designer:</strong> Issue complete, buildable specifications before contractor mobilisation<br>
+          · <strong>Designer:</strong> Minimise variation orders — resolve design ambiguities upstream, not on site<br>
+          · <strong>Both:</strong> Available throughout project per Clause 4.10 — no substitution without Owner written approval
         </td>
       </tr>
       <tr>
         <td><span class="b-caly">Caly (GC)</span></td>
         <td>
-          · Absorb all cost overruns within lump sum<br>
+          · Receive and manage all sub-contractors to meet assigned budget targets — overrun is Caly's liability<br>
           · Disclose all sub-contract costs, invoices and margins when requested (open book)<br>
-          · Mobilise on site beginning of September — no delay<br>
-          · Propose large direct contracts early enough for Owner approval cycle
+          · Mobilise on site beginning of September 2026 — no delay<br>
+          · Propose large direct contracts early enough for Owner approval cycle<br>
+          · Commit to project completion by April 2027
         </td>
       </tr>
     </table>
   </div>
 
-  <!-- E. CRITICAL DATES -->
+  <!-- D. CRITICAL DATES -->
   <div class="section">
-    <div class="section-title">E. Critical Dates</div>
+    <div class="section-title">D. Critical Dates</div>
     <table>
       <tr>
-        <th style="width:140px">Deadline</th>
-        <th style="width:280px">Action Required</th>
+        <th style="width:130px">Deadline</th>
+        <th style="width:260px">Action Required</th>
         <th style="width:100px">Owner</th>
-        <th style="width:100px">PM</th>
+        <th style="width:110px">PM (Fred)</th>
+        <th style="width:110px">Designer (Fred)</th>
         <th>Risk if Missed</th>
       </tr>
       <tr class="deadline-critical">
         <td><strong>Jul 31, 2026</strong></td>
-        <td>Lock main contractor agreement</td>
+        <td>Lock main contractor agreement with Caly</td>
         <td><span class="icon-approve">✅ Sign</span></td>
         <td><span class="icon-exec">✅ Drive</span></td>
+        <td><span class="icon-na">—</span></td>
         <td><span class="b-red">September mobilisation fails</span></td>
       </tr>
       <tr class="deadline-critical">
@@ -388,6 +429,7 @@
         <td>Secure window contract — factory production slot</td>
         <td><span class="icon-approve">✅ Approve</span></td>
         <td><span class="icon-exec">✅ Secure</span></td>
+        <td><span class="icon-des">✅ Specs ready</span></td>
         <td><span class="b-red">Production slot lost — lead time risk</span></td>
       </tr>
       <tr class="deadline-warning">
@@ -395,21 +437,32 @@
         <td>Industry shutdown — no execution possible</td>
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-na">—</span></td>
-        <td><span class="b-yellow">All July items must be complete</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="b-yellow">All July items must be closed</span></td>
       </tr>
       <tr>
         <td><strong>Sep 2026 (begin)</strong></td>
         <td>Main contractor mobilises on site</td>
         <td><span class="icon-na">—</span></td>
         <td><span class="icon-exec">✅ Confirm</span></td>
+        <td><span class="icon-des">✅ Specs issued</span></td>
         <td>Project schedule cascade delay</td>
       </tr>
       <tr class="deadline-warning">
         <td><strong>Mid-Oct 2026</strong></td>
-        <td>Built-in furniture — supplier identified, compared, awarded</td>
+        <td>Built-in furniture — supplier awarded</td>
         <td><span class="icon-approve">✅ Approve award</span></td>
-        <td><span class="icon-exec">✅ Complete comparison</span></td>
+        <td><span class="icon-exec">✅ Award</span></td>
+        <td><span class="icon-des">✅ Shortlist</span></td>
         <td><span class="b-yellow">Delivery lead time risk</span></td>
+      </tr>
+      <tr class="deadline-critical">
+        <td><strong>Apr 2027</strong></td>
+        <td>Project completion — all works handed over</td>
+        <td><span class="icon-approve">✅ Accept</span></td>
+        <td><span class="icon-exec">✅ Deliver</span></td>
+        <td><span class="icon-des">✅ Sign-off</span></td>
+        <td><span class="b-red">Shared commitment — all parties</span></td>
       </tr>
     </table>
   </div>
@@ -417,7 +470,7 @@
 </div>
 
 <div class="footer">
-  Château de Corvier Renovation · Responsibility Matrix v1.0 · July 2026 · Internal document — not for distribution
+  Château de Corvier Renovation · Responsibility Matrix v2.0 · July 2026 · Internal document — not for distribution
 </div>
 
 </body>
