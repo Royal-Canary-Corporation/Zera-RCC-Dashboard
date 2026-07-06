@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Château de Corvier — Responsibility & Expectations Matrix</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f3ee;
+    color: #2c2c2c;
+    font-size: 13px;
+    padding: 28px;
+    width: 960px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #2c1810 0%, #5c3a1e 100%);
+    color: #f5ede0;
+    padding: 26px 30px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .header h2 {
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-bottom: 16px;
+  }
+  .meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .meta-item b { opacity: 1; color: #f5ede0; }
+
+  /* BODY */
+  .body {
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .section {
+    padding: 20px 28px;
+    border-bottom: 1px solid #ede8e0;
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #5c3a1e;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 13px;
+    background: #5c3a1e;
+    border-radius: 2px;
+    display: block;
+  }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th {
+    background: #2c1810;
+    color: #f5ede0;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #ede8e0;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #faf8f5; }
+
+  /* BADGES */
+  .b-owner { background: #fff3e0; color: #b45309; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .b-pm { background: #eff6ff; color: #1d4ed8; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .b-caly { background: #f0fdf4; color: #15803d; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .b-red { background: #fef2f2; color: #dc2626; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .b-yellow { background: #fffbeb; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+
+  .icon-approve { color: #15803d; font-weight: 700; }
+  .icon-advise  { color: #1d4ed8; font-weight: 700; }
+  .icon-exec    { color: #5c3a1e; font-weight: 700; }
+  .icon-na      { color: #cbd5e1; }
+
+  /* CONTRACT TYPE BOX */
+  .contract-box {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+  .ct-card {
+    flex: 1;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid;
+  }
+  .ct-card.lumpsum { background: #fff7ed; border-color: #fed7aa; }
+  .ct-card.openbook { background: #f0fdf4; border-color: #bbf7d0; }
+  .ct-card .ct-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .ct-card.lumpsum .ct-label { color: #b45309; }
+  .ct-card.openbook .ct-label { color: #15803d; }
+  .ct-card p { font-size: 12px; line-height: 1.5; color: #374151; }
+
+  /* DEADLINE TABLE */
+  .deadline-critical { background: #fef2f2 !important; }
+  .deadline-warning  { background: #fffbeb !important; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 10px;
+    color: #9ca3af;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="badge">Project Document · Internal</div>
+  <h1>Château de Corvier — Renovation Project</h1>
+  <h2>Responsibility & Expectations Matrix · Owner ↔ PM ↔ Caly (General Contractor)</h2>
+  <div class="meta">
+    <div class="meta-item">📅 <b>Prepared:</b> July 2026</div>
+    <div class="meta-item">🏗️ <b>Contract Form:</b> Lump Sum + Open Book (sub-contracts)</div>
+    <div class="meta-item">🔑 <b>Hard Deadline:</b> Jul 31, 2026 — Contractor & Window contracts</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- A. CONTRACT STRUCTURE -->
+  <div class="section">
+    <div class="section-title">A. Contract Structure</div>
+    <div class="contract-box">
+      <div class="ct-card lumpsum">
+        <div class="ct-label">🔒 Lump Sum</div>
+        <p>Owner–Caly contract is <strong>fixed price</strong>. Caly absorbs any cost overrun. Owner's budget exposure is capped at the agreed lump sum total.</p>
+      </div>
+      <div class="ct-card openbook">
+        <div class="ct-label">📂 Open Book (Sub-contracts)</div>
+        <p>All sub-contracts under Caly are <strong>open book</strong>. Owner and PM have full right to view actual costs, invoices, and margins on sub-contractor engagements at any time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. OWNER REQUIREMENTS -->
+  <div class="section">
+    <div class="section-title">B. Owner Requirements</div>
+    <table>
+      <tr>
+        <th style="width:40px">#</th>
+        <th style="width:220px">Requirement</th>
+        <th>Detail</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><strong>Consolidate under Caly</strong></td>
+        <td>Maximise contracts consolidated under Caly as general contractor — single accountability point to Owner</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Lump Sum Total Budget</strong></td>
+        <td>Owner sets one fixed total budget. PM and Caly allocate internally. No line-item approval required by Owner except for large direct contracts</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>PM + Caly Autonomy</strong></td>
+        <td>PM and Caly manage internal distribution. May propose additional large contracts directly with Owner (e.g. windows, built-in furniture) when necessary</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Open Book on Sub-contracts</strong></td>
+        <td>Owner has right to inspect all sub-contract costs under Caly at any time. No savings-sharing mechanism — visibility only</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- C. RESPONSIBILITY MATRIX -->
+  <div class="section">
+    <div class="section-title">C. Responsibility Matrix</div>
+    <table>
+      <tr>
+        <th style="width:220px">Item</th>
+        <th style="width:120px">Owner</th>
+        <th style="width:120px">PM</th>
+        <th style="width:120px">Caly (GC)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><strong>Set total budget</strong></td>
+        <td><span class="icon-approve">✅ Approve</span></td>
+        <td><span class="icon-advise">📋 Advise</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td>Fixed lump sum</td>
+      </tr>
+      <tr>
+        <td><strong>Contractor selection</strong></td>
+        <td><span class="icon-approve">✅ Approve</span></td>
+        <td><span class="icon-advise">📋 Recommend</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td>Caly preferred/default</td>
+      </tr>
+      <tr>
+        <td><strong>Sub-contractor management</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-advise">👁 Oversee</span></td>
+        <td><span class="icon-exec">✅ Execute</span></td>
+        <td>Caly manages subs directly</td>
+      </tr>
+      <tr>
+        <td><strong>Sub-contract cost disclosure</strong></td>
+        <td><span class="icon-approve">✅ Right to audit</span></td>
+        <td><span class="icon-advise">👁 Monitor</span></td>
+        <td><span class="icon-exec">✅ Must disclose</span></td>
+        <td>Open book — all sub-contract costs visible on request</td>
+      </tr>
+      <tr>
+        <td><strong>Large direct contracts</strong></td>
+        <td><span class="icon-approve">✅ Sign</span></td>
+        <td><span class="icon-advise">📋 Propose</span></td>
+        <td><span class="icon-advise">📋 Propose</span></td>
+        <td>E.g. windows, built-in furniture if scope warrants direct agreement</td>
+      </tr>
+      <tr>
+        <td><strong>Budget internal allocation</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Manage</span></td>
+        <td><span class="icon-exec">✅ Input</span></td>
+        <td>PM + Caly distribute within lump sum</td>
+      </tr>
+      <tr>
+        <td><strong>Cost overrun</strong></td>
+        <td><span class="icon-approve">✅ Protected</span></td>
+        <td><span class="icon-advise">📋 Flag early</span></td>
+        <td><span class="icon-exec">✅ Absorb</span></td>
+        <td>Lump sum — overrun is Caly's liability</td>
+      </tr>
+      <tr>
+        <td><strong>Key Personnel availability</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Ensure</span></td>
+        <td><span class="icon-exec">✅ Ensure</span></td>
+        <td>Per Clause 4.10 — must remain available throughout project</td>
+      </tr>
+      <tr>
+        <td><strong>Key Personnel change</strong></td>
+        <td><span class="icon-approve">✅ Approve (written)</span></td>
+        <td><span class="icon-advise">📋 Request</span></td>
+        <td><span class="icon-advise">📋 Request</span></td>
+        <td>Prior written approval required — no exceptions</td>
+      </tr>
+      <tr>
+        <td><strong>Manpower Deployment Schedule</strong></td>
+        <td><span class="icon-approve">✅ Review</span></td>
+        <td><span class="icon-exec">✅ Submit</span></td>
+        <td><span class="icon-exec">✅ Input</span></td>
+        <td>Must align with project implementation schedule</td>
+      </tr>
+      <tr>
+        <td><strong>Contractor mobilisation on site</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Coordinate</span></td>
+        <td><span class="icon-exec">✅ Execute</span></td>
+        <td>Target: <strong>beginning of September 2026</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Window contract</strong></td>
+        <td><span class="icon-approve">✅ Approve</span></td>
+        <td><span class="icon-exec">✅ Secure</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td>Factory production slot — must be confirmed by <strong>Jul 31</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Built-in furniture sourcing</strong></td>
+        <td><span class="icon-approve">✅ Approve award</span></td>
+        <td><span class="icon-exec">✅ Price comparison</span></td>
+        <td><span class="icon-advise">📋 Input</span></td>
+        <td>Identify, price, compare, award — by <strong>mid-October 2026</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Local suppliers (flooring, etc.)</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Source</span></td>
+        <td><span class="icon-exec">✅ Execute</span></td>
+        <td>Locally sourced — flexible timeline</td>
+      </tr>
+      <tr>
+        <td><strong>Quality oversight</strong></td>
+        <td><span class="icon-approve">✅ Final sign-off</span></td>
+        <td><span class="icon-exec">✅ Daily oversight</span></td>
+        <td><span class="icon-exec">✅ Responsible</span></td>
+        <td>PM = day-to-day; Owner = final acceptance</td>
+      </tr>
+      <tr>
+        <td><strong>Reporting to Owner</strong></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Single point</span></td>
+        <td><span class="icon-advise">📋 Support</span></td>
+        <td>PM is sole interface to Owner for all project matters</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- D. MUTUAL EXPECTATIONS -->
+  <div class="section">
+    <div class="section-title">D. Mutual Expectations</div>
+    <table>
+      <tr>
+        <th style="width:160px">Party</th>
+        <th>Key Expectations</th>
+      </tr>
+      <tr>
+        <td><span class="b-owner">Owner</span></td>
+        <td>
+          · Lump sum must not be exceeded — any scope change requires written proposal before execution<br>
+          · PM is the single reporting point — no direct Owner–sub-contractor communication<br>
+          · Open book right exercised on request, not as ongoing audit burden<br>
+          · Fast approvals (&lt;48h) for time-sensitive decisions, especially pre-August lockdowns
+        </td>
+      </tr>
+      <tr>
+        <td><span class="b-pm">PM</span></td>
+        <td>
+          · Timely escalation of scope change or budget risk — no surprises<br>
+          · Secure all critical contracts before Jul 31 deadline<br>
+          · Maintain full open book records of Caly sub-contracts, available on Owner request<br>
+          · Submit Manpower Deployment Schedule aligned to project phases
+        </td>
+      </tr>
+      <tr>
+        <td><span class="b-caly">Caly (GC)</span></td>
+        <td>
+          · Absorb all cost overruns within lump sum<br>
+          · Disclose all sub-contract costs, invoices and margins when requested (open book)<br>
+          · Mobilise on site beginning of September — no delay<br>
+          · Propose large direct contracts early enough for Owner approval cycle
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- E. CRITICAL DATES -->
+  <div class="section">
+    <div class="section-title">E. Critical Dates</div>
+    <table>
+      <tr>
+        <th style="width:140px">Deadline</th>
+        <th style="width:280px">Action Required</th>
+        <th style="width:100px">Owner</th>
+        <th style="width:100px">PM</th>
+        <th>Risk if Missed</th>
+      </tr>
+      <tr class="deadline-critical">
+        <td><strong>Jul 31, 2026</strong></td>
+        <td>Lock main contractor agreement</td>
+        <td><span class="icon-approve">✅ Sign</span></td>
+        <td><span class="icon-exec">✅ Drive</span></td>
+        <td><span class="b-red">September mobilisation fails</span></td>
+      </tr>
+      <tr class="deadline-critical">
+        <td><strong>Jul 31, 2026</strong></td>
+        <td>Secure window contract — factory production slot</td>
+        <td><span class="icon-approve">✅ Approve</span></td>
+        <td><span class="icon-exec">✅ Secure</span></td>
+        <td><span class="b-red">Production slot lost — lead time risk</span></td>
+      </tr>
+      <tr class="deadline-warning">
+        <td><strong>Aug 2026</strong></td>
+        <td>Industry shutdown — no execution possible</td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="b-yellow">All July items must be complete</span></td>
+      </tr>
+      <tr>
+        <td><strong>Sep 2026 (begin)</strong></td>
+        <td>Main contractor mobilises on site</td>
+        <td><span class="icon-na">—</span></td>
+        <td><span class="icon-exec">✅ Confirm</span></td>
+        <td>Project schedule cascade delay</td>
+      </tr>
+      <tr class="deadline-warning">
+        <td><strong>Mid-Oct 2026</strong></td>
+        <td>Built-in furniture — supplier identified, compared, awarded</td>
+        <td><span class="icon-approve">✅ Approve award</span></td>
+        <td><span class="icon-exec">✅ Complete comparison</span></td>
+        <td><span class="b-yellow">Delivery lead time risk</span></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Château de Corvier Renovation · Responsibility Matrix v1.0 · July 2026 · Internal document — not for distribution
+</div>
+
+</body>
+</html>
