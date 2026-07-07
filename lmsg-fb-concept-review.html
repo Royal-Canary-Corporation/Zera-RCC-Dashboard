@@ -8,367 +8,252 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
-    background: #f0eff4;
-    color: #1a1a1a;
-    font-size: 14px;
+    background: #fff;
+    color: #111;
+    font-size: 15px;
     max-width: 480px;
     margin: 0 auto;
-    padding: 12px;
+    padding: 20px 16px 32px;
+    line-height: 1.6;
   }
 
-  /* HEADER CARD */
-  .card-header {
-    background: linear-gradient(135deg, #1a1a2e, #0f3460);
-    color: white;
-    border-radius: 14px;
-    padding: 18px 16px 14px;
-    margin-bottom: 10px;
+  .eyebrow {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px;
+    color: #888; margin-bottom: 4px;
   }
-  .card-header .eyebrow {
-    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-    opacity: 0.6; margin-bottom: 6px;
-  }
-  .card-header h1 { font-size: 17px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
-  .card-header .sub { font-size: 12px; opacity: 0.65; }
+  h1 { font-size: 20px; font-weight: 800; margin-bottom: 2px; line-height: 1.25; }
+  .subtitle { font-size: 13px; color: #666; margin-bottom: 28px; }
 
-  /* ALERT */
-  .alert {
-    background: #fff8e1; border-left: 4px solid #f59e0b;
-    border-radius: 10px; padding: 12px 14px;
-    margin-bottom: 10px; font-size: 12.5px; line-height: 1.55;
-    color: #7c4a00;
-  }
-  .alert .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; color: #d97706; }
-
-  /* CARD */
-  .card {
-    background: white; border-radius: 14px;
-    padding: 16px; margin-bottom: 10px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-  }
-  .card-title {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.2px; color: #0f3460;
-    margin-bottom: 12px; padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
+  h2 {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #888;
+    margin: 28px 0 10px;
+    padding-bottom: 6px; border-bottom: 1px solid #eee;
   }
 
-  /* RANK ROWS */
-  .rank-row {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 9px 0; border-bottom: 1px solid #f3f4f6;
-  }
-  .rank-row:last-child { border-bottom: none; }
-  .rank-badge {
-    min-width: 28px; height: 28px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; flex-shrink: 0;
-  }
-  .r1 { background: #fef3c7; color: #92400e; }
-  .r2 { background: #dbeafe; color: #1e40af; }
-  .r3 { background: #d1fae5; color: #065f46; }
-  .r4 { background: #f3f4f6; color: #374151; }
-  .r5 { background: #fce7f3; color: #831843; }
-  .rank-content .name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-  .rank-content .desc { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
+  /* RESULT BLOCKS */
+  .result-item { margin-bottom: 14px; }
+  .result-item .rank { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 1px; }
+  .result-item .name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .result-item .detail { font-size: 13px; color: #555; }
   .tag {
-    display: inline-block; padding: 1px 7px; border-radius: 4px;
-    font-size: 10px; font-weight: 600; margin-left: 4px; vertical-align: middle;
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 4px; margin-left: 4px; vertical-align: middle;
   }
-  .tag-white { background: #f0fdf4; color: #15803d; }
-  .tag-hot { background: #fef2f2; color: #dc2626; }
+  .tag-g { background: #d1fae5; color: #065f46; }
+  .tag-r { background: #fee2e2; color: #991b1b; }
 
-  /* BRAND SCORES */
-  .brand-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 0; border-bottom: 1px solid #f3f4f6;
-  }
+  /* BRAND TABLE */
+  .brand-block { margin-bottom: 10px; }
+  .brand-block .section-label { font-size: 11px; font-weight: 700; color: #aaa; margin-bottom: 6px; text-transform: uppercase; }
+  .brand-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid #f3f4f6; }
   .brand-row:last-child { border-bottom: none; }
-  .brand-name { font-size: 13px; font-weight: 600; }
-  .brand-sub { font-size: 11px; color: #9ca3af; }
-  .score-row { display: flex; gap: 6px; }
-  .score-chip {
-    text-align: center; padding: 3px 8px; border-radius: 6px;
-    font-size: 11px; font-weight: 700;
-  }
-  .sc-vn { background: #eff6ff; color: #1d4ed8; }
-  .sc-hcm { background: #f0fdf4; color: #15803d; }
-  .sc-lmsg { background: #fff7ed; color: #c2410c; }
+  .brand-name { font-size: 14px; font-weight: 600; }
+  .brand-sub { font-size: 12px; color: #aaa; }
+  .scores { font-size: 12px; color: #555; }
 
-  /* HUB CONCEPTS */
-  .hub-item {
-    padding: 10px 0; border-bottom: 1px solid #f3f4f6;
-    display: flex; gap: 10px; align-items: flex-start;
-  }
+  /* HUB */
+  .hub-item { padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
   .hub-item:last-child { border-bottom: none; }
-  .hub-icon {
-    width: 36px; height: 36px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .hub-content .title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
-  .hub-content .meta { font-size: 11.5px; color: #6b7280; }
-  .hub-content .covers { font-size: 11px; color: #9ca3af; }
+  .hub-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .hub-meta { font-size: 13px; color: #555; }
 
   /* FLAGS */
-  .flag {
-    border-radius: 10px; padding: 10px 12px;
-    margin-bottom: 8px; font-size: 12.5px; line-height: 1.5;
-    border-left: 3px solid;
-  }
-  .flag:last-child { margin-bottom: 0; }
-  .flag-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
-  .f-red { background: #fef2f2; border-color: #ef4444; color: #7f1d1d; }
-  .f-yellow { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
-  .f-green { background: #f0fdf4; border-color: #22c55e; color: #14532d; }
+  .flag { padding: 10px 0; border-bottom: 1px solid #f3f4f6; }
+  .flag:last-child { border-bottom: none; }
+  .flag-icon { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .flag-text { font-size: 13px; color: #444; }
 
-  /* NEXT STEPS */
-  .step {
-    display: flex; gap: 10px; align-items: flex-start;
-    padding: 8px 0; border-bottom: 1px solid #f3f4f6;
-  }
+  /* STEPS */
+  .step { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
   .step:last-child { border-bottom: none; }
-  .step-num {
-    min-width: 24px; height: 24px; border-radius: 50%;
-    background: #0f3460; color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .step-content .title { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
-  .step-content .desc { font-size: 11.5px; color: #6b7280; }
+  .step-n { font-size: 13px; font-weight: 800; color: #bbb; min-width: 20px; padding-top: 1px; }
+  .step-text { font-size: 14px; font-weight: 600; }
+  .step-sub { font-size: 12px; color: #888; margin-top: 1px; }
 
-  .footer { text-align: center; font-size: 10px; color: #9ca3af; padding: 12px 0 4px; }
+  .footer { margin-top: 32px; font-size: 11px; color: #bbb; text-align: center; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="card-header">
-  <div class="eyebrow">Tài liệu Nội bộ · Tháng 7/2026</div>
-  <h1>LMSG — Đánh giá Concept F&B</h1>
-  <div class="sub">Stefan Gordon (DF&B) + Framework AI · Phân tích 4 tầng</div>
+<div class="eyebrow">Tài liệu nội bộ · Tháng 7/2026</div>
+<h1>LMSG — Đánh giá Concept F&B</h1>
+<div class="subtitle">Le Méridien Saigon · Stefan Gordon (DF&B) + Framework AI</div>
+
+<!-- ===== KẾT QUẢ ===== -->
+
+<h2>Top 5 — Ẩm thực cho Khách Ngắn hạn</h2>
+
+<div class="result-item">
+  <div class="rank">#1</div>
+  <div class="name">Việt Nam Heritage</div>
+  <div class="detail">1.5–3M VND · Must-do với mọi du khách · Ít đối thủ chất lượng cao ở tier cao</div>
 </div>
 
-<!-- TOP 5 ẨM THỰC -->
-<div class="card">
-  <div class="card-title">🍽️ Top 5 Ẩm thực — Khách Ngắn hạn</div>
-
-  <div class="rank-row">
-    <div class="rank-badge r1">1</div>
-    <div class="rank-content">
-      <div class="name">Việt Nam Heritage <span class="tag tag-hot">Bão hòa cao</span></div>
-      <div class="desc">1.5–3M VND · Must-do cho mọi khách du lịch · Ít đối thủ chất lượng cao</div>
-    </div>
-  </div>
-
-  <div class="rank-row">
-    <div class="rank-badge r2">2</div>
-    <div class="rank-content">
-      <div class="name">Nhật (Omakase / Sushi)</div>
-      <div class="desc">1.5–3M VND · Hút nhất đa phân khúc · Khoảng trắng ở tier &gt;3M</div>
-    </div>
-  </div>
-
-  <div class="rank-row">
-    <div class="rank-badge r3">3</div>
-    <div class="rank-content">
-      <div class="name">Cantonese / Trung Hoa</div>
-      <div class="desc">1.5–3M VND · Corporate entertaining · Thiếu options chất lượng cao</div>
-    </div>
-  </div>
-
-  <div class="rank-row">
-    <div class="rank-badge r4">4</div>
-    <div class="rank-content">
-      <div class="name">Pháp / Âu</div>
-      <div class="desc">1.5–3M VND · Di sản thuộc địa · Phù hợp expat Tây</div>
-    </div>
-  </div>
-
-  <div class="rank-row">
-    <div class="rank-badge r5">5</div>
-    <div class="rank-content">
-      <div class="name">Địa Trung Hải / ME <span class="tag tag-white">Khoảng trắng nhất</span></div>
-      <div class="desc">1.5–3M VND · Bão hòa thấp nhất D1/D2 · Nhu cầu đang tăng</div>
-    </div>
-  </div>
+<div class="result-item">
+  <div class="rank">#2</div>
+  <div class="name">Nhật (Omakase / Sushi)</div>
+  <div class="detail">1.5–3M VND · Sức hút mạnh nhất đa phân khúc · Khoảng trắng ở tier &gt;3M</div>
 </div>
 
-<!-- ĐIỂM THƯƠNG HIỆU -->
-<div class="card">
-  <div class="card-title">🏆 Điểm Thương hiệu (Tầng 1–3)</div>
-  <div style="display:flex;gap:6px;margin-bottom:10px;font-size:10px;color:#9ca3af">
-    <span style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;font-weight:600">VN</span>
-    <span style="background:#f0fdf4;color:#15803d;padding:2px 6px;border-radius:4px;font-weight:600">HCMC</span>
-    <span style="background:#fff7ed;color:#c2410c;padding:2px 6px;border-radius:4px;font-weight:600">LMSG</span>
-  </div>
+<div class="result-item">
+  <div class="rank">#3</div>
+  <div class="name">Cantonese / Trung Hoa</div>
+  <div class="detail">1.5–3M VND · Corporate entertaining · Thiếu options chất lượng so với nhu cầu</div>
+</div>
 
-  <p style="font-size:10px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">International Restaurant</p>
+<div class="result-item">
+  <div class="rank">#4</div>
+  <div class="name">Pháp / Âu</div>
+  <div class="detail">1.5–3M VND · Di sản thuộc địa · Phù hợp expat Tây và khách fine dining</div>
+</div>
+
+<div class="result-item">
+  <div class="rank">#5</div>
+  <div class="name">Địa Trung Hải / Middle East <span class="tag tag-g">Khoảng trắng nhất</span></div>
+  <div class="detail">1.5–3M VND · Bão hòa thấp nhất D1/D2 · Nhu cầu đang tăng</div>
+</div>
+
+<h2>Điểm Thương hiệu (VN · HCMC · LMSG)</h2>
+
+<div class="brand-block">
+  <div class="brand-block section-label">International Restaurant</div>
   <div class="brand-row">
-    <div><div class="brand-name">Hakkasan ⭐</div><div class="brand-sub">Top pick</div></div>
-    <div class="score-row">
-      <div class="score-chip sc-vn">4.2</div>
-      <div class="score-chip sc-hcm">4.6</div>
-      <div class="score-chip sc-lmsg">4.1</div>
-    </div>
+    <div><div class="brand-name">Hakkasan ⭐</div></div>
+    <div class="scores">4.2 · 4.6 · 4.1</div>
   </div>
   <div class="brand-row">
     <div><div class="brand-name">Mott 32</div><div class="brand-sub">SHG đề xuất</div></div>
-    <div class="score-row">
-      <div class="score-chip sc-vn">3.9</div>
-      <div class="score-chip sc-hcm">4.1</div>
-      <div class="score-chip sc-lmsg">3.8</div>
-    </div>
+    <div class="scores">3.9 · 4.1 · 3.8</div>
   </div>
   <div class="brand-row">
-    <div><div class="brand-name">Hanu</div><div class="brand-sub">SHG đề xuất — yếu nhất</div></div>
-    <div class="score-row">
-      <div class="score-chip sc-vn">3.9</div>
-      <div class="score-chip sc-hcm">4.1</div>
-      <div class="score-chip sc-lmsg">3.8</div>
-    </div>
-  </div>
-
-  <p style="font-size:10px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin:10px 0 6px">Casual Fine</p>
-  <div class="brand-row">
-    <div><div class="brand-name">Fatboy Izakaya ⭐</div><div class="brand-sub">Nhật casual · Marriott recommend</div></div>
-    <div class="score-row">
-      <div class="score-chip sc-vn">3.7</div>
-      <div class="score-chip sc-hcm">4.6</div>
-      <div class="score-chip sc-lmsg">4.3</div>
-    </div>
-  </div>
-  <div class="brand-row">
-    <div><div class="brand-name">Indya by Vineet</div><div class="brand-sub">Indian fine casual · Michelin Bib</div></div>
-    <div class="score-row">
-      <div class="score-chip sc-vn">3.7</div>
-      <div class="score-chip sc-hcm">4.1</div>
-      <div class="score-chip sc-lmsg">4.3</div>
-    </div>
-  </div>
-
-  <p style="font-size:10.5px;color:#dc2626;margin-top:10px">⚠️ Tầng 4 (Tài chính) chưa chạy — tất cả đang để mặc định 5/5</p>
-</div>
-
-<!-- F&B HUB -->
-<div class="card">
-  <div class="card-title">🏗️ Hướng Thay thế — F&B Hub Level 2</div>
-  <p style="font-size:12px;color:#6b7280;margin-bottom:12px;line-height:1.5">3–5 concept nhỏ (20–80 chỗ/venue) theo hành lang có cửa riêng. Cần lối vào đường độc lập.</p>
-
-  <div class="hub-item">
-    <div class="hub-icon" style="background:#fff7ed">🍱</div>
-    <div class="hub-content">
-      <div class="title">Nhật Omakase / Sushi</div>
-      <div class="meta">&gt;3M VND · Anchor premium</div>
-      <div class="covers">20–40 chỗ · Cross-sell La Victoire mạnh</div>
-    </div>
-  </div>
-
-  <div class="hub-item">
-    <div class="hub-icon" style="background:#fef2f2">🥩</div>
-    <div class="hub-content">
-      <div class="title">Korean BBQ</div>
-      <div class="meta">0.8–1.5M VND · Interactive & group-friendly</div>
-      <div class="covers">40–60 chỗ · Hút Asian tourist + locals</div>
-    </div>
-  </div>
-
-  <div class="hub-item">
-    <div class="hub-icon" style="background:#fdf4ff">🍛</div>
-    <div class="hub-content">
-      <div class="title">Indian Fine Casual <span class="tag tag-white">Ít bão hòa</span></div>
-      <div class="meta">1.5–3M VND · Indya by Vineet / Dishoom</div>
-      <div class="covers">40–60 chỗ · Linh hoạt MICE set menu</div>
-    </div>
-  </div>
-
-  <div class="hub-item">
-    <div class="hub-icon" style="background:#eff6ff">🍷</div>
-    <div class="hub-content">
-      <div class="title">Wine Bar + Cocktail Boutique</div>
-      <div class="meta">Đa dải · Barson + Speakeasy</div>
-      <div class="covers">Hiện hữu · Target Asia's 50 Best Bars</div>
-    </div>
-  </div>
-
-  <div class="hub-item">
-    <div class="hub-icon" style="background:#f0fdf4">🍜</div>
-    <div class="hub-content">
-      <div class="title">Việt Nam / SEA General</div>
-      <div class="meta">&lt;800k VND · Redevelop Latest Recipe</div>
-      <div class="covers">ALL-DAY · Anchor văn hóa cho in-house</div>
-    </div>
+    <div><div class="brand-name">Hanu <span class="tag tag-r">Thấp nhất</span></div><div class="brand-sub">SHG đề xuất</div></div>
+    <div class="scores">3.9 · 4.1 · 3.8</div>
   </div>
 </div>
 
-<!-- FLAGS -->
-<div class="card">
-  <div class="card-title">🚩 Điểm Chú ý cho BOD</div>
-
-  <div class="flag f-red">
-    <div class="flag-label">🚫 Rủi ro — SHG bị Marriott block</div>
-    429 chỗ không được phê duyệt. $6.4M CAPEX rủi ro cao nếu tiến tới.
+<div class="brand-block">
+  <div class="brand-block section-label">Casual Fine</div>
+  <div class="brand-row">
+    <div><div class="brand-name">Fatboy Izakaya ⭐</div><div class="brand-sub">Nhật casual · Marriott gợi ý</div></div>
+    <div class="scores">3.7 · 4.6 · 4.3</div>
   </div>
-
-  <div class="flag f-red">
-    <div class="flag-label">⚠️ Thiếu phân tích tài chính</div>
-    Chưa có dự báo doanh thu, EBITDA, thời gian hoàn vốn — cần làm trước khi trình duyệt.
-  </div>
-
-  <div class="flag f-yellow">
-    <div class="flag-label">⚠️ Park 90 — rủi ro thực hiện</div>
-    St Regis KL: giao 3/12 events; membership thất bại. Cần KPI và penalty rõ nếu tiến tới.
-  </div>
-
-  <div class="flag f-green">
-    <div class="flag-label">✅ Cơ hội rõ nhất</div>
-    Indian + Địa Trung Hải = bão hòa thấp nhất D1/D2, cầu tăng mạnh từ khách Ấn & ME.
+  <div class="brand-row">
+    <div><div class="brand-name">Indya by Vineet</div><div class="brand-sub">Indian · Michelin Bib</div></div>
+    <div class="scores">3.7 · 4.1 · 4.3</div>
   </div>
 </div>
 
-<!-- BƯỚC TIẾP THEO -->
-<div class="card">
-  <div class="card-title">➡️ Bước Tiếp theo</div>
+<p style="font-size:12px;color:#dc2626;margin-top:6px">⚠️ Tầng 4 (Tài chính) chưa chạy — chưa có dự báo doanh thu / EBITDA / hoàn vốn</p>
 
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-content">
-      <div class="title">Hoàn thành phân tích Tầng 4</div>
-      <div class="desc">Doanh thu tối thiểu · EBITDA · Thời gian hoàn vốn — bắt buộc trước BOD</div>
-    </div>
+<h2>Hướng Thay thế — F&B Hub Level 2</h2>
+<p style="font-size:13px;color:#555;margin-bottom:12px">3–5 concept nhỏ (20–80 chỗ/venue), dọc hành lang, lối vào đường độc lập.</p>
+
+<div class="hub-item">
+  <div class="hub-name">Nhật Omakase / Sushi</div>
+  <div class="hub-meta">&gt;3M · 20–40 chỗ · Anchor premium · Cross-sell La Victoire</div>
+</div>
+<div class="hub-item">
+  <div class="hub-name">Korean BBQ</div>
+  <div class="hub-meta">0.8–1.5M · 40–60 chỗ · Interactive · Hút Asian tourist</div>
+</div>
+<div class="hub-item">
+  <div class="hub-name">Indian Fine Casual <span class="tag tag-g">Ít bão hòa</span></div>
+  <div class="hub-meta">1.5–3M · 40–60 chỗ · Indya / Dishoom · Linh hoạt MICE</div>
+</div>
+<div class="hub-item">
+  <div class="hub-name">Wine Bar + Cocktail Boutique</div>
+  <div class="hub-meta">Đa dải · Barson + Speakeasy · Target Asia's 50 Best Bars</div>
+</div>
+<div class="hub-item">
+  <div class="hub-name">Việt Nam / SEA General</div>
+  <div class="hub-meta">&lt;800k · All-day · Redevelop Latest Recipe</div>
+</div>
+
+<h2>Điểm Chú ý</h2>
+
+<div class="flag">
+  <div class="flag-icon">🚫 SHG — quy mô không phù hợp</div>
+  <div class="flag-text">429 chỗ vượt chuẩn 5 sao. CAPEX $6.4M rủi ro nếu không được phê duyệt.</div>
+</div>
+<div class="flag">
+  <div class="flag-icon">⚠️ Thiếu phân tích tài chính</div>
+  <div class="flag-text">Cần dự báo doanh thu, EBITDA, hoàn vốn trước khi trình BOD.</div>
+</div>
+<div class="flag">
+  <div class="flag-icon">⚠️ Park 90 — rủi ro thực hiện</div>
+  <div class="flag-text">St Regis KL: giao 3/12 events cam kết. Cần KPI và penalty rõ nếu tiến tới.</div>
+</div>
+<div class="flag">
+  <div class="flag-icon">✅ Cơ hội rõ nhất</div>
+  <div class="flag-text">Indian + Địa Trung Hải: bão hòa thấp nhất, cầu tăng từ khách Ấn & ME.</div>
+</div>
+
+<!-- ===== PHƯƠNG PHÁP ===== -->
+
+<h2>Phương pháp</h2>
+
+<p style="font-size:13px;color:#555;margin-bottom:14px">Hai phân tích song song:</p>
+
+<div class="step">
+  <div class="step-n">1</div>
+  <div>
+    <div class="step-text">Ma trận Nhu cầu Ẩm thực</div>
+    <div class="step-sub">AI chấm điểm 10 ẩm thực × 5 dải giá · 6 phân khúc khách · Trọng số: 30% khách Tây + 30% khách Á + 20% expat Tây + 20% nghịch đảo bão hòa D1/D2</div>
   </div>
+</div>
 
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-content">
-      <div class="title">BOD xác nhận ẩm thực mục tiêu</div>
-      <div class="desc">Ưu tiên: Nhật + Indian + Wine Bar theo dữ liệu</div>
-    </div>
+<div class="step">
+  <div class="step-n">2</div>
+  <div>
+    <div class="step-text">Đánh giá Thương hiệu — 4 Tầng</div>
+    <div class="step-sub">VN fit (15%) · HCMC fit (20%) · LMSG fit (30%) · Tài chính & vận hành (35%) · Thang 1–5</div>
   </div>
+</div>
 
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-content">
-      <div class="title">Chạy thêm thương hiệu</div>
-      <div class="desc">Indian (Dishoom, Indya) + Địa Trung Hải vào framework đầy đủ</div>
-    </div>
+<div class="step">
+  <div class="step-n">3</div>
+  <div>
+    <div class="step-text">Thương hiệu đã chạy</div>
+    <div class="step-sub">Mott 32, Hanu, Samwon Garden, Hakkasan, Sushi Samba, Indya, Dishoom, Fatboy Izakaya, Park 90</div>
   </div>
+</div>
 
-  <div class="step">
-    <div class="step-num">4</div>
-    <div class="step-content">
-      <div class="title">Khảo sát vật lý Level 2</div>
-      <div class="desc">Lối vào đường · Mặt tiền retractable · Phân tách WC</div>
-    </div>
+<h2>Bước Tiếp theo</h2>
+
+<div class="step">
+  <div class="step-n">1</div>
+  <div>
+    <div class="step-text">Hoàn thành Tầng 4 (Tài chính)</div>
+    <div class="step-sub">Doanh thu tối thiểu · EBITDA · Thời gian hoàn vốn</div>
   </div>
-
-  <div class="step">
-    <div class="step-num">5</div>
-    <div class="step-content">
-      <div class="title">Phản hồi chính thức cho SHG</div>
-      <div class="desc">Thông báo không phê duyệt quy mô hiện tại · Đề xuất thu nhỏ hoặc dừng</div>
-    </div>
+</div>
+<div class="step">
+  <div class="step-n">2</div>
+  <div>
+    <div class="step-text">BOD chốt ẩm thực mục tiêu</div>
+    <div class="step-sub">Ưu tiên: Nhật + Indian + Wine Bar</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-n">3</div>
+  <div>
+    <div class="step-text">Chạy thêm thương hiệu Indian + Med</div>
+    <div class="step-sub">Dishoom, Indya, Zuma, Coya vào framework đầy đủ</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-n">4</div>
+  <div>
+    <div class="step-text">Khảo sát vật lý Level 2</div>
+    <div class="step-sub">Lối vào đường · Mặt tiền retractable · WC riêng</div>
+  </div>
+</div>
+<div class="step">
+  <div class="step-n">5</div>
+  <div>
+    <div class="step-text">Phản hồi SHG</div>
+    <div class="step-sub">Không phê duyệt quy mô 429 chỗ · Đề xuất thu nhỏ hoặc dừng</div>
   </div>
 </div>
 
