@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMSG — Đánh giá Concept F&B</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f5f0;
+    color: #1a1a1a;
+    font-size: 13px;
+    padding: 28px;
+    width: 1060px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: #f0ead6;
+    padding: 28px 32px;
+    border-radius: 10px 10px 0 0;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 3px 12px; border-radius: 20px;
+    font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .header h1 { font-size: 21px; font-weight: 700; margin-bottom: 4px; }
+  .header h2 { font-size: 13px; font-weight: 400; opacity: 0.7; margin-bottom: 16px; }
+  .meta { display: flex; gap: 28px; flex-wrap: wrap; }
+  .meta-item { font-size: 11px; opacity: 0.65; }
+  .meta-item b { opacity: 1; color: #f0ead6; }
+
+  /* ALERT BOX */
+  .alert-marriott {
+    background: #fff8e1; border-left: 4px solid #f59e0b;
+    padding: 12px 18px; margin: 0;
+    font-size: 12.5px; line-height: 1.6; color: #7c4a00;
+  }
+  .alert-marriott strong { display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* BODY */
+  .body { background: #fff; border-radius: 0 0 10px 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+  .section { padding: 20px 28px; border-bottom: 1px solid #eee; }
+  .section:last-child { border-bottom: none; }
+
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.2px; color: #0f3460; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before {
+    content: ''; width: 3px; height: 13px;
+    background: #0f3460; border-radius: 2px; display: block;
+  }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 8px; }
+  th {
+    background: #1a1a2e; color: #f0ead6;
+    padding: 8px 12px; text-align: left;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.4px;
+  }
+  td { padding: 7px 12px; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafaf8; }
+
+  /* BADGES */
+  .rank1 { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .rank2 { background: #e0f2fe; color: #075985; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .rank3 { background: #f0fdf4; color: #166534; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 11px; }
+  .badge-red { background: #fef2f2; color: #dc2626; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #f0fdf4; color: #15803d; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-yellow { background: #fffbeb; color: #d97706; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-blue { background: #eff6ff; color: #1d4ed8; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+
+  /* 2-COL GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* METHOD BOX */
+  .method-box {
+    background: #f8faff; border: 1px solid #dbeafe;
+    border-radius: 8px; padding: 14px 18px;
+  }
+  .method-box h4 { font-size: 11px; font-weight: 700; color: #1d4ed8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .method-box p, .method-box li { font-size: 12px; line-height: 1.6; color: #374151; }
+  .method-box ul { padding-left: 16px; }
+  .method-box li { margin-bottom: 3px; }
+
+  /* FLAG CARDS */
+  .flags { display: flex; flex-direction: column; gap: 8px; }
+  .flag-card {
+    border-radius: 7px; padding: 10px 14px;
+    border-left: 4px solid; font-size: 12px; line-height: 1.5;
+  }
+  .flag-red { background: #fef2f2; border-color: #ef4444; color: #7f1d1d; }
+  .flag-yellow { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+  .flag-green { background: #f0fdf4; border-color: #22c55e; color: #14532d; }
+  .flag-card .flag-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+
+  /* HUB TABLE */
+  .hub-concept { font-weight: 700; }
+  .price-tag { font-size: 11px; color: #6b7280; }
+
+  .footer { margin-top: 14px; text-align: center; font-size: 10px; color: #9ca3af; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="badge">Tài liệu Nội bộ · Chủ Sở hữu</div>
+  <h1>Le Méridien Saigon — Đánh giá Concept F&B</h1>
+  <h2>Tổng hợp phân tích: Đề xuất SHG (MOTT 32 + HANU) · Hướng tiếp cận thay thế · Khuyến nghị cho BOD</h2>
+  <div class="meta">
+    <div class="meta-item">📅 <b>Tháng 7/2026</b></div>
+    <div class="meta-item">✍️ <b>Soạn bởi:</b> Stefan Gordon (DF&B) + Framework phân tích AI</div>
+    <div class="meta-item">🎯 <b>Phạm vi:</b> Level 2 F&B Hub + Các không gian hiện hữu</div>
+  </div>
+</div>
+
+<!-- MARRIOTT WARNING -->
+<div class="alert-marriott">
+  <strong>⚠️ Phản hồi Marriott về Đề xuất SHG (MOTT 32 + HANU)</strong>
+  "Quy mô 429 chỗ ngồi vượt tiêu chuẩn F&B khách sạn 5 sao hạng này. Các concept luxury tương đương trong khu vực thường chỉ vận hành 80–160 khách/venue — không phải 150+ ghép với lounge 50+. Ở quy mô này trông như nightclub, không phải luxury boutique. Rủi ro định vị nằm ở diện tích, không phải tên thương hiệu."
+</div>
+
+<div class="body">
+
+  <!-- PHƯƠNG PHÁP -->
+  <div class="section">
+    <div class="section-title">Phương pháp Phân tích</div>
+    <div class="grid2">
+      <div class="method-box">
+        <h4>🔍 Phân tích 1 — Nhu cầu Ẩm thực & Giá</h4>
+        <ul>
+          <li>Ma trận AI: 10 loại ẩm thực × 5 dải giá (&lt;300k → &gt;3M VND/người)</li>
+          <li>6 phân khúc khách: Người Việt · Expat Á · Expat Tây · Khách Á · Khách Tây · Độ bão hòa Q1/Q2</li>
+          <li>Bảng xếp hạng "Short-Stay Top 5" theo trọng số:<br>
+            30% Khách Tây + 30% Khách Á + 20% Expat Tây + 20% nghịch đảo độ bão hòa</li>
+        </ul>
+      </div>
+      <div class="method-box">
+        <h4>🏆 Phân tích 2 — Đánh giá Thương hiệu (4 Tầng)</h4>
+        <ul>
+          <li><b>Tầng 1 (15%):</b> Phù hợp thị trường Việt Nam</li>
+          <li><b>Tầng 2 (20%):</b> Phù hợp thị trường TP.HCM</li>
+          <li><b>Tầng 3 (30%):</b> Phù hợp với LMSG (property fit)</li>
+          <li><b>Tầng 4 (35%):</b> Khả thi vận hành & tài chính</li>
+          <li style="color:#dc2626">⚠️ Tầng 4 chưa hoàn thành — tất cả đang để mặc định 5</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:10px; font-size:11.5px; color:#6b7280;">Thương hiệu đã chạy qua phân tích: Mott 32, Hanu, Samwon Garden, Hakkasan, Sushi Samba (Restaurant); Indya by Vineet, Dishoom, Fatboy Izakaya (Casual Fine); Park 90 (Rooftop). Thang điểm 1–5 (1=kém, 5=xuất sắc).</p>
+  </div>
+
+  <!-- KẾT QUẢ: NHU CẦU ẨM THỰC -->
+  <div class="section">
+    <div class="section-title">Kết quả 1 — Top 5 Ẩm thực cho Khách Ngắn hạn (2–3 đêm)</div>
+    <table>
+      <tr>
+        <th style="width:45px">Hạng</th>
+        <th style="width:200px">Loại Ẩm thực</th>
+        <th style="width:150px">Dải Giá Tốt nhất</th>
+        <th style="width:160px">Độ Bão hòa D1/D2</th>
+        <th>Lý do Xếp hạng</th>
+      </tr>
+      <tr>
+        <td><span class="rank1">🥇 #1</span></td>
+        <td><strong>Việt Nam Heritage</strong></td>
+        <td>1.5M – 3M VND</td>
+        <td><span class="badge-yellow">Cao</span></td>
+        <td>Trải nghiệm "must-do" với mọi khách du lịch; cầu bền vững dù bão hòa; ít đối thủ chất lượng cao ở tier cao cấp</td>
+      </tr>
+      <tr>
+        <td><span class="rank1">🥈 #2</span></td>
+        <td><strong>Nhật (Omakase/Sushi)</strong></td>
+        <td>1.5M – 3M VND</td>
+        <td><span class="badge-red">Cao (mid-tier)</span></td>
+        <td>Sức hút mạnh nhất đa phân khúc; khoảng trắng ở tier premium &gt;3M; uy tín thương hiệu và nhất quán chất lượng</td>
+      </tr>
+      <tr>
+        <td><span class="rank2">🥉 #3</span></td>
+        <td><strong>Cantonese/Trung Hoa</strong></td>
+        <td>1.5M – 3M VND</td>
+        <td><span class="badge-yellow">Vừa phải</span></td>
+        <td>Phục vụ corporate entertaining và celebration dining; ít options chất lượng cao so với nhu cầu thực tế</td>
+      </tr>
+      <tr>
+        <td><span class="rank3">#4</span></td>
+        <td><strong>Pháp/Âu</strong></td>
+        <td>1.5M – 3M VND</td>
+        <td><span class="badge-yellow">Vừa phải</span></td>
+        <td>Cộng hưởng với câu chuyện di sản thuộc địa; phù hợp expat Tây và khách du lịch fine dining</td>
+      </tr>
+      <tr>
+        <td><span class="rank3">#5</span></td>
+        <td><strong>Địa Trung Hải / Middle East</strong></td>
+        <td>1.5M – 3M VND</td>
+        <td><span class="badge-green">🟢 Thấp nhất</span></td>
+        <td><strong>Khoảng trắng rõ ràng nhất</strong> — độ bão hòa thấp nhất mọi phân khúc; nhu cầu đang phát triển</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- KẾT QUẢ: THƯƠNG HIỆU -->
+  <div class="section">
+    <div class="section-title">Kết quả 2 — Điểm Thương hiệu (Tầng 1–3, chưa có Tầng 4)</div>
+    <div class="grid2" style="gap:12px">
+      <div>
+        <p style="font-size:11px; font-weight:700; color:#0f3460; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px">🍽️ International Restaurant</p>
+        <table>
+          <tr><th>Thương hiệu</th><th>VN</th><th>HCMC</th><th>LMSG</th><th>Ghi chú</th></tr>
+          <tr><td><strong>Hakkasan</strong></td><td>4.22</td><td>4.60</td><td>4.08</td><td><span class="badge-green">Mạnh nhất</span></td></tr>
+          <tr><td><strong>Mott 32</strong></td><td>3.89</td><td>4.10</td><td>3.83</td><td><span class="badge-yellow">Khá</span></td></tr>
+          <tr><td>Sushi Samba</td><td>3.89</td><td>4.20</td><td>3.92</td><td>Tốt</td></tr>
+          <tr><td>Samwon Garden</td><td>4.11</td><td>3.80</td><td>4.08</td><td>Tốt</td></tr>
+          <tr><td>Hanu</td><td>3.89</td><td>4.10</td><td>3.75</td><td><span class="badge-red">Thấp nhất</span></td></tr>
+        </table>
+      </div>
+      <div>
+        <p style="font-size:11px; font-weight:700; color:#0f3460; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px">🍜 Casual Fine / Rooftop</p>
+        <table>
+          <tr><th>Thương hiệu</th><th>VN</th><th>HCMC</th><th>LMSG</th><th>Ghi chú</th></tr>
+          <tr><td><strong>Fatboy Izakaya</strong></td><td>3.67</td><td>4.56</td><td>4.25</td><td><span class="badge-green">Dẫn đầu</span></td></tr>
+          <tr><td>Indya by Vineet</td><td>3.67</td><td>4.11</td><td>4.25</td><td>Cân bằng</td></tr>
+          <tr><td>Dishoom</td><td>3.78</td><td>4.22</td><td>3.83</td><td>Tốt</td></tr>
+          <tr style="border-top:2px solid #e5e7eb"><td><strong>Park 90</strong> (Rooftop)</td><td>3.56</td><td>4.43</td><td>4.58</td><td><span class="badge-yellow">LMSG fit tốt</span></td></tr>
+        </table>
+        <p style="font-size:10.5px; color:#9ca3af; margin-top:6px">⚠️ Park 90 tại St Regis KL: giao 3/12 events cam kết; tích hợp membership thất bại</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ĐỀ XUẤT THAY THẾ -->
+  <div class="section">
+    <div class="section-title">Đề xuất Thay thế — Mô hình F&B Hub (Stefan Gordon)</div>
+    <p style="font-size:12px; color:#374151; margin-bottom:12px; line-height:1.6">
+      Thay thế đề xuất SHG (2 thương hiệu mega-venue, 429 chỗ) bằng <strong>F&B Hub Level 2</strong>: 3–5 concept nhỏ (20–80 chỗ/venue) — nhiều cửa dọc hành lang, có thể mở thêm mặt tiền retractable hướng ra đường. <em>Yêu cầu: lối vào trực tiếp từ đường (thang máy hoặc cầu thang ngoài).</em>
+    </p>
+    <table>
+      <tr>
+        <th style="width:200px">Concept</th>
+        <th style="width:130px">Ẩm thực</th>
+        <th style="width:130px">Dải Giá</th>
+        <th style="width:90px">Chỗ ngồi</th>
+        <th>Lý do Chọn</th>
+      </tr>
+      <tr>
+        <td><span class="hub-concept">Nhật Omakase / Sushi</span></td>
+        <td>Nhật</td>
+        <td class="price-tag">&gt;3M VND</td>
+        <td>20–40</td>
+        <td>Anchor premium; lấp khoảng trống giữa Indian và AKUNA; cross-sell mạnh với La Victoire</td>
+      </tr>
+      <tr>
+        <td><span class="hub-concept">Korean BBQ</span></td>
+        <td>Hàn Quốc</td>
+        <td class="price-tag">0.8–1.5M VND</td>
+        <td>40–60</td>
+        <td>Interactive, group-friendly; thu hút khách Á và locals; cross-sellability cao với La Victoire</td>
+      </tr>
+      <tr>
+        <td><span class="hub-concept">Indian Fine Casual</span><br><span style="font-size:10px;color:#6b7280">(e.g. Indya by Vineet)</span></td>
+        <td>Ấn Độ</td>
+        <td class="price-tag">1.5–3M VND</td>
+        <td>40–60</td>
+        <td>Thị trường <strong>ít bão hòa nhất</strong> tại HCMC; lượng khách Ấn tăng mạnh; phù hợp expat Tây; set/buffet linh hoạt cho MICE</td>
+      </tr>
+      <tr>
+        <td><span class="hub-concept">Wine Bar + Cocktail Boutique</span><br><span style="font-size:10px;color:#6b7280">(Barson + Speakeasy)</span></td>
+        <td>Địa Trung Hải / Wine</td>
+        <td class="price-tag">Đa dải</td>
+        <td>Hiện hữu</td>
+        <td>Sáng: cà phê văn phòng · Trưa: lunch locals · Tối: evening drinks. Target Asia's 50 Best Bars</td>
+      </tr>
+      <tr>
+        <td><span class="hub-concept">Việt Nam / SEA General</span><br><span style="font-size:10px;color:#6b7280">(Redeveloped Latest Recipe)</span></td>
+        <td>Việt Nam / SEA</td>
+        <td class="price-tag">&lt;800k VND</td>
+        <td>ADD hiện hữu</td>
+        <td>Anchor văn hóa cho khách in-house; repeatable cao; open kitchen thay buffet stations</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- FLAGS CHO BOD -->
+  <div class="section">
+    <div class="section-title">Điểm Chú ý Quan trọng cho Chủ Sở hữu / BOD</div>
+    <div class="flags">
+      <div class="flag-card flag-red">
+        <div class="flag-label">🚫 Rủi ro Nghiêm trọng</div>
+        <strong>Đề xuất SHG không được Marriott chấp thuận</strong> — Quy mô 429 chỗ vượt tiêu chuẩn 5 sao. Marriott sẽ không phê duyệt với format hiện tại. CAPEX $6.4M (~$4,606/m²) rủi ro cao nếu concept bị từ chối.
+      </div>
+      <div class="flag-card flag-red">
+        <div class="flag-label">⚠️ Thiếu Dữ liệu Tài chính</div>
+        <strong>Tầng 4 (Tài chính) chưa hoàn thành</strong> — Chưa có dự báo doanh thu, EBITDA, hay thời gian hoàn vốn cho bất kỳ concept nào. Đây là dữ liệu then chốt để BOD phê duyệt đầu tư CAPEX.
+      </div>
+      <div class="flag-card flag-yellow">
+        <div class="flag-label">⚠️ Điểm Yếu của HANU</div>
+        <strong>HANU — Fit thấp nhất trong nhóm International:</strong> Brand equity tại VN chỉ 3/5; Khả năng lặp lại trải nghiệm (repeatability) thấp; Phức tạp licensing (điểm 3). Không phù hợp ở quy mô 153 chỗ.
+      </div>
+      <div class="flag-card flag-yellow">
+        <div class="flag-label">⚠️ Cảnh báo Park 90</div>
+        <strong>Case study St Regis KL cho thấy rủi ro thực hiện cao:</strong> Chỉ giao 3/12 events cam kết; tích hợp membership thất bại; exit với điều kiện bất lợi. Cần đàm phán KPI và penalty rõ ràng nếu tiến tới.
+      </div>
+      <div class="flag-card flag-green">
+        <div class="flag-label">✅ Cơ hội Rõ nhất</div>
+        <strong>Indian fine casual + Địa Trung Hải = khoảng trắng thực sự:</strong> Hai phân khúc có độ bão hòa thấp nhất tại D1/D2, nhu cầu đang tăng (lượng khách Ấn Độ và Middle East), và chi phí vận hành hợp lý hơn các concept cao cấp Nhật/Hàn.
+      </div>
+    </div>
+  </div>
+
+  <!-- BƯỚC TIẾP THEO -->
+  <div class="section">
+    <div class="section-title">Bước Tiếp theo Đề xuất</div>
+    <table>
+      <tr><th style="width:36px">#</th><th style="width:200px">Hành động</th><th>Chi tiết</th><th style="width:100px">Ưu tiên</th></tr>
+      <tr>
+        <td>1</td>
+        <td><strong>Hoàn thành Tầng 4</strong></td>
+        <td>Chạy phân tích tài chính (doanh thu tối thiểu, EBITDA mục tiêu, thời gian hoàn vốn) cho từng concept trước khi trình BOD</td>
+        <td><span class="badge-red">Khẩn cấp</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Xác nhận Ẩm thực mục tiêu</strong></td>
+        <td>Owner/BOD thống nhất danh sách ẩm thực target (ưu tiên: Nhật + Indian + Wine Bar theo dữ liệu)</td>
+        <td><span class="badge-red">Khẩn cấp</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Chạy concept qua Framework đầy đủ</strong></td>
+        <td>Điền thương hiệu mới vào framework 4 tầng; chạy thêm Indian (Dishoom, Indya) và Địa Trung Hải</td>
+        <td><span class="badge-yellow">Cao</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Khả thi vật lý Level 2</strong></td>
+        <td>Xác nhận: lối vào đường độc lập (thang máy/cầu thang ngoài) + retractable frontage + phân tách WC</td>
+        <td><span class="badge-yellow">Cao</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Phản hồi chính thức cho SHG</strong></td>
+        <td>Thông báo Marriott sẽ không phê duyệt quy mô hiện tại; đề xuất SHG thu nhỏ concept hoặc dừng đàm phán</td>
+        <td><span class="badge-blue">Cần làm</span></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Le Méridien Saigon · F&B Concept Review · Tháng 7/2026 · Tài liệu nội bộ — không phát hành ra ngoài
+</div>
+
+</body>
+</html>
