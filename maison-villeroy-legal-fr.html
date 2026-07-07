@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Maison Villeroy — Rapport Juridique</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Georgia, Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    font-size: 14px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 28px 48px;
+    line-height: 1.65;
+  }
+
+  /* HEADER */
+  .doc-header {
+    border-bottom: 3px solid #111;
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .confidential {
+    display: inline-block;
+    border: 1px solid #dc2626;
+    color: #dc2626;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .doc-header h1 { font-size: 26px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+  .doc-header .sub { font-size: 15px; color: #444; margin-bottom: 14px; }
+  .doc-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 12px; color: #666; }
+  .doc-meta span b { color: #111; }
+
+  /* SECTION */
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #444;
+    margin: 36px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+  h3 { font-size: 15px; font-weight: 700; margin: 20px 0 8px; color: #111; }
+
+  p { margin-bottom: 10px; }
+  ul { padding-left: 18px; margin-bottom: 10px; }
+  li { margin-bottom: 5px; }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 6px; padding: 12px 16px;
+    margin: 14px 0; border-left: 4px solid;
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .callout-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .c-red { background: #fef2f2; border-color: #ef4444; color: #7f1d1d; }
+  .c-yellow { background: #fffbeb; border-color: #f59e0b; color: #78350f; }
+  .c-green { background: #f0fdf4; border-color: #22c55e; color: #14532d; }
+  .c-blue { background: #eff6ff; border-color: #3b82f6; color: #1e3a8a; }
+  .c-gray { background: #f9fafb; border-color: #9ca3af; color: #374151; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 16px; }
+  th { background: #111; color: #fff; padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.4px; }
+  td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; line-height: 1.5; }
+  tr:nth-child(even) td { background: #fafafa; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .b-red { background: #fef2f2; color: #dc2626; }
+  .b-yellow { background: #fffbeb; color: #d97706; }
+  .b-green { background: #f0fdf4; color: #15803d; }
+  .b-gray { background: #f3f4f6; color: #6b7280; }
+
+  /* OWNERSHIP DIAGRAM */
+  .diagram-wrap {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 28px 20px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    min-width: 500px;
+  }
+  .d-node {
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 220px;
+    border: 2px solid;
+  }
+  .d-node .d-sub { font-size: 11px; font-weight: 400; color: inherit; opacity: 0.75; margin-top: 2px; }
+  .dn-person { background: #1e3a8a; border-color: #1e3a8a; color: white; }
+  .dn-ch { background: #7e22ce; border-color: #7e22ce; color: white; }
+  .dn-rak { background: #b45309; border-color: #b45309; color: white; }
+  .dn-ch2 { background: #7e22ce; border-color: #7e22ce; color: white; }
+  .dn-lux { background: #374151; border-color: #374151; color: white; }
+  .dn-fr { background: #15803d; border-color: #15803d; color: white; }
+  .dn-asset { background: #dc2626; border-color: #dc2626; color: white; }
+  .dn-op { background: #0369a1; border-color: #0369a1; color: white; }
+
+  .d-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 4px 0;
+  }
+  .d-line { width: 2px; height: 24px; background: #9ca3af; }
+  .d-pct {
+    font-size: 10px; font-weight: 700; color: #6b7280;
+    background: white; border: 1px solid #e5e7eb;
+    padding: 1px 7px; border-radius: 10px;
+    margin: -2px 0;
+    z-index: 1;
+  }
+  .d-tri { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #9ca3af; }
+
+  .d-row { display: flex; gap: 20px; justify-content: center; align-items: flex-start; }
+  .d-col { display: flex; flex-direction: column; align-items: center; }
+  .d-label { font-size: 10px; color: #9ca3af; font-style: italic; margin: 6px 0 2px; }
+
+  /* STRUCTURE REC */
+  .struct-box {
+    border: 2px solid #111;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 14px 0;
+  }
+  .struct-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+
+  .checklist li { list-style: none; padding-left: 0; display: flex; gap: 8px; align-items: flex-start; margin-bottom: 6px; }
+  .checklist li::before { content: '☐'; font-size: 14px; flex-shrink: 0; color: #dc2626; }
+
+  .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #eee; font-size: 11px; color: #9ca3af; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="confidential">Strictement confidentiel — Usage interne</div>
+  <h1>Note Juridique — Due Diligence Acquéreur</h1>
+  <div class="sub">Projet Villeroy · Acquisition de 100% des parts de la SNC 33 rue Jean Goujon · 75008 Paris</div>
+  <div class="doc-meta">
+    <span><b>Destinataire :</b> Conseil juridique (Paris)</span>
+    <span><b>Mandant :</b> Royal Canary Corporation (Vietnam)</span>
+    <span><b>Date :</b> Juillet 2026</span>
+    <span><b>Fondement :</b> Documents data room uniquement</span>
+  </div>
+</div>
+
+<!-- RÉSUMÉ EXÉCUTIF -->
+<h2>I. Résumé Exécutif</h2>
+
+<p>La cible est la <strong>SNC 33 rue Jean Goujon</strong> (RCS Paris 512 756 990), société en nom collectif détenant à titre d'actif unique un hôtel de luxe de onze chambres, situé au 33 rue Jean Goujon, Paris 8ème (ci-après <em>Maison Villeroy</em>). L'acquéreur, Royal Canary Corporation (Vietnam), envisage l'acquisition de 100% des parts sociales.</p>
+
+<p>Trois points structurants conditionnent l'ensemble de la transaction :</p>
+
+<div class="callout c-red">
+  <div class="callout-label">🔴 Point bloquant n°1 — Incohérence UBO / Garant</div>
+  La garantie personnelle de <strong>€21M</strong> est souscrite par <strong>M. Kirill Pisarev</strong>, alors que le bénéficiaire effectif final (UBO) déclaré dans l'organigramme de mars 2026 est <strong>M. Martin Smura</strong>. Aucun document du data room n'établit le lien juridique ou économique entre ces deux personnes. Ce point doit être résolu avant toute signature.
+</div>
+
+<div class="callout c-red">
+  <div class="callout-label">🔴 Point bloquant n°2 — Échéance du prêt Finstella</div>
+  Le prêt senior de <strong>€19,9M</strong> (Finstella Ltd, successeur de RCB Bank) est échu au <strong>25 avril 2026</strong>. Toute cession de parts ou conversion de forme sociale constitue un cas de défaillance contractuel nécessitant l'accord préalable écrit du prêteur. Le refinancement doit être posé comme <strong>condition préalable au closing</strong>.
+</div>
+
+<div class="callout c-yellow">
+  <div class="callout-label">⚠️ Point structurant — Obligation de conversion SNC → SASU</div>
+  Dès lors que RCC détiendra 100% des parts, la SNC sera en situation d'associé unique. L'article 1844-5 du Code civil impose la régularisation dans un délai de <strong>douze mois</strong>, sous peine de dissolution judiciaire à la demande de tout créancier. La conversion en SASU est juridiquement obligatoire, fiscalement neutre sous conditions (art. 202 ter CGI), et économiquement favorable (suppression de la taxe de 3%/an, art. 990D CGI).
+</div>
+
+<!-- STRUCTURE DE PROPRIÉTÉ ACTUELLE -->
+<h2>II. Structure de Propriété Actuelle</h2>
+
+<div class="diagram-wrap">
+  <div class="diagram">
+
+    <div class="d-node dn-person">
+      M. Martin Smura
+      <div class="d-sub">UBO déclaré · Suisse · Bénéficiaire effectif final</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-ch">
+      Kingstone Capital Holding AG
+      <div class="d-sub">Suisse</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-rak">
+      Kingstone Capital Holding Ltd
+      <div class="d-sub">Ras Al Khaimah (EAU)</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-ch2">
+      Voile d'Or Hotels and Resorts AG
+      <div class="d-sub">Suisse · Titulaire probable de la marque "Voile d'Or"</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-lux">
+      Grand Metropolitan Luxury Collection
+      <div class="d-sub">Structure intermédiaire</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-lux">
+      Mapple Europe Holdings
+      <div class="d-sub">Structure intermédiaire</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">100%</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-fr" style="border-color:#dc2626;background:#fef2f2;color:#7f1d1d">
+      SNC 33 rue Jean Goujon
+      <div class="d-sub">RCS Paris 512 756 990 · Gérant : M. Edouard Deschepper · ⚠️ Responsabilité illimitée et solidaire des associés</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">Détient</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-row" style="gap:24px">
+      <div class="d-col">
+        <div class="d-node dn-asset" style="min-width:180px">
+          Immeuble<br>33 rue Jean Goujon
+          <div class="d-sub">75008 Paris · Valeur Savills : €40,77M · Classement partiel MH</div>
+        </div>
+      </div>
+      <div class="d-col">
+        <div class="d-node dn-op" style="min-width:180px">
+          Ardor France<br>(Exploitant)
+          <div class="d-sub">Actionnaire du propriétaire · Contrat de gestion lié</div>
+        </div>
+        <div class="d-label">⚠️ Lien capitalistique croisé</div>
+      </div>
+    </div>
+
+    <div class="d-arrow" style="margin-top:12px"><div class="d-line"></div><div class="d-pct">Garant €21M</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node" style="background:#6b7280;border-color:#6b7280;color:white;min-width:220px">
+      M. Kirill Pisarev
+      <div class="d-sub">Identité et lien avec M. Smura non établis · ⚠️ À vérifier</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STRUCTURE RECOMMANDÉE -->
+<h2>III. Structure d'Acquisition Recommandée</h2>
+
+<div class="diagram-wrap">
+  <div class="diagram">
+
+    <div class="d-node dn-person" style="background:#15803d;border-color:#15803d">
+      Royal Canary Corporation
+      <div class="d-sub">Vietnam · Acquéreur final</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">Étape 1 : Acquisition des parts SNC</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node" style="background:#f59e0b;border-color:#f59e0b;color:#111">
+      SNC 33 rue Jean Goujon
+      <div class="d-sub">Transitoire · Durée max. 12 mois · Droits de mutation 3%</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">Étape 2 : Conversion (≤ 12 mois) — art. 1844-5 Cc</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-fr">
+      SASU [Nom à définir]
+      <div class="d-sub">France · IS 25% · Exonération art. 990D · Dividendes 5% (convention FR-VN) · Capital recommandé : €1.000 min.</div>
+    </div>
+
+    <div class="d-arrow"><div class="d-line"></div><div class="d-pct">Détient</div><div class="d-line"></div><div class="d-tri"></div></div>
+
+    <div class="d-node dn-asset">
+      Maison Villeroy<br>33 rue Jean Goujon, 75008 Paris
+      <div class="d-sub">Valeur : ~€22,7M (thèse acquéreur) · Offre : counter à €25M</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="callout c-green">
+  <div class="callout-label">✅ Avantages fiscaux de la structure SASU</div>
+  <ul style="margin:0;padding-left:16px">
+    <li><strong>Suppression taxe art. 990D CGI :</strong> ~€1,22M/an économisés (€12M sur 10 ans)</li>
+    <li><strong>Cession ultérieure de SASU :</strong> droits de mutation à 0,1% (vs. 3% parts SNC)</li>
+    <li><strong>Dividendes VN :</strong> retenue à la source limitée à 5% (Convention France-Vietnam 1993, participation ≥ 50%)</li>
+    <li><strong>Avantages monuments historiques :</strong> déduction 100% frais de restauration (art. 156 I-3° CGI) + subventions 15–40%</li>
+    <li><strong>Neutralité fiscale de la conversion :</strong> possible sous art. 202 ter CGI — à confirmer par écrit</li>
+  </ul>
+</div>
+
+<!-- POINTS À VÉRIFIER PAR LE CONSEIL -->
+<h2>IV. Points à Vérifier par le Conseil Juridique</h2>
+
+<h3>A. Propriété et titre</h3>
+<table>
+  <tr><th style="width:36px">#</th><th style="width:280px">Point à vérifier</th><th style="width:100px">Priorité</th><th>Décision servie</th></tr>
+  <tr>
+    <td>1</td>
+    <td>Obtenir le titre de propriété (acte authentique) et l'extrait de la conservation des hypothèques — confirmer freehold, absence de servitudes occultes et concordance des sûretés réelles</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Condition de closing / title clean</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Établir le lien juridique ou économique entre M. Kirill Pisarev (garant €21M) et M. Martin Smura (UBO déclaré) — KYC approfondi des deux personnes</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Conformité / engagement de garantie</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Confirmer à qui appartient la marque "Voile d'Or" — Voile d'Or Hotels and Resorts AG (CH) ou SNC — et vérifier si elle reste acquise post-cession</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Plan d'exploitation / rebranding</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Reconstituer la chaîne complète des cessions depuis 2009 (SCI → SNC 2019), vérifier l'absence de droits de préférence résiduels ou d'options</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Sécurité du titre</td>
+  </tr>
+</table>
+
+<h3>B. Prêt Finstella et refinancement</h3>
+<table>
+  <tr><th style="width:36px">#</th><th style="width:280px">Point à vérifier</th><th style="width:100px">Priorité</th><th>Décision servie</th></tr>
+  <tr>
+    <td>5</td>
+    <td>Obtenir l'accord préalable écrit de Finstella Ltd pour : (i) cession des parts, (ii) conversion SNC→SASU, (iii) constitution de nouvelles sûretés sur parts SASU</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Condition préalable au closing</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Analyser les clauses de changement de contrôle et d'événement de défaut du contrat de crédit — vérifier si l'exercice des options de prolongation (2 × 5 ans) est conditionné à l'identité de l'emprunteur</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Condition de dette</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Solliciter trois établissements (BNP CIB, CA-CIB, SocGen / fonds de dette immobilière) sur un refinancement : LTV 50–55%, EURIBOR + 250–350bps, DSCR cible ≥ 1,5×</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Condition de dette</td>
+  </tr>
+</table>
+
+<h3>C. Conversion SNC → SASU et fiscalité</h3>
+<table>
+  <tr><th style="width:36px">#</th><th style="width:280px">Point à vérifier</th><th style="width:100px">Priorité</th><th>Décision servie</th></tr>
+  <tr>
+    <td>8</td>
+    <td>Obtenir une confirmation écrite d'un fiscaliste que la conversion est neutre fiscalement au regard de l'art. 202 ter CGI — documenter les conditions (continuité comptable, maintien de l'imposition des plus-values latentes)</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Condition de structure</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>Vérifier l'exonération art. 990D CGI pour la SASU française (personne morale soumise à l'IS en France) — confirmer l'absence d'obligation déclarative annuelle</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Économie fiscale ~€1,22M/an</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>Modéliser l'application de la Convention France-Vietnam 1993 : retenue à la source 5% sur dividendes (participation ≥ 50%), crédit d'impôt Vietnam, et régime des plus-values de cession de parts SASU</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Rendement net RCC</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>Vérifier les conditions de déduction intégrale des travaux de restauration des parties classées MH (art. 156 I-3° CGI) et les modalités de demande de subvention DRAC (15–40% des coûts)</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Optimisation fiscale post-acquisition</td>
+  </tr>
+</table>
+
+<h3>D. Exploitant et contrats commerciaux</h3>
+<table>
+  <tr><th style="width:36px">#</th><th style="width:280px">Point à vérifier</th><th style="width:100px">Priorité</th><th>Décision servie</th></tr>
+  <tr>
+    <td>12</td>
+    <td>Obtenir le contrat de management complet avec Ardor France — analyser : conditions de résiliation en cas de changement de contrôle, clause de renouvellement automatique, et impact de la conversion SNC→SASU sur la validité du contrat</td>
+    <td><span class="badge b-red">Bloquant</span></td>
+    <td>Plan exploitant</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>Clarifier la discordance entre le taux de commission d'agence mentionné dans l'IM (9,75%) et celui figurant dans les comptes (7,5%) — obtenir le contrat source</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Modèle financier</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>Évaluer le statut juridique du Chef Sébastien Sanjou (salarié, gérant, prestataire) et les conditions de son maintien — la position Michelin de l'établissement est directement liée à sa personne</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Continuité d'exploitation</td>
+  </tr>
+</table>
+
+<h3>E. Monuments historiques et autorisations</h3>
+<table>
+  <tr><th style="width:36px">#</th><th style="width:280px">Point à vérifier</th><th style="width:100px">Priorité</th><th>Décision servie</th></tr>
+  <tr>
+    <td>15</td>
+    <td>Vérifier les cinq éléments classés / inscrits (façades, patio, atrium, salles restaurant-bar, plafond chambre) et établir la liste exhaustive des contraintes DRAC applicables à tout projet de travaux futur</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Business plan post-acquisition</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>Obtenir le Dossier des Ouvrages Exécutés (DOE) de la rénovation 2017–2019 — document manquant au data room</td>
+    <td><span class="badge b-yellow">Élevé</span></td>
+    <td>Condition technique / bailleur</td>
+  </tr>
+</table>
+
+<h3>F. Documents manquants — À obtenir en phase 2</h3>
+<ul class="checklist">
+  <li>DOE (Dossier des Ouvrages Exécutés) travaux 2017–2019</li>
+  <li>Inventaire des substances dangereuses sur site (produits nettoyants, etc.)</li>
+  <li>Rapport termites (absence au data room)</li>
+  <li>Résultats analyse légionelles (spa, hammam, gym)</li>
+  <li>PV de levée des réserves de la visite de contrôle 02/2020 (incendie, accessibilité, sanitaires)</li>
+  <li>Rapport PCB sur équipements électriques antérieurs à 1986</li>
+  <li>Contrat de management Ardor France (texte intégral)</li>
+  <li>Documentation liant M. Pisarev à M. Smura</li>
+  <li>Justificatif de propriété de la marque "Voile d'Or"</li>
+</ul>
+
+<!-- RECOMMANDATIONS STRUCTURELLES -->
+<h2>V. Recommandations Structurelles</h2>
+
+<div class="struct-box">
+  <h4>Structure recommandée — Séquence d'exécution</h4>
+  <table style="margin:0">
+    <tr><th style="width:36px">Ordre</th><th>Action</th><th style="width:120px">Délai</th><th style="width:100px">Base légale</th></tr>
+    <tr><td>1</td><td>Résoudre les points bloquants #1–3 (UBO, prêt, marque) avant toute offre engageante</td><td>Immédiat</td><td>Diligence</td></tr>
+    <tr><td>2</td><td>Formuler la contre-offre à <strong>€25M</strong> (vs. asking €35M) avec conditions suspensives explicites</td><td>J+15</td><td>Négociation</td></tr>
+    <tr><td>3</td><td>Poser le refinancement Finstella comme <strong>condition préalable au closing</strong></td><td>Avant signing</td><td>Contrat de crédit</td></tr>
+    <tr><td>4</td><td>Obtenir confirmation fiscale art. 202 ter par écrit avant closing</td><td>Avant signing</td><td>Art. 202 ter CGI</td></tr>
+    <tr><td>5</td><td>Closing : acquisition des parts SNC — droits de mutation 3%</td><td>—</td><td>CGI</td></tr>
+    <tr><td>6</td><td>Désigner un <em>commissaire à la transformation</em> et convertir en SASU dans les 12 mois</td><td>≤ M+12</td><td>Art. 1844-5 Cc</td></tr>
+    <tr><td>7</td><td>Mettre à jour le registre des hypothèques et les sûretés Finstella au nom de la SASU</td><td>Lors conversion</td><td>Publicité foncière</td></tr>
+    <tr><td>8</td><td>Déposer la déclaration de cessation d'activité SNC et confirmer la neutralité art. 202 ter</td><td>Lors conversion</td><td>DGFiP</td></tr>
+  </table>
+</div>
+
+<div class="callout c-blue">
+  <div class="callout-label">📌 Note à l'attention du conseil</div>
+  Ce rapport est fondé exclusivement sur les documents disponibles dans le data room à la date indiquée. Toutes les affirmations sont étiquetées : <em>établi par document</em>, <em>raisonnement</em>, ou <em>point ouvert</em>. Les éléments marqués "point ouvert" nécessitent une vérification indépendante avant toute décision d'investissement. L'acquéreur se réserve le droit de modifier ou retirer son offre en fonction des résultats de la due diligence de phase 2.
+</div>
+
+<div class="footer">
+  Projet Villeroy · Note juridique — Due Diligence Acquéreur · Juillet 2026<br>
+  Royal Canary Corporation · Strictement confidentiel — Ne pas diffuser
+</div>
+
+</body>
+</html>
