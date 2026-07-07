@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LMSG F&B Scoring</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    font-size: 14px;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 32px;
+    line-height: 1.5;
+  }
+
+  .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #888; margin-bottom: 4px; }
+  h1 { font-size: 20px; font-weight: 800; margin-bottom: 2px; }
+  .subtitle { font-size: 13px; color: #666; margin-bottom: 6px; }
+  .note { font-size: 11.5px; color: #dc2626; margin-bottom: 24px; }
+
+  h2 {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #888;
+    margin: 24px 0 10px;
+    padding-bottom: 6px; border-bottom: 1px solid #eee;
+  }
+
+  /* SCORE HEADER */
+  .score-header {
+    display: grid;
+    grid-template-columns: 1fr 40px 40px 40px 40px 46px 28px;
+    gap: 4px;
+    padding: 0 0 6px;
+    border-bottom: 2px solid #111;
+    font-size: 10px; font-weight: 700; color: #888;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .score-header .left { text-align: left; }
+
+  /* SCORE ROW */
+  .score-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 40px 40px 40px 46px 28px;
+    gap: 4px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f3f4f6;
+    align-items: center;
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-row.top { background: #fffbeb; border-radius: 6px; padding-left: 6px; margin-left: -6px; }
+
+  .brand-name { font-size: 14px; font-weight: 700; }
+  .brand-tag { font-size: 10px; color: #aaa; }
+
+  .cell {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .total {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f3460;
+  }
+  .rank {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #aaa;
+  }
+  .rank.r1 { color: #d97706; }
+
+  /* BAR */
+  .bar-wrap { margin-top: 3px; }
+  .bar {
+    height: 4px; border-radius: 2px;
+    background: #e5e7eb; overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 2px; background: #0f3460; }
+
+  /* WEIGHT ROW */
+  .weight-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 40px 40px 40px 46px 28px;
+    gap: 4px;
+    font-size: 10px; color: #aaa; text-align: center;
+    margin-bottom: 12px;
+  }
+  .weight-row .left { text-align: left; }
+
+  .legend { font-size: 11.5px; color: #555; margin-top: 28px; line-height: 1.7; }
+  .legend strong { color: #111; }
+
+  .footer { margin-top: 32px; font-size: 11px; color: #bbb; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Kết quả Scoring Chi tiết · Tháng 7/2026</div>
+<h1>LMSG — Brand Scoring</h1>
+<div class="subtitle">Framework 4 Tầng · Trọng số: VN 15% · HCMC 20% · LMSG 30% · Ops 35%</div>
+<div class="note">⚠️ Tầng 4 (Ops & Tài chính) chưa chạy thực — tất cả đang để mặc định 5.00</div>
+
+<!-- HEADER -->
+<div class="score-header">
+  <div class="left">Thương hiệu</div>
+  <div>VN</div>
+  <div>HCMC</div>
+  <div>LMSG</div>
+  <div>Ops</div>
+  <div>Tổng</div>
+  <div>Hạng</div>
+</div>
+<div class="weight-row">
+  <div class="left">Trọng số →</div>
+  <div>15%</div>
+  <div>20%</div>
+  <div>30%</div>
+  <div>35%</div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- INTERNATIONAL RESTAURANT -->
+<h2>🍽️ International Restaurant</h2>
+
+<div class="score-row top">
+  <div><div class="brand-name">Hakkasan</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div></div>
+  <div class="cell">4.22</div>
+  <div class="cell">4.40</div>
+  <div class="cell">4.17</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.51</div>
+  <div class="rank r1">#1</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Samwon Garden</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
+  <div class="cell">4.22</div>
+  <div class="cell">3.90</div>
+  <div class="cell">4.08</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.39</div>
+  <div class="rank">#2</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Mott 32</div><div class="brand-tag">SHG đề xuất</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:87%"></div></div></div></div>
+  <div class="cell">4.00</div>
+  <div class="cell">4.10</div>
+  <div class="cell">4.00</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.37</div>
+  <div class="rank">#3</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Sushi Samba</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:87%"></div></div></div></div>
+  <div class="cell">3.89</div>
+  <div class="cell">4.10</div>
+  <div class="cell">4.00</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.35</div>
+  <div class="rank">#4</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Hanu</div><div class="brand-tag">SHG đề xuất · Thấp nhất</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:85%"></div></div></div></div>
+  <div class="cell">3.67</div>
+  <div class="cell">4.10</div>
+  <div class="cell">3.83</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.27</div>
+  <div class="rank">#5</div>
+</div>
+
+<!-- CASUAL FINE -->
+<h2>🍜 Casual Fine / Signature</h2>
+
+<div class="score-row top">
+  <div><div class="brand-name">Fatboy Izakaya</div><div class="brand-tag">Nhật casual · Marriott gợi ý</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div></div>
+  <div class="cell">4.00</div>
+  <div class="cell">4.50</div>
+  <div class="cell">4.17</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.50</div>
+  <div class="rank r1">#1</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Indya by Vineet</div><div class="brand-tag">Indian · Michelin Bib</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
+  <div class="cell">3.67</div>
+  <div class="cell">4.10</div>
+  <div class="cell">4.25</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.39</div>
+  <div class="rank">#2</div>
+</div>
+
+<div class="score-row">
+  <div><div class="brand-name">Dishoom</div><div class="brand-tag">Indian · London concept</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
+  <div class="cell">3.78</div>
+  <div class="cell">4.30</div>
+  <div class="cell">4.00</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.38</div>
+  <div class="rank">#3</div>
+</div>
+
+<!-- ROOFTOP BAR -->
+<h2>🍷 Rooftop Bar & Lounge</h2>
+
+<div class="score-row top">
+  <div><div class="brand-name">Park 90</div><div class="brand-tag">Wine bar · LMSG fit cao nhất</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:91%"></div></div></div></div>
+  <div class="cell">3.56</div>
+  <div class="cell">4.30</div>
+  <div class="cell">4.67</div>
+  <div class="cell">5.00</div>
+  <div class="total">4.54</div>
+  <div class="rank r1">#1</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <strong>Ghi chú điểm thành phần:</strong><br>
+  · <strong>VN</strong> — 9 tiêu chí: thị hiếu, brand equity, chuỗi cung ứng, bão hòa quốc gia…<br>
+  · <strong>HCMC</strong> — 10 tiêu chí: cạnh tranh D1/D2, nhân khẩu, trend, fill rate…<br>
+  · <strong>LMSG</strong> — 12 tiêu chí: brand alignment, physical fit, MICE synergy, La Victoire cross-sell…<br>
+  · <strong>Ops</strong> — 9 tiêu chí: nhân sự, CAPEX, doanh thu tối thiểu, EBITDA, hoàn vốn — <span style="color:#dc2626">chưa chạy</span>
+</div>
+
+<div class="footer">LMSG F&B Scoring · Tháng 7/2026 · Nội bộ</div>
+
+</body>
+</html>
