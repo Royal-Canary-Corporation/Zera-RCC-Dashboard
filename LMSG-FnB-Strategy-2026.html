@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Le Méridien Saigon — F&B Strategy 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --navy: #0A1628;
+    --gold: #B8960C;
+    --gold-light: #D4AF37;
+    --cream: #FAF8F3;
+    --white: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --border: #E0D9CC;
+    --accent: #F4F0E8;
+    --green: #166534;
+    --green-bg: #DCFCE7;
+    --red: #991B1B;
+    --red-bg: #FEE2E2;
+    --blue: #1E3A5F;
+    --blue-bg: #DBEAFE;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--text); font-size:13px; line-height:1.7; }
+
+  /* COVER */
+  .cover { min-height:100vh; background:var(--navy); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 40px; position:relative; overflow:hidden; }
+  .cover::before { content:''; position:absolute; top:-200px; right:-200px; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(184,150,12,0.07) 0%,transparent 70%); }
+  .cover-inner { position:relative; z-index:1; max-width:760px; }
+  .cover-eyebrow { font-size:10px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-light); margin-bottom:28px; }
+  .cover-rule { width:48px; height:1px; background:var(--gold); margin:0 auto 28px; }
+  .cover-title { font-family:'Cormorant Garamond',serif; font-size:58px; font-weight:300; color:#fff; line-height:1.1; margin-bottom:10px; }
+  .cover-sub { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; font-style:italic; color:rgba(255,255,255,0.55); margin-bottom:48px; }
+  .cover-meta { display:flex; gap:40px; justify-content:center; flex-wrap:wrap; }
+  .cover-meta-item { text-align:center; }
+  .cover-meta-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:4px; }
+  .cover-meta-value { font-size:12px; font-weight:500; color:rgba(255,255,255,0.85); }
+
+  /* CONTAINER */
+  .container { max-width:960px; margin:0 auto; padding:80px 40px; }
+
+  /* SECTION HEADER */
+  .sec-hdr { display:flex; align-items:baseline; gap:16px; margin-bottom:32px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .sec-num { font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:300; color:var(--gold); line-height:1; min-width:44px; }
+  .sec-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:var(--navy); }
+
+  .section { margin-bottom:72px; }
+
+  /* EXEC SUMMARY */
+  .exec-box { background:var(--navy); color:#fff; border-radius:2px; padding:40px 44px; margin-bottom:48px; }
+  .exec-box-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--gold-light); margin-bottom:20px; }
+  .exec-box p { font-size:13px; line-height:1.85; color:rgba(255,255,255,0.85); margin-bottom:12px; }
+  .exec-box p:last-child { margin-bottom:0; }
+  .exec-box strong { color:var(--gold-light); }
+
+  /* KPI ROW */
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:32px 0; }
+  .kpi-card { background:var(--white); border:1px solid var(--border); border-radius:2px; padding:24px 20px; text-align:center; position:relative; overflow:hidden; }
+  .kpi-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:3px; background:var(--gold); }
+  .kpi-num { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:300; color:var(--navy); line-height:1; margin-bottom:6px; }
+  .kpi-label { font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+  .kpi-sub { font-size:11px; color:var(--muted); margin-top:4px; }
+
+  /* BUILDING STACK */
+  .building { background:var(--white); border:1px solid var(--border); border-radius:2px; overflow:hidden; margin:32px 0; }
+  .floor { border-bottom:1px solid var(--border); }
+  .floor:last-child { border-bottom:none; }
+  .floor-header { display:flex; align-items:stretch; }
+  .floor-label { background:var(--navy); color:var(--gold-light); writing-mode:vertical-lr; text-orientation:mixed; transform:rotate(180deg); padding:16px 10px; font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; min-width:40px; display:flex; align-items:center; justify-content:center; }
+  .floor-content { flex:1; padding:20px 24px; }
+  .floor-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:var(--navy); margin-bottom:12px; }
+  .concepts-grid { display:grid; gap:10px; }
+  .concepts-grid.two { grid-template-columns:1fr 1fr; }
+  .concepts-grid.three { grid-template-columns:repeat(3,1fr); }
+  .concept-card { border:1px solid var(--border); border-radius:2px; padding:16px; position:relative; overflow:hidden; }
+  .concept-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); }
+  .concept-tag { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+  .concept-name { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .concept-desc { font-size:11px; color:var(--muted); line-height:1.6; margin-bottom:8px; }
+  .concept-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .tag { font-size:10px; padding:2px 8px; border-radius:20px; font-weight:500; }
+  .tag-navy { background:var(--navy); color:var(--gold-light); }
+  .tag-gold { background:var(--accent); color:var(--navy); }
+  .tag-green { background:var(--green-bg); color:var(--green); }
+  .tag-blue { background:var(--blue-bg); color:var(--blue); }
+  .tag-red { background:var(--red-bg); color:var(--red); }
+
+  /* MICE CALLOUT */
+  .mice-bar { background:var(--accent); border-left:3px solid var(--gold); padding:14px 20px; margin:16px 0 0; border-radius:0 2px 2px 0; font-size:12px; color:var(--navy); }
+  .mice-bar strong { color:var(--gold); }
+
+  /* FLOOR MAP */
+  .floor-map { display:flex; gap:8px; height:80px; margin:16px 0 0; }
+  .map-block { border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:600; text-align:center; line-height:1.3; padding:4px; }
+  .map-c1 { background:#0A1628; color:#D4AF37; }
+  .map-c2 { background:#1E3A5F; color:#fff; }
+  .map-c4 { background:#2D5016; color:#fff; }
+  .map-boh { background:var(--border); color:var(--muted); }
+
+  /* DEDUCTION BLOCKS */
+  .deduction { margin-bottom:20px; padding:20px 24px; background:var(--white); border:1px solid var(--border); border-radius:2px; display:flex; gap:20px; }
+  .ded-icon { font-size:20px; flex-shrink:0; margin-top:2px; }
+  .ded-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .ded-text { font-size:12px; color:var(--text); line-height:1.75; }
+  .ded-evidence { font-size:11px; color:var(--muted); margin-top:6px; font-style:italic; }
+
+  /* DATA TABLE */
+  table { width:100%; border-collapse:collapse; font-size:12px; margin:20px 0; }
+  th { background:var(--navy); color:var(--gold-light); font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:10px 14px; text-align:left; }
+  td { padding:11px 14px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:var(--accent); }
+  .total-row td { background:var(--accent); font-weight:700; color:var(--navy); border-top:2px solid var(--gold); }
+
+  /* RISK MATRIX */
+  .risk-high { background:var(--red-bg); color:var(--red); padding:2px 8px; border-radius:20px; font-size:10px; font-weight:600; }
+  .risk-med { background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:600; }
+  .risk-low { background:var(--green-bg); color:var(--green); padding:2px 8px; border-radius:20px; font-size:10px; font-weight:600; }
+
+  /* TIMELINE */
+  .timeline { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--border); border-radius:2px; overflow:hidden; margin:20px 0; }
+  .tl-step { padding:24px 20px; border-right:1px solid var(--border); background:var(--white); }
+  .tl-step:last-child { border-right:none; }
+  .tl-num { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; color:var(--gold); line-height:1; margin-bottom:8px; }
+  .tl-label { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy); margin-bottom:6px; }
+  .tl-desc { font-size:11px; color:var(--muted); line-height:1.6; }
+
+  /* POSITIONING MAP */
+  .pos-map { background:var(--white); border:1px solid var(--border); border-radius:2px; padding:32px; margin:20px 0; position:relative; }
+  .pos-map-title { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; }
+  .pos-grid { display:grid; grid-template-columns:60px 1fr; grid-template-rows:1fr; gap:0; height:280px; }
+  .pos-y-label { display:flex; flex-direction:column; justify-content:space-between; padding-right:12px; }
+  .pos-y-tick { font-size:10px; color:var(--muted); text-align:right; }
+  .pos-chart { position:relative; border-left:2px solid var(--border); border-bottom:2px solid var(--border); }
+  .pos-node { position:absolute; transform:translate(-50%,-50%); }
+  .pos-dot { width:14px; height:14px; border-radius:50%; margin:0 auto 4px; }
+  .pos-node-label { font-size:10px; font-weight:700; color:var(--navy); text-align:center; white-space:nowrap; }
+  .pos-node-sub { font-size:9px; color:var(--muted); text-align:center; white-space:nowrap; }
+  .pos-x-labels { display:flex; justify-content:space-between; padding:8px 0 0 60px; }
+  .pos-x-tick { font-size:10px; color:var(--muted); }
+
+  /* SEPARATOR */
+  hr.sep { border:none; border-top:1px solid var(--border); margin:60px 0; }
+
+  /* HIGHLIGHT */
+  .highlight { background:var(--accent); border-left:3px solid var(--gold); padding:16px 20px; border-radius:0 2px 2px 0; margin:16px 0; }
+  .highlight p { font-size:12px; color:var(--text); line-height:1.75; }
+
+  /* FOOTER */
+  .doc-footer { background:var(--navy); color:rgba(255,255,255,0.45); text-align:center; padding:28px 40px; font-size:11px; letter-spacing:0.05em; }
+  .doc-footer strong { color:var(--gold-light); }
+
+  @media (max-width:720px) {
+    .kpi-row { grid-template-columns:1fr 1fr; }
+    .concepts-grid.three { grid-template-columns:1fr; }
+    .concepts-grid.two { grid-template-columns:1fr; }
+    .timeline { grid-template-columns:1fr; }
+    .cover-title { font-size:36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">F&B Strategy — Internal Working Document</p>
+    <div class="cover-rule"></div>
+    <h1 class="cover-title">Le Méridien Saigon</h1>
+    <p class="cover-sub">Full-Building F&B Stack · Concept Reasoning & Evidence</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Property</span>
+        <span class="cover-meta-value">343 Keys · District 1 · Saigon River</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">F&B Concepts</span>
+        <span class="cover-meta-value">6 total (2 existing · 4 new)</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Total New CAPEX</span>
+        <span class="cover-meta-value">~$6.18M</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Est. New F&B Revenue</span>
+        <span class="cover-meta-value">~$15.3M / year</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Prepared</span>
+        <span class="cover-meta-value">July 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">—</span><span class="sec-title">Executive Summary</span></div>
+    <div class="exec-box">
+      <p class="exec-box-title">Strategic Recommendation in Three Sentences</p>
+      <p>Le Méridien Saigon's existing F&B portfolio — Akuna (fine dining), Barson (failing lobby bar), Latest Recipe (generic all-day dining) — leaves the hotel without a coherent identity, without MICE F&B capability, and without concepts to capture three high-growth guest segments: Western business travellers, Indian MICE corporates, and the expanding expat after-work crowd.</p>
+      <p>The recommended solution is a <strong>four-concept new build across Floor 2 and the lobby</strong>, converting Barson into a destination French Bistro + Speakeasy, filling Floor 2 with a Cantonese anchor brand (C1), a premium Steakhouse (C2), and an Indian Fusion concept (C4) — with Latest Recipe repositioned as a Vietnamese Modern breakfast destination at minimal cost.</p>
+      <p>The resulting stack covers <strong>every daypart, every price bracket from 300k to 3M+ VND</strong>, creates 960–1,160m² of combinable MICE space, diversifies operator risk across one brand-licensed and three in-house concepts, and delivers an estimated <strong>~$15.3M annual F&B revenue at ~20-month payback</strong> on $6.18M CAPEX.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num">6</div>
+        <div class="kpi-label">Total Concepts</div>
+        <div class="kpi-sub">2 existing · 4 new</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">$6.18M</div>
+        <div class="kpi-label">Total CAPEX</div>
+        <div class="kpi-sub">New concepts only</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">$15.3M</div>
+        <div class="kpi-label">Est. Annual Revenue</div>
+        <div class="kpi-sub">New concepts incl. LR+</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">~20mo</div>
+        <div class="kpi-label">Payback Period</div>
+        <div class="kpi-sub">At 28% GOP margin</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- BUILDING STACK -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">01</span><span class="sec-title">Full Building F&B Stack</span></div>
+
+    <div class="building">
+
+      <!-- ROOFTOP / AKUNA -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label" style="background:#4B2E0A;">Upper Floors</div>
+          <div class="floor-content">
+            <div class="floor-title">Akuna — Existing Fine Dining <span style="font-size:12px;color:var(--muted);font-weight:400;">(Retain as-is)</span></div>
+            <div class="concepts-grid" style="grid-template-columns:1fr;">
+              <div class="concept-card">
+                <div class="concept-tag">Existing · No change</div>
+                <div class="concept-name">Akuna</div>
+                <div class="concept-desc">Fine dining anchor. Retain positioning at >3M VND/pax. No investment required. Serves as the prestige halo for the hotel's F&B identity.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">>3M VND/pax</span>
+                  <span class="tag tag-gold">Fine Dining</span>
+                  <span class="tag tag-gold">Retain</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLOOR 2 -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label">Floor 2 · 1,600m²</div>
+          <div class="floor-content">
+            <div class="floor-title">MICE Floor — 3 New Concepts + Shared BOH</div>
+
+            <div class="floor-map">
+              <div class="map-block map-c1" style="flex:2.1;">C1<br>Cantonese<br>520m²</div>
+              <div class="map-block map-c2" style="flex:2.2;">C2<br>Steakhouse<br>540m²</div>
+              <div class="map-block map-c4" style="flex:1.2;">C4<br>Indian<br>290m²</div>
+              <div class="map-block map-boh" style="flex:1;">BOH<br>250m²</div>
+            </div>
+            <div class="mice-bar">⟵ <strong>MICE Combine: C1 + C2 = 1,060m²</strong> (operable wall) → capacity ~240 pax banquet / ~300 pax cocktail ⟶</div>
+
+            <div class="concepts-grid three" style="margin-top:16px;">
+              <div class="concept-card">
+                <div class="concept-tag">C1 · Brand Licensed · 520m²</div>
+                <div class="concept-name">Cantonese Fine Dining</div>
+                <div class="concept-desc">Modern Cantonese anchor. Brand: Mott 32 (SHG) or Hakkasan. Includes 2–3 Private Dining Rooms (PDR) 20–30 pax each for corporate entertaining. Dim sum lunch format enables MICE group lunch conversion.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">1.5M–3M VND</span>
+                  <span class="tag tag-gold">Brand: Mott 32 / Hakkasan</span>
+                  <span class="tag tag-green">MICE anchor</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C2 · In-House · 540m²</div>
+                <div class="concept-name">Premium Steakhouse & Grill</div>
+                <div class="concept-desc">River-view open kitchen steakhouse. In-house concept — no brand royalty. Live fire/grill station, long bar counter doubles as after-work wine bar. Highest demand score from Western expat and Western tourist segments (9.0–9.2/10 raw).</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1.5M VND</span>
+                  <span class="tag tag-gold">In-House</span>
+                  <span class="tag tag-blue">Western Expat + Tourist</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C4 · In-House · 290m²</div>
+                <div class="concept-name">Indian Fusion / Localized Indian</div>
+                <div class="concept-desc">Sharing-format modern Indian. Inspired by Rang (Đà Nẵng) — approachable for Vietnamese diners, authentic enough for Indian travellers. Full vegetarian menu as structural differentiator. Shared BOH with C2 (tandoor + grill overlap).</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1.5M VND</span>
+                  <span class="tag tag-gold">In-House</span>
+                  <span class="tag tag-green">Vegetarian-ready</span>
+                  <span class="tag tag-blue">India MICE</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight" style="margin-top:16px;">
+              <p><strong>BOH Innovation:</strong> C2 (live grill) and C4 (tandoor) share a single 250m² back-of-house — equipment overlap is structural, not coincidental. Both concepts require high-heat dry cooking, ventilation infrastructure, and cold protein storage. Combined BOH saves est. $300–400K CAPEX vs. two independent kitchens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOBBY / BARSON -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label">Lobby · 380m²</div>
+          <div class="floor-content">
+            <div class="floor-title">C3 — Replace Barson Entirely</div>
+            <div class="concepts-grid two">
+              <div class="concept-card">
+                <div class="concept-tag">C3A · Front · ~240m²</div>
+                <div class="concept-name">French Bistro + Champagne Bar</div>
+                <div class="concept-desc">Street-accessible, lobby-level. Indochine colonial aesthetic — 1930s Saigon narrative. Natural wine + champagne program, French-Vietnamese small plates. Targets expat after-work crowd, weekend brunch, hotel guest overflow. All-day 7AM–10PM.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">300k–700k VND</span>
+                  <span class="tag tag-gold">In-House</span>
+                  <span class="tag tag-blue">Walk-in · Brunch</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C3B · Hidden · ~120m²</div>
+                <div class="concept-name">Speakeasy Cocktail Bar</div>
+                <div class="concept-desc">Concealed entrance from bistro (bookshelf / phone booth). Opens 8PM. Intimate, 40–50 covers. Craft cocktail programme. Le Méridien "discovery" brand identity expressed physically. Pre-dinner reception space for C1/C2 MICE groups.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">500k–1.2M VND (drinks)</span>
+                  <span class="tag tag-gold">In-House</span>
+                  <span class="tag tag-green">Late Night</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUND / LATEST RECIPE -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label" style="background:#4B2E0A;">Ground · Existing</div>
+          <div class="floor-content">
+            <div class="floor-title">Latest Recipe → "Morning Market" ADD <span style="font-size:12px;color:var(--muted);font-weight:400;">(Reposition, no full renovation)</span></div>
+            <div class="concepts-grid" style="grid-template-columns:1fr;">
+              <div class="concept-card">
+                <div class="concept-tag">Existing · ADD Identity Layer · ~$80–120K</div>
+                <div class="concept-name">Latest Recipe+ — Vietnamese Modern Breakfast</div>
+                <div class="concept-desc">Retain space. Add live cooking stations (phở, bún bò, bánh mì artisan), rebrand with Vietnamese concept name and visual identity (mural, market aesthetic). Refocus hours 6:30AM–2PM. Price repositioned to 700k–1.2M/pax — above French Bistro, below Cantonese. No full renovation required. Unique in D1: only 5-star hotel serving live Vietnamese breakfast stations.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1.2M VND</span>
+                  <span class="tag tag-gold">$80–120K ADD cost</span>
+                  <span class="tag tag-green">Zero cannibalization vs. C3</span>
+                  <span class="tag tag-blue">Hotel guest capture</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- REASONING — LOGICAL DEDUCTIONS -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">02</span><span class="sec-title">Reasoning — Logical Deductions with Evidence</span></div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 1: The 700k–1.5M bracket is the structural sweet spot for LMSG — but not because it's popular. Because it clears the right competitive set.</div>
+        <div class="ded-text">All demand segments (VN locals, Western expat, Western tourist, Asian tourist) peak in composite score at the 700k–1.5M bracket. However, the more important insight is that this bracket sits above the price floor of D1's mass-market restaurants while remaining accessible to hotel guests on company expense accounts and middle-class celebration dining. At >3M, Akuna already occupies the tier. At <300k, the hotel has no business competing. 700k–1.5M is the only bracket where LMSG can win on product rather than price.</div>
+        <div class="ded-evidence">Evidence: Short-Stay Top 5 composite scores peak at 700k–1.5M across all 10 cuisine types. Western expat demand normalized score 3.73/5 at this bracket, highest of any single segment-bracket combination.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 2: Cantonese must be the brand-licensed concept — and is the only one that should be.</div>
+        <div class="ded-text">Cantonese fine dining at 1.5M–3M VND requires brand justification to hold the price point against cheaper Chinese restaurants in D1. Without a name like Mott 32 or Hakkasan, guests will choose external options at 40% lower price. No other concept in the stack has this problem: Steakhouse wins on atmosphere + product (not brand), Indian Fusion wins on scarcity (no comparable D1 competitor), French Bistro wins on accessibility and setting. Licensing C1 only preserves operator margin on C2, C3, and C4 (~70% of revenue base).</div>
+        <div class="ded-evidence">Evidence: D1/D2 saturation at 700k–1.5M for Cantonese = 6.4/10 (high). Brand anchor needed to justify price premium. Mott 32 scored 4.51 overall in framework sheet 1 — highest rated brand evaluated.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 3: Japanese and Korean are demand traps — high desire, no white space.</div>
+        <div class="ded-text">Both Japanese and Korean exhibit the highest raw demand scores across multiple segments. However, Japanese saturation at 700k–1.5M in D1/D2 is 9.2/10 — the highest in the entire matrix. Korean saturation at 300k–700k is 7.4/10 and the format (KBBQ) is commoditised at every price point. High demand + high saturation = winner-takes-most, and LMSG is not positioned to win against established Japanese omakase or KBBQ specialists in D1. Pursuing either would require a Tier 1 brand (Nobu, Zuma) to differentiate — adding licensing cost without material margin improvement.</div>
+        <div class="ded-evidence">Evidence: Japanese D1/D2 saturation 9.2/10 at 700k–1.5M. Korean ranked #10 in Short-Stay Top 5 ("KBBQ heavily saturated and commoditised"). Framework sheet: Samwon Garden scored 4.22 Vietnam fit but 1/5 on track record in Vietnamese gateway cities.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 4: French/European is genuine white space — operator hesitation, not demand gap.</div>
+        <div class="ded-text">French/European at 1.5M–3M has the second-lowest D1/D2 saturation of any cuisine (1.87/10). Western expat demand at this bracket is 4.3/5 (normalized), Western tourist demand 3.42/5. This is not an affordability problem — both segments can and do spend at this level. The gap exists because F&B operators in HCMC prefer lower-rent locations (Thao Dien, Nam Kỳ Khởi Nghĩa) for French concepts. Positioned at 300k–700k in a lobby setting (C3), LMSG can enter the French space at accessible pricing without competing head-on at the fine dining tier, capturing walk-in volume the existing competition cannot.</div>
+        <div class="ded-evidence">Evidence: French/European saturation 1.87/10 at 1.5M–3M — lowest paired with meaningful Western demand signals. Short-Stay Top 5 ranked French #4 with rationale "colonial-heritage narrative resonates with Western tourists."</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 5: Indian Fusion at 700k–1.5M is a forward-looking bet, not a current-demand play — and the math supports it.</div>
+        <div class="ded-text">Indian arrivals to Vietnam grew +70% YoY in 2026 and 3× over three years. Russian arrivals surged +203% in Q1 2026 but are concentrated in resort destinations (Nha Trang, Phu Quoc, Đà Nẵng) — not HCMC. Indian tourists do reach HCMC, predominantly as MICE corporates. Indian cuisine saturation at 700k–1.5M in D1/D2 is only 3.8/10. No fine-dining or semi-formal Indian concept exists in D1 HCMC. The risk is mitigated by localizing the format (fusion, sharing plates, Rang model) so that VN locals and Western expats provide the base revenue load, with Indian MICE groups as the high-margin upside. Full vegetarian menu capability creates a unique MICE service proposition no D1 competitor currently offers.</div>
+        <div class="ded-evidence">Evidence: India Vietnam arrivals +70% YoY 2026 (VietDan Travel, July 2026). Indian cuisine D1/D2 saturation 3.8/10 at target bracket. Rang Đà Nẵng proof of concept for localized Indian demand in Vietnamese market. Shared BOH with C2 reduces CAPEX to $0.81M — lowest cost-per-concept in stack.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 6: Barson must be replaced, not renovated — and the replacement must face the street, not the elevator.</div>
+        <div class="ded-text">Barson's failure is structural: a lobby bar without concept identity cannot compete for the expat after-work segment against purpose-built venues. The decision to convert it into French Bistro + Speakeasy solves two problems simultaneously — it replaces the failing concept with one that has a clear identity, and it positions the hotel's most accessible-price concept at street level where walk-in friction is lowest. A lobby-level French Bistro converts hotel arrivals, taxi waiters, and District 1 foot traffic that would never ride an elevator to reach a restaurant. Speakeasy adjacency creates discovery narrative — a Le Méridien brand expression that costs $0 in marketing to communicate.</div>
+        <div class="ded-evidence">Evidence: Barson 380m² lobby space. French/European D1/D2 saturation at 300k–700k = 3.23/10 (low). Brunch segment growing in D1 (The Deck, Odys, Lola as comparables — all at accessible price, high walk-in). Speakeasy format creates destination effect for rooftop-less hotel.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Deduction 7: Latest Recipe needs identity, not renovation — and the right identity is Vietnamese, not international.</div>
+        <div class="ded-text">All five international cuisine concepts in the stack (Cantonese, Steak, Indian, French, Speakeasy) serve non-Vietnamese food. No concept in the new stack owns the "best Vietnamese breakfast in D1" position. Latest Recipe, with $80–120K in ADD investment (live stations, rebrand, visual identity), can own this position without competing with any other concept in the hotel. Vietnamese modern breakfast at 700k–1.2M is above the French Bistro's price floor, distinct from all other daypart offerings, and defensible against competition because it requires a hotel-grade kitchen and live station infrastructure that standalone restaurants rarely have.</div>
+        <div class="ded-evidence">Evidence: Vietnamese modern cuisine D1/D2 saturation at 700k–1.5M = 2.72/10 — lowest of any cuisine at this bracket. Western tourist raw demand = 7.8/10. ADD cost $80–120K vs. $1.5M+ greenfield — 12× lower investment for comparable positioning uplift.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="sep">
+
+  <!-- FINANCIAL SUMMARY -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">03</span><span class="sec-title">Financial Summary</span></div>
+
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Location</th><th>m²</th><th>Price/pax</th><th>CAPEX</th><th>Rev/year est.</th><th>Operator</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Akuna</strong></td><td>Existing</td><td>—</td><td>>3M</td><td>$0</td><td>Existing</td><td>Existing</td></tr>
+        <tr><td><strong>C1 Cantonese</strong></td><td>Floor 2</td><td>520m²</td><td>1.5M–3M</td><td>$2.34M</td><td>~$5.5M</td><td>Brand (Mott 32 / Hakkasan)</td></tr>
+        <tr><td><strong>C2 Steakhouse</strong></td><td>Floor 2</td><td>540m²</td><td>700k–1.5M</td><td>$1.89M</td><td>~$4.2M</td><td>In-house</td></tr>
+        <tr><td><strong>C4 Indian Fusion</strong></td><td>Floor 2</td><td>290m²</td><td>700k–1.5M</td><td>$0.81M</td><td>~$2.9M</td><td>In-house</td></tr>
+        <tr><td><strong>Shared BOH (C2+C4)</strong></td><td>Floor 2</td><td>250m²</td><td>—</td><td>$0.30M</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>C3 French Bistro + Speakeasy</strong></td><td>Lobby (Barson)</td><td>380m²</td><td>300k–700k / drinks</td><td>$0.84M</td><td>~$2.3M</td><td>In-house</td></tr>
+        <tr><td><strong>Latest Recipe+ (ADD only)</strong></td><td>Ground</td><td>Existing</td><td>700k–1.2M</td><td>$0.10M</td><td>~$0.4M uplift</td><td>In-house</td></tr>
+        <tr class="total-row"><td colspan="4"><strong>Total New Investment</strong></td><td><strong>~$6.28M</strong></td><td><strong>~$15.3M</strong></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight">
+      <p><strong>Payback:</strong> $6.28M CAPEX ÷ (GOP margin 28% × $15.3M revenue) = $6.28M ÷ $4.28M = <strong>~17.5 months</strong>. Conservative estimate — excludes MICE group uplift (~$900K+/year additional at 2 events/week).</p>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Brand royalty cost (C1 only):</strong> Est. ~$385K/year (7% of $5.5M C1 revenue). C1 post-royalty GOP still ~$1.16M. Trade-off justified: brand anchor drives hotel occupancy premium and positions entire Floor 2 in market communications.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- RISK MATRIX -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">04</span><span class="sec-title">Risk Matrix</span></div>
+    <table>
+      <thead>
+        <tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>C1 brand operator exits after 5-year term</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-high">High</span></td>
+          <td>Negotiate 10-year initial term + renewal option. IP reversion clause. C2+C4 buffer revenue during transition.</td>
+        </tr>
+        <tr>
+          <td>C4 Indian Fusion — VN local demand slower than projected</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-med">Medium</span></td>
+          <td>Lowest CAPEX concept ($0.81M). BOH shared with C2 — fixed cost partially absorbed. Break-even at 60 covers/day lunch + dinner. Indian MICE groups provide high-margin upside.</td>
+        </tr>
+        <tr>
+          <td>MICE demand lower than forecast</td>
+          <td><span class="risk-med">Medium</span></td>
+          <td><span class="risk-low">Low</span></td>
+          <td>MICE is upside, not base case. C1+C2 operate independently at full capacity regardless. Revenue model conservative — MICE adds ~$900K/year.</td>
+        </tr>
+        <tr>
+          <td>C3 French Bistro — Barson footprint constrains covers</td>
+          <td><span class="risk-low">Low</span></td>
+          <td><span class="risk-low">Low</span></td>
+          <td>380m² supports ~180–200 covers. If outdoor terrace toward river is available, +30–40 pax. Bistro model at 300k–700k has low break-even (~80 covers/day).</td>
+        </tr>
+        <tr>
+          <td>C2 + C4 shared BOH creates operational conflict</td>
+          <td><span class="risk-low">Low</span></td>
+          <td><span class="risk-med">Medium</span></td>
+          <td>Hire single Executive Chef overseeing both concepts. Stagger peak service times (C4 lunch-heavy, C2 dinner-heavy). BOH design with clear section delineation.</td>
+        </tr>
+        <tr>
+          <td>Akuna cannibalised by C1 Cantonese</td>
+          <td><span class="risk-low">Low</span></td>
+          <td><span class="risk-low">Low</span></td>
+          <td>Price gap sufficient: Akuna >3M, C1 1.5M–3M. Positioning distinct. C1 captures pre-Akuna spending tier, does not replace it.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <!-- POSITIONING MAP -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">05</span><span class="sec-title">Concept Positioning — No Gap, No Overlap</span></div>
+
+    <table>
+      <thead>
+        <tr><th>Daypart</th><th>7AM–10AM</th><th>11AM–2PM</th><th>3PM–6PM</th><th>6PM–10PM</th><th>10PM–2AM</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Akuna</strong></td><td>—</td><td>—</td><td>—</td><td>✅ Fine dining</td><td>—</td></tr>
+        <tr><td><strong>C1 Cantonese</strong></td><td>—</td><td>✅ Dim sum / MICE lunch</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C2 Steakhouse</strong></td><td>—</td><td>✅ Working lunch</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C4 Indian Fusion</strong></td><td>—</td><td>✅ Sharing lunch</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C3 French Bistro</strong></td><td>✅ Breakfast</td><td>✅ Brunch / Lunch</td><td>✅ Champagne bar</td><td>✅ Dinner</td><td>—</td></tr>
+        <tr><td><strong>C3B Speakeasy</strong></td><td>—</td><td>—</td><td>—</td><td>—</td><td>✅ Late night bar</td></tr>
+        <tr><td><strong>Latest Recipe+</strong></td><td>✅ VN breakfast</td><td>✅ Brunch</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <!-- STAGING -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">06</span><span class="sec-title">Staging & Next Actions</span></div>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-num">Phase 1</div>
+        <div class="tl-label">Month 0–12</div>
+        <div class="tl-desc">C1 + C2 + C4 Floor 2 construction. C3 Barson conversion (Bistro + Speakeasy). Latest Recipe+ ADD. CAPEX ~$5.4M. Revenue engine online.</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-num">Phase 2</div>
+        <div class="tl-label">Month 6–12 (parallel)</div>
+        <div class="tl-desc">C1 brand operator LOI → design sign-off → fit-out. Critical path: 9–12 month lead time. Must start immediately. C3 opens first (lowest complexity, $0.84M).</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-num">Phase 3</div>
+        <div class="tl-label">Month 18+</div>
+        <div class="tl-desc">MICE sales activation. Target Indian corporate accounts (pharma, IT, BFSI). Engage PCO community. Floor 2 MICE rate card vs. Intercontinental/Sheraton D1.</div>
+      </div>
+    </div>
+
+    <table style="margin-top:24px;">
+      <thead>
+        <tr><th>Decision Required</th><th>Owner</th><th>Urgency</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>C1 brand: Mott 32 (SHG) vs. Hakkasan outreach</td><td>RCC / F&B Director</td><td><span class="risk-high">Immediate</span></td><td>LOI lead time 3–6 months minimum</td></tr>
+        <tr><td>C4 Executive Chef hire (Indian + Asian fusion)</td><td>HR / RCC</td><td><span class="risk-med">Within 60 days</span></td><td>Recruit Singapore hotel circuit or Rang Đà Nẵng</td></tr>
+        <tr><td>C3 Barson conversion: confirm floor plans + terrace access</td><td>Asset / Engineering</td><td><span class="risk-med">Within 30 days</span></td><td>Determines cover count and Speakeasy entrance design</td></tr>
+        <tr><td>Latest Recipe+: Brand/rename + ADD brief to design team</td><td>F&B / Marketing</td><td><span class="risk-low">Within 90 days</span></td><td>$80–120K, parallel with main construction</td></tr>
+        <tr><td>Floor 2 BOH: Appoint M&E / kitchen consultant</td><td>Asset / Engineering</td><td><span class="risk-high">Immediate</span></td><td>Shared BOH design is critical path for C2+C4 CAPEX savings</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <strong>LE MÉRIDIEN SAIGON</strong> · F&B Strategy Working Document · Prepared July 2026 · Royal Canary Corporation<br>
+  <em>Confidential — Internal Use Only</em>
+</div>
+
+</body>
+</html>
