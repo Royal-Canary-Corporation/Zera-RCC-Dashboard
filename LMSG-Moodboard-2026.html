@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Le Méridien Saigon — F&B Concept Moodboards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --navy:#0A1628; --gold:#B8960C; --gold-light:#D4AF37; --cream:#FAF8F3;
+    --white:#fff; --text:#1A1A1A; --muted:#6B6B6B; --border:#E0D9CC;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#0E0E0E; color:#fff; font-size:13px; line-height:1.7; }
+
+  /* COVER */
+  .cover { min-height:100vh; background:var(--navy); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 40px; position:relative; overflow:hidden; }
+  .cover::before { content:''; position:absolute; top:-200px; right:-200px; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(184,150,12,0.07) 0%,transparent 70%); }
+  .cover-inner { position:relative; z-index:1; max-width:760px; }
+  .cover-eyebrow { font-size:10px; font-weight:600; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold-light); margin-bottom:24px; }
+  .cover-rule { width:48px; height:1px; background:var(--gold); margin:0 auto 24px; }
+  .cover-title { font-family:'Cormorant Garamond',serif; font-size:54px; font-weight:300; color:#fff; line-height:1.1; margin-bottom:10px; }
+  .cover-sub { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:rgba(255,255,255,0.5); margin-bottom:40px; }
+  .cover-note { font-size:11px; color:rgba(255,255,255,0.3); max-width:500px; margin:0 auto; line-height:1.7; }
+
+  /* NAV */
+  .nav { position:sticky; top:0; z-index:100; background:#0E0E0E; border-bottom:1px solid rgba(255,255,255,0.08); padding:14px 40px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .nav a { font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); text-decoration:none; padding:6px 14px; border-radius:20px; transition:all .2s; border:1px solid transparent; }
+  .nav a:hover { color:var(--gold-light); border-color:var(--gold); }
+
+  /* CONCEPT SECTION */
+  .concept { padding:80px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+  .container { max-width:1100px; margin:0 auto; padding:0 40px; }
+
+  /* CONCEPT HEADER */
+  .concept-header { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; margin-bottom:48px; }
+  .concept-label { font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:12px; }
+  .concept-name { font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:300; line-height:1.05; margin-bottom:16px; }
+  .concept-tagline { font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic; opacity:0.6; margin-bottom:24px; line-height:1.5; }
+  .concept-desc { font-size:13px; line-height:1.85; opacity:0.75; margin-bottom:24px; }
+  .concept-meta { display:flex; flex-direction:column; gap:8px; }
+  .meta-row { display:flex; gap:12px; align-items:baseline; }
+  .meta-key { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; opacity:0.4; min-width:80px; }
+  .meta-val { font-size:12px; font-weight:500; }
+
+  /* PALETTE */
+  .palette { display:flex; gap:8px; margin-top:24px; }
+  .swatch { width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,0.15); }
+  .swatch-label { font-size:9px; opacity:0.4; margin-top:4px; text-align:center; }
+  .swatch-wrap { text-align:center; }
+
+  /* IMAGE GRID */
+  .img-grid { display:grid; gap:8px; }
+  .img-grid.layout-2x2 { grid-template-columns:1fr 1fr; grid-template-rows:280px 200px; }
+  .img-grid.layout-3x1 { grid-template-columns:1fr 1fr 1fr; grid-template-rows:260px; }
+  .img-grid.layout-featured { grid-template-columns:1.6fr 1fr; grid-template-rows:300px 200px; }
+  .img-grid.layout-3col { grid-template-columns:1fr 1fr 1fr; grid-template-rows:240px 180px; }
+
+  .img-cell { position:relative; overflow:hidden; background:#1a1a1a; border-radius:2px; }
+  .img-cell img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.88) saturate(0.9); transition:filter .4s; }
+  .img-cell:hover img { filter:brightness(1) saturate(1); }
+  .img-cell.span2 { grid-column:span 2; }
+  .img-cell.span-row { grid-row:span 2; }
+  .img-credit { position:absolute; bottom:6px; right:8px; font-size:9px; opacity:0.45; }
+
+  /* KEYWORD TAGS */
+  .keywords { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+  .kw { font-size:10px; padding:4px 12px; border-radius:20px; font-weight:500; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); }
+
+  /* REFERENCE NOTE */
+  .ref-note { margin-top:32px; padding:16px 20px; background:rgba(255,255,255,0.04); border-left:2px solid var(--gold); border-radius:0 2px 2px 0; font-size:11px; color:rgba(255,255,255,0.5); line-height:1.7; }
+  .ref-note strong { color:var(--gold-light); }
+
+  /* CONCEPT COLORS */
+  .c1 { --accent:#D4AF37; --accent-bg:rgba(212,175,55,0.1); }
+  .c2 { --accent:#C0392B; --accent-bg:rgba(192,57,43,0.1); }
+  .c4 { --accent:#E67E22; --accent-bg:rgba(230,126,34,0.1); }
+  .c3a { --accent:#85929E; --accent-bg:rgba(133,146,158,0.08); }
+  .c3b { --accent:#8E44AD; --accent-bg:rgba(142,68,173,0.1); }
+  .lr { --accent:#27AE60; --accent-bg:rgba(39,174,96,0.1); }
+
+  .concept-label { color:var(--accent); }
+  .concept { background:var(--accent-bg); }
+
+  /* FOOTER */
+  .doc-footer { background:var(--navy); text-align:center; padding:32px; font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:0.05em; }
+  .doc-footer strong { color:var(--gold-light); }
+
+  @media(max-width:800px) {
+    .concept-header { grid-template-columns:1fr; }
+    .img-grid.layout-2x2, .img-grid.layout-featured, .img-grid.layout-3col { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+    .img-grid.layout-3x1 { grid-template-columns:1fr; }
+    .img-cell.span2 { grid-column:span 1; }
+    .img-cell.span-row { grid-row:span 1; }
+    .img-grid { min-height:auto; }
+    .img-cell { height:200px; }
+    .cover-title { font-size:36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">Concept Moodboards — Internal Reference</p>
+    <div class="cover-rule"></div>
+    <h1 class="cover-title">Le Méridien Saigon</h1>
+    <p class="cover-sub">F&B Visual Direction · 6 Concepts · July 2026</p>
+    <p class="cover-note">Images sourced from brand websites and editorial press for internal reference only. All rights belong to respective owners. Not for commercial reproduction.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#c1">C1 · Cantonese</a>
+  <a href="#c2">C2 · Steakhouse</a>
+  <a href="#c4">C4 · Indian Fusion</a>
+  <a href="#c3a">C3A · French Bistro</a>
+  <a href="#c3b">C3B · Speakeasy</a>
+  <a href="#lr">Latest Recipe+</a>
+</nav>
+
+<!-- ══ C1 — CANTONESE ══ -->
+<div class="concept c1" id="c1">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">C1 · Brand Licensed · 290m² · Floor 2 — One End</p>
+        <h2 class="concept-name">Cantonese<br>Fine Dining</h2>
+        <p class="concept-tagline">"Film noir meets the apothecary —<br>Chinese culture through a dark luxury lens."</p>
+        <p class="concept-desc">Dark wood, copper panels, black lacquer. New York industrial bones with traditional Chinese soul. Intimate PDR rooms behind carved lattice screens. Dim sum by day, à la carte theatre by night. The kind of place where every surface has a story.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Brand ref.</span><span class="meta-val">Mott 32 / Hakkasan</span></div>
+          <div class="meta-row"><span class="meta-key">Price</span><span class="meta-val">1.5M – 3M VND / pax</span></div>
+          <div class="meta-row"><span class="meta-key">Palette</span><span class="meta-val">Midnight black · Deep copper · Dark walnut · Jade accent</span></div>
+          <div class="meta-row"><span class="meta-key">Key materials</span><span class="meta-val">Carved timber lattice · Lacquered panels · Leather banquette · Hammered copper</span></div>
+          <div class="meta-row"><span class="meta-key">Lighting</span><span class="meta-val">Dramatic low ambient · Warm focused pools · No daylight</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#0A0A0A;"></div><div class="swatch-label">Void</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#8B4513;"></div><div class="swatch-label">Walnut</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#B87333;"></div><div class="swatch-label">Copper</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#D4AF37;"></div><div class="swatch-label">Gold</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#1B4D3E;"></div><div class="swatch-label">Jade</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Film noir</span><span class="kw">Dark luxury</span><span class="kw">Chinese apothecary</span>
+          <span class="kw">Carved lattice</span><span class="kw">Copper + Black</span><span class="kw">Intimate PDR</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-2x2">
+          <div class="img-cell span-row">
+            <img src="https://joycewangstudio.com/content/uploads/2022/03/Mott32-HK-0001-1080x720.jpg" alt="Mott 32 interior" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80'"/>
+            <span class="img-credit">© Mott 32 / Joyce Wang Studio</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80" alt="Dark luxury Chinese dining" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Chinese lattice screen restaurant" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;" class="img-grid layout-3x1">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&q=80" alt="Dim sum luxury" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Cantonese fine dining" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=400&q=80" alt="Private dining room luxury" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Reference brands:</strong> Mott 32 (HK/Singapore/Bangkok) — "New York industrial meets traditional Chinese culture; dark wood, copper panels, dark leather." Interior by Joyce Wang Studio. Hakkasan (London/Dubai/Las Vegas) — "Slate walls, oriental carved screens, dramatic midnight blue nightclub-style lighting." Designer: Christian Liaigre.
+    </div>
+  </div>
+</div>
+
+<!-- ══ C2 — STEAKHOUSE ══ -->
+<div class="concept c2" id="c2">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">C2 · In-House · 540m² · Floor 2 — Centre Buffer</p>
+        <h2 class="concept-name">Premium<br>Steakhouse & Grill</h2>
+        <p class="concept-tagline">"Live fire, river light,<br>the theatre of the cut."</p>
+        <p class="concept-desc">Open kitchen centred on live fire. Long timber bar running the length of the room — doubles as wine bar after 9PM. Industrial steel meets warm timber. River views framed by floor-to-ceiling glass. The cooking is the show. No brand pretension — just product confidence.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Concept</span><span class="meta-val">In-house (no brand royalty)</span></div>
+          <div class="meta-row"><span class="meta-key">Price</span><span class="meta-val">700k – 1.5M VND / pax</span></div>
+          <div class="meta-row"><span class="meta-key">Palette</span><span class="meta-val">Charred black · Raw timber · Brushed steel · Amber flame</span></div>
+          <div class="meta-row"><span class="meta-key">Key materials</span><span class="meta-val">Exposed brick/concrete · Aged timber bar · Matte steel · Leather bar stools</span></div>
+          <div class="meta-row"><span class="meta-key">Lighting</span><span class="meta-val">Warm pendants over bar · Natural river light by day · Fire glow by night</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#1C1C1C;"></div><div class="swatch-label">Char</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#8B6914;"></div><div class="swatch-label">Timber</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#A9A9A9;"></div><div class="swatch-label">Steel</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#E25822;"></div><div class="swatch-label">Ember</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#F5F0E8;"></div><div class="swatch-label">Linen</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Live fire kitchen</span><span class="kw">River view</span><span class="kw">Timber + Steel</span>
+          <span class="kw">Long bar</span><span class="kw">Open kitchen theatre</span><span class="kw">Industrial warm</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-featured">
+          <div class="img-cell span-row">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700&q=80" alt="Open fire grill kitchen" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Premium steak plating" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80" alt="River view dining" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;" class="img-grid layout-3x1">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400&q=80" alt="Steakhouse interior bar" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Beef cut premium" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" alt="Restaurant bar wine" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Design reference direction:</strong> CUT by Wolfgang Puck (Singapore MBS) for open kitchen confidence; Gaucho (London/Dubai) for the Argentine fire-forward aesthetic; Hawksmoor (London) for the dark timber industrial warmth. All three win on product, not brand recognition in their local markets.
+    </div>
+  </div>
+</div>
+
+<!-- ══ C4 — INDIAN FUSION ══ -->
+<div class="concept c4" id="c4">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">C4 · In-House · 520m² · Floor 2 — Opposite End from C1</p>
+        <h2 class="concept-name">Indian Fusion<br>/ ASEAN-Localized</h2>
+        <p class="concept-tagline">"Warm, aromatic, generous —<br>the table as communal ritual."</p>
+        <p class="concept-desc">Terracotta and saffron warmth. Sharing plates designed for the table, not the plate. Modern Indian flavours approachable to Vietnamese palates — spiced, not intimidating. Full vegetarian menu as quiet differentiator. Inspired by Rang (Đà Nẵng) — Michelin Bib Gourmet, Vietnam's first contemporary Indian concept. Rich textiles, hand-thrown pottery, generous natural light.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Reference</span><span class="meta-val">Rang, Đà Nẵng (Michelin Bib Gourmet 2024)</span></div>
+          <div class="meta-row"><span class="meta-key">Price</span><span class="meta-val">700k – 1.5M VND / pax</span></div>
+          <div class="meta-row"><span class="meta-key">Palette</span><span class="meta-val">Terracotta · Saffron · Turmeric · Deep teal accent</span></div>
+          <div class="meta-row"><span class="meta-key">Key materials</span><span class="meta-val">Hand-thrown ceramics · Rattan + cane accents · Linen textiles · Raw plaster walls</span></div>
+          <div class="meta-row"><span class="meta-key">Lighting</span><span class="meta-val">Warm natural · Lantern pendants · Evening candlelight</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#C1440E;"></div><div class="swatch-label">Terracotta</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#E67E22;"></div><div class="swatch-label">Saffron</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#F0C040;"></div><div class="swatch-label">Turmeric</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#1A5276;"></div><div class="swatch-label">Deep teal</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#F5EAD7;"></div><div class="swatch-label">Linen</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Sharing format</span><span class="kw">Terracotta + Saffron</span><span class="kw">Rang reference</span>
+          <span class="kw">Full vegetarian menu</span><span class="kw">Hand-thrown ceramics</span><span class="kw">Michelin Bib</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-featured">
+          <div class="img-cell span-row">
+            <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700&q=80" alt="Indian fusion sharing plates" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" alt="Modern Indian restaurant interior" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Indian food plating" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;" class="img-grid layout-3x1">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=400&q=80" alt="Terracotta restaurant warm" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&q=80" alt="Indian curry sharing" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" alt="Naan bread tandoor" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Key reference:</strong> <a href="https://the-rang.com" style="color:var(--gold-light);">Rang, Đà Nẵng</a> — Vietnam's first contemporary Indian restaurant, Michelin Bib Gourmet 2024. "Thoughtfully designed, blending modern sophistication with Indian cultural elements — relaxed yet upscale." Proof of concept that Vietnamese diners embrace elevated Indian food when the presentation bridges the cultural gap.
+    </div>
+  </div>
+</div>
+
+<!-- ══ C3A — FRENCH BISTRO ══ -->
+<div class="concept c3a" id="c3a">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">C3A · In-House · ~240m² · Lobby (Barson) — Front</p>
+        <h2 class="concept-name">French Bistro<br>+ Wine Bar</h2>
+        <p class="concept-tagline">"Not a theme. A feeling —<br>loose chairs, zinc bar, afternoon light."</p>
+        <p class="concept-desc">The Indochine touch is light: rattan chairs, vintage botanical POSM, a few framed maps of old Saigon on the menu cover. Nothing heavy-handed. The room itself is Paris — zinc bar top, mismatched bistro chairs, handwritten specials on a chalkboard. Natural wine and French-Vietnamese small plates. Street-accessible. Seven days, morning to last glass.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Concept</span><span class="meta-val">In-house (no brand license)</span></div>
+          <div class="meta-row"><span class="meta-key">Price</span><span class="meta-val">300k – 700k VND / pax</span></div>
+          <div class="meta-row"><span class="meta-key">Indochine</span><span class="meta-val">Light touch — rattan chairs · botanical POSM · vintage menu design</span></div>
+          <div class="meta-row"><span class="meta-key">Palette</span><span class="meta-val">Warm stone · Aged zinc · Rattan natural · Sage green</span></div>
+          <div class="meta-row"><span class="meta-key">Key materials</span><span class="meta-val">Zinc bar · Rattan/bistro chairs · Herringbone tile floor · Marble table tops</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#C8B89A;"></div><div class="swatch-label">Stone</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#8C8C7A;"></div><div class="swatch-label">Zinc</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#D4C5A9;"></div><div class="swatch-label">Rattan</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#5C7A5C;"></div><div class="swatch-label">Sage</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#F5F0E8;"></div><div class="swatch-label">Cream</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Zinc bar</span><span class="kw">Rattan bistro chairs</span><span class="kw">Natural wine</span>
+          <span class="kw">Light Indochine touch</span><span class="kw">Street-accessible</span><span class="kw">Chalkboard menu</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-3col">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="French bistro interior" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Wine bar natural light" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80" alt="Bistro chairs loose" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="Zinc bar Paris bistro" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80" alt="Wine glasses natural wine" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&q=80" alt="French small plates" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Design language:</strong> Paris zinc-bar bistro (Le Bistrot Paul Bert, Café de Flore aesthetic) + very light Indochine accent expressed exclusively through: (1) rattan bistro chairs (originally French colonial import), (2) vintage botanical prints from old Indochina in POSM, (3) menu cover with faded map of 1940s Saigon. No heavy colonial theming. The room reads Paris — the details whisper Saigon.
+    </div>
+  </div>
+</div>
+
+<!-- ══ C3B — SPEAKEASY ══ -->
+<div class="concept c3b" id="c3b">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">C3B · In-House · ~120m² · Lobby — Hidden Adjacent</p>
+        <h2 class="concept-name">Speakeasy<br>Cocktail Bar</h2>
+        <p class="concept-tagline">"Discovery is the point.<br>You have to find it first."</p>
+        <p class="concept-desc">Concealed entrance from the bistro — bookshelf door or antique phone booth prop. Forty to fifty guests maximum. Dark velvet, hammered copper bar top, amber Edison bulbs. Craft cocktail programme, short menu. The physical embodiment of Le Méridien's "arts and discovery" brand DNA. No signage. No social media hint. Just the regulars who know.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Access</span><span class="meta-val">Hidden entrance via bistro (bookshelf / phone booth)</span></div>
+          <div class="meta-row"><span class="meta-key">Hours</span><span class="meta-val">8PM – 2AM daily</span></div>
+          <div class="meta-row"><span class="meta-key">Capacity</span><span class="meta-val">40–50 max</span></div>
+          <div class="meta-row"><span class="meta-key">Palette</span><span class="meta-val">Deep black · Hammered copper · Midnight velvet · Amber glow</span></div>
+          <div class="meta-row"><span class="meta-key">Key materials</span><span class="meta-val">Dark velvet banquette · Copper bar · Solid oak shelving · Vintage glassware</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#0A0A0A;"></div><div class="swatch-label">Void</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#4A235A;"></div><div class="swatch-label">Velvet</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#B87333;"></div><div class="swatch-label">Copper</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#D4943A;"></div><div class="swatch-label">Amber</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#5C3B1E;"></div><div class="swatch-label">Oak</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Hidden entrance</span><span class="kw">Dark velvet</span><span class="kw">Hammered copper bar</span>
+          <span class="kw">Amber Edison bulbs</span><span class="kw">40 pax max</span><span class="kw">No signage</span><span class="kw">Discovery narrative</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-featured">
+          <div class="img-cell span-row">
+            <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=700&q=80" alt="Dark speakeasy bar interior" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80" alt="Cocktail amber light" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Velvet seating bar" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;" class="img-grid layout-3x1">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&q=80" alt="Craft cocktail dark bar" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80" alt="Hidden bar bookshelf entrance" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80" alt="Cocktail vintage glassware" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Global references:</strong> Connaught Bar (London) — intimacy + craft without pretension. Atlas Singapore — dark wood, vintage spirits, encyclopaedic programme. PDT New York — the original phone booth entrance speakeasy. Common thread: discovery friction creates loyalty. Guests who find it tell exactly the right people.
+    </div>
+  </div>
+</div>
+
+<!-- ══ LATEST RECIPE+ ══ -->
+<div class="concept lr" id="lr">
+  <div class="container">
+    <div class="concept-header">
+      <div>
+        <p class="concept-label">Latest Recipe+ · ADD Reposition · Existing Space · Ground Floor</p>
+        <h2 class="concept-name">Vietnamese Focus<br>+ ASEAN Rotating</h2>
+        <p class="concept-tagline">"Every month, a different table.<br>Same room, new Southeast Asia."</p>
+        <p class="concept-desc">Vietnamese as the permanent heart — live phở station, bún bò, bánh mì artisan. Every month, a rotating ASEAN spotlight alongside: Thai aromatics in March, Mekong Delta in April, Indonesian in May. Same room, different story. Market-fresh aesthetic, open live stations, warm natural light. The only hotel in D1 where breakfast takes you somewhere different each month.</p>
+        <div class="concept-meta">
+          <div class="meta-row"><span class="meta-key">Core</span><span class="meta-val">Vietnamese permanent (phở, bún bò, bánh mì — live stations)</span></div>
+          <div class="meta-row"><span class="meta-key">Rotating</span><span class="meta-val">Monthly ASEAN spotlight: Thai · Mekong Delta · Indonesian · Malay</span></div>
+          <div class="meta-row"><span class="meta-key">Hours</span><span class="meta-val">6:30AM – 2PM</span></div>
+          <div class="meta-row"><span class="meta-key">Price</span><span class="meta-val">700k – 1.2M VND / pax</span></div>
+          <div class="meta-row"><span class="meta-key">ADD cost</span><span class="meta-val">~$80–120K (live stations + rebrand only, no renovation)</span></div>
+        </div>
+        <div class="palette">
+          <div class="swatch-wrap"><div class="swatch" style="background:#2E8B57;"></div><div class="swatch-label">Market</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#F4A460;"></div><div class="swatch-label">Saffron</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#DEB887;"></div><div class="swatch-label">Bamboo</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#FF6347;"></div><div class="swatch-label">Chilli</div></div>
+          <div class="swatch-wrap"><div class="swatch" style="background:#FFFFF0;"></div><div class="swatch-label">Ivory</div></div>
+        </div>
+        <div class="keywords">
+          <span class="kw">Live phở station</span><span class="kw">ASEAN rotating</span><span class="kw">Market-fresh</span>
+          <span class="kw">Natural light</span><span class="kw">Bamboo + Rattan</span><span class="kw">Monthly spotlight</span><span class="kw">$100K ADD</span>
+        </div>
+      </div>
+      <div>
+        <div class="img-grid layout-featured">
+          <div class="img-cell span-row">
+            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=700&q=80" alt="Vietnamese pho live station" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&q=80" alt="Market fresh breakfast spread" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1562802378-063ec186a863?w=400&q=80" alt="Vietnamese banh mi" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;" class="img-grid layout-3x1">
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&q=80" alt="Thai food ASEAN" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&q=80" alt="Southeast Asian food spread" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+          <div class="img-cell">
+            <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&q=80" alt="Hotel breakfast live station" loading="lazy"/>
+            <span class="img-credit">© Unsplash editorial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-note">
+      <strong>Proof of concept:</strong> La Siesta Premium Saigon — "80+ dishes including phở and bánh mì alongside Western options." Hoiana Resort — "Phở station is a must-try, featuring fragrant broth and fresh herbs." Both demonstrate hotel-grade live Vietnamese breakfast is already a D1 category — LMSG's differentiator is the monthly ASEAN rotation that turns a static buffet into an editorial destination.
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <strong>LE MÉRIDIEN SAIGON</strong> · F&B Concept Moodboards · Internal Reference Document · July 2026 · Royal Canary Corporation<br>
+  Images sourced for internal editorial reference only. All rights belong to respective copyright holders.
+</div>
+
+</body>
+</html>
