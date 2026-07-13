@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MOU — Tuần Châu Branded Residence | RCC × One Heritage</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --navy: #0A1628;
+    --gold: #B8960C;
+    --gold-light: #D4AF37;
+    --cream: #FAF8F3;
+    --warm-white: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #6B6B6B;
+    --border: #E0D9CC;
+    --accent-bg: #F4F0E8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,150,12,0.08) 0%, transparent 70%);
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,150,12,0.05) 0%, transparent 70%);
+  }
+
+  .cover-inner { position: relative; z-index: 1; max-width: 700px; }
+
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 32px;
+  }
+
+  .cover-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto 32px;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 48px;
+  }
+
+  .cover-parties {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .cover-party {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .cover-x {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--gold);
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cover-meta-item {
+    text-align: center;
+  }
+
+  .cover-meta-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-value {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ── BODY ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 40px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── RECITALS ── */
+  .recitals { margin-bottom: 60px; }
+
+  .recital-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .recital-item:last-child { border-bottom: none; }
+
+  .recital-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    min-width: 70px;
+    padding-top: 2px;
+  }
+
+  .recital-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* ── ARTICLE ── */
+  .article {
+    margin-bottom: 60px;
+  }
+
+  .article-intro {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.75;
+  }
+
+  .clause {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 2px solid var(--border);
+  }
+
+  .clause-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .clause-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* ── BRAND CARDS ── */
+  .brand-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+
+  .brand-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--gold);
+  }
+
+  .brand-card-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .brand-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .brand-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .brand-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .brand-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--navy);
+    background: var(--accent-bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--navy);
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 2px;
+    margin: 28px 0;
+  }
+
+  .highlight-box-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+
+  .highlight-box-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phases { margin: 28px 0; }
+
+  .phase-block {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--accent-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-letter {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+
+  .phase-header-content { flex: 1; }
+
+  .phase-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.03em;
+  }
+
+  .phase-timeline {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .phase-deliverables {
+    padding: 0 24px;
+  }
+
+  .deliverable-row {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .deliverable-row:last-child { border-bottom: none; }
+
+  .deliverable-code {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 32px;
+    padding-top: 1px;
+    letter-spacing: 0.05em;
+  }
+
+  .deliverable-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 200px;
+    padding-top: 1px;
+  }
+
+  .deliverable-detail {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  /* ── FEE TABLE ── */
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 13px;
+  }
+
+  .fee-table th {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .fee-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .fee-table tr:last-child td { border-bottom: none; }
+
+  .fee-table tr:hover td { background: var(--accent-bg); }
+
+  .fee-table .total-row td {
+    background: var(--accent-bg);
+    font-weight: 600;
+    color: var(--navy);
+    border-top: 2px solid var(--gold);
+    border-bottom: none;
+  }
+
+  .fee-request {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ── TIMELINE VISUAL ── */
+  .timeline-visual {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 28px 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .timeline-step {
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--warm-white);
+    position: relative;
+  }
+
+  .timeline-step:last-child { border-right: none; }
+
+  .timeline-step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .timeline-step-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .timeline-step-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── PAYMENT SCHEDULE ── */
+  .payment-schedule {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .payment-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .payment-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .payment-trigger {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── SIGNATURES ── */
+  .signature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 48px 0;
+  }
+
+  .sig-party { }
+
+  .sig-party-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  .sig-line {
+    border-bottom: 1px solid var(--text);
+    height: 48px;
+    margin-bottom: 10px;
+  }
+
+  .sig-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 32px 40px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .doc-footer strong {
+    color: var(--gold-light);
+  }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: var(--accent-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin: 32px 0 0;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── PAGE BREAKS ── */
+  @media print {
+    .cover { page-break-after: always; }
+    .article { page-break-inside: avoid; }
+  }
+
+  /* ── SEPARATORS ── */
+  .section-sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 60px 0;
+  }
+
+  .gold-sep {
+    width: 48px; height: 2px;
+    background: var(--gold);
+    margin: 0 0 24px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">Memorandum of Understanding</p>
+    <div class="cover-divider"></div>
+    <h1 class="cover-title">Khu Biệt Thự<br>Lan Ngọc</h1>
+    <p class="cover-subtitle">Branded Residence Advisory — Tuần Châu, Hạ Long</p>
+    <div class="cover-parties">
+      <span class="cover-party">Royal Canary Corporation</span>
+      <span class="cover-x">×</span>
+      <span class="cover-party">One Heritage</span>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Project</span>
+        <span class="cover-meta-value">18 Luxury Villas · Ha Long Bay</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Brands Under Review</span>
+        <span class="cover-meta-value">Roberto Cavalli Home · Visionnaire × Longevity Suite</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Date</span>
+        <span class="cover-meta-value">July 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ BODY ══════════════ -->
+<div class="container">
+
+  <!-- RECITALS -->
+  <div class="recitals">
+    <div class="section-header">
+      <span class="section-num">—</span>
+      <span class="section-title">Recitals</span>
+    </div>
+
+    <div class="recital-item">
+      <span class="recital-label">WHEREAS I</span>
+      <p class="recital-text">Royal Canary Corporation ("RCC") is developing <strong>Khu Biệt thự Lan Ngọc</strong> — an 18-unit luxury villa project comprising four typologies (Sea Villa Type 1 &amp; 2; Marina Villa Type 1 &amp; 2) within the Tuần Châu International Tourism &amp; Entertainment Master Plan, Hạ Long City, Quảng Ninh.</p>
+    </div>
+
+    <div class="recital-item">
+      <span class="recital-label">WHEREAS II</span>
+      <p class="recital-text">RCC seeks to engage an internationally recognised branded concept — combining Italian luxury design identity with a differentiated wellness/longevity lifestyle proposition — to maximise asset value, elevate buyer profile, and position the project within the global premium villa market.</p>
+    </div>
+
+    <div class="recital-item">
+      <span class="recital-label">WHEREAS III</span>
+      <p class="recital-text">One Heritage (Công ty CP Một Di Sản) has demonstrated a track record in operator selection, brand licensing, and luxury project advisory in Vietnam (Gran Melia Nha Trang, New World, Rixos, Sofitel Diamond Crown Hai Phong), and possesses active relationships with Italian luxury design brands including <strong>Roberto Cavalli Home</strong> and <strong>Visionnaire</strong>.</p>
+    </div>
+
+    <div class="recital-item">
+      <span class="recital-label">WHEREAS IV</span>
+      <p class="recital-text">Two brand pathways have been identified as strategically aligned with the project vision: (a) <strong>Roberto Cavalli Home</strong> — bold Italian fashion-forward branded residence identity; (b) <strong>Visionnaire × The Longevity Suite</strong> — integrated Italian luxury design combined with science-backed longevity and wellness programming, representing a pioneering new residential category (announced January 2026; expanded May 2026 with Luca Dini Design &amp; Architecture).</p>
+    </div>
+
+    <div class="recital-item">
+      <span class="recital-label">NOW THEREFORE</span>
+      <p class="recital-text">The parties agree to collaborate under the following non-binding terms to advance a detailed proposal and preliminary commercial terms for one or both brand options, with the objective of proceeding to a formal Advisory Services Agreement.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 1 — PURPOSE -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Purpose</span>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">1.1</p>
+      <p class="clause-text">The purpose of this MOU is to engage One Heritage to provide branded residence advisory services for the Tuần Châu project, specifically:</p>
+    </div>
+
+    <div class="brand-cards">
+      <div class="brand-card">
+        <p class="brand-card-tag">Option A — Fashion Luxury</p>
+        <h3 class="brand-card-name">Roberto Cavalli Home</h3>
+        <p class="brand-card-desc">Bold Italian fashion-branded residence identity. License held by Oniro Group (Italy); DAMAC Group/Marquee Brands strategic partnership announced May 2026. Active projects: Dubai Canal Residences, Cyprus (Leptos Group). Positioning: ultra-luxury, high-fashion aesthetic, international HNW buyer appeal.</p>
+        <div class="brand-tag-list">
+          <span class="brand-tag">Italian Fashion</span>
+          <span class="brand-tag">Bold Luxury</span>
+          <span class="brand-tag">Dubai · Cyprus Precedent</span>
+          <span class="brand-tag">HNW International</span>
+        </div>
+      </div>
+
+      <div class="brand-card">
+        <p class="brand-card-tag">Option B — Longevity Living</p>
+        <h3 class="brand-card-name">Visionnaire × Longevity Suite</h3>
+        <p class="brand-card-desc">Italian luxury interior architecture (60+ years; bespoke environments) × The Longevity Suite (biohacking &amp; anti-ageing clinic network) × Luca Dini Design &amp; Architecture. Partnership announced January 2026; full concept unveiled May 2026. Typologies include: Longevity Villas &amp; Private Residences, Longevity Compounds, Longevity Resorts &amp; Hotels. Positioning: premium wellness/longevity lifestyle, science + design convergence, aspirational health-forward buyer.</p>
+        <div class="brand-tag-list">
+          <span class="brand-tag">Italian Design</span>
+          <span class="brand-tag">Wellness · Longevity</span>
+          <span class="brand-tag">Science-Backed</span>
+          <span class="brand-tag">Villa · Resort Typology</span>
+          <span class="brand-tag">Luca Dini Architecture</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p class="highlight-box-title">Why Visionnaire × Longevity Suite is a priority option</p>
+      <p class="highlight-box-text">The Visionnaire × Longevity Suite concept is purpose-built for villa and resort typologies — directly mirroring the Tuần Châu project profile. CEO Luigi Caterino has stated: <em>"those built under the banner of luxury names in fashion, design and automotive industries can't compare with the Visionnaire × Longevity Suite concept."</em> With Ha Long Bay's natural wellness setting, this combination creates a globally unique narrative: <strong>Vietnam's first Longevity-branded luxury villa enclave</strong>.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">1.2</p>
+      <p class="clause-text">This MOU is <strong>non-binding</strong> and constitutes an expression of intent to proceed toward a formal Advisory Services Agreement. It does not obligate either party financially until a formal contract is executed.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 2 — SCOPE -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Scope of Work</span>
+    </div>
+
+    <p class="article-intro">One Heritage shall deliver the following across three phases:</p>
+
+    <div class="phases">
+
+      <!-- Phase A -->
+      <div class="phase-block">
+        <div class="phase-header">
+          <div class="phase-letter">A</div>
+          <div class="phase-header-content">
+            <p class="phase-name">Brand Intelligence & Fit Assessment</p>
+            <p class="phase-timeline">Within 30 days of formal contract signing</p>
+          </div>
+        </div>
+        <div class="phase-deliverables">
+          <div class="deliverable-row">
+            <span class="deliverable-code">A1</span>
+            <span class="deliverable-title">Roberto Cavalli Home — Brand Profile</span>
+            <span class="deliverable-detail">Ownership structure (Oniro Group license; DAMAC/Marquee Brands partnership), licensing model, representative projects (Dubai Canal, Cyprus), indicative fee benchmarks</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">A2</span>
+            <span class="deliverable-title">Visionnaire × Longevity Suite — Brand Profile</span>
+            <span class="deliverable-detail">Full concept overview (Visionnaire + The Longevity Suite + Luca Dini Design &amp; Architecture); licensing/partnership model; villa &amp; resort typology specification; wellness programming integration (digital health monitoring, in-residence clinic, bespoke FF&amp;E); precedent projects; indicative fee benchmarks</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">A3</span>
+            <span class="deliverable-title">Comparative Brand Matrix</span>
+            <span class="deliverable-detail">Fit score vs. Tuần Châu across: location context (Ha Long Bay), villa typology alignment, Vietnam buyer profile, international buyer appeal, price premium potential, brand exclusivity in Vietnam, operational complexity</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">A4</span>
+            <span class="deliverable-title">Initial License Fee Estimate</span>
+            <span class="deliverable-detail">Indicative range for: licensing fee, design fee, FF&amp;E premium, fitout premium per unit — both brands. Comparison against Vietnam market benchmarks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase B -->
+      <div class="phase-block">
+        <div class="phase-header">
+          <div class="phase-letter">B</div>
+          <div class="phase-header-content">
+            <p class="phase-name">Formal Brand Outreach & Letter of Intent</p>
+            <p class="phase-timeline">Brand outreach initiated Day 1; responses within 45 days</p>
+          </div>
+        </div>
+        <div class="phase-deliverables">
+          <div class="deliverable-row">
+            <span class="deliverable-code">B1</span>
+            <span class="deliverable-title">Formal Outreach Letters</span>
+            <span class="deliverable-detail">One Heritage to send introduction letters to: (i) Roberto Cavalli Home via Oniro Group / Marquee Brands; (ii) Visionnaire and The Longevity Suite — on behalf of RCC, positioning Tuần Châu as Vietnam's inaugural project for each brand</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">B2</span>
+            <span class="deliverable-title">Project Information Package</span>
+            <span class="deliverable-detail">Tailored project brief for brand submission: Ha Long Bay setting, project vision, 18-villa scale, RCC profile, target buyer profile, Vietnam luxury market context</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">B3</span>
+            <span class="deliverable-title">Brand Response</span>
+            <span class="deliverable-detail">Minimum one (1) confirmation or expression-of-interest letter from each brand, or written explanation from One Heritage if a brand declines to engage</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">B4</span>
+            <span class="deliverable-title">Preliminary Commercial Terms</span>
+            <span class="deliverable-detail">Indicative term sheet from any responding brand(s): licensing structure, fee ranges, design obligations, exclusivity scope</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase C -->
+      <div class="phase-block">
+        <div class="phase-header">
+          <div class="phase-letter">C</div>
+          <div class="phase-header-content">
+            <p class="phase-name">Recommendation Report & Negotiation Strategy</p>
+            <p class="phase-timeline">Within 15 days following Phase B completion (approx. Day 60)</p>
+          </div>
+        </div>
+        <div class="phase-deliverables">
+          <div class="deliverable-row">
+            <span class="deliverable-code">C1</span>
+            <span class="deliverable-title">Final Comparative Report</span>
+            <span class="deliverable-detail">Brand recommendation (single brand or dual-brand option), financial impact modelling (revenue premium, ASP uplift, construction cost delta), risk factors, Vietnam market timing assessment</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">C2</span>
+            <span class="deliverable-title">Negotiation Strategy</span>
+            <span class="deliverable-detail">Suggested opening positions on licensing fee, design obligations, exclusivity radius, and success metrics for full licensing negotiation</span>
+          </div>
+          <div class="deliverable-row">
+            <span class="deliverable-code">C3</span>
+            <span class="deliverable-title">Go / No-Go Recommendation</span>
+            <span class="deliverable-detail">One Heritage's professional recommendation to RCC with clear rationale; proposed next steps for advancing to formal licensing agreement</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 3 — FEES -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Commercial Terms</span>
+    </div>
+
+    <p class="article-intro">Advisory fees for this engagement are to be provided by One Heritage in their formal proposal response. The below structure is proposed by RCC as a basis for discussion:</p>
+
+    <table class="fee-table">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Description</th>
+          <th>Advisory Fee</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Phase A</strong></td>
+          <td>Brand Intelligence &amp; Fit Assessment</td>
+          <td class="fee-request"><em>To be proposed by One Heritage</em></td>
+        </tr>
+        <tr>
+          <td><strong>Phase B</strong></td>
+          <td>Brand Outreach &amp; Letter of Intent</td>
+          <td class="fee-request"><em>To be proposed by One Heritage</em></td>
+        </tr>
+        <tr>
+          <td><strong>Phase C</strong></td>
+          <td>Recommendation Report &amp; Negotiation Strategy</td>
+          <td class="fee-request"><em>To be proposed by One Heritage</em></td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2"><strong>Total Advisory Fee (Phases A–C, excl. VAT)</strong></td>
+          <td><em>Request to provide</em></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="clause">
+      <p class="clause-num">3.1</p>
+      <p class="clause-text">All fees exclude VAT. Reimbursable out-of-pocket expenses (international travel to brand offices, translation &amp; interpretation, courier) require prior written approval from RCC and will be billed at cost.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">3.2</p>
+      <p class="clause-text"><strong>Payment Structure:</strong> To be aligned with milestone deliverables (proposed structure: 30% upon formal contract signing / 40% upon delivery of Phase B brand responses / 30% upon delivery of Phase C final report). Final payment schedule subject to agreement in formal contract.</p>
+    </div>
+
+    <div class="payment-schedule">
+      <div class="payment-card">
+        <div class="payment-pct">30%</div>
+        <p class="payment-trigger">Upon formal contract signing</p>
+      </div>
+      <div class="payment-card">
+        <div class="payment-pct">40%</div>
+        <p class="payment-trigger">Upon delivery of Phase B brand responses</p>
+      </div>
+      <div class="payment-card">
+        <div class="payment-pct">30%</div>
+        <p class="payment-trigger">Upon delivery of Phase C final report</p>
+      </div>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">3.3</p>
+      <p class="clause-text">Should either brand engagement progress to formal licensing negotiation, a separate <strong>success fee arrangement</strong> may be agreed via addendum to the formal contract. One Heritage is invited to include a proposal for success fee terms in their response.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 4 — TIMELINE -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Timeline</span>
+    </div>
+
+    <div class="timeline-visual">
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 0</div>
+        <p class="timeline-step-label">MOU Executed</p>
+        <p class="timeline-step-desc">Both parties sign; formal contract negotiations commence immediately</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 10</div>
+        <p class="timeline-step-label">Formal Contract Signed</p>
+        <p class="timeline-step-desc">Within 10 working days of MOU; Phase B outreach initiated simultaneously</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 30</div>
+        <p class="timeline-step-label">Phase A Deliverables</p>
+        <p class="timeline-step-desc">Brand intelligence reports, comparative matrix, fee estimates delivered</p>
+      </div>
+    </div>
+
+    <div class="timeline-visual" style="margin-top:0; border-top:none;">
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 45</div>
+        <p class="timeline-step-label">Phase B Complete</p>
+        <p class="timeline-step-desc">Brand responses / LOIs received from Roberto Cavalli Home &amp; Visionnaire × Longevity Suite</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 60</div>
+        <p class="timeline-step-label">Phase C Complete</p>
+        <p class="timeline-step-desc">Final recommendation report, negotiation strategy, and go/no-go decision delivered</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-num">Day 90</div>
+        <p class="timeline-step-label">MOU Expiry</p>
+        <p class="timeline-step-desc">MOU lapses unless superseded by formal contract or extended by mutual agreement</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 5 — REPRESENTATIONS -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Representations & Expectations</span>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">5.1</p>
+      <p class="clause-text"><strong>One Heritage represents</strong> that it has, or can establish, working relationships with the brand holders and licensing representatives of Roberto Cavalli Home (via Oniro Group / Marquee Brands) and Visionnaire × The Longevity Suite, and will pursue outreach through appropriate professional channels with well-prepared materials.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">5.2</p>
+      <p class="clause-text"><strong>RCC acknowledges</strong> that brand responses are subject to the respective brand holders' discretion. One Heritage cannot guarantee positive responses but commits to professional, targeted outreach that positions the Tuần Châu project in the most compelling manner.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">5.3</p>
+      <p class="clause-text"><strong>Both parties agree</strong> that this MOU engagement is exploratory and advisory in nature. The execution of any formal brand licensing agreement shall be a separate, subsequent commercial process between RCC and the relevant brand holder.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">5.4 — Exclusivity</p>
+      <p class="clause-text">During the term of this engagement and for six (6) months following its conclusion, One Heritage shall not actively propose Roberto Cavalli Home or the Visionnaire × Longevity Suite combination to any competing developer for a branded residence project located in <strong>Quảng Ninh Province</strong>.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 6 — CONFIDENTIALITY -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Confidentiality</span>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">6.1</p>
+      <p class="clause-text">Both parties agree to keep the terms of this MOU and all project-related information, financial details, and strategic intentions strictly confidential.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">6.2</p>
+      <p class="clause-text">One Heritage may disclose project details to brand representatives solely for the purpose of advancing outreach under this engagement, and shall obtain appropriate non-disclosure undertakings from brand contacts where reasonably practicable.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ARTICLE 7 — GENERAL -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">General Terms</span>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">7.1</p>
+      <p class="clause-text">This MOU shall remain in effect for <strong>90 days</strong> from the date of signing, or until a formal Advisory Services Agreement is executed, whichever is earlier.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">7.2</p>
+      <p class="clause-text">Either party may terminate this MOU with <strong>7 days' written notice</strong> prior to formal contract execution, without liability to the other party.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">7.3</p>
+      <p class="clause-text">This MOU does not create any employment, agency, partnership, or joint venture relationship between the parties.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">7.4</p>
+      <p class="clause-text"><strong>Governing Law:</strong> The Socialist Republic of Vietnam. Disputes shall be resolved first by good-faith negotiation; if unresolved within 30 days, by the competent Vietnamese court having jurisdiction.</p>
+    </div>
+
+    <div class="clause">
+      <p class="clause-num">7.5</p>
+      <p class="clause-text">This MOU is prepared in English. A Vietnamese translation may be prepared for internal use; in case of discrepancy in any subsequent formal contract, the Vietnamese version shall prevail for legal purposes.</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- SIGNATURES -->
+  <div class="article">
+    <div class="section-header">
+      <span class="section-num">—</span>
+      <span class="section-title">Signatures</span>
+    </div>
+
+    <div class="signature-block">
+      <div class="sig-party">
+        <p class="sig-party-name">Royal Canary Corporation</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Signature</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Name & Title</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Date</p>
+      </div>
+
+      <div class="sig-party">
+        <p class="sig-party-name">One Heritage<br><span style="font-family:Inter;font-size:13px;font-weight:400;color:#6B6B6B;">Công ty CP Một Di Sản</span></p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Signature</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Name & Title</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Date</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Non-binding disclaimer:</strong> This Memorandum of Understanding is a statement of intent only and does not constitute a legally binding agreement, contract, or commitment by either party to proceed with any financial transaction. The parties acknowledge that a separate, duly executed Advisory Services Agreement shall be required before any consulting services are rendered or fees become payable.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<div class="doc-footer">
+  <strong>ROYAL CANARY CORPORATION</strong> · Khu Biệt thự Lan Ngọc · Tuần Châu, Hạ Long · Prepared July 2026<br>
+  <em>Confidential — For Discussion Purposes Only</em>
+</div>
+
+</body>
+</html>
