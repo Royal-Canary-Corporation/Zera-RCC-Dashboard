@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Le Méridien Saigon — Chiến Lược F&B 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+  :root {
+    --navy:#0A1628; --gold:#B8960C; --gold-light:#D4AF37; --cream:#FAF8F3;
+    --white:#FFFFFF; --text:#1A1A1A; --muted:#6B6B6B; --border:#E0D9CC;
+    --accent:#F4F0E8; --green:#166534; --green-bg:#DCFCE7;
+    --red:#991B1B; --red-bg:#FEE2E2; --blue:#1E3A5F; --blue-bg:#DBEAFE;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--cream); color:var(--text); font-size:13px; line-height:1.75; }
+
+  .cover { min-height:100vh; background:var(--navy); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 40px; position:relative; overflow:hidden; }
+  .cover::before { content:''; position:absolute; top:-200px; right:-200px; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(184,150,12,0.07) 0%,transparent 70%); }
+  .cover-inner { position:relative; z-index:1; max-width:760px; }
+  .cover-eyebrow { font-size:10px; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-light); margin-bottom:28px; }
+  .cover-rule { width:48px; height:1px; background:var(--gold); margin:0 auto 28px; }
+  .cover-title { font-family:'Cormorant Garamond',serif; font-size:54px; font-weight:300; color:#fff; line-height:1.1; margin-bottom:10px; }
+  .cover-sub { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; font-style:italic; color:rgba(255,255,255,0.55); margin-bottom:48px; }
+  .cover-meta { display:flex; gap:36px; justify-content:center; flex-wrap:wrap; }
+  .cover-meta-item { text-align:center; }
+  .cover-meta-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); display:block; margin-bottom:4px; }
+  .cover-meta-value { font-size:12px; font-weight:500; color:rgba(255,255,255,0.85); }
+
+  .container { max-width:960px; margin:0 auto; padding:72px 40px; }
+  .sec-hdr { display:flex; align-items:baseline; gap:16px; margin-bottom:28px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .sec-num { font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:300; color:var(--gold); line-height:1; min-width:44px; }
+  .sec-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:var(--navy); }
+  .section { margin-bottom:68px; }
+
+  .exec-box { background:var(--navy); color:#fff; border-radius:2px; padding:36px 40px; margin-bottom:40px; }
+  .exec-box-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--gold-light); margin-bottom:18px; }
+  .exec-box p { font-size:13px; line-height:1.85; color:rgba(255,255,255,0.85); margin-bottom:12px; }
+  .exec-box p:last-child { margin-bottom:0; }
+  .exec-box strong { color:var(--gold-light); }
+
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:28px 0; }
+  .kpi-card { background:var(--white); border:1px solid var(--border); border-radius:2px; padding:22px 18px; text-align:center; position:relative; overflow:hidden; }
+  .kpi-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:3px; background:var(--gold); }
+  .kpi-num { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; color:var(--navy); line-height:1; margin-bottom:5px; }
+  .kpi-label { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+  .kpi-sub { font-size:11px; color:var(--muted); margin-top:3px; }
+
+  .building { background:var(--white); border:1px solid var(--border); border-radius:2px; overflow:hidden; margin:28px 0; }
+  .floor { border-bottom:1px solid var(--border); }
+  .floor:last-child { border-bottom:none; }
+  .floor-header { display:flex; align-items:stretch; }
+  .floor-label { background:var(--navy); color:var(--gold-light); writing-mode:vertical-lr; text-orientation:mixed; transform:rotate(180deg); padding:16px 10px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; min-width:40px; display:flex; align-items:center; justify-content:center; }
+  .floor-content { flex:1; padding:20px 24px; }
+  .floor-title { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:600; color:var(--navy); margin-bottom:12px; }
+
+  .concepts-grid { display:grid; gap:10px; }
+  .concepts-grid.three { grid-template-columns:repeat(3,1fr); }
+  .concepts-grid.two { grid-template-columns:1fr 1fr; }
+  .concept-card { border:1px solid var(--border); border-radius:2px; padding:16px; position:relative; overflow:hidden; }
+  .concept-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); }
+  .concept-tag { font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+  .concept-name { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .concept-desc { font-size:11.5px; color:var(--muted); line-height:1.65; margin-bottom:8px; }
+  .concept-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .tag { font-size:10px; padding:2px 8px; border-radius:20px; font-weight:500; }
+  .tag-navy { background:var(--navy); color:var(--gold-light); }
+  .tag-gold { background:var(--accent); color:var(--navy); }
+  .tag-green { background:var(--green-bg); color:var(--green); }
+  .tag-blue { background:var(--blue-bg); color:var(--blue); }
+
+  .floor-map { display:flex; gap:6px; height:76px; margin:14px 0 0; }
+  .map-block { border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:600; text-align:center; line-height:1.3; padding:4px; }
+  .map-c1 { background:#0A1628; color:#D4AF37; }
+  .map-c2 { background:#1E3A5F; color:#fff; }
+  .map-c4 { background:#2D5016; color:#fff; }
+  .map-boh { background:var(--border); color:var(--muted); }
+  .mice-bar { background:var(--accent); border-left:3px solid var(--gold); padding:12px 18px; margin-top:10px; font-size:12px; color:var(--navy); border-radius:0 2px 2px 0; }
+
+  .deduction { margin-bottom:18px; padding:18px 22px; background:var(--white); border:1px solid var(--border); border-radius:2px; display:flex; gap:18px; }
+  .ded-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
+  .ded-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:5px; }
+  .ded-text { font-size:12px; color:var(--text); line-height:1.75; }
+  .ded-evidence { font-size:11px; color:var(--muted); margin-top:5px; font-style:italic; }
+
+  table { width:100%; border-collapse:collapse; font-size:12px; margin:18px 0; }
+  th { background:var(--navy); color:var(--gold-light); font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; padding:10px 13px; text-align:left; }
+  td { padding:11px 13px; border-bottom:1px solid var(--border); color:var(--text); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:var(--accent); }
+  .total-row td { background:var(--accent); font-weight:700; color:var(--navy); border-top:2px solid var(--gold); }
+
+  .risk-high { background:var(--red-bg); color:var(--red); padding:2px 7px; border-radius:20px; font-size:10px; font-weight:600; }
+  .risk-med { background:#FEF3C7; color:#92400E; padding:2px 7px; border-radius:20px; font-size:10px; font-weight:600; }
+  .risk-low { background:var(--green-bg); color:var(--green); padding:2px 7px; border-radius:20px; font-size:10px; font-weight:600; }
+
+  .timeline { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--border); border-radius:2px; overflow:hidden; margin:18px 0; }
+  .tl-step { padding:22px 18px; border-right:1px solid var(--border); background:var(--white); }
+  .tl-step:last-child { border-right:none; }
+  .tl-num { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:300; color:var(--gold); line-height:1; margin-bottom:7px; }
+  .tl-label { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--navy); margin-bottom:5px; }
+  .tl-desc { font-size:11px; color:var(--muted); line-height:1.6; }
+
+  .highlight { background:var(--accent); border-left:3px solid var(--gold); padding:14px 18px; border-radius:0 2px 2px 0; margin:14px 0; }
+  .highlight p { font-size:12px; color:var(--text); line-height:1.75; }
+
+  hr.sep { border:none; border-top:1px solid var(--border); margin:56px 0; }
+  .doc-footer { background:var(--navy); color:rgba(255,255,255,0.45); text-align:center; padding:26px 40px; font-size:11px; letter-spacing:0.05em; }
+  .doc-footer strong { color:var(--gold-light); }
+
+  @media(max-width:720px){
+    .kpi-row{grid-template-columns:1fr 1fr;}
+    .concepts-grid.three{grid-template-columns:1fr;}
+    .concepts-grid.two{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:1fr;}
+    .cover-title{font-size:36px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">Tài Liệu Nội Bộ — Chiến Lược F&B</p>
+    <div class="cover-rule"></div>
+    <h1 class="cover-title">Le Méridien Saigon</h1>
+    <p class="cover-sub">Chiến lược F&B toàn tòa nhà · Luận chứng & Khuyến nghị</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Dự án</span>
+        <span class="cover-meta-value">343 phòng · Quận 1 · Bờ sông Sài Gòn</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Concept F&B</span>
+        <span class="cover-meta-value">6 tổng (2 hiện hữu · 4 mới)</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Tổng CAPEX mới</span>
+        <span class="cover-meta-value">~$5,90M</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Doanh thu dự kiến</span>
+        <span class="cover-meta-value">~$14,8M / năm</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Hoàn vốn ước tính</span>
+        <span class="cover-meta-value">~17 tháng</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cover-meta-label">Thời gian</span>
+        <span class="cover-meta-value">Tháng 7/2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TÓM TẮT ĐIỀU HÀNH -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">—</span><span class="sec-title">Tóm Tắt Điều Hành</span></div>
+    <div class="exec-box">
+      <p class="exec-box-title">Khuyến nghị chiến lược — 3 điểm cốt lõi</p>
+      <p>Danh mục F&B hiện tại của Le Méridien Saigon — Akuna (fine dining), Barson (lobby bar thất bại, không concept), Latest Recipe (all-day dining generic) — khiến khách sạn thiếu định vị rõ ràng, không có năng lực phục vụ MICE, và bỏ ngỏ ba nhóm khách hàng tăng trưởng cao: khách công vụ phương Tây, khách MICE doanh nghiệp Ấn Độ, và cộng đồng expat sau giờ làm việc.</p>
+      <p>Giải pháp đề xuất là <strong>xây dựng 4 concept mới trên Tầng 2 và Lobby</strong>: chuyển đổi Barson thành French Bistro + Speakeasy; lấp đầy Tầng 2 bằng Cantonese Fine Dining (anchor thương hiệu — C1), Steakhouse premium (C2), và Indian Fusion (C4). Latest Recipe được định vị lại thành điểm đến ẩm thực sáng Việt Nam hiện đại với chi phí ADD tối thiểu.</p>
+      <p>Stack kết quả <strong>phủ kín mọi khung giờ và mọi phân khúc giá từ 300k đến >3M VND</strong>, tạo 1.060m² không gian MICE có thể ghép nối linh hoạt, phân tán rủi ro vận hành (1 brand license + 3 in-house), và đạt doanh thu F&B dự kiến <strong>~$14,8M/năm với hoàn vốn khoảng 17 tháng</strong> trên $5,90M CAPEX.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-num">6</div>
+        <div class="kpi-label">Concept F&B</div>
+        <div class="kpi-sub">2 hiện hữu · 4 mới</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">$5,90M</div>
+        <div class="kpi-label">Tổng CAPEX</div>
+        <div class="kpi-sub">Concept mới</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">$14,8M</div>
+        <div class="kpi-label">Doanh thu / năm</div>
+        <div class="kpi-sub">Bao gồm Latest Recipe+</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">~17 tháng</div>
+        <div class="kpi-label">Hoàn vốn</div>
+        <div class="kpi-sub">Biên GOP 28%</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- STACK TOÀN TÒA NHÀ -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">01</span><span class="sec-title">Stack F&B Toàn Tòa Nhà</span></div>
+
+    <div class="building">
+
+      <!-- AKUNA -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label" style="background:#4B2E0A;">Tầng Cao</div>
+          <div class="floor-content">
+            <div class="floor-title">Akuna — Fine Dining Hiện Hữu <span style="font-size:12px;color:var(--muted);font-weight:400;">(Giữ nguyên)</span></div>
+            <div class="concepts-grid" style="grid-template-columns:1fr;">
+              <div class="concept-card">
+                <div class="concept-tag">Hiện hữu · Không thay đổi</div>
+                <div class="concept-name">Akuna</div>
+                <div class="concept-desc">Fine dining anchor của khách sạn. Duy trì định vị >3M VND/người. Không cần đầu tư. Tạo hào quang uy tín cho toàn bộ danh mục F&B.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">>3M VND/người</span>
+                  <span class="tag tag-gold">Fine Dining</span>
+                  <span class="tag tag-gold">Giữ nguyên</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TẦNG 2 -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label">Tầng 2 · 1.600m²</div>
+          <div class="floor-content">
+            <div class="floor-title">Tầng MICE — 3 Concept Mới + BOH Dùng Chung</div>
+
+            <div class="floor-map">
+              <div class="map-block map-c1" style="flex:1.2;">C1<br>Cantonese<br>290m²</div>
+              <div class="map-block map-boh" style="flex:1;">BOH<br>250m²</div>
+              <div class="map-block map-c2" style="flex:2.2;">C2<br>Steakhouse<br>540m²</div>
+              <div class="map-block map-c4" style="flex:2.0;">C4<br>Indian Fusion<br>520m²</div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin:6px 0 0;font-style:italic;">← C1 neo một đầu (tách biệt vật lý với C4) · C2 là vùng đệm trung tâm →</div>
+            <div class="mice-bar" style="margin-top:10px;"><strong>Ghép MICE: C2 + C4 = 1.060m²</strong> (vách ngăn di động) → sức chứa ~240 pax tiệc / ~300 pax cocktail · C1 PDR hoạt động độc lập song song</div>
+
+            <div class="concepts-grid three" style="margin-top:16px;">
+              <div class="concept-card">
+                <div class="concept-tag">C1 · Thương hiệu · 290m² · Một đầu tầng</div>
+                <div class="concept-name">Cantonese Fine Dining</div>
+                <div class="concept-desc">Anchor Cantonese hiện đại. Thu gọn theo mô hình PDR-centric: 2 phòng ăn riêng tư (20–25 pax/phòng) + phòng ăn chính ~60 chỗ. Tách biệt vật lý ở một đầu tầng, không giao thoa với Indian Fusion đầu kia. Thương hiệu: Mott 32 hoặc Hakkasan. Dim sum trưa kích hoạt MICE private dining.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">1,5M–3M VND</span>
+                  <span class="tag tag-gold">Mott 32 / Hakkasan</span>
+                  <span class="tag tag-green">PDR · Tiệc riêng tư</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C2 · Tự vận hành · 540m² · Trung tâm / Vùng đệm</div>
+                <div class="concept-name">Steakhouse & Grill Cao Cấp</div>
+                <div class="concept-desc">Bếp mở view sông, in-house — không phí bản quyền. Nướng lửa trực tiếp, quầy bar dài kiêm wine bar sau giờ làm. Vị trí trung tâm tầng đóng vai trò vùng đệm giữa Cantonese và Indian. Ghép với C4 phục vụ MICE (1.060m²). Demand từ khách Tây cao nhất trong toàn bộ matrix.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1,5M VND</span>
+                  <span class="tag tag-gold">Tự vận hành</span>
+                  <span class="tag tag-blue">Khách Tây · Expat</span>
+                  <span class="tag tag-green">Ghép MICE với C4</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C4 · Tự vận hành · 520m² · Đầu đối diện C1</div>
+                <div class="concept-name">Indian Fusion / Ẩm Thực Ấn Địa Hóa</div>
+                <div class="concept-desc">Concept lớn nhất tầng — sharing format hưởng lợi từ diện tích rộng. Lấy cảm hứng từ Rang (Đà Nẵng): thân thiện với thực khách Việt, đủ chân thực cho du khách Ấn. Menu chay đầy đủ là điểm khác biệt cấu trúc — duy nhất tại D1. BOH dùng chung với C2 (tandoor + nướng). Đặt đầu đối diện C1 — tách biệt mùi và định vị.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1,5M VND</span>
+                  <span class="tag tag-gold">Tự vận hành</span>
+                  <span class="tag tag-green">Có menu chay</span>
+                  <span class="tag tag-blue">MICE Ấn Độ · Diện tích lớn nhất</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight" style="margin-top:14px;">
+              <p><strong>Đổi mới BOH:</strong> C2 (nướng lửa trực tiếp) và C4 (lò tandoor) dùng chung BOH 250m² — thiết bị overlap về cơ cấu, không phải ngẫu nhiên. Cả hai cần nhiệt khô cao, hệ thống thông gió công suất lớn, kho lạnh protein. BOH dùng chung tiết kiệm ước tính $300–400K CAPEX so với 2 bếp độc lập.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOBBY / BARSON -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label">Lobby · 380m²</div>
+          <div class="floor-content">
+            <div class="floor-title">C3 — Thay Thế Barson Hoàn Toàn</div>
+            <div class="concepts-grid two">
+              <div class="concept-card">
+                <div class="concept-tag">C3A · Mặt Trước · ~240m²</div>
+                <div class="concept-name">French Bistro + Champagne Bar</div>
+                <div class="concept-desc">Mặt tiền Lobby, tiếp cận trực tiếp từ đường. Phong cách Đông Dương thuộc địa — narrative Sài Gòn thập niên 1930. Chương trình rượu tự nhiên và champagne, small plates Pháp-Việt. Nhắm đến expat sau giờ làm, weekend brunch, overflow khách khách sạn. Hoạt động cả ngày 7AM–10PM.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">300k–700k VND</span>
+                  <span class="tag tag-gold">Tự vận hành</span>
+                  <span class="tag tag-blue">Walk-in · Brunch</span>
+                </div>
+              </div>
+              <div class="concept-card">
+                <div class="concept-tag">C3B · Ẩn · ~120m²</div>
+                <div class="concept-name">Speakeasy Cocktail Bar</div>
+                <div class="concept-desc">Lối vào ẩn từ bistro (giá sách / phone booth). Mở 8PM. Thân mật, 40–50 chỗ. Chương trình cocktail thủ công. Thể hiện DNA thương hiệu Le Méridien "discovery" — bar ẩn trong khách sạn luxury. Không gian cocktail reception cho nhóm MICE sử dụng C2/C4.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">500k–1,2M VND (đồ uống)</span>
+                  <span class="tag tag-gold">Tự vận hành</span>
+                  <span class="tag tag-green">Cuối đêm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LATEST RECIPE -->
+      <div class="floor">
+        <div class="floor-header">
+          <div class="floor-label" style="background:#4B2E0A;">Tầng Trệt</div>
+          <div class="floor-content">
+            <div class="floor-title">Latest Recipe → "Morning Market" ADD <span style="font-size:12px;color:var(--muted);font-weight:400;">(Định vị lại, không cần renovation toàn bộ)</span></div>
+            <div class="concepts-grid" style="grid-template-columns:1fr;">
+              <div class="concept-card">
+                <div class="concept-tag">Hiện hữu · ADD lớp định danh · ~$80–120K</div>
+                <div class="concept-name">Latest Recipe+ — Bữa Sáng Việt Nam Hiện Đại</div>
+                <div class="concept-desc">Giữ nguyên mặt bằng. Thêm live cooking station (phở, bún bò, bánh mì artisan), đổi tên thành concept Việt riêng với visual identity (mural, thẩm mỹ chợ). Thu hẹp giờ mở cửa 6:30AM–2PM. Giá định vị 700k–1,2M/người — trên French Bistro, dưới Cantonese. Không cần cải tạo toàn bộ. Độc đáo tại D1: khách sạn 5 sao duy nhất phục vụ bữa sáng live-station ẩm thực Việt.</div>
+                <div class="concept-tags">
+                  <span class="tag tag-navy">700k–1,2M VND</span>
+                  <span class="tag tag-gold">Chi phí ADD: $80–120K</span>
+                  <span class="tag tag-green">Không cannibalize C3</span>
+                  <span class="tag tag-blue">Capture khách khách sạn</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- LUẬN CHỨNG -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">02</span><span class="sec-title">Luận Chứng — Suy Diễn Có Bằng Chứng</span></div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 1: 700k–1,5M là phân khúc cốt lõi — không phải vì phổ biến, mà vì loại trừ đúng đối thủ cạnh tranh.</div>
+        <div class="ded-text">Tất cả phân khúc khách hàng (người Việt địa phương, expat Tây, khách du lịch Tây, khách du lịch châu Á) đều đạt điểm composite cao nhất tại bracket 700k–1,5M. Quan trọng hơn: bracket này nằm trên sàn giá của nhà hàng phổ thông D1 trong khi vẫn tiếp cận được với khách công vụ và ăn mừng trung-cao cấp. Ở >3M đã có Akuna. Dưới 300k khách sạn không nên cạnh tranh. 700k–1,5M là bracket duy nhất LMSG thắng được bằng chất lượng sản phẩm, không phải bằng giá.</div>
+        <div class="ded-evidence">Bằng chứng: Điểm composite Short-Stay Top 5 đạt đỉnh tại 700k–1,5M cho tất cả 10 loại ẩm thực. Demand Western expat normalized 3,73/5 tại bracket này — cao nhất trong toàn bộ matrix.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 2: Cantonese phải có thương hiệu — và là concept duy nhất cần như vậy.</div>
+        <div class="ded-text">Cantonese fine dining ở 1,5M–3M cần tên tuổi để giữ mức giá trước sự cạnh tranh của các nhà hàng Trung Hoa rẻ hơn 40% trong D1. Không có tên như Mott 32 hay Hakkasan, khách sẽ chọn lựa chọn ngoài. Các concept khác không có vấn đề này: Steakhouse thắng bằng atmosphere + sản phẩm, Indian Fusion thắng bằng sự khan hiếm, French Bistro thắng bằng tính tiếp cận và vị trí. Chỉ cấp phép C1 bảo toàn biên lợi nhuận của C2, C3, C4 — chiếm ~70% doanh thu.</div>
+        <div class="ded-evidence">Bằng chứng: Mật độ D1/D2 tại 700k–1,5M cho Cantonese = 6,4/10 (cao). Mott 32 đạt 4,51/5 trong framework — thương hiệu được đánh giá cao nhất. Cần anchor thương hiệu để justify premium.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 3: Japanese và Korean là bẫy demand — ham muốn cao, không có khoảng trắng.</div>
+        <div class="ded-text">Cả Japanese lẫn Korean đều có điểm demand thô cao nhất. Tuy nhiên mật độ Japanese tại 700k–1,5M ở D1/D2 là 9,2/10 — cao nhất trong toàn bộ matrix. Korean đã bị commoditize hoàn toàn ở mọi mức giá (KBBQ format). Demand cao + mật độ cao = thị trường winner-takes-most. LMSG không ở vị thế giành chiến thắng trước các concept omakase hay KBBQ đã established tại D1 — trừ khi đưa vào thương hiệu Tier 1 (Nobu, Zuma), điều này tăng chi phí license mà không cải thiện biên đáng kể.</div>
+        <div class="ded-evidence">Bằng chứng: Mật độ Japanese D1/D2 9,2/10 tại 700k–1,5M. Korean xếp #10 Short-Stay Top 5 "KBBQ heavily saturated and commoditised."</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 4: French/European là khoảng trắng thật — operator ngần ngại, không phải thiếu cầu.</div>
+        <div class="ded-text">French/European tại 1,5M–3M có mật độ D1/D2 thấp thứ hai (1,87/10). Demand Western expat ở bracket này: 4,3/5 normalized. Không phải vấn đề sức mua — cả hai nhóm đều chi tiêu ở mức này. Khoảng trống tồn tại vì các operator F&B tại HCMC ưu tiên mặt bằng rẻ hơn (Thảo Điền, Nam Kỳ Khởi Nghĩa). LMSG định vị ở 300k–700k tầng Lobby có thể chiếm lĩnh phân khúc French ở mức tiếp cận mà không cạnh tranh trực tiếp với fine dining, thu hút lượng walk-in mà đối thủ không thể làm được.</div>
+        <div class="ded-evidence">Bằng chứng: Mật độ French 1,87/10 tại 1,5M–3M. Short-Stay Top 5 xếp French #4 "colonial-heritage narrative resonates with Western tourists."</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 5: Indian Fusion ở 700k–1,5M là cược forward-looking — và con số hỗ trợ.</div>
+        <div class="ded-text">Khách du lịch Ấn Độ tăng +70% YoY tại Việt Nam năm 2026 và gấp 3 lần trong 3 năm. Khách Nga tăng +203% Q1/2026 nhưng tập trung ở Nha Trang, Phú Quốc, Đà Nẵng — không phải HCMC. Mật độ Indian tại 700k–1,5M D1/D2 chỉ 3,8/10. Không có concept Indian fine dining hay bán-trang trọng nào ở D1 HCMC. Rủi ro được giảm nhẹ bằng việc địa phương hóa format (fusion, sharing plates, mô hình Rang) để người Việt và expat Tây tạo nên doanh thu nền, với nhóm MICE Ấn Độ là upside biên cao. Menu chay đầy đủ tạo ra đề xuất MICE độc đáo mà không đối thủ nào ở D1 có.</div>
+        <div class="ded-evidence">Bằng chứng: India arrivals +70% YoY 2026. Mật độ Indian D1/D2 3,8/10. Rang Đà Nẵng là proof of concept. BOH dùng chung với C2 giảm CAPEX xuống $1,46M.</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 6: Barson phải được thay thế hoàn toàn — và concept thay thế phải đối mặt đường phố, không phải thang máy.</div>
+        <div class="ded-text">Thất bại của Barson mang tính cấu trúc: lobby bar không có concept không thể cạnh tranh với các venue expat after-work chuyên dụng. Chuyển đổi thành French Bistro + Speakeasy giải quyết hai vấn đề cùng lúc: thay concept thất bại bằng định danh rõ ràng, và đặt concept giá tiếp cận nhất ở tầng trệt nơi walk-in friction thấp nhất. Speakeasy ẩn trong bistro tạo narrative "khám phá" — biểu đạt DNA Le Méridien (arts, discovery) mà không tốn đồng marketing nào.</div>
+        <div class="ded-evidence">Bằng chứng: Barson 380m² lobby. Mật độ French 3,23/10 tại 300k–700k. Phân khúc brunch tăng trưởng mạnh tại D1 (The Deck, Odys, Lola là các điểm so sánh — tất cả đều tiếp cận, walk-in cao).</div>
+      </div>
+    </div>
+
+    <div class="deduction">
+      <div class="ded-icon">🔷</div>
+      <div>
+        <div class="ded-title">Luận điểm 7: Latest Recipe cần định danh, không cần cải tạo — và định danh đúng là Việt Nam, không phải quốc tế.</div>
+        <div class="ded-text">Tất cả 5 concept mới trong stack đều phục vụ ẩm thực quốc tế. Không concept nào sở hữu vị thế "bữa sáng Việt Nam tốt nhất D1." Latest Recipe, với $80–120K ADD, có thể chiếm vị trí này mà không cạnh tranh với bất kỳ concept nào trong khách sạn. Bữa sáng Việt hiện đại ở 700k–1,2M nằm trên sàn giá French Bistro, phân biệt với mọi offering khác, và khó bị cạnh tranh vì cần infrastructure bếp cấp khách sạn mà nhà hàng standalone hiếm khi có.</div>
+        <div class="ded-evidence">Bằng chứng: Mật độ Vietnamese modern D1/D2 tại 700k–1,5M = 2,72/10 — thấp nhất trong bracket này. Western tourist demand 7,8/10. Chi phí ADD $80–120K vs. $1,5M+ greenfield.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="sep">
+
+  <!-- TÀI CHÍNH -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">03</span><span class="sec-title">Tóm Tắt Tài Chính</span></div>
+
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Vị trí</th><th>Diện tích</th><th>Giá/người</th><th>CAPEX</th><th>Doanh thu/năm</th><th>Vận hành</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Akuna</strong></td><td>Hiện hữu</td><td>—</td><td>>3M VND</td><td>$0</td><td>Hiện hữu</td><td>Hiện hữu</td></tr>
+        <tr><td><strong>C1 Cantonese</strong></td><td>Tầng 2 — một đầu</td><td>290m²</td><td>1,5M–3M VND</td><td>$1,31M</td><td>~$3,5M</td><td>Thương hiệu (Mott 32 / Hakkasan)</td></tr>
+        <tr><td><strong>C2 Steakhouse</strong></td><td>Tầng 2 — trung tâm</td><td>540m²</td><td>700k–1,5M VND</td><td>$1,89M</td><td>~$4,2M</td><td>Tự vận hành</td></tr>
+        <tr><td><strong>C4 Indian Fusion</strong></td><td>Tầng 2 — đầu đối diện</td><td>520m²</td><td>700k–1,5M VND</td><td>$1,46M</td><td>~$4,1M</td><td>Tự vận hành</td></tr>
+        <tr><td><strong>BOH dùng chung (C2+C4)</strong></td><td>Tầng 2</td><td>250m²</td><td>—</td><td>$0,30M</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>C3 French Bistro + Speakeasy</strong></td><td>Lobby (Barson)</td><td>380m²</td><td>300k–700k / đồ uống</td><td>$0,84M</td><td>~$2,3M</td><td>Tự vận hành</td></tr>
+        <tr><td><strong>Latest Recipe+ (ADD)</strong></td><td>Tầng trệt</td><td>Hiện hữu</td><td>700k–1,2M VND</td><td>$0,10M</td><td>~$0,4M uplift</td><td>Tự vận hành</td></tr>
+        <tr class="total-row"><td colspan="4"><strong>Tổng đầu tư mới</strong></td><td><strong>~$5,90M</strong></td><td><strong>~$14,8M</strong></td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight">
+      <p><strong>Hoàn vốn:</strong> $5,90M CAPEX ÷ (biên GOP 28% × $14,8M doanh thu) = $5,90M ÷ $4,14M = <strong>~17 tháng</strong>. Ước tính bảo thủ — chưa tính MICE uplift (~$900K+/năm nếu 2 sự kiện/tuần).</p>
+    </div>
+    <div class="highlight">
+      <p><strong>Chi phí bản quyền C1:</strong> Ước tính ~$245K/năm (7% doanh thu $3,5M). C1 thu gọn theo mô hình PDR — doanh thu/chỗ cao hơn, biên tốt hơn. GOP sau bản quyền ~$730K. CAPEX giảm từ $2,34M (phương án 520m² cũ) xuống $1,31M.</p>
+    </div>
+    <div class="highlight">
+      <p><strong>Logic bố trí:</strong> C1 neo một đầu → C2 vùng đệm trung tâm → C4 đầu đối diện. Tách biệt vật lý đảm bảo ẩm thực Ấn Độ (nặng mùi gia vị) không giao thoa với Cantonese (tinh tế). C2+C4 ghép MICE; C1 PDR hoạt động độc lập trong sự kiện.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- RỦI RO -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">04</span><span class="sec-title">Ma Trận Rủi Ro</span></div>
+    <table>
+      <thead>
+        <tr><th>Rủi ro</th><th>Xác suất</th><th>Tác động</th><th>Giảm thiểu</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Operator C1 rút khỏi hợp đồng sau 5 năm</td>
+          <td><span class="risk-med">Trung bình</span></td>
+          <td><span class="risk-high">Cao</span></td>
+          <td>Đàm phán kỳ hạn 10 năm + quyền gia hạn. Điều khoản chuyển giao IP. Doanh thu C2+C4 là buffer trong giai đoạn chuyển tiếp.</td>
+        </tr>
+        <tr>
+          <td>C4 Indian Fusion — demand người Việt chậm hơn dự báo</td>
+          <td><span class="risk-med">Trung bình</span></td>
+          <td><span class="risk-med">Trung bình</span></td>
+          <td>CAPEX thấp nhất ($1,46M). BOH dùng chung với C2 — chi phí cố định phân bổ. Breakeven ở 60 chỗ/ngày. MICE Ấn Độ là upside biên cao.</td>
+        </tr>
+        <tr>
+          <td>Demand MICE thấp hơn dự báo</td>
+          <td><span class="risk-med">Trung bình</span></td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td>MICE là upside, không phải base case. C2+C4 hoạt động độc lập đủ công suất. Mô hình doanh thu bảo thủ.</td>
+        </tr>
+        <tr>
+          <td>C3 Bistro — diện tích Barson hạn chế số chỗ</td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td>380m² đủ ~180–200 chỗ. Nếu có terrace hướng sông, thêm 30–40 chỗ. Breakeven bistro 300k–700k thấp (~80 chỗ/ngày).</td>
+        </tr>
+        <tr>
+          <td>BOH dùng chung C2+C4 gây xung đột vận hành</td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td><span class="risk-med">Trung bình</span></td>
+          <td>Tuyển 1 Executive Chef giám sát cả hai concept. Lệch đỉnh phục vụ (C4 trưa, C2 tối). Thiết kế BOH với phân khu rõ ràng.</td>
+        </tr>
+        <tr>
+          <td>Akuna bị cannibal hóa bởi C1 Cantonese</td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td><span class="risk-low">Thấp</span></td>
+          <td>Khoảng cách giá đủ xa: Akuna >3M, C1 1,5M–3M. Định vị khác biệt. C1 capture tier tiền-Akuna, không thay thế.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <!-- PHỦ SÓNG KHUNG GIỜ -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">05</span><span class="sec-title">Phủ Sóng Khung Giờ — Không Có Khoảng Trống, Không Chồng Chéo</span></div>
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>7–10h</th><th>11h–14h</th><th>15h–18h</th><th>18h–22h</th><th>22h–2h</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Akuna</strong></td><td>—</td><td>—</td><td>—</td><td>✅ Fine dining</td><td>—</td></tr>
+        <tr><td><strong>C1 Cantonese</strong></td><td>—</td><td>✅ Dim sum / MICE trưa</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C2 Steakhouse</strong></td><td>—</td><td>✅ Working lunch</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C4 Indian Fusion</strong></td><td>—</td><td>✅ Sharing lunch</td><td>—</td><td>✅ À la carte</td><td>—</td></tr>
+        <tr><td><strong>C3 French Bistro</strong></td><td>✅ Bữa sáng</td><td>✅ Brunch / Trưa</td><td>✅ Champagne bar</td><td>✅ Tối</td><td>—</td></tr>
+        <tr><td><strong>C3B Speakeasy</strong></td><td>—</td><td>—</td><td>—</td><td>—</td><td>✅ Cuối đêm</td></tr>
+        <tr><td><strong>Latest Recipe+</strong></td><td>✅ Sáng Việt</td><td>✅ Brunch</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sep">
+
+  <!-- STAGING -->
+  <div class="section">
+    <div class="sec-hdr"><span class="sec-num">06</span><span class="sec-title">Triển Khai & Bước Tiếp Theo</span></div>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-num">Giai đoạn 1</div>
+        <div class="tl-label">Tháng 0–12</div>
+        <div class="tl-desc">Xây dựng C1+C2+C4 Tầng 2. Chuyển đổi C3 (Barson → Bistro + Speakeasy). ADD Latest Recipe+. CAPEX ~$5,40M. Toàn bộ engine doanh thu đi vào hoạt động.</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-num">Song song</div>
+        <div class="tl-label">Tháng 1–12</div>
+        <div class="tl-desc">LOI thương hiệu C1 → design sign-off → thi công. Đường găng: lead time 9–12 tháng. Phải bắt đầu ngay. C3 mở trước (ít phức tạp nhất, $0,84M).</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-num">Giai đoạn 2</div>
+        <div class="tl-label">Tháng 18+</div>
+        <div class="tl-desc">Kích hoạt bán hàng MICE. Nhắm doanh nghiệp Ấn Độ (dược phẩm, IT, BFSI). Tiếp cận cộng đồng PCO. Rate card Tầng 2 MICE so với Intercontinental/Sheraton D1.</div>
+      </div>
+    </div>
+
+    <table style="margin-top:22px;">
+      <thead>
+        <tr><th>Quyết định cần thực hiện</th><th>Bên chịu trách nhiệm</th><th>Độ ưu tiên</th><th>Ghi chú</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>C1: Chọn Mott 32 (SHG) hay tiếp cận Hakkasan độc lập</td><td>RCC / F&B Director</td><td><span class="risk-high">Ngay lập tức</span></td><td>Lead time LOI tối thiểu 3–6 tháng</td></tr>
+        <tr><td>Tuyển Executive Chef C4 (Indian + Asian fusion)</td><td>HR / RCC</td><td><span class="risk-med">Trong 60 ngày</span></td><td>Tuyển dụng từ mạng lưới khách sạn Singapore hoặc đội Rang Đà Nẵng</td></tr>
+        <tr><td>Xác nhận mặt bằng C3 Barson + khả năng terrace</td><td>Asset / Kỹ thuật</td><td><span class="risk-med">Trong 30 ngày</span></td><td>Quyết định số chỗ và thiết kế lối vào Speakeasy</td></tr>
+        <tr><td>Brief thiết kế ADD Latest Recipe+ (tên + visual identity)</td><td>F&B / Marketing</td><td><span class="risk-low">Trong 90 ngày</span></td><td>$80–120K, song song với thi công chính</td></tr>
+        <tr><td>Tầng 2 BOH: Chỉ định tư vấn M&E / bếp công nghiệp</td><td>Asset / Kỹ thuật</td><td><span class="risk-high">Ngay lập tức</span></td><td>Thiết kế BOH dùng chung là đường găng tiết kiệm CAPEX C2+C4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <strong>LE MÉRIDIEN SAIGON</strong> · Chiến Lược F&B — Tài Liệu Nội Bộ · Tháng 7/2026 · Royal Canary Corporation<br>
+  <em>Bảo Mật — Chỉ Dùng Nội Bộ</em>
+</div>
+
+</body>
+</html>
