@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Château De Corvier Banya — BEMD Commercial Proposal</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0f;color:#d0d0d0;font-size:10.5pt;line-height:1.7;padding:40px 20px 80px}
+.container{max-width:1100px;margin:0 auto}
+
+.header{text-align:center;padding:48px 32px 40px;margin-bottom:36px}
+.header .tag{font-size:8pt;letter-spacing:4px;text-transform:uppercase;color:#c8a050;margin-bottom:12px}
+.header h1{font-size:22pt;font-weight:300;color:#e8e0d0;letter-spacing:1px}
+.header h1 strong{font-weight:700;color:#c8a050}
+.header .sub{font-size:9pt;color:#555;letter-spacing:2px;margin-top:10px}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,#c8a050,transparent);margin:18px auto}
+
+.section{margin-bottom:36px}
+.section-title{font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#c8a050;padding-bottom:8px;border-bottom:1px solid #222;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-title .num{color:#444;font-size:14pt;font-weight:300}
+.section-sub{font-size:9pt;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:1.5px;padding:16px 0 8px;border-bottom:1px solid #1e1e1e;margin-bottom:12px}
+
+table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:9.5pt}
+th{background:#111;padding:10px 12px;text-align:center;font-size:8pt;text-transform:uppercase;letter-spacing:.8px;color:#888;border-bottom:1px solid #c8a050;font-weight:600}
+th:first-child{text-align:left}
+td{padding:10px 12px;text-align:center;border-bottom:1px solid #1a1a20}
+td:first-child{text-align:left}
+tr:hover td{background:#101016}
+tr.subt td{font-weight:700;background:#0d0d15;border-top:1px solid #2a2a2a}
+tr.tot td{background:#1a1500;border-top:2px solid #c8a050;border-bottom:2px solid #c8a050;font-weight:700;font-size:10pt}
+tr.tot td:last-child{color:#c8a050}
+
+.gold{color:#c8a050;font-weight:700}
+.green{color:#4ade80;font-weight:700}
+.amber{color:#fb923c;font-weight:700}
+.blue{color:#60a5fa;font-weight:700}
+.red{color:#e05050;font-weight:700}
+
+.badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:7pt;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.badge-gold{background:rgba(200,160,80,0.15);color:#c8a050}
+.badge-blue{background:rgba(96,165,250,0.15);color:#60a5fa}
+.badge-green{background:rgba(74,222,128,0.15);color:#4ade80}
+
+.card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:12px;overflow:hidden;margin-bottom:18px}
+.card-header{padding:14px 18px;font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c8a050;background:#111118;border-bottom:1px solid #1e1e2a}
+.card-body{padding:18px;font-size:9.5pt;color:#aaa;line-height:1.8}
+.card-body p{margin-bottom:10px;color:#999}
+.card-body strong{color:#ddd}
+
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+.opt-card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:14px;overflow:hidden}
+.opt-card.best{border-color:#4ade80}
+.opt-card-header{padding:16px 20px;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #1a1a28;display:flex;justify-content:space-between;align-items:center}
+.opt-card.best .opt-card-header{background:#0a1a0a;color:#4ade80;border-bottom-color:#1a3a1a}
+.opt-card-body{padding:20px}
+.opt-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #161620;font-size:9.5pt}
+.opt-row:last-child{border-bottom:none}
+.opt-label{color:#666}
+.opt-val{font-weight:700;color:#ddd}
+
+.risk-bar-bg{background:#1a1a22;border-radius:6px;height:24px;overflow:hidden;margin:6px 0 12px}
+.risk-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:8pt;font-weight:700;color:#000}
+.risk-bar-fill.green-bg{background:#4ade80}
+.risk-bar-fill.amber-bg{background:#fb923c}
+.risk-bar-fill.red-bg{background:#e05050}
+
+.mechanism-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;margin-bottom:24px}
+.mech-card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:10px;padding:16px 18px;position:relative}
+.mech-card h4{font-size:9pt;color:#c8a050;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.mech-card p{font-size:8.5pt;color:#888;line-height:1.6}
+
+.note{font-size:8pt;color:#444;text-align:center;margin-top:28px;font-style:italic}
+.footer{text-align:center;font-size:7.5pt;color:#2a2a2a;margin-top:24px;letter-spacing:1px;text-transform:uppercase}
+
+.quote{background:#0a0a10;border-left:3px solid #c8a050;padding:14px 18px;margin:14px 0;font-style:italic;color:#999;font-size:9.5pt}
+.quote strong{color:#ccc}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<div class="tag">Château De Corvier · Banya Project</div>
+<h1>Commercial Terms <strong>Proposal</strong></h1>
+<div class="divider"></div>
+<div class="sub">BEMD · PM/CM & Design Contracts · July 2026</div>
+</div>
+
+<!-- ═══════════════ CONTEXT ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">01</span> Letter of Intent</div>
+
+<div class="card">
+<div class="card-body">
+<p>Dear BEMD Team,</p>
+
+<p>We have reviewed your commercial proposal for the PM/CM and Design Contracts with great care. We appreciate the extensive discussions over the past six weeks and the collaborative spirit you have shown throughout this process. We understand that your proposed payment structure is based on standard international practice for project-based professional services, and we fully respect the expertise and commitment your team brings to this project.</p>
+
+<p>As a matter of policy and to ensure alignment with our internal risk management framework, we need to address a few concerns relating to the PM/CM payment schedule. These are not a reflection on BEMD's capabilities or integrity — rather, they are standard checks that apply to all major contracts of this nature. We are confident that we can find a structure that works well for both parties.</p>
+
+<p>Below we outline these concerns transparently, along with several options that we believe address them effectively while maintaining the project timeline and minimizing administrative burden.</p>
+
+<p>We look forward to your feedback.</p>
+
+<p style="margin-top:14px;color:#aaa">Best regards,<br><strong style="color:#ddd">RCC Project Management</strong></p>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ CONCERNS ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">02</span> Our Concerns — Explained</div>
+
+<div class="grid-2">
+<div class="card">
+<div class="card-header" style="color:#ddd">⚖️ Concern 1: Advance Payment Risk</div>
+<div class="card-body">
+<p><strong>What we're seeing:</strong> If the contract is terminated early for any reason, 55% of the contract value would already have been paid while only a small portion of the work has been completed.</p>
+<p><strong>Why it matters:</strong> This is not about trust — it's about standard corporate governance. Our internal policy requires that we have a fair mechanism in place to recover unearned advance payments, similar to how an <strong>Advance Payment Bond</strong> would function under FIDIC standards. Since bank guarantees from Russian entities are currently unavailable due to sanctions, we need an alternative mechanism.</p>
+<p><strong>Our proposed solution:</strong> A <strong>Clawback Clause</strong> — a simple contractual provision that ensures any unearned portion of advance payments is refunded if the contract is terminated. This is a standard, internationally recognized mechanism that protects both parties' interests.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header" style="color:#ddd">📄 Concern 2: Deliverable Security</div>
+<div class="card-body">
+<p><strong>What we're seeing:</strong> If the project is interrupted, RCC would need to continue with a different PM/CM provider. The cost and time impact of restarting would be significant if design documents, drawings, and project data are not immediately available.</p>
+<p><strong>Why it matters:</strong> This is standard practice in all international construction contracts — the owner retains full ownership of all deliverables. We simply need this to be clearly stated in the agreement.</p>
+<p><strong>Our proposed solution:</strong> <strong>IP Retention</strong> — all deliverables are owned by RCC from the moment of creation. No payment is released until the corresponding deliverables have been physically handed over and accepted. This protects both parties: BEMD gets paid on time, and RCC has what it needs to continue the project.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header" style="color:#ddd">🛡️ Concern 3: Early Termination</div>
+<div class="card-body">
+<p><strong>What we're seeing:</strong> If BEMD were to decide to terminate the contract without cause during the early stages, RCC would be left with a partially completed project and significant upfront costs.</p>
+<p><strong>Why it matters:</strong> This is a standard risk management provision — it exists in most professional service contracts worldwide. It's not about expecting termination, but about having a fair framework in place.</p>
+<p><strong>Our proposed solution:</strong> <strong>Graduated Liquidated Damages</strong> — a pre-agreed penalty that decreases as the project progresses. This is a genuine pre-estimate of the costs RCC would incur in finding a replacement team. It provides certainty for both parties without requiring lengthy legal proceedings.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header" style="color:#ddd">📋 Concern 4: Administrative Overhead</div>
+<div class="card-body">
+<p><strong>What we're seeing:</strong> Monthly invoicing for PM/CM services would require 36-48 billing cycles over a 3-year project. Each cycle requires timesheet verification, progress certification, invoice processing, and payment approval.</p>
+<p><strong>Why it matters:</strong> This creates significant administrative burden for both teams — distracting from the actual work of delivering the project. We agree with BEMD's position that project-based milestone billing is more efficient.</p>
+<p><strong>Our proposed solution:</strong> <strong>Milestone-based payment</strong> — 6 clear milestones over the project lifecycle, reducing administrative work by approximately 85% compared to monthly billing.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ PROTECTION MECHANISMS ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">03</span> Proposed Protection Mechanisms</div>
+
+<div class="mechanism-grid">
+<div class="mech-card">
+<h4>① Clawback Clause</h4>
+<p>If the contract is terminated, BEMD refunds the portion of advance payments that exceeds the value of services actually performed. Calculation: <strong>Clawback = Paid − (% Complete × Contract Value)</strong>. Capped at 25% of total contract value. Payment within 30 days of determination. Standard FIDIC-aligned mechanism.</p>
+</div>
+<div class="mech-card">
+<h4>② IP Retention + Deliverable Handover</h4>
+<p>All designs, drawings, BIM models, reports, and project documentation belong to RCC from creation. Each milestone payment is conditional on the physical handover and acceptance of the corresponding deliverables. BEMD retains a license to use the deliverables for this project only.</p>
+</div>
+<div class="mech-card">
+<h4>③ Graduated Liquidated Damages</h4>
+<p>If BEMD terminates without cause, a pre-agreed penalty applies. The penalty decreases as the project progresses: 5% (early) → 1% (late). This is a genuine pre-estimate of RCC's transition costs, not a punitive measure. Reflects the decreasing risk profile as the project advances.</p>
+</div>
+<div class="mech-card">
+<h4>④ No Bank Guarantee Required</h4>
+<p>We understand that bank guarantees are not available. The mechanisms above collectively provide the same level of protection without requiring any third-party guarantee. This is designed specifically to accommodate BEMD's current circumstances.</p>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ OPTIONS ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">04</span> Payment Options — PM/CM Contract</div>
+
+<div class="comp-grid">
+
+<!-- OPTION 1 -->
+<div class="opt-card">
+<div class="opt-card-header" style="color:#c8a050">
+Option A · Balanced
+<span class="badge badge-gold">RIBA-Aligned</span>
+</div>
+<div class="opt-card-body">
+<table style="margin-bottom:0">
+<thead><tr><th style="text-align:left">#</th><th>Milestone</th><th>Payment</th><th>Cumulative</th><th>Exposure</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Contract Signing + Mobilization</td><td class="gold">30%</td><td>30%</td><td class="amber">25%</td></tr>
+<tr><td>2</td><td>IFC Drawings Issued</td><td class="gold">25%</td><td>55%</td><td class="amber">20%</td></tr>
+<tr><td>3</td><td>Construction 25% Complete</td><td>15%</td><td>70%</td><td class="amber">15%</td></tr>
+<tr><td>4</td><td>Construction 50% Complete</td><td>15%</td><td>85%</td><td class="amber">13%</td></tr>
+<tr><td>5</td><td>Practical Completion</td><td>10%</td><td>95%</td><td class="green">3%</td></tr>
+<tr><td>6</td><td>Defects Liability Period End</td><td>5%</td><td>100%</td><td class="green">0%</td></tr>
+</tbody>
+</table>
+<div style="margin-top:12px;font-size:8.5pt">
+<div class="opt-row"><span class="opt-label">Max RCC exposure</span><span class="opt-val amber">25%</span></div>
+<div class="opt-row"><span class="opt-label">Milestones</span><span class="opt-val">6</span></div>
+<div class="opt-row"><span class="opt-label">Admin burden (vs monthly)</span><span class="opt-val green">−85%</span></div>
+<div class="opt-row"><span class="opt-label">RIBA-aligned?</span><span class="opt-val green">✓ Stages 0-2 = 30%</span></div>
+<div class="opt-row"><span class="opt-label">Protection</span><span class="opt-val">3 mechanisms</span></div>
+</div>
+</div>
+</div>
+
+<!-- OPTION 2 -->
+<div class="opt-card best">
+<div class="opt-card-header">
+Option B · Balanced + Retention <span class="badge badge-green">Recommended</span>
+</div>
+<div class="opt-card-body">
+<table style="margin-bottom:0">
+<thead><tr><th style="text-align:left">#</th><th>Milestone</th><th>Gross</th><th>Ret.10%</th><th>Net</th><th>Cum.Net</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Contract Signing + Mobilization</td><td class="gold">30%</td><td class="red">−3%</td><td>27%</td><td>27%</td></tr>
+<tr><td>2</td><td>IFC Drawings Issued</td><td class="gold">25%</td><td class="red">−2.5%</td><td>22.5%</td><td>49.5%</td></tr>
+<tr><td>3</td><td>Construction 25%</td><td>15%</td><td class="red">−1.5%</td><td>13.5%</td><td>63%</td></tr>
+<tr><td>4</td><td>Construction 50%</td><td>15%</td><td class="red">−1.5%</td><td>13.5%</td><td>76.5%</td></tr>
+<tr><td>5</td><td>Practical Completion</td><td>10%</td><td class="red">−1%</td><td>9%</td><td>85.5%</td></tr>
+<tr class="subt"><td></td><td>Release Retention Pool</td><td>—</td><td class="green">+10%</td><td>10%</td><td>95.5%</td></tr>
+<tr><td>6</td><td>Defects Period End</td><td>5%</td><td>—</td><td>4.5%</td><td>100%</td></tr>
+</tbody>
+</table>
+<div style="margin-top:12px;font-size:8.5pt">
+<div class="opt-row"><span class="opt-label">Max RCC exposure</span><span class="opt-val amber">22%</span></div>
+<div class="opt-row"><span class="opt-label">Retention pool</span><span class="opt-val green">10% of contract value</span></div>
+<div class="opt-row"><span class="opt-label">Self-funded clawback?</span><span class="opt-val green">✓ Yes</span></div>
+<div class="opt-row"><span class="opt-label">BEMD receives (gross)</span><span class="opt-val">Same as Option A</span></div>
+<div class="opt-row"><span class="opt-label">90% paid by Practical Completion</span><span class="opt-val">85.5% net</span></div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="card">
+<div class="card-header">📊 Comparison Summary</div>
+<div class="card-body">
+<table style="margin-bottom:0">
+<tr><th style="text-align:left">Metric</th><th>Option A — Balanced</th><th>Option B — Retention</th></tr>
+<tr><td>Upfront payment</td><td class="gold">30%</td><td class="gold">30% gross (27% net)</td></tr>
+<tr><td>Pre-construction paid</td><td>55%</td><td>49.5% net</td></tr>
+<tr><td>Max exposure</td><td class="amber">25%</td><td class="amber">22%</td></tr>
+<tr><td>Retention</td><td>0%</td><td class="green">10%</td></tr>
+<tr><td>Admin burden</td><td class="green">6 milestones</td><td class="green">6 milestones</td></tr>
+<tr><td colspan="3" style="font-size:8.5pt;padding:14px 12px;color:#888;text-align:left;border-top:1px solid #2a2a2a">
+<strong>Option A:</strong> For BEMD — payment terms closest to your original proposal. 30% upfront aligns with RIBA standards (Stages 0-2). Protection via clawback clause only.<br>
+<strong>Option B:</strong> Same gross payment schedule, 10% retention pool held until Practical Completion. Retention acts as a self-funded guarantee — no bank guarantee needed, no third party involvement. The pool is released in full once the project reaches Practical Completion.
+</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ DESIGN CONTRACT ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">05</span> Design Contract — Already Agreed</div>
+
+<div class="card">
+<div class="card-body">
+<p>We are pleased to confirm that RCC accepts BEMD's proposed payment terms for the Design Contract:</p>
+<table style="margin-bottom:0;margin-top:12px">
+<tr><th style="text-align:left;width:50%">Milestone</th><th>Payment</th></tr>
+<tr><td>Contract signing + commencement</td><td class="gold">55%</td></tr>
+<tr><td>Submission of main approved design documentation package</td><td>35%</td></tr>
+<tr><td>Full completion of contractual scope</td><td>10%</td></tr>
+</table>
+<p style="margin-top:14px">No changes are proposed to this structure. Only the PM/CM contract requires alignment.</p>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ TIMELINE ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">06</span> Project Timeline Commitment</div>
+
+<div class="card">
+<div class="card-body">
+<p><strong>We want this project to move forward as quickly as possible.</strong> The proposed options are designed to minimize negotiation time and administrative burden:</p>
+<ul style="margin-left:20px;color:#999;margin-bottom:14px">
+<li><strong>No change to your resource allocation timeline</strong> — both options allow you to mobilize immediately upon signing</li>
+<li><strong>No bank guarantee required</strong> — we've designed alternative mechanisms that work without third-party involvement</li>
+<li><strong>6 milestones vs 36-48 monthly invoices</strong> — significantly less paperwork for both teams</li>
+<li><strong>Design contract already settled</strong> — one less item to negotiate</li>
+</ul>
+<p>We believe the remaining issues can be resolved within one week of receiving your feedback, allowing the project to proceed as planned.</p>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ NEXT STEPS ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">07</span> Next Steps</div>
+
+<div class="card">
+<div class="card-body">
+<div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;justify-content:center;padding:8px 0">
+<div style="background:#1a1500;border:1px solid #c8a050;border-radius:10px;padding:14px 18px;text-align:center;min-width:140px">
+<div style="font-size:8pt;color:#c8a050;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 1</div>
+<div style="font-size:9pt;color:#ddd">Review options<br>above</div>
+</div>
+<span style="font-size:18pt;color:#333;padding-top:10px">→</span>
+<div style="background:#1a1500;border:1px solid #c8a050;border-radius:10px;padding:14px 18px;text-align:center;min-width:140px">
+<div style="font-size:8pt;color:#c8a050;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 2</div>
+<div style="font-size:9pt;color:#ddd">Confirm which<br>option works</div>
+</div>
+<span style="font-size:18pt;color:#333;padding-top:10px">→</span>
+<div style="background:#1a1500;border:1px solid #c8a050;border-radius:10px;padding:14px 18px;text-align:center;min-width:140px">
+<div style="font-size:8pt;color:#c8a050;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 3</div>
+<div style="font-size:9pt;color:#ddd">Finalize contracts<br>+ proceed</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:16px;font-size:9pt;color:#888">
+We are open to discussing any modifications to the proposed mechanisms. Our goal is to find a solution that gives both parties confidence in the commercial terms.
+</div>
+</div>
+</div>
+</div>
+
+<p class="note">This proposal is presented in good faith. All mechanisms are based on standard international practice (FIDIC, RIBA, AIA) and are designed to be implemented without third-party involvement. Not legal advice — both parties should seek independent legal review.</p>
+<div class="footer">Château De Corvier · Banya Project · BEMD Commercial Proposal · July 2026 · Confidential</div>
+
+</div>
+</body>
+</html>
