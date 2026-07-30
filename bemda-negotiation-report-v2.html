@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEMD Negotiation Report — Château De Corvier Banya</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0a0a0f;color:#d0d0d0;font-size:10.5pt;line-height:1.7;padding:40px 20px 80px}
+.container{max-width:1100px;margin:0 auto}
+
+/* Header */
+.header{text-align:center;padding:48px 32px 40px;position:relative;margin-bottom:36px}
+.header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,160,80,0.08) 0%,transparent 70%)}
+.header .tag{font-size:8pt;letter-spacing:4px;text-transform:uppercase;color:#c8a050;margin-bottom:12px}
+.header h1{font-size:22pt;font-weight:300;color:#e8e0d0;letter-spacing:1px}
+.header h1 strong{font-weight:700;color:#c8a050}
+.header .sub{font-size:9pt;color:#555;letter-spacing:2px;margin-top:10px}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,#c8a050,transparent);margin:18px auto}
+
+/* Sections */
+.section{margin-bottom:36px}
+.section-title{font-size:11pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#c8a050;padding-bottom:8px;border-bottom:1px solid #222;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.section-title .num{color:#444;font-size:16pt;font-weight:300}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:9.5pt}
+th{background:#111;padding:10px 12px;text-align:center;font-size:8pt;text-transform:uppercase;letter-spacing:.8px;color:#888;border-bottom:1px solid #c8a050;font-weight:600}
+th:first-child{text-align:left}
+td{padding:10px 12px;text-align:center;border-bottom:1px solid #1a1a20}
+td:first-child{text-align:left}
+tr:hover td{background:#101016}
+tr.subt td{font-weight:700;background:#0d0d15;border-top:1px solid #2a2a2a}
+tr.tot td{background:#1a1500;border-top:2px solid #c8a050;border-bottom:2px solid #c8a050;font-weight:700;font-size:10pt}
+tr.tot td:last-child{color:#c8a050}
+
+.colors .gold{color:#c8a050;font-weight:700}
+.colors .green{color:#4ade80;font-weight:700}
+.colors .red{color:#e05050;font-weight:700}
+.colors .amber{color:#fb923c;font-weight:700}
+.colors .blue{color:#60a5fa;font-weight:700}
+
+.gold{color:#c8a050;font-weight:700}
+.green{color:#4ade80;font-weight:700}
+.red{color:#e05050}
+.amber{color:#fb923c;font-weight:700}
+.blue{color:#60a5fa;font-weight:700}
+
+.badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:7pt;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.badge-gold{background:rgba(200,160,80,0.15);color:#c8a050}
+.badge-green{background:rgba(74,222,128,0.15);color:#4ade80}
+.badge-blue{background:rgba(96,165,250,0.15);color:#60a5fa}
+
+/* Cards */
+.card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:12px;overflow:hidden;margin-bottom:18px}
+.card-header{padding:14px 18px;font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c8a050;background:#111118;border-bottom:1px solid #1e1e2a;display:flex;align-items:center;gap:10px}
+.card-body{padding:18px;font-size:9.5pt}
+
+/* Mechanism cards */
+.mech-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:28px}
+.mech-card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:12px;overflow:hidden}
+.mech-num{font-size:28pt;font-weight:800;color:#c8a050;opacity:0.15;position:absolute;right:16px;top:-8px}
+.mech-header{position:relative;padding:18px 22px 0;font-size:10pt;font-weight:700;color:#e8e0d0}
+.mech-sub{font-size:8pt;color:#666;margin-bottom:4px}
+.mech-body{padding:18px 22px 22px;display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start}
+.mech-desc{font-size:9pt;color:#aaa;line-height:1.75}
+.mech-desc strong{color:#ddd}
+.mech-diagram{background:#0a0a10;border:1px solid #1a1a28;border-radius:10px;padding:16px;text-align:center}
+.diagram-label{font-size:7.5pt;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:10px}
+
+/* Timeline */
+.timeline{display:flex;align-items:center;gap:0;padding:8px 0;font-size:8pt;color:#888}
+.timeline .node{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14pt;font-weight:700;border:2px solid #333;flex-shrink:0}
+.timeline .node.active{background:#1a1500;border-color:#c8a050;color:#c8a050}
+.timeline .node.risk{background:#1a0a0a;border-color:#e05050;color:#e05050}
+.timeline .node.safe{background:#0a1a0a;border-color:#4ade80;color:#4ade80}
+.timeline .edge{flex:1;height:2px;background:#222;min-width:8px}
+.timeline .edge.active{background:linear-gradient(90deg,#c8a050,#222)}
+.timeline .edge.safe{background:linear-gradient(90deg,#4ade80,#222)}
+
+/* Comparison grid */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+.opt-card{background:#0d0d15;border:1px solid #1e1e2a;border-radius:14px;overflow:hidden}
+.opt-card.best{border-color:#4ade80}
+.opt-card-header{padding:16px 20px;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid #1a1a28;display:flex;justify-content:space-between;align-items:center}
+.opt-card.best .opt-card-header{background:#0a1a0a;color:#4ade80;border-bottom-color:#1a3a1a}
+.opt-card-body{padding:20px}
+.opt-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #161620;font-size:9.5pt}
+.opt-row:last-child{border-bottom:none}
+.opt-label{color:#666}
+.opt-val{font-weight:700;color:#ddd}
+.opt-val.big{font-size:14pt;color:#c8a050}
+
+/* Risk chart */
+.risk-bar-bg{background:#1a1a22;border-radius:6px;height:24px;overflow:hidden;margin:6px 0 12px}
+.risk-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:8pt;font-weight:700;color:#000}
+.risk-bar-fill.green-bg{background:#4ade80}
+.risk-bar-fill.amber-bg{background:#fb923c}
+.risk-bar-fill.red-bg{background:#e05050}
+
+/* Two-column */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* Summary strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1a1a22;border-radius:10px;overflow:hidden;margin-bottom:24px}
+.strip-cell{background:#0d0d15;padding:20px 16px;text-align:center}
+.strip-cell .val{font-size:18pt;font-weight:700;color:#c8a050;line-height:1.1}
+.strip-cell .lbl{font-size:7.5pt;color:#555;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+.note{font-size:8pt;color:#444;text-align:center;margin-top:28px;font-style:italic}
+.footer{text-align:center;font-size:7.5pt;color:#2a2a2a;margin-top:24px;letter-spacing:1px;text-transform:uppercase}
+
+.trigger{color:#888;font-size:8.5pt}
+.amount{font-size:14pt;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<div class="header">
+<div class="tag">Château De Corvier · Banya Project</div>
+<h1>BEMD Payment Terms <strong>Negotiation Report</strong></h1>
+<div class="divider"></div>
+<div class="sub">PM/CM Contract · 2 Options · Protection Stack · July 2026</div>
+</div>
+
+<!-- ═══════════════ CONTEXT ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">01</span> Bối Cảnh</div>
+
+<div class="card">
+<div class="card-body">
+<p style="margin-bottom:12px"><strong>Chủ đầu tư:</strong> Château De Saigon / Royal Canary Corp (RCC)</p>
+<p style="margin-bottom:12px"><strong>Dự án:</strong> Banya – Wellness Spa tại Le Méridien Saigon</p>
+<p style="margin-bottom:12px"><strong>Đối tác:</strong> BEMD (Russia) — Thiết kế kỹ thuật + Quản lý thiết kế + Quản lý thi công (PM/CM)</p>
+<p style="margin-bottom:4px"><strong>Vấn đề:</strong></p>
+<ul style="margin-left:20px;color:#999">
+<li>BEMD đề xuất thanh toán front-loaded (55% upfront + milestone-based)</li>
+<li>RCC lo ngại rủi ro — nếu terminate sớm, không thu hồi được tiền đã trả</li>
+<li>Bank guarantee không khả thi (BEMD ở Nga, cấm vận)</li>
+<li>Cần cơ chế bảo vệ thay thế + thanh toán hợp lý</li>
+</ul>
+<p style="margin-top:12px"><strong>Design Contract:</strong> ✅ Đã thống nhất (55% ký HĐ → 35% submit design → 10% completion)</p>
+<p><strong>PM/CM Contract:</strong> 🔴 Đang đàm phán — đây là nội dung chính của report</p>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ PROTECTION STACK ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">02</span> Stack Bảo Vệ Mới <span class="badge badge-gold">4 Lớp</span></div>
+
+<div class="strip">
+<div class="strip-cell"><div class="val">①</div><div class="lbl">Clawback</div></div>
+<div class="strip-cell"><div class="val">②</div><div class="lbl">IP Retention</div></div>
+<div class="strip-cell"><div class="val">③</div><div class="lbl">Graduated LD</div></div>
+<div class="strip-cell"><div class="val">④</div><div class="lbl">Personal Guarantee</div></div>
+</div>
+
+<!-- MECH 1 -->
+<div class="mech-grid">
+<div class="mech-card">
+<div class="mech-header"><span class="mech-sub">LỚP 1</span><br>Clawback Clause — Hoàn Trả Tạm Ứng Chưa "Earn"</div>
+<div class="mech-body">
+<div class="mech-diagram">
+<div class="diagram-label">Minh Họa: Clawback = Paid − Earned</div>
+<div style="padding:10px;font-size:8pt;color:#888;line-height:1.8">
+
+<div style="display:flex;align-items:center;margin-bottom:10px">
+<span style="width:80px;text-align:right;font-weight:700;color:#c8a050">Ký HĐ</span>
+<span style="margin:0 8px">→</span>
+<span style="flex:1;background:#e05050;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px">
+<span style="font-weight:700;color:#fff;font-size:8.5pt">Paid 30% · Earned 5% · Δ 25%</span></span>
+<span style="margin:0 8px;color:#e05050;font-weight:700;font-size:8.5pt">RISK</span></div>
+
+<div style="display:flex;align-items:center;margin-bottom:10px">
+<span style="width:80px;text-align:right;font-weight:700;color:#c8a050">IFC Done</span>
+<span style="margin:0 8px">→</span>
+<span style="flex:1;background:#fb923c;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px">
+<span style="font-weight:700;color:#000;font-size:8.5pt">Paid 55% · Earned 35% · Δ 20%</span></span>
+<span style="margin:0 8px;color:#fb923c;font-weight:700;font-size:8.5pt">MEDIUM</span></div>
+
+<div style="display:flex;align-items:center;margin-bottom:10px">
+<span style="width:80px;text-align:right;font-weight:700;color:#c8a050">50% Constr</span>
+<span style="margin:0 8px">→</span>
+<span style="flex:1;background:#d4d44f;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px">
+<span style="font-weight:700;color:#000;font-size:8.5pt">Paid 85% · Earned 72% · Δ 13%</span></span>
+<span style="margin:0 8px;color:#fb923c;font-weight:700;font-size:8.5pt">LOW</span></div>
+
+<div style="display:flex;align-items:center">
+<span style="width:80px;text-align:right;font-weight:700;color:#c8a050">Completion</span>
+<span style="margin:0 8px">→</span>
+<span style="flex:1;background:#4ade80;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px">
+<span style="font-weight:700;color:#000;font-size:8.5pt">Paid 95% · Earned 92% · Δ 3%</span></span>
+<span style="margin:0 8px;color:#4ade80;font-weight:700;font-size:8.5pt">SAFE</span></div>
+
+</div>
+</div>
+<div class="mech-desc">
+<strong>Cơ chế:</strong> Nếu HĐ chấm dứt tại bất kỳ thời điểm nào, BEMD phải hoàn trả khoản chênh lệch giữa số tiền đã nhận và giá trị công việc thực tế đã hoàn thành.<br><br>
+<strong>Công thức:</strong> Clawback = Cumulative Paid − (% Work Complete × Contract Value)<br><br>
+<strong>Cap:</strong> 25% giá trị HĐ (tương đương khoản tạm ứng ban đầu, trừ chi phí mobilization)<br><br>
+<strong>Thời hạn:</strong> Thanh toán trong 30 ngày từ ngày xác định. Chậm thanh toán → lãi suất phạt [X]%/năm.<br><br>
+<strong>⚠️ Hạn chế:</strong> Phụ thuộc BEMD có khả năng và thiện chí hoàn trả. Nếu BEMD kiện tụng hoặc vô hiệu hóa → cần cơ chế bổ sung (Lớp 2-4).
+</div>
+</div>
+</div>
+
+<!-- MECH 2 -->
+<div class="mech-card">
+<div class="mech-header"><span class="mech-sub">LỚP 2</span><br>IP Retention + Deliverable Handover — Khóa Sản Phẩm Trước Khi Trả Tiền</div>
+<div class="mech-body">
+<div class="mech-diagram">
+<div class="diagram-label">Flow: Milestone → Deliver → Verify → Pay</div>
+<div style="padding:10px;font-size:8pt;color:#888">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center">
+<div style="background:#1a1500;border:1px solid #c8a050;border-radius:8px;padding:10px 12px;font-weight:700;color:#c8a050;min-width:70px;text-align:center">Milestone<br>Đạt</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#0f0f15;border:1px solid #2a2a2a;border-radius:8px;padding:10px 12px;min-width:100px;text-align:center"><span style="color:#60a5fa">BEMD giao</span><br>Deliverables</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#0f0f15;border:1px solid #2a2a2a;border-radius:8px;padding:10px 12px;min-width:100px;text-align:center"><span style="color:#fb923c">RCC kiểm tra</span><br>& Accept</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#0a1a0a;border:1px solid #4ade80;border-radius:8px;padding:10px 12px;font-weight:700;color:#4ade80;min-width:70px;text-align:center">Payment<br>Release</div>
+</div>
+<div style="margin-top:14px;text-align:center;color:#e05050;font-size:8pt">
+⚠️ Nếu BEMD không giao / không đạt → KHÔNG thanh toán<br>
+⚠️ Nếu terminate → RCC đã có toàn bộ tài liệu, chỉ cần thuê PM khác tiếp quản
+</div>
+</div>
+</div>
+<div class="mech-desc">
+<strong>Cơ chế:</strong> Mỗi milestone thanh toán có điều kiện tiên quyết: BEMD phải bàn giao đầy đủ sản phẩm và RCC chấp nhận. Toàn bộ quyền sở hữu trí tuệ (bản vẽ, BIM, spec, reports) thuộc về RCC ngay từ khi tạo ra.<br><br>
+<strong>Deliverables mỗi milestone:</strong><br>
+• <strong>M1 (Mobilization):</strong> PM Plan + Org Chart + Team CVs + Project Schedule + Communication Protocol<br>
+• <strong>M2 (IFC):</strong> Full IFC drawings + Spec Book + BOQ + BIM model (bản cứng + soft)<br>
+• <strong>M3-M4 (Construction):</strong> Monthly progress report + QA/QC records + Site photos + Schedule update<br><br>
+<strong>Lợi ích kép:</strong> (1) RCC luôn có sản phẩm trong tay trước khi trả tiền (2) Nếu terminate → RCC dùng chính deliverables đó cho PM mới, thời gian chết = 0.
+</div>
+</div>
+</div>
+
+<!-- MECH 3 -->
+<div class="mech-card">
+<div class="mech-header"><span class="mech-sub">LỚP 3</span><br>Graduated Liquidated Damages — Phạt Tăng Dần Nếu Tự Ý Rút</div>
+<div class="mech-body">
+<div class="mech-diagram">
+<div class="diagram-label">LD Schedule — Phạt khi BEMD terminates without cause</div>
+<div style="padding:10px;font-size:8pt;color:#888">
+<table style="width:100%;margin-bottom:0;font-size:8.5pt">
+<tr><th style="text-align:left;font-size:8pt">Giai Đoạn</th><th style="font-size:8pt">Clawback</th><th style="font-size:8pt">+ LD Penalty</th><th style="font-size:8pt">Tổng BEMD Phải Trả</th></tr>
+<tr><td>Sau M1 (< IFC)</td><td class="gold">25%</td><td class="red">+ 5%</td><td class="red">30%</td></tr>
+<tr><td>Sau M2 (< 25% Constr.)</td><td class="amber">20%</td><td class="red">+ 3.5%</td><td class="amber">23.5%</td></tr>
+<tr><td>Sau M3 (< 50% Constr.)</td><td class="amber">15%</td><td class="red">+ 2%</td><td class="amber">17%</td></tr>
+<tr><td>Sau M4 (50-100% Constr.)</td><td class="amber">13%</td><td class="red">+ 1%</td><td class="amber">14%</td></tr>
+<tr><td>Sau M5 (Completion)</td><td class="green">3%</td><td>—</td><td class="green">3%</td></tr>
+</table>
+<div style="margin-top:10px;text-align:center">
+<span style="display:inline-block;width:12px;height:12px;background:#e05050;border-radius:3px;margin-right:4px"></span> Răn đe mạnh đầu dự án
+<span style="margin-left:12px;display:inline-block;width:12px;height:12px;background:#4ade80;border-radius:3px;margin-right:4px"></span> Giảm dần khi rủi ro giảm
+</div>
+</div>
+</div>
+<div class="mech-desc">
+<strong>Cơ chế:</strong> BEMD phải trả thêm phạt nếu tự ý chấm dứt HĐ không có lý do chính đáng. LD = Clawback + Penalty. Penalty giảm dần theo tiến độ — phản ánh giảm rủi ro của RCC.<br><br>
+<strong>Tác dụng:</strong><br>
+• Răn đe BEMD khỏi ý định "walk away" sớm<br>
+• LD cao nhất ở giai đoạn RCC vulnerable nhất (chưa có deliverables)<br>
+• LD = 0 ở giai đoạn hoàn thành (rủi ro = 0)<br><br>
+<strong>⚠️ Lưu ý pháp lý:</strong> LD phải là "genuine pre-estimate of loss" (không phải penalty). Luật Việt Nam: Điều 360 Bộ Luật Dân Sự 2015 — mức phạt vi phạm do các bên thỏa thuận, không quá mức thiệt hại thực tế.
+</div>
+</div>
+</div>
+
+<!-- MECH 4 -->
+<div class="mech-card">
+<div class="mech-header"><span class="mech-sub">LỚP 4</span><br>Personal Guarantee — Vlad Đứng Ra Bảo Lãnh Cá Nhân</div>
+<div class="mech-body">
+<div class="mech-diagram">
+<div class="diagram-label">Enforcement Path — Nếu BEMD (Nga) không trả</div>
+<div style="padding:10px;font-size:8pt;color:#888">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center">
+<div style="background:#1a0a0a;border:1px solid #e05050;border-radius:8px;padding:10px 12px;min-width:90px;text-align:center;font-size:7.5pt"><span style="color:#e05050;font-weight:700">BEMD không trả</span><br>Clawback/LD</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#1a1500;border:1px solid #c8a050;border-radius:8px;padding:10px 12px;min-width:110px;text-align:center;font-size:7.5pt"><span style="color:#c8a050;font-weight:700">RCC gửi demand</span><br>cho Vlad cá nhân</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#0a1a0a;border:1px solid #4ade80;border-radius:8px;padding:10px 12px;min-width:110px;text-align:center;font-size:7.5pt"><span style="color:#4ade80;font-weight:700">Singapore Court</span><br>Enforceable</div>
+<span style="font-size:14pt;color:#555">→</span>
+<div style="background:#0a1a0a;border:1px solid #4ade80;border-radius:8px;padding:10px 12px;min-width:90px;text-align:center;font-size:7.5pt"><span style="color:#4ade80;font-weight:700">Recovery</span><br>thành công</div>
+</div>
+<div style="margin-top:12px;text-align:center;color:#555;font-size:7.5pt">
+Governed by: Singapore Law · Disputes: SIAC Arbitration (Singapore) · Language: English
+</div>
+</div>
+</div>
+<div class="mech-desc">
+<strong>Cơ chế:</strong> Ông Vlad Silantyev (Director/Shareholder BEMD) ký bảo lãnh cá nhân cho toàn bộ nghĩa vụ clawback và LD. Hợp đồng bảo lãnh riêng, governed by Singapore law, enforceable tại SIAC.<br><br>
+<strong>Tại sao Singapore?</strong><br>
+• Trung lập, không bị ảnh hưởng bởi cấm vận Nga<br>
+• SIAC = trung tâm trọng tài hàng đầu châu Á<br>
+• Phán quyết SIAC được công nhận & thi hành tại 170+ nước (New York Convention)<br><br>
+<strong>Phạm vi:</strong> Bảo lãnh toàn bộ clawback obligation (max 25% giá trị HĐ) + LD (max 5%) = max exposure 30%.<br><br>
+<strong>⚠️ Điều kiện:</strong> Vlad phải có tài sản ở jurisdiction có thể enforce (Singapore, UAE, HK...). Nếu toàn bộ tài sản ở Nga → hạn chế.
+</div>
+</div>
+</div>
+</div>
+
+<!-- Stack summary -->
+<div class="card">
+<div class="card-header">🛡️ Stack Hoạt Động Như Thế Nào</div>
+<div class="card-body">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;padding:8px 0">
+<div style="background:#1a0a0a;border:2px solid #e05050;border-radius:12px;padding:16px 20px;text-align:center;min-width:140px">
+<div style="font-size:8pt;color:#e05050;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">TRIGGER</div>
+<div style="font-size:9pt;color:#ddd">BEMD terminates<br>early / defaults</div>
+</div>
+<span style="font-size:18pt;color:#333">→</span>
+<div style="background:#0a0a10;border:2px solid #60a5fa;border-radius:12px;padding:16px 20px;text-align:center;min-width:120px">
+<div style="font-size:8pt;color:#60a5fa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 1</div>
+<div style="font-size:9pt;color:#ddd">IP Retention:<br>RCC keeps all<br>deliverables</div>
+</div>
+<span style="font-size:18pt;color:#333">→</span>
+<div style="background:#0a0a10;border:2px solid #c8a050;border-radius:12px;padding:16px 20px;text-align:center;min-width:120px">
+<div style="font-size:8pt;color:#c8a050;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 2</div>
+<div style="font-size:9pt;color:#ddd">Clawback:<br>BEMD refunds<br>unearned advance</div>
+</div>
+<span style="font-size:18pt;color:#333">→</span>
+<div style="background:#0a0a10;border:2px solid #fb923c;border-radius:12px;padding:16px 20px;text-align:center;min-width:120px">
+<div style="font-size:8pt;color:#fb923c;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 3</div>
+<div style="font-size:9pt;color:#ddd">Graduated LD:<br>Penalty on top<br>of clawback</div>
+</div>
+<span style="font-size:18pt;color:#333">→</span>
+<div style="background:#0a1a0a;border:2px solid #4ade80;border-radius:12px;padding:16px 20px;text-align:center;min-width:140px">
+<div style="font-size:8pt;color:#4ade80;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">STEP 4 (Fallback)</div>
+<div style="font-size:9pt;color:#ddd">Personal Guarantee:<br>Vlad pays if BEMD<br>doesn't</div>
+</div>
+</div>
+<div style="margin-top:14px;text-align:center;font-size:8.5pt;color:#666">
+→ BEMD không trả được vì cấm vận (Step 2+3) → Step 4: RCC kiện Vlad cá nhân tại Singapore → SIAC arbitration → Enforce tại 170+ nước
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════ TWO OPTIONS ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">03</span> 2 Options — PM/CM Payment Schedule</div>
+
+<div class="comp-grid">
+
+<!-- OPTION 1 -->
+<div class="opt-card">
+<div class="opt-card-header" style="color:#c8a050">
+Option 1 · Balanced
+<span class="badge badge-gold">RIBA-Aligned</span>
+</div>
+<div class="opt-card-body">
+<table style="margin-bottom:0">
+<thead><tr><th style="text-align:left">#</th><th>Milestone</th><th>Pay</th><th>Cum.</th><th>Exposure</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Ký HĐ + Mobilization</td><td class="gold">30%</td><td>30%</td><td class="amber">25%</td></tr>
+<tr><td>2</td><td>IFC Drawings Issued</td><td class="gold">25%</td><td>55%</td><td class="amber">20%</td></tr>
+<tr><td>3</td><td>Construction 25%</td><td>15%</td><td>70%</td><td class="amber">15%</td></tr>
+<tr><td>4</td><td>Construction 50%</td><td>15%</td><td>85%</td><td class="amber">13%</td></tr>
+<tr><td>5</td><td>Practical Completion</td><td>10%</td><td>95%</td><td class="green">3%</td></tr>
+<tr><td>6</td><td>Defects Period End</td><td>5%</td><td>100%</td><td class="green">0%</td></tr>
+</tbody>
+</table>
+
+<div style="margin-top:16px">
+<div style="font-size:8pt;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Risk Exposure Over Time</div>
+<div class="risk-bar-bg"><div class="risk-bar-fill red-bg" style="width:100%">M1: 25% exposure</div></div>
+<div class="risk-bar-bg"><div class="risk-bar-fill amber-bg" style="width:80%">M2: 20% exposure</div></div>
+<div class="risk-bar-bg"><div class="risk-bar-fill amber-bg" style="width:60%">M3: 15% exposure</div></div>
+<div class="risk-bar-bg"><div class="risk-bar-fill green-bg" style="width:52%">M4: 13% exposure</div></div>
+<div class="risk-bar-bg"><div class="risk-bar-fill green-bg" style="width:12%">M5: 3%</div></div>
+</div>
+
+<div style="margin-top:12px;font-size:8.5pt">
+<div class="opt-row"><span class="opt-label">Max RCC exposure</span><span class="opt-val amber">25%</span></div>
+<div class="opt-row"><span class="opt-label">Pre-construction paid</span><span class="opt-val">55%</span></div>
+<div class="opt-row"><span class="opt-label">Milestones</span><span class="opt-val">6</span></div>
+<div class="opt-row"><span class="opt-label">Paperwork (vs monthly)</span><span class="opt-val green">−85%</span></div>
+<div class="opt-row"><span class="opt-label">BEMD acceptable?</span><span class="opt-val green">Cao ✓</span></div>
+<div class="opt-row"><span class="opt-label">Đúng RIBA?</span><span class="opt-val green">✓ Stages 0-2 = 30%</span></div>
+</div>
+</div>
+</div>
+
+<!-- OPTION 3 -->
+<div class="opt-card best">
+<div class="opt-card-header">
+Option 3 · Balanced + Retention ⭐
+<span class="badge badge-green">Recommended</span>
+</div>
+<div class="opt-card-body">
+<table style="margin-bottom:0">
+<thead><tr><th style="text-align:left">#</th><th>Milestone</th><th>Gross</th><th>Ret.10%</th><th>Net</th><th>Cum.Net</th><th>Exp.</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Ký HĐ + Mobilization</td><td class="gold">30%</td><td class="red">−3%</td><td>27%</td><td>27%</td><td class="amber">22%</td></tr>
+<tr><td>2</td><td>IFC Drawings Issued</td><td class="gold">25%</td><td class="red">−2.5%</td><td>22.5%</td><td>49.5%</td><td class="amber">14.5%</td></tr>
+<tr><td>3</td><td>Construction 25%</td><td>15%</td><td class="red">−1.5%</td><td>13.5%</td><td>63%</td><td class="green">8%</td></tr>
+<tr><td>4</td><td>Construction 50%</td><td>15%</td><td class="red">−1.5%</td><td>13.5%</td><td>76.5%</td><td class="green">4.5%</td></tr>
+<tr><td>5</td><td>Practical Completion</td><td>10%</td><td class="red">−1%</td><td>9%</td><td>85.5%</td><td class="green">★ −6.5%</td></tr>
+<tr class="subt"><td></td><td colspan="2">Release Retention Pool</td><td class="green">+10%</td><td>95.5%</td><td>—</td><td>—</td></tr>
+<tr><td>6</td><td>Defects Period End</td><td>5%</td><td>—</td><td>4.5%</td><td>100%</td><td class="green">0%</td></tr>
+</tbody>
+</table>
+
+<div style="margin-top:16px;font-size:9pt;background:#0a1a0a;border:1px solid #1a3a1a;border-radius:8px;padding:12px;color:#4ade80">
+<strong>★ Từ Milestone 5:</strong> RCC ở SURPLUS — BEMD nợ RCC 6.5% nếu terminate.<br>
+Retention pool = self-funded clawback. RCC trừ thẳng 10% retention trước khi đòi thêm.
+</div>
+
+<div style="margin-top:12px;font-size:8.5pt">
+<div class="opt-row"><span class="opt-label">Max RCC exposure</span><span class="opt-val green">22%</span></div>
+<div class="opt-row"><span class="opt-label">Pre-construction paid (net)</span><span class="opt-val">49.5%</span></div>
+<div class="opt-row"><span class="opt-label">Retention pool</span><span class="opt-val green">10% giá trị HĐ</span></div>
+<div class="opt-row"><span class="opt-label">Self-funded clawback?</span><span class="opt-val green">✅ Có</span></div>
+<div class="opt-row"><span class="opt-label">BEMD acceptable?</span><span class="opt-val amber">TB-Cao</span></div>
+<div class="opt-row"><span class="opt-label">RCC bảo vệ</span><span class="opt-val green">Rất Cao</span></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════ SUMMARY TABLE ═══════════════ -->
+<div class="section">
+<div class="section-title"><span class="num">04</span> Tổng Kết</div>
+
+<table>
+<tr><th colspan="2">Design Contract</th><th colspan="2">PM/CM Contract (Option 1)</th><th colspan="2">PM/CM Contract (Option 3)</th></tr>
+<tr>
+<td style="font-size:8.5pt">Ký HĐ</td><td class="gold">55%</td>
+<td style="font-size:8.5pt">Mobilization</td><td class="gold">30%</td>
+<td style="font-size:8.5pt">Mobilization (net)</td><td class="gold">27%</td>
+</tr>
+<tr>
+<td style="font-size:8.5pt">Submit Design</td><td>35%</td>
+<td style="font-size:8.5pt">IFC Issued</td><td>25%</td>
+<td style="font-size:8.5pt">IFC Issued (net)</td><td>22.5%</td>
+</tr>
+<tr>
+<td style="font-size:8.5pt">Completion</td><td>10%</td>
+<td style="font-size:8.5pt">Constr. 25% / 50% / Completion</td><td>15+15+10%</td>
+<td style="font-size:8.5pt">Constr. 25% / 50% / Completion (net)</td><td>13.5+13.5+9%</td>
+</tr>
+<tr>
+<td style="font-size:8.5pt">—</td><td>—</td>
+<td style="font-size:8.5pt">Defects End</td><td>5%</td>
+<td style="font-size:8.5pt">Retention Release + Defects End</td><td>10+4.5%</td>
+</tr>
+<tr class="subt">
+<td><strong>Tổng</strong></td><td class="gold"><strong>100%</strong></td>
+<td><strong>Tổng</strong></td><td class="gold"><strong>100%</strong></td>
+<td><strong>Tổng</strong></td><td class="green"><strong>100%</strong></td>
+</tr>
+</table>
+
+<div class="card" style="margin-top:20px">
+<div class="card-header">🎯 Negotiation Strategy</div>
+<div class="card-body">
+<table style="margin-bottom:0">
+<tr><td style="text-align:left;color:#60a5fa;font-weight:700;width:180px">Mở đàm phán:</td><td><strong>Option 1</strong> (30/25/15/15/10/5) — đúng RIBA, chuẩn quốc tế, BEMD dễ chấp nhận. Kèm theo Full 4-Layer Protection Stack.</td></tr>
+<tr><td style="text-align:left;color:#fb923c;font-weight:700">Nếu BEMD từ chối 4 cơ chế bảo vệ:</td><td><strong>Option 3</strong> (thêm 10% retention) — tự động hóa clawback, RCC không cần kiện tụng.</td></tr>
+<tr><td style="text-align:left;color:#4ade80;font-weight:700">Walk-away position:</td><td><strong>Design Contract</strong> giữ nguyên (55/35/10). <strong>PM/CM:</strong> không dưới Option 3 với full stack + retention.</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<p class="note">All options assume: no bank guarantee (Russian sanctions) · PM/CM contract governed by Vietnam law · Protection stack enforceable via SIAC arbitration · Design contract terms already agreed · Storage & logistics costs not included. This is not legal advice.</p>
+<div class="footer">BEMD Negotiation Report · Château De Corvier · Royal Canary Corp · July 2026</div>
+
+</div>
+</body>
+</html>
