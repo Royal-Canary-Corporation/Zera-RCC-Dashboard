@@ -60,6 +60,11 @@
   .s1 .section-num { background: #c9a96e22; color: #c9a96e; }
   .s2 .section-num { background: #5b8cce22; color: #5b8cce; }
   .s3 .section-num { background: #8b5cce22; color: #8b5cce; }
+  .s4 .section-num { background: #4ec9a022; color: #4ec9a0; }
+  .s5 .section-num { background: #ce5b8022; color: #ce5b80; }
+  .s6 .section-num { background: #e0a55522; color: #e0a555; }
+  .s7 .section-num { background: #55b4e022; color: #55b4e0; }
+
   .section-header h2 { font-size: 18px; font-weight: 600; color: #e0d5c0; }
   .section-header p { font-size: 12px; color: #6b6b80; margin-top: 2px; }
 
@@ -74,6 +79,10 @@
   .s1 .context-box { border-left-color: #c9a96e44; }
   .s2 .context-box { border-left-color: #5b8cce44; }
   .s3 .context-box { border-left-color: #8b5cce44; }
+  .s4 .context-box { border-left-color: #4ec9a044; }
+  .s5 .context-box { border-left-color: #ce5b8044; }
+  .s6 .context-box { border-left-color: #e0a55544; }
+  .s7 .context-box { border-left-color: #55b4e044; }
 
   .questions { padding: 8px 28px 28px; }
   .q {
@@ -89,6 +98,10 @@
   .s1 .q-num { background: #c9a96e18; color: #c9a96e; }
   .s2 .q-num { background: #5b8cce18; color: #5b8cce; }
   .s3 .q-num { background: #8b5cce18; color: #8b5cce; }
+  .s4 .q-num { background: #4ec9a018; color: #4ec9a0; }
+  .s5 .q-num { background: #ce5b8018; color: #ce5b80; }
+  .s6 .q-num { background: #e0a55518; color: #e0a555; }
+  .s7 .q-num { background: #55b4e018; color: #55b4e0; }
 
   .q-text {
     font-size: 15px; color: #e0d5c0; margin-bottom: 6px; font-style: italic;
@@ -120,6 +133,7 @@
   .summary td { padding: 12px 14px; border-bottom: 1px solid #1a1a2e; font-size: 14px; }
   .risk-high { color: #e05555; }
   .risk-medium { color: #e0a555; }
+  .risk-low { color: #4ec9a0; }
 
   .footer {
     text-align: center; padding-top: 24px; border-top: 1px solid #1e1e36;
@@ -147,6 +161,7 @@
       <span>Experience: <strong>33 years</strong></span>
       <span>Background: <strong>Marriott International</strong></span>
       <span>Date: <strong>04/08/2026</strong></span>
+      <span>Total Questions: <strong>30</strong></span>
     </div>
   </div>
 
@@ -155,32 +170,21 @@
     <h3>📋 Risk Assessment by Area</h3>
     <table>
       <thead>
-        <tr><th>Area</th><th>Resume Evidence</th><th>Questions</th><th>Risk</th></tr>
+        <tr><th>Area</th><th>Resume Evidence</th><th>Q</th><th>Risk</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td style="color:#c9a96e;"><strong>F&B Franchise</strong></td>
-          <td>Không có — toàn bộ in-house Marriott</td>
-          <td>7</td>
-          <td class="risk-high">🔴 High</td>
-        </tr>
-        <tr>
-          <td style="color:#5b8cce;"><strong>Managing Franchises (Hotel)</strong></td>
-          <td>Managed hotels only; gián tiếp qua Business Council</td>
-          <td>5</td>
-          <td class="risk-medium">🟡 Medium</td>
-        </tr>
-        <tr>
-          <td style="color:#8b5cce;"><strong>Managing Renovations</strong></td>
-          <td>Chủ yếu pre-opening/construction/rebranding</td>
-          <td>5</td>
-          <td class="risk-medium">🟡 Medium</td>
-        </tr>
+        <tr><td style="color:#c9a96e;"><strong>F&B Franchise</strong></td><td>Không có — toàn bộ in-house Marriott</td><td>7</td><td class="risk-high">🔴 High</td></tr>
+        <tr><td style="color:#5b8cce;"><strong>Hotel Franchise Operations</strong></td><td>Managed hotels only; gián tiếp qua Business Council</td><td>5</td><td class="risk-medium">🟡 Medium</td></tr>
+        <tr><td style="color:#8b5cce;"><strong>Renovation (operating hotel)</strong></td><td>Chủ yếu pre-opening/construction/rebranding</td><td>5</td><td class="risk-medium">🟡 Medium</td></tr>
+        <tr><td style="color:#4ec9a0;"><strong>Vietnam/SEA Market</strong></td><td>Không có kinh nghiệm — China/HK/Korea/Thailand/Macau</td><td>3</td><td class="risk-medium">🟡 Medium</td></tr>
+        <tr><td style="color:#ce5b80;"><strong>Post-Marriott Independence</strong></td><td>33 năm Marriott — chưa từng làm ngoài hệ sinh thái</td><td>3</td><td class="risk-high">🔴 High</td></tr>
+        <tr><td style="color:#e0a555;"><strong>Owner Relations</strong></td><td>Strong — SOE owners TQ, Erawan Group, owner rep</td><td>4</td><td class="risk-low">🟢 Strength</td></tr>
+        <tr><td style="color:#55b4e0;"><strong>Talent & Culture</strong></td><td>Team 850+, turnover giảm 45→low, associate engagement +13</td><td>3</td><td class="risk-low">🟢 Strength</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- SECTION 1: F&B FRANCHISE -->
+  <!-- ====== SECTION 1: F&B FRANCHISE ====== -->
   <div class="section s1">
     <div class="section-header">
       <div class="section-num">1</div>
@@ -193,53 +197,45 @@
       Resume cho thấy toàn bộ F&B operations là in-house Marriott. MoMo Café và centralized kitchen là internal brand/ops, không phải franchise thương hiệu ngoài. <strong>Không có bằng chứng từng làm việc với F&B franchise brand.</strong>
     </div>
     <div class="questions">
-
       <div class="q">
         <span class="q-num">Q1</span>
         <div class="q-text">"Trong các property anh từng quản lý, có outlet nào được vận hành bởi 1 thương hiệu F&B franchise bên ngoài không? Hay toàn bộ F&B đều là Marriott in-house?"</div>
         <div class="q-goal">Xác nhận gap — bắt buộc hỏi đầu tiên</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q2</span>
         <div class="q-text">"Nếu phải chọn và đàm phán đưa 1 franchise F&B brand vào khách sạn, tiêu chí đầu tiên của anh để chọn brand là gì? Anh sẽ đánh giá franchise partner dựa trên những gì — ngoài tên tuổi?"</div>
         <div class="q-goal">Test framework chọn partner vs. chỉ nghĩ theo brand recognition</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q3</span>
         <div class="q-text">"Mô hình tài chính giữa khách sạn và F&B franchise thường có 3 dạng: fixed rent, revenue share, hoặc hybrid. Anh thấy mô hình nào phù hợp nhất cho luxury hotel ở Vietnam? Tại sao?"</div>
         <div class="q-goal">Test độ sâu về commercial terms</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q4</span>
         <div class="q-text">"Franchise brand có brand standards riêng — thiết kế, menu, service protocol — đôi khi xung đột với tiêu chuẩn vận hành của khách sạn. Anh đã từng xử lý tình huống này chưa? Nếu franchise partner muốn làm 1 điều không phù hợp với hotel brand standards, anh xử lý ra sao?"</div>
         <div class="q-goal">Test conflict resolution giữa 2 bộ standards</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q5</span>
-        <div class="q-text">"Khi F&B franchise hoạt động trong khách sạn, guest sẽ không phân biệt được đâu là lỗi của khách sạn, đâu là lỗi của franchise operator. Họ chỉ nhớ là 'ăn ở khách sạn này dở'. Anh làm gì để bảo vệ hotel reputation mà vẫn cho franchise partner đủ autonomy?"</div>
+        <div class="q-text">"Khi F&B franchise hoạt động trong khách sạn, guest sẽ không phân biệt được đâu là lỗi của khách sạn, đâu là lỗi của franchise operator. Anh làm gì để bảo vệ hotel reputation mà vẫn cho franchise partner đủ autonomy?"</div>
         <div class="q-goal">Test risk management + boundary setting</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q6</span>
         <div class="q-text">"Anh đã từng terminate hoặc không renew 1 F&B concept trong khách sạn của mình chưa? Tín hiệu nào cho anh biết 'cái này không work' — về mặt tài chính lẫn vận hành?"</div>
         <div class="q-goal">Test khả năng đánh giá performance và quyết định khó</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q7 <span class="bonus-tag">Bonus</span></span>
         <div class="q-text">"Centralized kitchen 4 hotels ở Shenzhen — nếu làm lại, anh có muốn franchise 1 phần F&B ra ngoài thay vì làm hết in-house không? Anh thấy trade-off giữa in-house và franchise trong F&B hotel là gì?"</div>
-        <div class="q-goal">Bridge từ kinh nghiệm thật sang franchise thinking — test strategic view</div>
+        <div class="q-goal">Bridge từ kinh nghiệm thật sang franchise thinking</div>
       </div>
-
     </div>
   </div>
 
-  <!-- SECTION 2: MANAGING FRANCHISES (HOTEL) -->
+  <!-- ====== SECTION 2: HOTEL FRANCHISE ====== -->
   <div class="section s2">
     <div class="section-header">
       <div class="section-num">2</div>
@@ -249,44 +245,38 @@
       </div>
     </div>
     <div class="context-box">
-      Toàn bộ career là <strong>managed hotels</strong> (Marriott vận hành). Dù từng làm Chairman Marriott Business Council South China — nơi có franchisees — nhưng đó là vai trò điều phối business council, không phải quản lý franchise operation trực tiếp.
+      Toàn bộ career là <strong>managed hotels</strong>. Dù từng làm Chairman Marriott Business Council South China — nơi có franchisees — nhưng đó là vai trò điều phối business council, không phải quản lý franchise operation trực tiếp.
     </div>
     <div class="questions">
-
       <div class="q">
         <span class="q-num">Q1</span>
         <div class="q-text">"Anh đã bao giờ trực tiếp quản lý 1 franchise operation chưa — nơi owner tự vận hành và phải tuân thủ brand standards nhưng không có management contract? Hay toàn bộ career của anh là managed hotels?"</div>
         <div class="q-goal">Xác nhận gap franchise operations</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q2</span>
         <div class="q-text">"Ở vị trí Chairman Marriott Business Council South China, anh có làm việc với franchisees. Khác biệt lớn nhất giữa mindset của 1 franchisee và 1 managed hotel owner là gì? Có lần nào franchisees push back brand standards không, và anh xử lý ra sao?"</div>
         <div class="q-goal">Test kinh nghiệm thực tế với franchisees dù là indirect</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q3</span>
         <div class="q-text">"RCC đang cân nhắc giữa mô hình franchise và managed cho 1 số property. Với kinh nghiệm đứng ở cả 2 phía — vận hành managed hotel và làm việc với franchisee qua Business Council — nếu anh là owner, anh sẽ chọn mô hình nào cho 1 luxury property ở Vietnam? Tại sao?"</div>
         <div class="q-goal">Test strategic thinking — managed vs franchise trade-off</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q4</span>
         <div class="q-text">"Franchise model đòi hỏi owner phải tự build team vận hành trong khi vẫn tuân thủ brand standards. Anh đã từng giúp owner nào build team từ zero chưa — không phải pre-opening team của Marriott, mà là team của chính chủ đầu tư?"</div>
         <div class="q-goal">Test hands-on team building capability ngoài Marriott ecosystem</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q5 <span class="bonus-tag">Wrap-up</span></span>
         <div class="q-text">"Trong 3 lĩnh vực — F&B franchise, hotel franchise, renovation — lĩnh vực nào anh thấy mình cần học hỏi nhiều nhất, và anh sẽ fill gap đó như thế nào?"</div>
         <div class="q-goal">Test self-awareness + willingness to learn</div>
       </div>
-
     </div>
   </div>
 
-  <!-- SECTION 3: MANAGING RENOVATIONS -->
+  <!-- ====== SECTION 3: RENOVATIONS ====== -->
   <div class="section s3">
     <div class="section-header">
       <div class="section-num">3</div>
@@ -299,37 +289,160 @@
       Resume nói "multimillion-dollar renovations" ở summary, nhưng khi drill down, phần lớn là <strong>pre-opening/construction</strong> (JW Seoul $80M, Courtyard Bangkok $1.7M) hoặc <strong>rebranding/turnaround</strong> (HK SkyCity, Renaissance Koh Samui). Không có project nào rõ ràng là renovation của 1 hotel đang hoạt động.
     </div>
     <div class="questions">
-
       <div class="q">
         <span class="q-num">Q1</span>
         <div class="q-text">"Anh đã từng làm renovation 1 khách sạn đang vận hành chưa — tức là vừa đón khách vừa thi công, phải phased từng tầng/từng khu? Hay các project của anh chủ yếu là pre-opening và construction mới?"</div>
         <div class="q-goal">Xác nhận gap — renovation vs pre-opening</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q2</span>
         <div class="q-text">"Renovation khách sạn đang hoạt động khác hoàn toàn với pre-opening — có khách đang ở, có reputation risk, có revenue pressure. Anh sẽ approach 1 project renovation 200-room hotel đang chạy occupancy 80% như thế nào? Phased ra sao? Comms với khách ra sao?"</div>
         <div class="q-goal">Test operational thinking — phased renovation strategy</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q3</span>
         <div class="q-text">"Ở HK SkyCity, anh turnaround 1 hotel đang đi xuống — cắt 40% workforce, revamp operations. Có phần renovation vật lý nào trong đó không? Nếu có, budget bao nhiêu, timeline bao lâu, và làm sao giữ được khách trong lúc sửa?"</div>
         <div class="q-goal">Dig deeper vào project turnaround lớn nhất — tách renovation khỏi operational turnaround</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q4</span>
         <div class="q-text">"Bài học đau nhất của anh về renovation là gì — project nào vượt budget hoặc chậm timeline nhất, và nếu làm lại anh sẽ làm khác điều gì?"</div>
         <div class="q-goal">Test honesty + lessons learned</div>
       </div>
-
       <div class="q">
         <span class="q-num">Q5 <span class="bonus-tag">Scenario</span></span>
         <div class="q-text">"Scenario: Anh được giao renovate 1 luxury hotel 200 room ở HCMC trong 18 tháng, budget $6M, không được đóng cửa hoàn toàn. Top 3 quyết định đầu tiên anh sẽ làm là gì?"</div>
         <div class="q-goal">Test applied thinking — Vietnam-specific context</div>
       </div>
+    </div>
+  </div>
 
+  <!-- ====== SECTION 4: VIETNAM / SEA MARKET ====== -->
+  <div class="section s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <h2>Vietnam / SEA Market Readiness</h2>
+        <p>Khả năng thích nghi với thị trường Vietnam — zero kinh nghiệm trực tiếp</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Toàn bộ career: China, Hong Kong, Korea, Thailand, Macau. <strong>Chưa từng làm việc tại Vietnam.</strong> Thailand (Courtyard Bangkok, Renaissance Koh Samui, JW/Courtyard Phuket) là điểm gần nhất. Cần test xem có framework thâm nhập thị trường mới không.
+    </div>
+    <div class="questions">
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Anh chưa từng làm việc tại Vietnam. Khi anh nhận assignment ở 1 thị trường mới — như lần đầu sang Thailand hay Korea — 3 việc đầu tiên anh làm để hiểu thị trường đó là gì? Anh đã apply approach đó như thế nào?"</div>
+        <div class="q-goal">Test market entry framework — có systematic approach hay chỉ dựa vào Marriott support?</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Vietnam hospitality market khác với China và Thailand ở điểm: lao động giá rẻ nhưng thiếu skilled middle management, owner thường can thiệp sâu vào operations, và khách luxury Việt Nam có gu khác với khách Trung Quốc. Anh thấy thách thức nào trong 3 cái đó là lớn nhất với mình? Anh sẽ xử lý ra sao?"</div>
+        <div class="q-goal">Test honest self-assessment + realistic view của Vietnam</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"Ở Thailand, anh đã launch Courtyard đầu tiên và đưa lên #1 guest satisfaction trong 24 tháng. Anh làm gì để adapt 1 brand quốc tế vào 1 thị trường mà brand đó chưa có presence? Bài học nào apply được cho Vietnam?"</div>
+        <div class="q-goal">Connect kinh nghiệm Thailand → Vietnam, test transferable skills</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SECTION 5: POST-MARRIOTT INDEPENDENCE ====== -->
+  <div class="section s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <h2>Post-Marriott Independence</h2>
+        <p>33 năm trong hệ sinh thái Marriott — chưa từng làm bên ngoài</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Đây có lẽ là <strong>risk lớn nhất</strong>. 33 năm Marriott = quen với corporate support system khổng lồ: brand standards có sẵn, training program có sẵn, revenue management system có sẵn, procurement network có sẵn. RCC không phải Marriott — không có những thứ đó. Cần test xem ảnh có tự build được từ đầu không.
+    </div>
+    <div class="questions">
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"33 năm với Marriott — anh quen với 1 hệ sinh thái cực lớn: brand standards, Marriott Bonvoy, revenue management systems, global procurement, corporate training. RCC không có những thứ đó. Nếu phải build mọi thứ từ đầu hoặc từ nguồn lực hạn chế hơn nhiều, anh thấy mình sẽ gặp khó ở đâu nhất?"</div>
+        <div class="q-goal">Test self-awareness về dependency vào corporate infrastructure</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Ở Marriott, khi anh cần mở 1 khách sạn mới, có cả 1 bộ máy pre-opening team từ regional office hỗ trợ. Ở RCC, anh sẽ phải tự build team pre-opening từ con số 0 — không có playbook, không có regional support. Anh sẽ bắt đầu từ đâu? Tuyển ai đầu tiên?"</div>
+        <div class="q-goal">Test hands-on — build-from-scratch capability, không có safety net</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"1 trong những lý do anh thành công ở Marriott là anh biết cách navigate internal politics và corporate structure. Khi ra ngoài, anh mất đi cái 'Marriott badge' đó. Làm sao anh tạo dựng credibility và influence ở 1 môi trường mới, nơi không ai biết Marriott Business Council Chairman là gì?"</div>
+        <div class="q-goal">Test ability to build influence without brand name backing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SECTION 6: OWNER RELATIONS ====== -->
+  <div class="section s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <h2>Owner Relations & Stakeholder Management</h2>
+        <p>Đây là strength — cần validate độ sâu và cultural fit với owner Vietnam</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Resume cho thấy owner relations là 1 trong những điểm mạnh nhất: SOE owners ở Shenzhen, Erawan Group, owner rep Phuket. Mustang Award – Owner Relations. Sign được 3 projects mới + Master Management Contract từ trust của owner. <strong>Cần test xem kinh nghiệm với owner Trung Quốc/Thái có translate được sang owner Vietnam không.</strong>
+    </div>
+    <div class="questions">
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Ở Shenzhen, anh làm việc với State-Owned Enterprise owners — họ budget 4-year NOP loss mà anh break-even năm 1. Làm sao anh manage được kỳ vọng của owner khi reality tốt hơn expectation? Và ngược lại — có lần nào anh phải báo tin xấu cho owner không? Anh làm điều đó như thế nào?"</div>
+        <div class="q-goal">Test cả 2 chiều: good news management + bad news delivery</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Owner Vietnam thường có phong cách khác với owner Trung Quốc và Thái Lan — họ can thiệp sâu hơn vào operations, quyết định nhanh hơn, và đôi khi bỏ qua process. Anh đã gặp kiểu owner nào tương tự trong career mình chưa? Anh xử lý ra sao khi owner muốn làm 1 điều mà anh biết là sai về mặt vận hành?"</div>
+        <div class="q-goal">Test boundary management + cultural fit với owner Vietnam</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"Anh đã sign được 3 projects mới và 1 Master Management Contract từ trust của owner Shenzhen. Cụ thể anh đã làm gì để chuyển từ 'GM được thuê' thành 'đối tác tin cậy' của owner? Có 1 hành động cụ thể nào mà anh nghĩ là tipping point không?"</div>
+        <div class="q-goal">Test specifics — không chỉ nói chung chung về "trust"</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q4</span>
+        <div class="q-text">"Nếu owner nói với anh: 'Tôi muốn cắt 30% chi phí F&B trong 3 tháng tới', nhưng anh biết điều đó sẽ ảnh hưởng đến chất lượng dịch vụ — anh sẽ trả lời owner như thế nào? Đưa cho tôi nguyên văn câu đầu tiên anh sẽ nói."</div>
+        <div class="q-goal">Test real communication style — không phải lý thuyết</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SECTION 7: TALENT & CULTURE ====== -->
+  <div class="section s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div>
+        <h2>Talent Development & Culture Building</h2>
+        <p>Strength rõ nhất trong resume — cần validate depth và Vietnam applicability</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Điểm sáng nhất: giảm turnover từ 45% xuống thấp, tăng Associate Engagement +13 điểm, bonus trung bình 4.5 tháng, team từ 30→350→850+. JW Seoul: build team trẻ, đào tạo tiếng Anh. <strong>Nhưng toàn bộ là trong hệ thống Marriott — nơi có sẵn training infrastructure.</strong>
+    </div>
+    <div class="questions">
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Ở HK SkyCity, anh cắt 40% workforce nhưng vẫn tăng Associate Engagement +13 điểm — điều này nghe có vẻ nghịch lý. Anh làm điều đó như thế nào? Cụ thể 3 hành động đầu tiên anh làm sau khi cắt giảm là gì?"</div>
+        <div class="q-goal">Test specifics của turnaround nổi tiếng nhất — không phải lý thuyết chung chung</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Ở Vietnam, middle management là điểm nghẽn lớn nhất — có thể tuyển line staff dễ, nhưng tìm trưởng bộ phận giỏi rất khó. Anh đã gặp vấn đề tương tự ở thị trường nào chưa? Anh giải quyết bằng cách: đào tạo nội bộ, tuyển từ nước ngoài, hay poach từ đối thủ?"</div>
+        <div class="q-goal">Test middle management pipeline — vấn đề thực tế nhất ở Vietnam</div>
+      </div>
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"Anh bonus trung bình 4.5 tháng cho nhân viên ở Shenzhen — cao nhất thị trường. Với budget hạn chế hơn ở RCC, nếu không thể dùng tiền để giữ người, anh sẽ dùng gì? Cho tôi 2 ví dụ cụ thể anh đã từng làm để giữ talent mà không tốn nhiều tiền."</div>
+        <div class="q-goal">Test retention strategy ngoài compensation — phù hợp với reality RCC</div>
+      </div>
     </div>
   </div>
 
