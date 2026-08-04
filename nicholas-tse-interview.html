@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicholas Tse — Interview Questions</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f1a;
+    color: #d4d4dc;
+    padding: 48px 20px 80px;
+    line-height: 1.7;
+  }
+  .container { max-width: 820px; margin: 0 auto; }
+  
+  .hero {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid #2a2a3e;
+  }
+  .hero .tag {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: #6b6b80; margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 600; color: #f0e6d3;
+    margin-bottom: 8px; letter-spacing: 1px;
+  }
+  .hero .sub {
+    font-size: 14px; color: #8b8b9e;
+  }
+  .hero .meta-row {
+    display: flex; justify-content: center; gap: 32px; margin-top: 20px; flex-wrap: wrap;
+  }
+  .hero .meta-row span {
+    font-size: 12px; color: #6b6b80; letter-spacing: 1px;
+  }
+  .hero .meta-row strong { color: #c9a96e; }
+
+  .section {
+    margin-bottom: 48px;
+    background: #141428;
+    border: 1px solid #1e1e36;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid #1e1e36;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-num {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; flex-shrink: 0;
+  }
+  .s1 .section-num { background: #c9a96e22; color: #c9a96e; }
+  .s2 .section-num { background: #5b8cce22; color: #5b8cce; }
+  .s3 .section-num { background: #8b5cce22; color: #8b5cce; }
+  .section-header h2 { font-size: 18px; font-weight: 600; color: #e0d5c0; }
+  .section-header p { font-size: 12px; color: #6b6b80; margin-top: 2px; }
+
+  .context-box {
+    margin: 16px 28px 0;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.02);
+    border-left: 3px solid #2a2a3e;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px; color: #8b8b9e; line-height: 1.6;
+  }
+  .s1 .context-box { border-left-color: #c9a96e44; }
+  .s2 .context-box { border-left-color: #5b8cce44; }
+  .s3 .context-box { border-left-color: #8b5cce44; }
+
+  .questions { padding: 8px 28px 28px; }
+  .q {
+    padding: 18px 0;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  .q:last-child { border-bottom: none; }
+  .q-num {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    padding: 2px 10px; border-radius: 4px; margin-bottom: 8px;
+  }
+  .s1 .q-num { background: #c9a96e18; color: #c9a96e; }
+  .s2 .q-num { background: #5b8cce18; color: #5b8cce; }
+  .s3 .q-num { background: #8b5cce18; color: #8b5cce; }
+
+  .q-text {
+    font-size: 15px; color: #e0d5c0; margin-bottom: 6px; font-style: italic;
+  }
+  .q-goal {
+    font-size: 12px; color: #6b6b80;
+  }
+  .q-goal::before { content: "🎯 "; }
+
+  .bonus-tag {
+    display: inline-block; font-size: 10px; letter-spacing: 2px;
+    padding: 2px 8px; border-radius: 3px;
+    background: #c9a96e12; color: #c9a96e; margin-left: 8px; text-transform: uppercase;
+  }
+
+  .summary {
+    background: #141428;
+    border: 1px solid #1e1e36;
+    border-radius: 8px;
+    padding: 28px;
+    margin-bottom: 48px;
+  }
+  .summary h3 { font-size: 14px; color: #8b8b9e; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .summary table { width: 100%; border-collapse: collapse; }
+  .summary th {
+    text-align: left; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: #6b6b80; padding: 10px 14px; border-bottom: 1px solid #2a2a3e; font-weight: 500;
+  }
+  .summary td { padding: 12px 14px; border-bottom: 1px solid #1a1a2e; font-size: 14px; }
+  .risk-high { color: #e05555; }
+  .risk-medium { color: #e0a555; }
+
+  .footer {
+    text-align: center; padding-top: 24px; border-top: 1px solid #1e1e36;
+    font-size: 12px; color: #4a4a5e; letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 24px 12px 60px; }
+    .hero h1 { font-size: 24px; }
+    .section-header { padding: 16px 20px; }
+    .questions { padding: 8px 20px 20px; }
+    .context-box { margin: 12px 20px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">Interview Guide</div>
+    <h1>Nicholas Tse</h1>
+    <div class="sub">Candidate Assessment — Hospitality Leadership</div>
+    <div class="meta-row">
+      <span>Experience: <strong>33 years</strong></span>
+      <span>Background: <strong>Marriott International</strong></span>
+      <span>Date: <strong>04/08/2026</strong></span>
+    </div>
+  </div>
+
+  <!-- GAP SUMMARY -->
+  <div class="summary">
+    <h3>📋 Risk Assessment by Area</h3>
+    <table>
+      <thead>
+        <tr><th>Area</th><th>Resume Evidence</th><th>Questions</th><th>Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:#c9a96e;"><strong>F&B Franchise</strong></td>
+          <td>Không có — toàn bộ in-house Marriott</td>
+          <td>7</td>
+          <td class="risk-high">🔴 High</td>
+        </tr>
+        <tr>
+          <td style="color:#5b8cce;"><strong>Managing Franchises (Hotel)</strong></td>
+          <td>Managed hotels only; gián tiếp qua Business Council</td>
+          <td>5</td>
+          <td class="risk-medium">🟡 Medium</td>
+        </tr>
+        <tr>
+          <td style="color:#8b5cce;"><strong>Managing Renovations</strong></td>
+          <td>Chủ yếu pre-opening/construction/rebranding</td>
+          <td>5</td>
+          <td class="risk-medium">🟡 Medium</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 1: F&B FRANCHISE -->
+  <div class="section s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <h2>F&B Franchise</h2>
+        <p>Franchise thương hiệu F&B vào vận hành outlet khách sạn</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Resume cho thấy toàn bộ F&B operations là in-house Marriott. MoMo Café và centralized kitchen là internal brand/ops, không phải franchise thương hiệu ngoài. <strong>Không có bằng chứng từng làm việc với F&B franchise brand.</strong>
+    </div>
+    <div class="questions">
+
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Trong các property anh từng quản lý, có outlet nào được vận hành bởi 1 thương hiệu F&B franchise bên ngoài không? Hay toàn bộ F&B đều là Marriott in-house?"</div>
+        <div class="q-goal">Xác nhận gap — bắt buộc hỏi đầu tiên</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Nếu phải chọn và đàm phán đưa 1 franchise F&B brand vào khách sạn, tiêu chí đầu tiên của anh để chọn brand là gì? Anh sẽ đánh giá franchise partner dựa trên những gì — ngoài tên tuổi?"</div>
+        <div class="q-goal">Test framework chọn partner vs. chỉ nghĩ theo brand recognition</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"Mô hình tài chính giữa khách sạn và F&B franchise thường có 3 dạng: fixed rent, revenue share, hoặc hybrid. Anh thấy mô hình nào phù hợp nhất cho luxury hotel ở Vietnam? Tại sao?"</div>
+        <div class="q-goal">Test độ sâu về commercial terms</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q4</span>
+        <div class="q-text">"Franchise brand có brand standards riêng — thiết kế, menu, service protocol — đôi khi xung đột với tiêu chuẩn vận hành của khách sạn. Anh đã từng xử lý tình huống này chưa? Nếu franchise partner muốn làm 1 điều không phù hợp với hotel brand standards, anh xử lý ra sao?"</div>
+        <div class="q-goal">Test conflict resolution giữa 2 bộ standards</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q5</span>
+        <div class="q-text">"Khi F&B franchise hoạt động trong khách sạn, guest sẽ không phân biệt được đâu là lỗi của khách sạn, đâu là lỗi của franchise operator. Họ chỉ nhớ là 'ăn ở khách sạn này dở'. Anh làm gì để bảo vệ hotel reputation mà vẫn cho franchise partner đủ autonomy?"</div>
+        <div class="q-goal">Test risk management + boundary setting</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q6</span>
+        <div class="q-text">"Anh đã từng terminate hoặc không renew 1 F&B concept trong khách sạn của mình chưa? Tín hiệu nào cho anh biết 'cái này không work' — về mặt tài chính lẫn vận hành?"</div>
+        <div class="q-goal">Test khả năng đánh giá performance và quyết định khó</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q7 <span class="bonus-tag">Bonus</span></span>
+        <div class="q-text">"Centralized kitchen 4 hotels ở Shenzhen — nếu làm lại, anh có muốn franchise 1 phần F&B ra ngoài thay vì làm hết in-house không? Anh thấy trade-off giữa in-house và franchise trong F&B hotel là gì?"</div>
+        <div class="q-goal">Bridge từ kinh nghiệm thật sang franchise thinking — test strategic view</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: MANAGING FRANCHISES (HOTEL) -->
+  <div class="section s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <h2>Managing Franchises (Hotel Operations)</h2>
+        <p>Quản lý franchise hotel — owner tự vận hành, tuân thủ brand standards</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Toàn bộ career là <strong>managed hotels</strong> (Marriott vận hành). Dù từng làm Chairman Marriott Business Council South China — nơi có franchisees — nhưng đó là vai trò điều phối business council, không phải quản lý franchise operation trực tiếp.
+    </div>
+    <div class="questions">
+
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Anh đã bao giờ trực tiếp quản lý 1 franchise operation chưa — nơi owner tự vận hành và phải tuân thủ brand standards nhưng không có management contract? Hay toàn bộ career của anh là managed hotels?"</div>
+        <div class="q-goal">Xác nhận gap franchise operations</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Ở vị trí Chairman Marriott Business Council South China, anh có làm việc với franchisees. Khác biệt lớn nhất giữa mindset của 1 franchisee và 1 managed hotel owner là gì? Có lần nào franchisees push back brand standards không, và anh xử lý ra sao?"</div>
+        <div class="q-goal">Test kinh nghiệm thực tế với franchisees dù là indirect</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"RCC đang cân nhắc giữa mô hình franchise và managed cho 1 số property. Với kinh nghiệm đứng ở cả 2 phía — vận hành managed hotel và làm việc với franchisee qua Business Council — nếu anh là owner, anh sẽ chọn mô hình nào cho 1 luxury property ở Vietnam? Tại sao?"</div>
+        <div class="q-goal">Test strategic thinking — managed vs franchise trade-off</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q4</span>
+        <div class="q-text">"Franchise model đòi hỏi owner phải tự build team vận hành trong khi vẫn tuân thủ brand standards. Anh đã từng giúp owner nào build team từ zero chưa — không phải pre-opening team của Marriott, mà là team của chính chủ đầu tư?"</div>
+        <div class="q-goal">Test hands-on team building capability ngoài Marriott ecosystem</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q5 <span class="bonus-tag">Wrap-up</span></span>
+        <div class="q-text">"Trong 3 lĩnh vực — F&B franchise, hotel franchise, renovation — lĩnh vực nào anh thấy mình cần học hỏi nhiều nhất, và anh sẽ fill gap đó như thế nào?"</div>
+        <div class="q-goal">Test self-awareness + willingness to learn</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: MANAGING RENOVATIONS -->
+  <div class="section s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <h2>Managing Renovations</h2>
+        <p>Renovation khách sạn đang hoạt động — vừa chạy vừa sửa</p>
+      </div>
+    </div>
+    <div class="context-box">
+      Resume nói "multimillion-dollar renovations" ở summary, nhưng khi drill down, phần lớn là <strong>pre-opening/construction</strong> (JW Seoul $80M, Courtyard Bangkok $1.7M) hoặc <strong>rebranding/turnaround</strong> (HK SkyCity, Renaissance Koh Samui). Không có project nào rõ ràng là renovation của 1 hotel đang hoạt động.
+    </div>
+    <div class="questions">
+
+      <div class="q">
+        <span class="q-num">Q1</span>
+        <div class="q-text">"Anh đã từng làm renovation 1 khách sạn đang vận hành chưa — tức là vừa đón khách vừa thi công, phải phased từng tầng/từng khu? Hay các project của anh chủ yếu là pre-opening và construction mới?"</div>
+        <div class="q-goal">Xác nhận gap — renovation vs pre-opening</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q2</span>
+        <div class="q-text">"Renovation khách sạn đang hoạt động khác hoàn toàn với pre-opening — có khách đang ở, có reputation risk, có revenue pressure. Anh sẽ approach 1 project renovation 200-room hotel đang chạy occupancy 80% như thế nào? Phased ra sao? Comms với khách ra sao?"</div>
+        <div class="q-goal">Test operational thinking — phased renovation strategy</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q3</span>
+        <div class="q-text">"Ở HK SkyCity, anh turnaround 1 hotel đang đi xuống — cắt 40% workforce, revamp operations. Có phần renovation vật lý nào trong đó không? Nếu có, budget bao nhiêu, timeline bao lâu, và làm sao giữ được khách trong lúc sửa?"</div>
+        <div class="q-goal">Dig deeper vào project turnaround lớn nhất — tách renovation khỏi operational turnaround</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q4</span>
+        <div class="q-text">"Bài học đau nhất của anh về renovation là gì — project nào vượt budget hoặc chậm timeline nhất, và nếu làm lại anh sẽ làm khác điều gì?"</div>
+        <div class="q-goal">Test honesty + lessons learned</div>
+      </div>
+
+      <div class="q">
+        <span class="q-num">Q5 <span class="bonus-tag">Scenario</span></span>
+        <div class="q-text">"Scenario: Anh được giao renovate 1 luxury hotel 200 room ở HCMC trong 18 tháng, budget $6M, không được đóng cửa hoàn toàn. Top 3 quyết định đầu tiên anh sẽ làm là gì?"</div>
+        <div class="q-goal">Test applied thinking — Vietnam-specific context</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    Zera 🌟 · RCC Advisory · Nicholas Tse Interview Guide · 04/08/2026
+  </div>
+
+</div>
+</body>
+</html>
