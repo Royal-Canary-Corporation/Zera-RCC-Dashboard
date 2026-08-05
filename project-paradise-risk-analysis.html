@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Paradise — Risk Analysis & Mitigation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f1a;
+    color: #d4d4dc;
+    padding: 48px 20px 80px;
+    line-height: 1.75;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  
+  .hero {
+    text-align: center; margin-bottom: 48px; padding-bottom: 32px;
+    border-bottom: 2px solid #2a2a3e;
+  }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #6b6b80; margin-bottom: 12px; }
+  .hero h1 { font-size: 30px; font-weight: 600; color: #f0e6d3; margin-bottom: 8px; }
+  .hero .sub { font-size: 14px; color: #8b8b9e; }
+  .hero .meta { display: flex; justify-content: center; gap: 32px; margin-top: 18px; flex-wrap: wrap; font-size: 12px; color: #6b6b80; }
+  .hero .meta strong { color: #c9a96e; }
+
+  .section {
+    margin-bottom: 48px; background: #141428; border: 1px solid #1e1e36;
+    border-radius: 10px; overflow: hidden;
+  }
+  .section-header {
+    padding: 22px 30px; border-bottom: 1px solid #1e1e36;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .severity {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700;
+  }
+  .critical .severity { background: #e0555522; color: #e05555; }
+  .high .severity { background: #e0a55522; color: #e0a555; }
+  .medium .severity { background: #55b4e022; color: #55b4e0; }
+  .section-header h2 { font-size: 18px; font-weight: 600; color: #e0d5c0; }
+  .section-header .tagline { font-size: 12px; color: #6b6b80; margin-top: 3px; }
+
+  .content { padding: 24px 30px 30px; }
+  .content h3 { font-size: 14px; color: #c9a96e; margin: 24px 0 10px; letter-spacing: 1px; }
+  .content h3:first-child { margin-top: 0; }
+  .content p { font-size: 14px; color: #b0b0c0; margin-bottom: 12px; }
+
+  .data-card {
+    background: rgba(255,255,255,0.02); border: 1px solid #1e1e36;
+    border-radius: 6px; padding: 16px 20px; margin: 16px 0;
+  }
+  .data-card .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #6b6b80; margin-bottom: 8px; }
+  .data-card table { width: 100%; border-collapse: collapse; }
+  .data-card th { text-align: left; font-size: 11px; color: #6b6b80; padding: 6px 12px; border-bottom: 1px solid #1e1e36; font-weight: 500; }
+  .data-card td { padding: 6px 12px; font-size: 13px; color: #d0d0d8; border-bottom: 1px solid #141428; }
+  .data-card td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .risk-box {
+    padding: 14px 18px; border-radius: 6px; margin: 16px 0;
+    font-size: 13px; line-height: 1.7;
+  }
+  .risk-red { background: #e0555510; border-left: 3px solid #e05555; color: #e8a0a0; }
+  .risk-yellow { background: #e0a55510; border-left: 3px solid #e0a555; color: #e8c080; }
+  .risk-blue { background: #55b4e010; border-left: 3px solid #55b4e0; color: #80c8e8; }
+
+  .mitigation {
+    background: #4ec9a008; border: 1px solid #4ec9a020; border-radius: 6px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .mitigation .m-title { font-size: 12px; color: #4ec9a0; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .mitigation li { font-size: 13px; color: #a0d0b8; margin: 6px 0; padding-left: 4px; list-style: none; }
+  .mitigation li::before { content: "▸ "; color: #4ec9a0; }
+
+  .verdict {
+    padding: 18px 24px; border-radius: 8px; margin: 24px 0 0;
+    font-size: 14px; line-height: 1.7;
+  }
+  .verdict-red { background: #e055550c; border: 1px solid #e0555520; color: #e0a0a0; }
+  .verdict-yellow { background: #e0a5550c; border: 1px solid #e0a55520; color: #d8c0a0; }
+
+  .divider { border: none; border-top: 1px solid #1e1e36; margin: 32px 0; }
+
+  .exec-summary {
+    background: linear-gradient(135deg, #1a1a30, #141428);
+    border: 1px solid #2a2a3e; border-radius: 10px; padding: 28px;
+    margin-bottom: 48px;
+  }
+  .exec-summary h2 { font-size: 16px; color: #c9a96e; margin-bottom: 16px; letter-spacing: 2px; }
+  .exec-summary .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .exec-summary .grid-item { text-align: center; padding: 14px; background: rgba(255,255,255,0.02); border-radius: 6px; }
+  .exec-summary .grid-item .val { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .exec-summary .grid-item .lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #6b6b80; }
+
+  .footer { text-align: center; padding-top: 24px; border-top: 1px solid #1e1e36; font-size: 12px; color: #4a4a5e; letter-spacing: 1px; }
+
+  @media (max-width: 600px) {
+    body { padding: 24px 12px 60px; }
+    .hero h1 { font-size: 24px; }
+    .section-header { padding: 16px 20px; }
+    .content { padding: 16px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="tag">Project Paradise · Risk Deep-Dive</div>
+    <h1>Phân Tích Rủi Ro & Biện Pháp Quản Lý</h1>
+    <div class="sub">Amanpulo · Pamalican Island · Philippines</div>
+    <div class="meta">
+      <span>Model: <strong>v12.1</strong></span>
+      <span>Valuation: <strong>31/12/2025</strong></span>
+      <span>FX: <strong>58.79 PHP/USD</strong></span>
+      <span>Cases: <strong>Base (Case 1)</strong></span>
+    </div>
+  </div>
+
+  <!-- EXEC SUMMARY -->
+  <div class="exec-summary">
+    <h2>📊 Mức Độ Ảnh Hưởng Đến Định Giá</h2>
+    <div class="grid">
+      <div class="grid-item">
+        <div class="val" style="color:#e05555;">~+$7-10M</div>
+        <div class="lbl">Vấn đề #1: ADR ảo</div>
+      </div>
+      <div class="grid-item">
+        <div class="val" style="color:#e0a555;">~$15-20M</div>
+        <div class="lbl">Vấn đề #2: Recovery curve</div>
+      </div>
+      <div class="grid-item">
+        <div class="val" style="color:#e05555;">~$30-50M</div>
+        <div class="lbl">Rủi ro tiến độ renovation</div>
+      </div>
+      <div class="grid-item">
+        <div class="val" style="color:#e0a555;">~$20-40M</div>
+        <div class="lbl">ADR +45% overoptimistic</div>
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-size: 13px; color: #8b8b9e;">
+      ⚠️ Nếu cộng dồn các rủi ro, <strong>EV thực tế có thể thấp hơn $30-60M</strong> so với con số $153M trong Base Case. 
+      EV điều chỉnh khả năng rơi vào khoảng <strong style="color:#c9a96e;">$90-120M</strong> thay vì $153M.
+    </p>
+  </div>
+
+  <!-- ISSUE 1: ADR ảo trong năm đóng cửa -->
+  <div class="section critical">
+    <div class="section-header">
+      <div class="severity">🔴</div>
+      <div>
+        <h2>Vấn đề #1: ADR Tăng Ảo Trong Năm Đóng Cửa 2028</h2>
+        <div class="tagline">ADR vẫn tăng ~8% dù không bán được phòng nào → thổi phồng nền cho mức +45%</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Cơ Chế Lỗi</h3>
+      <p>ADR trong model được tính theo công thức cộng dồn: <strong>ADR<sub>năm nay</sub> = ADR<sub>năm trước</sub> × (1 + % tăng)</strong>. Năm 2028 resort đóng cửa hoàn toàn (0 ngày vận hành cả mùa cao lẫn mùa thấp), nhưng ADR vẫn tăng +8% — điều này là phi logic vì không có giao dịch thực tế nào để neo mức tăng đó.</p>
+      <p>Sau đó, mức ADR đã bị thổi phồng này trở thành "nền" để áp dụng cú nhảy <strong>+45% one-time</strong> vào 2029. Kết quả: ADR 2029 bị đội lên cao hơn thực tế ~7.4%, và sai số này lan sang <strong>toàn bộ 12 năm từ 2029 đến 2040</strong>.</p>
+
+      <div class="data-card">
+        <div class="label">Minh Họa Tác Động</div>
+        <table>
+          <thead><tr><th>Năm</th><th>ADR (PHP)</th><th>ADR (USD)</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td>2027</td><td class="num">119,223</td><td class="num">$2,028</td><td>Năm cuối trước renovation</td></tr>
+            <tr><td>2028</td><td class="num" style="color:#e05555;">129,000</td><td class="num" style="color:#e05555;">$2,194</td><td style="color:#e05555;">⚠️ ĐÓNG CỬA nhưng ADR vẫn +8%</td></tr>
+            <tr><td>2029</td><td class="num" style="color:#e05555;">173,131</td><td class="num" style="color:#e05555;">$2,945</td><td style="color:#e05555;">= 129K × 1.45 (thay vì 119K × 1.45 = 172.9K)</td></tr>
+            <tr><td colspan="4"></td></tr>
+            <tr><td>2029 (đúng)</td><td class="num" style="color:#4ec9a0;">172,873</td><td class="num" style="color:#4ec9a0;">$2,941</td><td style="color:#4ec9a0;">= 119,223 × 1.45 (freeze 2028)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="risk-box risk-red">
+        <strong>💡 Ý kiến thực tế:</strong> Đây không chỉ là lỗi kỹ thuật — nó phản ánh 1 vấn đề tư duy mô hình sâu hơn. 
+        Người build model đã không phân biệt được "ADR trend" (xu hướng dài hạn) với "ADR thực tế" (chỉ tồn tại khi có giao dịch). 
+        Trong trường hợp đóng cửa 12 tháng, không có cơ sở nào để claim ADR tăng 8% — thị trường không thấy sản phẩm, 
+        không có booking, không có benchmark. Việc này cho thấy model được build theo template tài chính chuẩn 
+        (compound growth) mà thiếu domain knowledge về hospitality.
+      </div>
+
+      <div class="mitigation">
+        <div class="m-title">🛡️ Biện Pháp Quản Lý Rủi Ro</div>
+        <li><strong>Sửa model ngay:</strong> Đặt ADR 2028 = ADR 2027 (đóng băng). Hoặc tách biệt: dùng ADR 2027 làm base cho cú nhảy +45%, bỏ qua 2028.</li>
+        <li><strong>Benchmark độc lập:</strong> Lấy ADR của Aman/One&Only/Four Seasons resort tương đương trong khu vực (Maldives, Bali, Thailand) sau renovation để validate con số $2,945.</li>
+        <li><strong>Stress-test riêng biến ADR:</strong> Chạy sensitivity: +35% / +45% / +55% → xem EV dao động bao nhiêu. Nếu EV quá nhạy → ADR assumption quá rủi ro.</li>
+        <li><strong>Trong đàm phán:</strong> Dùng lỗi này để negotiate — "model của các anh đang overstated ~7.4% cho toàn bộ kỳ dự báo. Chúng tôi đề xuất điều chỉnh và định giá lại."</li>
+      </div>
+
+      <div class="verdict verdict-red">
+        <strong>🔴 Mức độ nghiêm trọng: CAO.</strong> Đây là single point of failure lớn nhất trong model. 
+        ADR là driver #1 của định giá. Sai 7% trong ADR → sai ~15% trong EV do hiệu ứng compounding 12 năm. 
+        <strong>Phải sửa trước khi dùng model để ra quyết định.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUE 2: Recovery Curve -->
+  <div class="section high">
+    <div class="section-header">
+      <div class="severity">🟡</div>
+      <div>
+        <h2>Vấn đề #2: Đường Cong Phục Hồi Sau Renovation Phi Thực Tế</h2>
+        <div class="tagline">Doanh thu nhảy +53% trong 1 năm (2029→2030) — không resort nào phục hồi nhanh như vậy</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Dữ Liệu</h3>
+      <div class="data-card">
+        <div class="label">Recovery Timeline — PRI</div>
+        <table>
+          <thead><tr><th>Năm</th><th class="num">Doanh Thu (tr PHP)</th><th class="num">Occupancy</th><th class="num">ADR (PHP)</th><th>Context</th></tr></thead>
+          <tbody>
+            <tr><td>2027</td><td class="num">1,585</td><td class="num">47.2%</td><td class="num">119,223</td><td>Năm cuối trước đóng cửa</td></tr>
+            <tr><td>2028</td><td class="num" style="color:#e05555;">0</td><td class="num" style="color:#e05555;">0%</td><td class="num" style="color:#e05555;">—</td><td style="color:#e05555;">ĐÓNG CỬA 12 tháng</td></tr>
+            <tr><td>2029</td><td class="num">1,604</td><td class="num">35.2%</td><td class="num">173,131</td><td>Mở lại, occupancy chỉ = 65% target</td></tr>
+            <tr><td>2030</td><td class="num" style="color:#e0a555;">2,386</td><td class="num" style="color:#e0a555;">47.4%</td><td class="num">196,501</td><td style="color:#e0a555;">⚠️ +53% revenue trong 1 năm</td></tr>
+            <tr><td>2031</td><td class="num">2,647</td><td class="num">48.6%</td><td class="num">216,611</td><td>+11%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="risk-box risk-yellow">
+        <strong>💡 Ý kiến thực tế:</strong> Một resort ultra-luxury trên đảo tư nhân sau khi đóng cửa 12 tháng sẽ mất:
+        <br><br>
+        • <strong>Toàn bộ team vận hành</strong> — 40-60% staff sẽ rời đi trong thời gian đóng cửa, tuyển lại và đào tạo mất 6-12 tháng
+        <br>
+        • <strong>Brand awareness cycle</strong> — 1 năm vắng mặt trên thị trường = khách đã chuyển sang Maldives/Bali/competitors
+        <br>
+        • <strong>OTA ranking & reviews</strong> — thuật toán xếp hạng reset, cần ít nhất 50-100 reviews mới để lấy lại vị trí
+        <br>
+        • <strong>Travel trade relationships</strong> — agents/DMCs đã chuyển booking sang property khác, cần 1-2 mùa để rebuild pipeline
+        <br><br>
+        Thực tế: phục hồi occupancy từ 35% → 47% trong 1 năm là bất khả thi cho resort đảo tư nhân. 
+        Một đường cong thực tế hơn: 2029 = 30%, 2030 = 38%, 2031 = 48%, 2032 = 55%, 2033 = 62% — 
+        tức là mất <strong>4-5 năm để đạt target</strong> thay vì 2 năm như model.
+      </div>
+
+      <div class="mitigation">
+        <div class="m-title">🛡️ Biện Pháp Quản Lý Rủi Ro</div>
+        <li><strong>Thiết kế lại recovery curve:</strong> Dùng logistic/S-curve thay vì linear jump. Tham khảo case studies: Four Seasons Bora Bora (2019 reopen), Cheval Blanc Randheli (post-renovation).</li>
+        <li><strong>Build pre-opening marketing budget vào model:</strong> $500K-1M cho chiến dịch relaunch 6 tháng trước khi mở cửa. Nếu không có khoản này trong model → recovery assumption càng unrealistic.</li>
+        <li><strong>Key-man retention program:</strong> Budget giữ 15-20 key staff trong năm đóng cửa (GM, Exec Chef, DOSM, Chief Engineer). Chi phí ~$300-500K/năm — rẻ hơn nhiều so với mất 2-3 năm recovery.</li>
+        <li><strong>Phased reopening:</strong> Thay vì đóng 100% → đóng theo phase (30 phòng trước, 10 phòng sau). Mất thêm 3-6 tháng nhưng giữ được pipeline khách và team.</li>
+      </div>
+
+      <div class="verdict verdict-yellow">
+        <strong>🟡 Mức độ: TRUNG BÌNH-CAO.</strong> Đường cong phục hồi quá optimistic. Nếu kéo dài recovery 
+        period từ 2 năm lên 4 năm, DCF value có thể giảm $15-20M. Cần sửa và chạy scenario recovery chậm hơn.
+      </div>
+    </div>
+  </div>
+
+  <!-- ISSUE 3: Single-point ADR assumption -->
+  <div class="section critical">
+    <div class="section-header">
+      <div class="severity">🔴</div>
+      <div>
+        <h2>Vấn đề #3: ADR +45% Post-Renovation — Single Input, Zero Validation</h2>
+        <div class="tagline">Biến quan trọng nhất toàn model là 1 ô gõ tay, không scenario, không benchmark</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Thực Trạng</h3>
+      <p>ADR post-renovation = <strong>+50% one-time</strong> (ô <code>Consol Valuation!J28 = 0.5</code>), sau đó +10%/năm trong 5 năm tiếp theo. Đây là 1 ô duy nhất, không nằm trong bảng scenario, không link tới bất kỳ dữ liệu benchmark nào.</p>
+
+      <div class="data-card">
+        <div class="label">ADR Projection — Current vs Reality Check</div>
+        <table>
+          <thead><tr><th>Năm</th><th class="num">ADR Model (USD)</th><th class="num">Realistic Range</th><th>Overstated?</th></tr></thead>
+          <tbody>
+            <tr><td>2027</td><td class="num">$2,028</td><td class="num">$1,900–2,100</td><td>✅ Hợp lý</td></tr>
+            <tr><td>2029 (post-reno)</td><td class="num">$2,945</td><td class="num">$2,400–2,800</td><td style="color:#e05555;">⚠️ Có thể cao $200-500</td></tr>
+            <tr><td>2030</td><td class="num">$3,343</td><td class="num">$2,600–3,100</td><td style="color:#e05555;">⚠️ +10%/năm quá aggressive</td></tr>
+            <tr><td>2035</td><td class="num">$5,436</td><td class="num">$3,500–4,500</td><td style="color:#e05555;">🔴 Gap $1,000-2,000/night</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="risk-box risk-red">
+        <strong>💡 Ý kiến thực tế:</strong> ADR $2,945 sau renovation là có thể đạt được nếu làm đúng — 
+        Aman hiện tại đang có ADR ~$1,900-2,100. Cú nhảy lên $2,900-3,000 là ambitious nhưng không unrealistic
+        (các Aman khác như Amanoi, Amandari đều ở range này). Nhưng <strong>ADR tăng 10%/năm liên tục đến $5,400+ vào 2035</strong> 
+        là phi thực tế. Không resort nào trên thế giới duy trì ADR CAGR 10% trong 10 năm. 
+        Cheval Blanc Randheli — 1 trong những resort đắt nhất thế giới — ADR CAGR chỉ ~4-5%/năm.
+        <br><br>
+        Vấn đề lớn hơn: biến này <strong>nằm ngoài cơ chế scenario</strong>. Khi anh chuyển Case 1→2→3 trên Cover, 
+        occupancy thay đổi nhưng ADR post-renovation +50% GIỮ NGUYÊN. Điều này có nghĩa là về mặt kiến trúc model, 
+        người build đã "khóa" assumption quan trọng nhất và không cho phép sensitivity analysis.
+      </div>
+
+      <div class="mitigation">
+        <div class="m-title">🛡️ Biện Pháp Quản Lý Rủi Ro</div>
+        <li><strong>Đưa ADR step-up vào scenario matrix:</strong> Scenario 1 = +55%, Scenario 2 = +45%, Scenario 3 = +35%. Mapping 3×3 với occupancy scenarios.</li>
+        <li><strong>Thay ADR CAGR 10% bằng tiered growth:</strong> 2029-2032 = 7-8%/năm (ramp-up), 2033-2037 = 4-5%/năm (stabilized), 2038+ = 2-3%/năm (mature).</li>
+        <li><strong>Benchmark với comparable set:</strong> Amanoi, Amanjiwo, Cheval Blanc Randheli, Soneva Fushi, Four Seasons Bora Bora — lấy ADR CAGR 5 năm gần nhất làm reference.</li>
+        <li><strong>Trong negotiation:</strong> Yêu cầu bên bán cung cấp "competitive set analysis" — nếu họ không có, dùng điểm này để discount valuation.</li>
+      </div>
+
+      <div class="verdict verdict-red">
+        <strong>🔴 Mức độ: CAO.</strong> ADR assumption quyết định ~40-50% EV. Việc nó là single input + 
+        không scenario + CAGR 10% quá aggressive = rủi ro overvaluation rất lớn. 
+        <strong>Phải đưa vào scenario matrix và hạ CAGR trước khi dùng model.</strong>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- RISK NOT MODELED -->
+  <div class="section critical">
+    <div class="section-header">
+      <div class="severity">🔴</div>
+      <div>
+        <h2>Rủi Ro #4: Tiến Độ Renovation Trên Đảo Tư Nhân — Chưa Được Mô Hình Hóa</h2>
+        <div class="tagline">Đây là rủi ro LỚN NHẤT của thương vụ — và model hoàn toàn không có scenario cho nó</div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Thực Trạng Trong Model</h3>
+      <p>Model giả định renovation đúng 12 tháng (2028), 0 ngày vận hành. Sau đó 2029 mở cửa trở lại bình thường. <strong>Không có scenario 18 tháng hoặc 24 tháng.</strong></p>
+
+      <div class="risk-box risk-red">
+        <strong>💡 Ý kiến thực tế — Dựa trên kinh nghiệm thi công đảo tư nhân:</strong>
+        <br><br>
+        Thi công trên đảo tư nhân (Pamalican) có những rủi ro mà resort trong đất liền không gặp:
+        <br><br>
+        • <strong>Logistics:</strong> Toàn bộ vật liệu, thiết bị, nhân công phải vận chuyển bằng tàu hoặc máy bay. Mùa bão (June-November ở Philippines) → chuỗi cung ứng gián đoạn 2-4 tuần mỗi đợt.
+        <br>
+        • <strong>Nhân công:</strong> Thợ lành nghề phải được đưa từ Manila/Cebu ra đảo, ở lại camp. Chi phí ăn ở + phụ cấp đảo = +30-50% labor cost so với đất liền.
+        <br>
+        • <strong>Permit & môi trường:</strong> Philippines có quy định nghiêm ngặt về xây dựng trên đảo保护区 (Pamalican nằm trong khu vực biển được bảo vệ). ECC (Environmental Compliance Certificate) có thể mất 6-12 tháng.
+        <br>
+        • <strong>Thời tiết:</strong> 1 cơn bão lớn = mất 4-8 tuần tiến độ. Philippines trung bình 20 cơn bão/năm.
+        <br><br>
+        <strong>Bài học từ Maldives:</strong> Cheval Blanc Randheli renovation dự kiến 14 tháng → thực tế 19 tháng. 
+        Soneva Fushi villa upgrade dự kiến 12 tháng → thực tế 16 tháng. 
+        <strong>Quy luật ngầm: renovation đảo luôn chậm hơn kế hoạch 25-50%.</strong>
+      </div>
+
+      <div class="data-card">
+        <div class="label">Tác Động Tài Chính Của Chậm Tiến Độ (ước tính)</div>
+        <table>
+          <thead><tr><th>Kịch Bản</th><th class="num">Revenue Loss</th><th class="num">Extra Capex</th><th class="num">EV Impact</th></tr></thead>
+          <tbody>
+            <tr><td>12 tháng (base)</td><td class="num">$0</td><td class="num">$0</td><td class="num">Base = $153M</td></tr>
+            <tr><td style="color:#e0a555;">18 tháng</td><td class="num" style="color:#e0a555;">~$15M</td><td class="num" style="color:#e0a555;">+$5-8M</td><td class="num" style="color:#e0a555;">~-$25M</td></tr>
+            <tr><td style="color:#e05555;">24 tháng</td><td class="num" style="color:#e05555;">~$30M</td><td class="num" style="color:#e05555;">+$12-15M</td><td class="num" style="color:#e05555;">~-$50M</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mitigation">
+        <div class="m-title">🛡️ Biện Pháp Quản Lý Rủi Ro</div>
+        <li><strong>Yêu cầu model thêm 3 timeline scenarios:</strong> 12 tháng / 18 tháng / 24 tháng. Mỗi scenario kéo theo revenue loss, extra capex, và delayed recovery.</li>
+        <li><strong>Thuê independent project manager</strong> (không phải từ Aman, không phải từ seller) để đánh giá feasibility của timeline 12 tháng trước khi ký.</li>
+        <li><strong>Hợp đồng EPC (Engineering, Procurement, Construction)</strong> với penalty clause nếu chậm tiến độ. Lock-in contractor từ đầu, không đấu thầu từng gói.</li>
+        <li><strong>Buffer contingency 30%</strong> trên renovation capex — $51.9M → budget thực tế nên là $65-70M.</li>
+        <li><strong>Bảo hiểm delay in start-up (DSU):</strong> Bảo hiểm cho revenue loss nếu chậm mở cửa. Premium ~1-2% của sum insured.</li>
+        <li><strong>Trong SPA:</strong> Điều khoản purchase price adjustment nếu renovation vượt budget >20% hoặc chậm >6 tháng.</li>
+      </div>
+
+      <div class="verdict verdict-red">
+        <strong>🔴 Mức độ: NGUY HIỂM.</strong> Đây là rủi ro đơn lẻ lớn nhất của toàn bộ thương vụ. 
+        Một cơn bão lớn trong mùa 2028 = mất $20-30M EV. Model không hề có scenario cho việc này.
+        <strong>Đây phải là câu hỏi #1 trong mọi cuộc họp với seller.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="section" style="border-color: #c9a96e30;">
+    <div class="section-header">
+      <div class="severity" style="background:#c9a96e22;color:#c9a96e;">📋</div>
+      <div>
+        <h2>Tổng Hợp Khuyến Nghị — 5 Hành Động Trước Khi Dùng Model</h2>
+      </div>
+    </div>
+    <div class="content">
+      <div class="mitigation" style="background:#c9a96e08;border-color:#c9a96e30;">
+        <div class="m-title" style="color:#c9a96e;">🔧 Sửa Kỹ Thuật Model</div>
+        <li><strong>Fix ADR 2028:</strong> Đóng băng tại mức 2027. Tách renovation step-up khỏi trend growth.</li>
+        <li><strong>Fix recovery curve:</strong> Chuyển từ linear jump sang S-curve logistic. Tham chiếu case studies thực tế.</li>
+        <li><strong>Đưa ADR step-up vào scenario matrix:</strong> Mapping 3×3 với occupancy scenarios.</li>
+        <li><strong>Thêm timeline scenarios:</strong> 12 / 18 / 24 tháng renovation, mỗi scenario có revenue loss + extra capex riêng.</li>
+      </div>
+
+      <div class="mitigation" style="background:#c9a96e08;border-color:#c9a96e30;margin-top:16px;">
+        <div class="m-title" style="color:#c9a96e;">📊 Validation Độc Lập</div>
+        <li><strong>Competitive set:</strong> ADR & occupancy post-renovation của Amanoi, Cheval Blanc Randheli, Soneva Fushi, Four Seasons Bora Bora.</li>
+        <li><strong>Technical due diligence:</strong> Independent engineer/QS đánh giá feasibility của timeline 12 tháng và budget $51.9M.</li>
+        <li><strong>Market due diligence:</strong> Agent/DMC interviews — demand có thực sự absorb được ADR $3,000+ ở Philippines không?</li>
+      </div>
+
+      <div class="verdict" style="background:#c9a96e08;border:1px solid #c9a96e30;color:#d0c0a0;margin-top:20px;">
+        <strong>💬 Bottom Line cho anh:</strong><br><br>
+        Model này có kiến trúc tốt nhưng assumption quá optimistic. Value $153M nên được hiểu là <strong>upside case (top 20% xác suất)</strong>. 
+        Base case thực tế sau khi sửa các vấn đề trên khả năng rơi vào <strong>$90-120M</strong>. 
+        Trước khi ra offer, em recommend mình:
+        <br><br>
+        (1) Gửi list vấn đề trên cho seller/analyst của họ, yêu cầu sửa model → xem phản ứng của họ.
+        <br>
+        (2) Nếu họ bảo vệ assumption hiện tại → đó là red flag về credibility.
+        <br>
+        (3) Nếu họ sửa và hạ xuống realistic range → mình có 1 model đáng tin cậy để negotiate.
+        <br><br>
+        <strong>Đây là bước test seller credibility, không chỉ là test model.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Zera 🌟 · RCC Advisory · Project Paradise Risk Analysis · 05/08/2026
+  </div>
+
+</div>
+</body>
+</html>
