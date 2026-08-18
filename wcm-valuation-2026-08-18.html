@@ -35,6 +35,7 @@
   .nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .nav a { padding: 6px 14px; border-radius: 6px; background: var(--slate); color: var(--muted); text-decoration: none; font-size: 0.85rem; }
   .nav a:hover { background: #334155; color: #fff; }
+  .revis { font-size: 0.78rem; color: var(--amber); padding: 6px 12px; background: rgba(245,158,11,0.1); border-radius: 6px; margin-bottom: 18px; }
   @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
@@ -44,8 +45,11 @@
 <h1>🏪 WinCommerce — Valuation Analysis</h1>
 <p class="subtitle">Zera 🌟 | 18 August 2026 | Royal Canary Corp</p>
 
+<div class="revis">📝 v2.0 — Revised compset: Grocery/Convenience peers (BHX, Sheng Siong, DFI, 7-Eleven Japan, CP Axtra, Sun Art). Removed PNJ (jewelry — segment mismatch).</div>
+
 <div class="nav">
   <a href="#results">📊 KQKD 2025-2026</a>
+  <a href="#compset">🏪 Compset</a>
   <a href="#methods">🔍 Phương pháp</a>
   <a href="#valuation">🏆 Định giá</a>
   <a href="#conclusion">✅ Kết luận</a>
@@ -90,7 +94,7 @@
   </tr>
   <tr>
     <td>Tăng trưởng vs KH</td>
-    <td colspan="3">Vượt KH 8-12% growth (SGGP Đầu Tư Tài Chính)</td>
+    <td colspan="3">Vượt KH 8-12% (SGGP ĐTTC)</td>
   </tr>
 </table>
 
@@ -163,59 +167,163 @@
 
 <div class="verdict verdict-pos">✅ Profitability inflection đã chứng minh Q1/2026. Margin expanding. Scale → profit pathway verified. Modern trade VN còn 12% vs Thailand/Indonesia 30-50% (room for growth).</div>
 
-<!-- ============ VALUATION METHODS ============ -->
-<h2 id="methods">🔍 Phương pháp định giá</h2>
+<!-- ============ COMPSET ============ -->
+<h2 id="compset">🏪 Compset — Grocery / Convenience Store Asia</h2>
 
-<h3>① P/S Comparable (Primary)</h3>
+<h3>Benchmark Peers (Anchor: BHX/WCM cùng segment)</h3>
 <table>
-  <tr><th>Retail VN</th><th>P/S</th><th>Ghi chú</th></tr>
-  <tr><td>MWG (Thế Giới Di Động)</td><td>~0.6x</td><td>Vốn hóa 106,845 tỷ / Rev ~180K tỷ (Cafef 14/08/2026)</td></tr>
-  <tr><td>PNJ</td><td>~1.5-1.8x</td><td>Premium retail cao cấp</td></tr>
-  <tr><td><strong>WCM (applicable)</strong></td><td><strong>0.6-0.8x</strong></td><td>Growth 27% > MWG, format mini-mart</td></tr>
-  <tr><td>→ WCM fair value</td><td colspan="2"><strong>$1.1-1.5B</strong> (rev 2026E ~48K tỷ = $1.9B)</td></tr>
+  <tr><th>Company</th><th>Loại</th><th>Market Cap</th><th>P/S</th><th>P/E</th><th>Margin</th><th>Nguồn</th></tr>
+  <tr style="background:rgba(245,158,11,0.08);">
+    <td><strong>BHX (MWG segment)</strong></td>
+    <td>Modern grocery VN</td>
+    <td>~$1.5-2B implied</td>
+    <td><strong>0.4-0.6x</strong></td>
+    <td><strong>15-18x</strong></td>
+    <td><strong>3.4%</strong> (Q2/2026)</td>
+    <td><a class="source-link" href="https://elibook.vn/2026/08/14/mwg-loi-nhuan-quy-2-lap-dinh-lich-su-dmx-chinh-thuc-niem-yet-bach-hoa-xanh-va-an-khang-dong-loat-chuyen-minh/" target="_blank">Elibook 14/08/2026</a></td>
+  </tr>
+  <tr>
+    <td>Sheng Siong (SG)</td>
+    <td>Pure grocery supermarket</td>
+    <td>~SGD 2.5B (~$1.85B)</td>
+    <td>~1.2x</td>
+    <td>~20x</td>
+    <td>6-7%</td>
+    <td><a class="source-link" href="https://www.minichart.com.sg/2026/08/04/singapore-and-malaysia-retail-stocks-to-watch-as-johor-bahrus-rts-link-nears-completion/" target="_blank">Minichart 04/08/2026</a></td>
+  </tr>
+  <tr>
+    <td>DFI Retail Group (HK/SG)</td>
+    <td>Grocery + c-store + health</td>
+    <td>~$2.5B</td>
+    <td>~0.3x</td>
+    <td>12-15x</td>
+    <td>2-3%</td>
+    <td>DFI divested Cold Storage/Giant T12/2025</td>
+  </tr>
+  <tr>
+    <td>Seven &amp; i Holdings (Japan)</td>
+    <td>Convenience store parent</td>
+    <td>~$30B+</td>
+    <td>0.8-1x</td>
+    <td>18-22x</td>
+    <td>5-6%</td>
+    <td>7-Eleven Japan core</td>
+  </tr>
+  <tr>
+    <td>CP Axtra/Makro (TH)</td>
+    <td>Wholesale + grocery</td>
+    <td>~$5B</td>
+    <td>0.4-0.5x</td>
+    <td>15-18x</td>
+    <td>2-3%</td>
+    <td>SE Asia grocery peer</td>
+  </tr>
+  <tr>
+    <td>Sun Art Retail (Alibaba CN)</td>
+    <td>Hypermarket</td>
+    <td>~$5B</td>
+    <td>~0.4x</td>
+    <td>12-15x</td>
+    <td>1-2%</td>
+    <td>Mature, low-growth</td>
+  </tr>
 </table>
 
-<h3>② P/E Comparable</h3>
+<div class="verdict verdict-warn">⚠️ BHX là anchor tốt nhất vì cùng phân khúc modern grocery VN. BHX đã profitable từ 2024, Q2/2026 margin 3.4% — WCM vẫn đang track sau BHX 1-2 năm.</div>
+
+<!-- ============ METHODS ============ -->
+<h2 id="methods">🔍 Phương pháp định giá (4 cách)</h2>
+
+<h3>① P/S Comparable (BHX-anchored, Primary)</h3>
 <table>
-  <tr><th>Retail VN</th><th>P/E</th><th>Ghi chú</th></tr>
-  <tr><td>MWG</td><td>12-15x</td><td>Depressed (stock giảm 30%/6 tháng)</td></tr>
-  <tr><td>PNJ</td><td>15-18x</td><td>Margin ổn định</td></tr>
-  <tr><td>VRE (Vincom Retail)</td><td>20-25x</td><td>Premium growth</td></tr>
-  <tr><td><strong>WCM (growth premium)</strong></td><td><strong>20-25x</strong></td><td>Pre-IPO + growth</td></tr>
-  <tr><td>→ WCM on 2027E ($80M LN)</td><td colspan="2"><strong>$1.6-2.0B</strong> (nếu margin >3%)</td></tr>
+  <tr><th>Peer</th><th>P/S</th><th>Note</th></tr>
+  <tr style="background:rgba(245,158,11,0.08);"><td><strong>BHX anchor</strong></td><td><strong>0.4-0.6x</strong></td><td>Cùng segment grocery VN</td></tr>
+  <tr><td>Sheng Siong</td><td>1.2x</td><td>Mature SG, premium</td></tr>
+  <tr><td>DFI Retail</td><td>0.3x</td><td>Diversified, low</td></tr>
+  <tr><td>Seven &amp; i</td><td>0.8-1x</td><td>C-store premium</td></tr>
+  <tr><td>CP Axtra/Makro</td><td>0.45x</td><td>SE Asia grocery</td></tr>
+  <tr><td>Sun Art</td><td>0.4x</td><td>Mature CN</td></tr>
+  <tr style="background:rgba(16,185,129,0.08);"><td><strong>WCM (applicable range)</strong></td><td><strong>0.5-0.6x</strong></td><td>Average ex-outliers</td></tr>
+  <tr><td><strong>→ WCM fair value</strong></td><td colspan="2"><strong>$0.95-1.14B</strong> (rev 2026E ~48K tỷ = $1.9B)</td></tr>
 </table>
 
-<h3>③ EV/Store (so với BHX/MWG)</h3>
+<h3>② P/E Comparable (Peer Median)</h3>
 <table>
-  <tr><th>So sánh</th><th>BHX (MWG)</th><th>WCM</th></tr>
-  <tr><td>Số stores H1/2026</td><td>3,191</td><td><strong>5,141</strong></td></tr>
-  <tr><td>ADS/store</td><td>~1.6 tỷ/tháng</td><td>~530 triệu/tháng</td></tr>
-  <tr><td>BHX implied (SOTP MWG)</td><td>~$1.5-1.5B</td><td>—</td></tr>
-  <tr><td>WCM value/store (format adjusted)</td><td>—</td><td><strong>$200-275K</strong></td></tr>
-  <tr><td>→ WCM fair value</td><td>—</td><td><strong>$1.0-1.4B</strong></td></tr>
+  <tr><th>Peer</th><th>P/E</th><th>Note</th></tr>
+  <tr style="background:rgba(245,158,11,0.08);"><td><strong>BHX anchor</strong></td><td><strong>15-18x</strong></td><td>Anchor</td></tr>
+  <tr><td>Sheng Siong</td><td>~20x</td><td>Mature</td></tr>
+  <tr><td>DFI Retail</td><td>12-15x</td><td>Diversified</td></tr>
+  <tr><td>Seven &amp; i</td><td>18-22x</td><td>C-store premium</td></tr>
+  <tr><td>CP Axtra</td><td>15-18x</td><td>SE Asia</td></tr>
+  <tr><td>Sun Art</td><td>12-15x</td><td>Mature</td></tr>
+  <tr style="background:rgba(16,185,129,0.08);"><td><strong>WCM (median)</strong></td><td><strong>~17x</strong></td><td>Peer median</td></tr>
+  <tr><td><strong>→ WCM on 2027E ($80M LN)</strong></td><td colspan="2"><strong>$1.0-1.5B</strong> (margin &gt;3%)</td></tr>
+</table>
+
+<h3>③ EV/Store (BHX-Adjusted)</h3>
+<table>
+  <tr><th>Metric</th><th>BHX</th><th>WCM</th></tr>
+  <tr><td>Stores H1/2026</td><td>3,191</td><td>5,141</td></tr>
+  <tr><td>ADS/store (estimated)</td><td>~1.6 tỷ/tháng</td><td>~530 triệu/tháng</td></tr>
+  <tr><td>Net margin</td><td>3.4%</td><td>~1.5% (rising)</td></tr>
+  <tr><td>Implied value/store</td><td>~$550-700K</td><td>~$370-460K (discount 25-35%)</td></tr>
+  <tr><td><strong>→ WCM fair value</strong></td><td>—</td><td><strong>$1.5-2.0B</strong></td></tr>
 </table>
 
 <h3>④ Bain Capital Anchor</h3>
-<p>$250M đầu tư vào Masan Group (T10-T12/2023), nhưng gọi vốn để tái cấu trúc retail. <em>Implied WCM value range: $0.8-1.5B.</em></p>
+<p>$250M đầu tư vào Masan Group (T10-T12/2023), gọi vốn cho retail restructuring. <em>Implied WCM value range: $0.8-1.2B.</em></p>
 
 <!-- ============ VALUATION ============ -->
 <h2 id="valuation">🏆 Fair Value WinCommerce Hiện Tại</h2>
 
 <table>
   <tr><th></th><th>Conservative</th><th>Mid (Recommended)</th><th>Optimistic</th></tr>
-  <tr><td><strong>Giá trị ước tính</strong></td><td>$1.0B</td><td><strong>$1.4B</strong></td><td>$1.8B</td></tr>
-  <tr><td>P/S 2026E</td><td>0.53x</td><td>0.74x</td><td>0.95x</td></tr>
-  <tr><td>P/E 2027E</td><td>12.5x</td><td>17.5x</td><td>22.5x</td></tr>
-  <tr><td>EV/Store</td><td>$195K</td><td>$272K</td><td>$350K</td></tr>
+  <tr><td><strong>Giá trị ước tính</strong></td><td>$0.95B</td><td><strong>$1.25B</strong></td><td>$1.5B</td></tr>
+  <tr><td>P/S 2026E</td><td>0.5x</td><td>0.66x</td><td>0.79x</td></tr>
+  <tr><td>P/E 2027E</td><td>12x</td><td>16x</td><td>19x</td></tr>
+  <tr><td>EV/Store</td><td>$280K</td><td>$390K</td><td>$480K</td></tr>
 </table>
 
-<h3>Cross-check vs Comparable</h3>
+<h3>Method Weighting & Cross-check</h3>
 <table>
-  <tr><th>Method</th><th>Range</th><th>Confidence</th></tr>
-  <tr><td>P/S (MWG/PNJ)</td><td>$1.1-1.5B</td><td><span class="tag tag-green">HIGH</span></td></tr>
-  <tr><td>P/E (2027E)</td><td>$1.6-2.0B</td><td><span class="tag tag-blue">MED</span> (margin cần &gt;3%)</td></tr>
-  <tr><td>EV/Store (BHX)</td><td>$1.0-1.4B</td><td><span class="tag tag-green">HIGH</span></td></tr>
-  <tr><td>Bain Capital anchor</td><td>$0.8-1.5B</td><td><span class="tag tag-amber">MED</span> (nhiều biến số)</td></tr>
+  <tr><th>Method</th><th>Range</th><th>Weight</th><th>Weighted</th></tr>
+  <tr style="background:rgba(245,158,11,0.08);">
+    <td><strong>P/S (BHX-anchored)</strong></td>
+    <td>$0.95-1.14B</td>
+    <td><strong>40%</strong></td>
+    <td>$0.42B</td>
+  </tr>
+  <tr>
+    <td>P/E (peer median)</td>
+    <td>$1.0-1.5B</td>
+    <td>30%</td>
+    <td>$0.38B</td>
+  </tr>
+  <tr>
+    <td>EV/Store (BHX adjust)</td>
+    <td>$1.5-2.0B</td>
+    <td>20%</td>
+    <td>$0.35B</td>
+  </tr>
+  <tr>
+    <td>Bain anchor</td>
+    <td>$0.8-1.2B</td>
+    <td>10%</td>
+    <td>$0.10B</td>
+  </tr>
+  <tr style="background:rgba(16,185,129,0.15);">
+    <td colspan="3"><strong>Weighted Average Fair Value</strong></td>
+    <td><strong>~$1.25B</strong></td>
+  </tr>
+</table>
+
+<h3>⚠️ Tension Analysis</h3>
+<table>
+  <tr><th>Issue</th><th>Implication</th></tr>
+  <tr><td>P/S + P/E → $1.0-1.4B</td><td>Conservative anchor</td></tr>
+  <tr><td>EV/Store → $1.5-2.0B</td><td>BHX ADS gấp 3x WCM chưa capture</td></tr>
+  <tr><td>BHX margin 3.4% vs WCM 1.5%</td><td>WCM chưa đạt productivity peak</td></tr>
+  <tr><td>WCM growth 27% > BHX 31% (gần tương đương)</td><td>WCM catching up</td></tr>
 </table>
 
 <!-- ============ CONCLUSION ============ -->
@@ -223,11 +331,12 @@
 
 <div class="verdict verdict-pos">
 <div>
-<strong>📊 Fair Value WinCommerce hiện tại: $1.2-1.5B</strong><br>
-• Mid estimate: <strong>$1.4B</strong> (P/S 0.74x, EV/Store $272K)<br>
-• Discount so với IPO target $10B: ~85% (cần 4-5 năm để justify)<br>
+<strong>📊 Fair Value WinCommerce hiện tại: $1.15-1.4B</strong><br>
+• Mid estimate: <strong>$1.25B</strong> (weighted: P/S 40% + P/E 30% + EV/Store 20% + Bain 10%)<br>
+• ESOP entry @ $1B = ~<strong>at Mid, không discount đáng kể</strong><br>
+• Discount so với IPO target $10B: ~88% (cần 4-5 năm để justify)<br>
 • Margin expansion cần thiết: từ 1.5% → 5-6% trong 2027-2030<br>
-• Upside vs entry ESOP @ $1B: <strong>+40-50%</strong> nếu hold đến IPO 2029-2030
+• Upside vs entry ESOP @ $1B: <strong>+25-40%</strong> nếu hold đến IPO 2029-2030
 </div>
 </div>
 
@@ -253,7 +362,7 @@
     <td><span class="tag tag-amber">3x</span></td>
   </tr>
   <tr>
-    <td>Fail — M&A exit</td>
+    <td>Fail — M&amp;A exit</td>
     <td>10%</td>
     <td>$1.5B</td>
     <td><span class="tag tag-red">1.5x</span></td>
@@ -269,11 +378,12 @@
 <div class="verdict verdict-warn">
 <div>
 <strong>⚠️ Catalysts cần theo dõi (3-6 tháng tới):</strong><br>
-1. ⭐ BCTC Q3/Q4/2026 — verify LN trajectory<br>
-2. ⭐ Banker onboarding cho IPO<br>
-3. ⭐ Masan Annual Report 2026 — IPO timeline chính thức<br>
-4. ⭐ BHX margin data — competitive pressure<br>
-5. ⭐ VN-Index & retail sector performance — market window
+1. ⭐ BCTC Q3/Q4/2026 — verify LN trajectory &amp; margin expansion<br>
+2. ⭐ BHX Q3/Q4 BCTC — peer comparison anchor<br>
+3. ⭐ Banker onboarding cho IPO<br>
+4. ⭐ Masan Annual Report 2026 — IPO timeline chính thức<br>
+5. ⭐ VN-Index &amp; retail sector — market window<br>
+6. ⭐ Discount entry hợp lý: &lt;$0.9B (margin of safety)
 </div>
 </div>
 
@@ -282,15 +392,16 @@
 
 <table>
   <tr><th>Nguồn</th><th>Loại</th><th>Ngày</th></tr>
-  <tr><td><a class="source-link" href="https://www.masangroup.com/news/press-releases/msn-raises-2026-outlook-as-consumer-os-and-msr-power-msn-to-record-2q-profit/" target="_blank">Masan Group Press Release</a></td><td>Chính thức</td><td>27/07/2026</td></tr>
+  <tr><td><a class="source-link" href="https://www.masangroup.com/news/press-releases/msn-raises-2026-outlook-as-consumer-os-and-msr-power-msn-to-record-2q-profit/" target="_blank">Masan Group Press Release — Q2/2026</a></td><td>Chính thức</td><td>27/07/2026</td></tr>
   <tr><td><a class="source-link" href="https://vnexpress.net/wincommerce-thu-gan-39-000-ty-dong-trong-2025-5009194.html" target="_blank">VnExpress — WCM 2025</a></td><td>Báo chí uy tín</td><td>23/01/2026</td></tr>
-  <tr><td><a class="source-link" href="https://theinvestor.vn/masan-reports-record-q2-profit-proposes-raising-2026-profit-target-by-up-to-46-d19647.html" target="_blank">The Investor — Q2/2026</a></td><td>Báo chí tài chính</td><td>07/2026</td></tr>
+  <tr><td><a class="source-link" href="https://theinvestor.vn/masan-reports-record-q2-profit-proposes-raising-2026-profit-target-by-up-to-46-d19647.html" target="_blank">The Investor — Masan Q2/2026</a></td><td>Báo chí tài chính</td><td>07/2026</td></tr>
   <tr><td><a class="source-link" href="https://thanhnien.vn/vi-sao-masan-tang-ke-hoach-doanh-thu-vuot-100000-ti-dong-185260722093933597.htm" target="_blank">Thanh Niên — KH 2026</a></td><td>Báo chí uy tín</td><td>22/07/2026</td></tr>
   <tr><td><a class="source-link" href="https://cafebiz.vn/chuoi-sieu-thi-winmart-thoat-lo-de-che-masan-bao-lai-ky-luc-nam-2025-loi-nhuan-tang-gap-16-lan-176260128113217523.chn" target="_blank">Cafebiz — Masan 2025 record</a></td><td>Báo chí tài chính</td><td>28/01/2026</td></tr>
+  <tr><td><a class="source-link" href="https://elibook.vn/2026/08/14/mwg-loi-nhuan-quy-2-lap-dinh-lich-su-dmx-chinh-thuc-niem-yet-bach-hoa-xanh-va-an-khang-dong-loat-chuyen-minh/" target="_blank">Elibook — BHX margin 3.4%</a></td><td>Báo chí tài chính</td><td>14/08/2026</td></tr>
   <tr><td><a class="source-link" href="https://www.dealstreetasia.com/stories/masan-group-ipo-wincommerce-480389" target="_blank">DealStreetAsia — IPO WCM $10B</a></td><td>Báo chí tài chính ĐNÁ</td><td>25/04/2026</td></tr>
   <tr><td><a class="source-link" href="https://www.dnse.com.vn/senses/tin-tuc/masan-thiet-lap-ky-luc-loi-nhuan-nam-2025-tang-truong-gap-16-lan-cung-ky-35186415" target="_blank">DNSE — WCM Q4/2025</a></td><td>Báo chí tài chính</td><td>28/01/2026</td></tr>
-  <tr><td><a class="source-link" href="https://cafef.vn/du-lieu/hose/mwg-cong-ty-co-phan-dau-tu-the-gioi-di-dong.chn" target="_blank">Cafef — MWG market cap</a></td><td>Dữ liệu thị trường</td><td>14/08/2026</td></tr>
-  <tr><td><a class="source-link" href="https://dttc.sggp.org.vn/winmart-va-chien-luoc-tang-truong-co-lai-trong-chu-ky-moi-post130639.html" target="_blank">SGGP Đầu Tư Tài Chính</a></td><td>Báo chí tài chính</td><td>16/01/2026</td></tr>
+  <tr><td><a class="source-link" href="https://www.minichart.com.sg/2026/08/04/singapore-and-malaysia-retail-stocks-to-watch-as-johor-bahrus-rts-link-nears-completion/" target="_blank">Minichart — Sheng Siong/DFI</a></td><td>Báo chí tài chính</td><td>04/08/2026</td></tr>
+  <tr><td><a class="source-link" href="https://dttc.sggp.org.vn/winmart-va-chien-luoc-tang-truong-co-lai-trong-chu-ky-moi-post130639.html" target="_blank">SGGP ĐTTC — WCM 2025</a></td><td>Báo chí tài chính</td><td>16/01/2026</td></tr>
   <tr><td><a class="source-link" href="https://www.masangroup.com/news/masan-news/wincommerce-achieves-double-digit-growth-in-july-2025/" target="_blank">Masan Group — WCM July 2025</a></td><td>Chính thức</td><td>2025</td></tr>
 </table>
 
