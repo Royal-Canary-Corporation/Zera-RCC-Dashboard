@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Portfolio Critique — Property by Property | 18 Aug 2026</title>
+<style>
+  :root { --navy: #0f172a; --slate: #1e293b; --sky: #38bdf8; --emerald: #10b981; --amber: #f59e0b; --red: #ef4444; --text: #e2e8f0; --muted: #94a3b8; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--navy); color: var(--text); line-height: 1.65; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 1.8rem; color: #fff; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+  h2 { font-size: 1.35rem; color: var(--sky); margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--slate); }
+  h3 { font-size: 1.05rem; color: var(--amber); margin: 18px 0 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 0.88rem; }
+  th { background: var(--slate); color: var(--sky); text-align: left; padding: 8px 10px; font-weight: 600; }
+  td { padding: 7px 10px; border-bottom: 1px solid #1e293b; }
+  tr:hover td { background: #1a2332; }
+  .card { background: var(--slate); border-radius: 8px; padding: 16px; margin: 12px 0; }
+  .verdict { display: flex; align-items: flex-start; gap: 10px; padding: 14px; border-radius: 8px; margin: 14px 0; }
+  .verdict-pos { background: rgba(16,185,129,0.12); border-left: 3px solid var(--emerald); }
+  .verdict-warn { background: rgba(245,158,11,0.12); border-left: 3px solid var(--amber); }
+  .verdict-neg { background: rgba(239,68,68,0.12); border-left: 3px solid var(--red); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .tag-green { background: rgba(16,185,129,0.2); color: var(--emerald); }
+  .tag-amber { background: rgba(245,158,11,0.2); color: var(--amber); }
+  .tag-red { background: rgba(239,68,68,0.2); color: var(--red); }
+  .tag-blue { background: rgba(56,189,248,0.2); color: var(--sky); }
+  .property-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .property-header h3 { margin: 0; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 8px; margin: 10px 0; }
+  .stat-box { background: var(--slate); border-radius: 6px; padding: 10px; text-align: center; }
+  .stat-box .num { font-size: 1.2rem; font-weight: 700; color: #fff; }
+  .stat-box .lbl { font-size: 0.72rem; color: var(--muted); }
+  .nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .nav a { padding: 6px 14px; border-radius: 6px; background: var(--slate); color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+  .nav a:hover { background: #334155; color: #fff; }
+  .revise-note { font-size: 0.78rem; color: var(--amber); padding: 8px 14px; background: rgba(245,158,11,0.1); border-radius: 6px; margin-bottom: 18px; }
+  .checklist li { margin-bottom: 6px; }
+  ul, ol { margin-left: 22px; }
+  @media (max-width: 600px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🏨 Aman Development Portfolio — Investment Critique</h1>
+<p class="subtitle">Zera 🌟 | 18 August 2026 | Property-by-Property Analysis của 2 files: Investor Proposal + Summary Analysis</p>
+
+<div class="revise-note">📝 v2.0 — Corrected: <strong>Aman Bora Bora = CONVERSION</strong> (redevelopment của legacy Hotel Bora Bora site — khách sạn đầu tiên thế giới có overwater bungalow), <strong>KHÔNG phải ground-up build</strong>. Critique đã revised tương ứng.</div>
+
+<div class="nav">
+  <a href="#overview">📊 Portfolio Overview</a>
+  <a href="#janu">1️⃣ Janu &amp; ATMA</a>
+  <a href="#borabora">2️⃣ Bora Bora</a>
+  <a href="#mykonos">3️⃣ Mykonos</a>
+  <a href="#rosa">4️⃣ Rosa Alpina</a>
+  <a href="#portfolio">🔴 Portfolio Critique</a>
+  <a href="#checklist">📋 Checklist Bổ Sung</a>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<h2 id="overview">📊 Portfolio Overview</h2>
+
+<table>
+  <tr><th>Project</th><th>Total Equity</th><th>Profit</th><th>Ownership</th><th>Levered IRR</th><th>Multiple</th><th>Type</th></tr>
+  <tr>
+    <td><strong>Janu &amp; ATMA Maldives</strong></td>
+    <td>$93.5M</td><td>$226.4M</td><td>49%</td><td>24.12%</td><td>3.42x</td>
+    <td><span class="tag tag-blue">Ground-up</span> <span class="tag tag-blue">+ Residences</span></td>
+  </tr>
+  <tr>
+    <td><strong>Aman Bora Bora</strong></td>
+    <td>$65.4M</td><td>$83.1M</td><td>49%</td><td>20.07%</td><td>2.27x</td>
+    <td><span class="tag tag-green">CONVERSION</span> <span class="tag tag-blue">+ Residences</span></td>
+  </tr>
+  <tr>
+    <td><strong>Aman Mykonos</strong></td>
+    <td>$53.2M</td><td>$98.0M</td><td>35%</td><td>34.42%</td><td>2.84x</td>
+    <td><span class="tag tag-blue">Ground-up</span> <span class="tag tag-blue">+ Residences</span></td>
+  </tr>
+  <tr>
+    <td><strong>Aman Rosa Alpina</strong></td>
+    <td>$70.3M</td><td>$78.9M</td><td>49%</td><td>18.61%</td><td>2.12x</td>
+    <td><span class="tag tag-green">Operating</span> <span class="tag tag-amber">+ Refinancing</span></td>
+  </tr>
+  <tr style="background:rgba(56,189,248,0.1);">
+    <td><strong>TOTAL</strong></td>
+    <td><strong>$282.3M</strong></td><td><strong>$486.5M</strong></td><td>—</td><td><strong>~22-24%</strong></td><td><strong>2.72x</strong></td><td>5 assets / 4 locations</td>
+  </tr>
+</table>
+
+<div class="card">
+<strong>Structure:</strong> Initial equity $160.0M (57%) + Future equity $122.3M (43%) | Cấu trúc: 3 development + 1 operating (derisk) | Janu &amp; ATMA = 2 assets trong 1 location Maldives
+</div>
+
+<div class="verdict verdict-warn">
+<strong>⚠️ Red flag chính:</strong> Cả 2 files KHÔNG có revenue projections, ADR/occupancy, exit cap rate, hay cash flow timing. $486M profit claim chưa thể validate bằng DCF. Summary Analysis chỉ qualitative justification.
+</div>
+
+<!-- ============ JANU & ATMA ============ -->
+<h2 id="janu">1️⃣ Janu &amp; ATMA Maldives</h2>
+
+<div class="property-header">
+  <h3>Vaavu Atoll — Fotheyo Bodufushi (UNESCO)</h3>
+  <span><span class="tag tag-blue">Ground-up</span> <span class="tag tag-amber">EIA Pending</span></span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-box"><div class="num">$93.5M</div><div class="lbl">Total Equity (49%)</div></div>
+  <div class="stat-box"><div class="num">$226.4M</div><div class="lbl">Expected Profit</div></div>
+  <div class="stat-box"><div class="num">3.42x</div><div class="lbl">Equity Multiple</div></div>
+  <div class="stat-box"><div class="num">24.1%</div><div class="lbl">Levered IRR</div></div>
+  <div class="stat-box"><div class="num">$67.4M</div><div class="lbl">Future Cash Call (2.6x initial)</div></div>
+  <div class="stat-box"><div class="num">2030</div><div class="lbl">Opening</div></div>
+</div>
+
+<h3>Positives ✅</h3>
+<ul>
+  <li><strong>First-mover advantage:</strong> Một trong những atoll cuối cùng chưa phát triển ở Maldives — supply constraint thật</li>
+  <li><strong>Infrastructure moat:</strong> Private airport 2,200m + terminal + hangar — barrier cực cao cho competitor</li>
+  <li><strong>World-class marine assets:</strong> 20+ dive sites, Fotheyo Kandu top world, bioluminescent plankton — khác biệt hoá mạnh</li>
+  <li><strong>Architect pedigree:</strong> Snøhetta + Neri &amp; Hu (A+ Award Firm of the Year 2023)</li>
+  <li><strong>Execution track record:</strong> Aman Maldives late-stage construction đúng time &amp; budget dù Middle East conflicts; lessons về reclamation + residence pricing/sales sẽ áp dụng</li>
+  <li><strong>3-brand ecosystem:</strong> Aman + Janu + Atma trên cùng masterplan = phân khúc khách khác nhau, tối ưu land value</li>
+</ul>
+
+<h3>Critiques 🔴</h3>
+<ol>
+  <li><strong>EIA pending cho reclamation = rủi ro lớn nhất:</strong> Chưa được phép reclamation = chưa chắc có đất xây. Delay/deny → toàn bộ timeline 2030 trượt. Đây là rủi ro không nằm trong tầm kiểm soát của investor.</li>
+  <li><strong>3.42x multiple không có breakdown:</strong> $226M profit đến từ residences hay operations? Nếu 60-70% từ residence sales → velocity risk là core risk. Chưa có units × price × timeline.</li>
+  <li><strong>Cash call 2.6x initial ($67.4M future):</strong> Development-stage commitment lớn. Cần liquidity plan rõ.</li>
+  <li><strong>Duration dài:</strong> Opening 2030 + stabilize → exit 2033-2035 (7-9 năm). IRR 24% trên duration này chỉ hợp lý nếu residence sellout đúng kế hoạch.</li>
+  <li><strong>Minority 49%:</strong> Không control. Exit phụ thuộc Aman (majority) alignment.</li>
+</ol>
+
+<div class="verdict verdict-warn">⚠️ <strong>Verdict:</strong> Thesis hấp dẫn (supply scarcity + ecosystem moat) nhưng 3.42x là con số cần được chứng minh bằng residence sales model. EIA là gate quyết định — nên có condition precedent trong deal structure.</div>
+
+<!-- ============ BORA BORA ============ -->
+<h2 id="borabora">2️⃣ Aman Bora Bora</h2>
+
+<div class="property-header">
+  <h3>Bora Bora, French Polynesia</h3>
+  <span><span class="tag tag-green">CONVERSION</span> <span class="tag tag-green">Approvals Done</span></span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-box"><div class="num">$65.4M</div><div class="lbl">Total Equity (49%)</div></div>
+  <div class="stat-box"><div class="num">$83.1M</div><div class="lbl">Expected Profit</div></div>
+  <div class="stat-box"><div class="num">2.27x</div><div class="lbl">Equity Multiple</div></div>
+  <div class="stat-box"><div class="num">20.1%</div><div class="lbl">Levered IRR</div></div>
+  <div class="stat-box"><div class="num">$35.9M</div><div class="lbl">Future Cash Call</div></div>
+  <div class="stat-box"><div class="num">Tendering</div><div class="lbl">Status: Commencing</div></div>
+</div>
+
+<h3>Bản chất dự án — CONVERSION (đã hiệu chỉnh) ✅</h3>
+<div class="card">
+<strong>Đây là conversion/redevelopment của legacy Hotel Bora Bora site</strong> — khách sạn đầu tiên trên thế giới có overwater bungalow concept, "original DNA" property của Aman. Không phải ground-up build:
+<ul style="margin-top:8px;">
+  <li>✅ Land &amp; site đã tồn tại — không cần land acquisition risk</li>
+  <li>✅ All approvals đã in place (environmental, landscape/roads, building permits) — đã lobby local + national government</li>
+  <li>✅ Tendering construction đang bắt đầu — gần nhất với shovels-in-ground trong portfolio</li>
+  <li>✅ Construction costs đã revert gần pre-covid levels — timing tốt</li>
+</ul>
+</div>
+
+<h3>Positives ✅</h3>
+<ul>
+  <li><strong>Execution risk THẤP NHẤT trong 3 development assets:</strong> Conversion + approvals done = ít biến số nhất</li>
+  <li><strong>Iconic DNA:</strong> Nơi khởi nguồn overwater bungalow — brand story không thể sao chép</li>
+  <li><strong>US tourism base mạnh</strong> với spending power</li>
+  <li><strong>Subsidies + tax incentives "in principle"</strong> với chính phủ — tăng return profile</li>
+  <li><strong>Residential upside:</strong> Bora Bora residences cực khan hiếm (St. Regis/Four Seasons limited inventory)</li>
+  <li><strong>Pricing below valuation</strong> theo đề xuất</li>
+</ul>
+
+<h3>Critiques 🔴</h3>
+<ol>
+  <li><strong>IRR 20.1% vẫn là thấp thứ 2:</strong> Dù là conversion (risk thấp hơn ground-up), IRR chỉ 20% vs Mykonos 34%. Spread 14pp cần giải thích — nếu vì assumptions conservative thì tốt; nếu vì chi phí conversion ẩn (demolition, remediation, heritage preservation) thì cần làm rõ.</li>
+  <li><strong>US tourism dependency ~50-60%:</strong> US recession = direct hit. Đã self-flag nhưng chưa có sensitivity.</li>
+  <li><strong>Residential upside chưa định lượng:</strong> "Added upside" nhưng không có comps (giá/m², velocity) từ St. Regis/Four Seasons Bora Bora residences.</li>
+  <li><strong>French Polynesia logistics:</strong> Dù là conversion, vật tư/vận chuyển đến đảo xa vẫn đắt và chậm — construction cost overrun risk vẫn còn (đã self-flag).</li>
+  <li><strong>2.27x multiple:</strong> Thấp nhất trong developments — cần confirm đây là risk-adjusted tradeoff hợp lý (lower risk → lower return).</li>
+</ol>
+
+<div class="verdict verdict-pos">✅ <strong>Verdict:</strong> Property cân bằng nhất portfolio — conversion + approvals done = risk profile gần operating asset nhất trong nhóm development. 2.27x/20% IRR là hợp lý cho risk level này. Điểm cần bổ sung: residence comps + subsidy NPV.</div>
+
+<!-- ============ MYKONOS ============ -->
+<h2 id="mykonos">3️⃣ Aman Mykonos</h2>
+
+<div class="property-header">
+  <h3>Mykonos, Greece</h3>
+  <span><span class="tag tag-blue">Ground-up</span> <span class="tag tag-amber">Permit Amendment Pending</span></span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-box"><div class="num">$53.2M</div><div class="lbl">Total Equity (35%)</div></div>
+  <div class="stat-box"><div class="num">$98.0M</div><div class="lbl">Expected Profit</div></div>
+  <div class="stat-box"><div class="num">2.84x</div><div class="lbl">Equity Multiple</div></div>
+  <div class="stat-box"><div class="num">34.4%</div><div class="lbl">Levered IRR — CAO NHẤT</div></div>
+  <div class="stat-box"><div class="num">$19.0M</div><div class="lbl">Future Cash Call (thấp nhất)</div></div>
+  <div class="stat-box"><div class="num">Design</div><div class="lbl">Status: Complete</div></div>
+</div>
+
+<h3>Positives ✅</h3>
+<ul>
+  <li><strong>Permit scarcity thật:</strong> Greek government ĐÃ NGỪNG cấp permit mới ở Mykonos — supply constraint cực mạnh, site đã permitted</li>
+  <li><strong>Ultra-luxury market:</strong> Mykonos có ADR cao nhất Hy Lạp, ít luxury brands — pricing power</li>
+  <li><strong>Residence demand mạnh:</strong> Ultra-high-end buyers price-insensitive; Aman residences giới hạn = scarcity premium</li>
+  <li><strong>Design complete, sẵn sàng submit final amendments + commence construction</strong> — gần build-ready</li>
+  <li><strong>Future cash call thấp nhất ($19M)</strong> — capital intensity thấp nhất trong developments</li>
+</ul>
+
+<h3>Critiques 🔴</h3>
+<ol>
+  <li><strong>Seasonality là ẩn số lớn nhất:</strong> Mykonos thực tế 5-6 tháng hoạt động (T6-T9). 34.4% IRR trên nền revenue 5 tháng/năm = phải có residence sales rất mạnh hoặc leverage cao. KHÔNG có breakdown revenue model — đây là gap quan trọng nhất.</li>
+  <li><strong>35% ownership — thấp nhất portfolio:</strong> Ai giữ 65%? Landowner? Aman? Ở 35%, quyền control yếu: cần tag-along, drag-along, board seats, anti-dilution, information rights rõ ràng. Exit có bị chặn bởi majority không?</li>
+  <li><strong>Greek bureaucracy:</strong> "Final amendments to building permit" vẫn có thể bị delay nhiều tháng — Greece nổi tiếng chậm hành chính.</li>
+  <li><strong>IRR cao nhất = cần scrutiny nhất:</strong> 34.4% thường đi kèm assumptions lạc quan nhất. Cần xem leverage level + residence sellout assumptions.</li>
+  <li><strong>Global recession risk</strong> (đã self-flag) — luxury travel cyclicality cao.</li>
+</ol>
+
+<div class="verdict verdict-warn">⚠️ <strong>Verdict:</strong> Return hấp dẫn nhất nhưng cũng là property cần nhiều câu hỏi nhất: seasonality model, 65% còn lại là ai, và vì sao IRR cao hơn Bora Bora 14pp. Nếu residence sales model vững → đây là return driver chính của portfolio.</div>
+
+<!-- ============ ROSA ALPINA ============ -->
+<h2 id="rosa">4️⃣ Aman Rosa Alpina</h2>
+
+<div class="property-header">
+  <h3>San Cassiano, Dolomites (UNESCO)</h3>
+  <span><span class="tag tag-green">Operating Asset</span> <span class="tag tag-amber">Refinancing Risk</span></span>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-box"><div class="num">$70.3M</div><div class="lbl">Total Equity (49%) — 44% initial capital</div></div>
+  <div class="stat-box"><div class="num">$78.9M</div><div class="lbl">Expected Profit</div></div>
+  <div class="stat-box"><div class="num">2.12x</div><div class="lbl">Equity Multiple</div></div>
+  <div class="stat-box"><div class="num">18.6%</div><div class="lbl">Levered IRR — THẤP NHẤT</div></div>
+  <div class="stat-box"><div class="num">$0</div><div class="lbl">Future Cash Call</div></div>
+  <div class="stat-box"><div class="num">Operating</div><div class="lbl">Status: Đang chạy</div></div>
+</div>
+
+<h3>Positives ✅</h3>
+<ul>
+  <li><strong>Operating cash flow ngay lập tức</strong> — derisk toàn portfolio, cân bằng 3 developments</li>
+  <li><strong>Heritage property + loyal customer base:</strong> Rosa Alpina có lịch sử lâu đời trước khi Aman takeover</li>
+  <li><strong>Dolomites = fastest growing luxury mountain destination globally</strong></li>
+  <li><strong>Year-round tiềm năng:</strong> Ski winter + hiking summer; ADR đang ở early stage của ultra-luxury demand → upside</li>
+  <li><strong>"Brand-new property at below valuation"</strong> theo đề xuất</li>
+</ul>
+
+<h3>Critiques 🔴</h3>
+<ol>
+  <li><strong>Capital allocation nghịch lý:</strong> $70.3M initial (44% tổng initial capital) vào asset có IRR thấp nhất (18.6%). Spread với development (24%) chỉ ~5.5pp — quá mỏng cho chênh lệch rủi ro (development 2030+ vs operating cash flow ngay). Risk-adjusted return cần được chứng minh.</li>
+  <li><strong>"Below valuation" chưa có independent appraisal:</strong> Claim không số. Cần third-party valuation để confirm.</li>
+  <li><strong>Refinancing risk (self-flag):</strong> Chưa có rate, LTV, maturity hiện tại. Refinance fail → forced sale hoặc cash call thêm.</li>
+  <li><strong>No operating metrics:</strong> Không có NOI, ADR, occupancy, RevPAR hiện tại — không thể validate "strong performance".</li>
+  <li><strong>Seasonality thực tế:</strong> "Year-round destination" nhưng shoulder seasons (T4-T5, T10-T11) vẫn yếu ở Alps.</li>
+  <li><strong>2.12x thấp nhất:</strong> Đúng vai trò derisk, nhưng cần chắc chắn đây là "insurance premium" hợp lý chứ không phải capital sink.</li>
+</ol>
+
+<div class="verdict verdict-warn">⚠️ <strong>Verdict:</strong> Đúng vai trò stabilizer nhưng chiếm 44% initial capital với return thấp nhất. Cần independent appraisal + operating metrics + refinancing terms trước khi commit. Nếu các con số xác nhận "below valuation" → chấp nhận được như insurance cost.</div>
+
+<!-- ============ PORTFOLIO CRITIQUE ============ -->
+<h2 id="portfolio">🔴 Portfolio-Level Critique</h2>
+
+<ol>
+  <li><strong>KHÔNG có revenue projections:</strong> Summary Analysis 100% qualitative. Không ADR, occupancy, NOI, exit cap rate → $486M profit claim không thể DCF-validate. <strong>Đây là gap lớn nhất của toàn bộ offering.</strong></li>
+  <li><strong>KHÔNG có exit assumptions:</strong> Không exit year, cap rate, stabilization NOI. Equity multiple 2.72x chỉ là số tổng cộng, không phải cash flow timing.</li>
+  <li><strong>Minority stakes everywhere (49/49/35/49%):</strong> Không control asset nào. Governance: board seats, anti-dilution, tag/drag-along, information rights chưa thấy. Exit alignment với Aman (majority) là rủi ro cấu trúc.</li>
+  <li><strong>Concentration về loại hình:</strong> 3/4 là development (dù Bora Bora là conversion vẫn có construction risk) mở 2028-2030. "Geographic diversification" nhưng risk profile đồng nhất: luxury travel cyclicality + construction + residence sales velocity.</li>
+  <li><strong>Blended IRR ~22-24% chưa trừ fees:</strong> Management fee, development fee, acquisition fee, promote structure chưa được disclose. PE benchmark net 15-20% — cần confirm gross vs net.</li>
+  <li><strong>Cash call profile:</strong> $160M initial (57%) + $122.3M future (43%). Investor cần liquidity commitment dài hạn.</li>
+  <li><strong>FX exposure:</strong> EUR (Mykonos, Rosa Alpina), MVR/USD (Maldives), XPF (Bora Bora) — chưa có hedging discussion.</li>
+  <li><strong>Execution dependency vào Aman:</strong> Toàn bộ developments do Aman điều hành — track record tốt (Aman Maldives đúng budget) nhưng single-operator concentration.</li>
+</ol>
+
+<div class="verdict verdict-neg">🔴 <strong>Tổng thể:</strong> Thesis có logic (scarcity, diversification, operating derisk) nhưng thiếu toàn bộ phần định lượng. Trước khi commit $160M initial, cần tối thiểu: revenue model per property + sensitivity table (cost +20%, ADR -15%, occ -10pts) + governance terms + fee disclosure.</div>
+
+<!-- ============ CHECKLIST ============ -->
+<h2 id="checklist">📋 Additional Justification Cần Bổ Sung (per property)</h2>
+
+<table>
+  <tr><th>Property</th><th>Ưu tiên</th><th>Thông tin cần bổ sung</th></tr>
+  <tr>
+    <td rowspan="4"><strong>Janu &amp; ATMA Maldives</strong></td>
+    <td><span class="tag tag-red">CRITICAL</span></td>
+    <td>Breakdown profit: residences vs operations ($226M đến từ đâu?)</td>
+  </tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>EIA timeline + reclamation cost contingency (chuẩn ngành 10-25%)</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>ADR/occupancy comps: Soneva Fushi, Cheval Blanc Randheli, Aman Maldives actuals</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Exit year + cap rate assumption; residence units × price × velocity</td></tr>
+  <tr>
+    <td rowspan="4"><strong>Aman Bora Bora (CONVERSION)</strong></td>
+    <td><span class="tag tag-red">CRITICAL</span></td>
+    <td>Vì sao IRR 20% thấp hơn Mykonos 14pp — conservative assumptions hay conversion cost ẩn (demolition, heritage preservation)?</td>
+  </tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Residential comps: St. Regis/Four Seasons Bora Bora residences — giá/m², velocity</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Subsidy/tax incentives NPV định lượng</td></tr>
+  <tr><td><span class="tag tag-blue">MED</span></td><td>US traffic data + seasonality + recession sensitivity (ADR -15%)</td></tr>
+  <tr>
+    <td rowspan="4"><strong>Aman Mykonos</strong></td>
+    <td><span class="tag tag-red">CRITICAL</span></td>
+    <td>Revenue model: 5-6 tháng seasonality hay year-round? Occupancy assumptions theo tháng</td>
+  </tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Ai giữ 65%? Governance: tag-along, drag-along, board seats, anti-dilution</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Leverage level — 34.4% IRR trên 35% stake cần biết debt structure</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Residence units × price × velocity (Mykonos ultra-luxury resi comps); permit amendment timeline</td></tr>
+  <tr>
+    <td rowspan="4"><strong>Aman Rosa Alpina</strong></td>
+    <td><span class="tag tag-red">CRITICAL</span></td>
+    <td>Independent appraisal để confirm "below valuation"</td>
+  </tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Operating metrics hiện tại: NOI, ADR, occupancy, RevPAR, EBITDA margin</td></tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Refinancing terms: rate, LTV, maturity, covenants</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Alpine luxury comps (Badrutt's Palace, Kulm, Aman Le Melezin); renovation capex + ROI</td></tr>
+  <tr>
+    <td rowspan="4"><strong>Portfolio</strong></td>
+    <td><span class="tag tag-red">CRITICAL</span></td>
+    <td>Cash flow timing schedule — khi nào IRR thực sự hiện thực?</td>
+  </tr>
+  <tr><td><span class="tag tag-red">CRITICAL</span></td><td>Fee structure: management/development/acquisition fees, promote — gross vs net</td></tr>
+  <tr><td><span class="tag tag-amber">HIGH</span></td><td>Sensitivity: construction cost +20%; recession (ADR -15%, occ -10pts); residence velocity -50%</td></tr>
+  <tr><td><span class="tag tag-blue">MED</span></td><td>FX exposure (EUR/MVR/XPF) + hedging; exit strategy per asset (Aman buyback? third-party? IPO?)</td></tr>
+</table>
+
+<h3>🔍 Câu hỏi gate trước khi commit (Top 5)</h3>
+<ol>
+  <li>Revenue model + ADR/occ/NOI projections per property — có hay không?</li>
+  <li>Exit assumptions: năm nào, cap rate bao nhiêu, ai là buyer?</li>
+  <li>Governance: minority protections ở 35-49% stake như thế nào?</li>
+  <li>Fees: investor trả bao nhiêu (mgmt/dev/acq) và IRR là gross hay net?</li>
+  <li>Sensitivity: kịch bản xấu (cost +20%, recession) → multiple còn bao nhiêu?</li>
+</ol>
+
+<div class="card" style="margin-top:24px;border:1px dashed #475569;text-align:center;">
+  <div style="color:var(--muted);font-size:0.85rem;">Zera 🌟 — 18 August 2026 | Aman Portfolio Investment Critique | Cho Anh Bách<br>
+  <span style="font-size:0.78rem;">Nguồn: Aman_Investor_Portfolio_Proposal.pdf + Summary_Analysis.pdf (2 files, đã ingest 18/08/2026) | Không phải tư vấn đầu tư</span></div>
+</div>
+
+</div>
+</body>
+</html>
