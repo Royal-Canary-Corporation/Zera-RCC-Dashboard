@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lam Ngọc — 7 Villa Estate · Bảy Khúc Thơ Hạ Long</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1a1a; color: #e0d8cc; font-family: 'Georgia', 'Times New Roman', serif;
+  display: flex; flex-direction: column; align-items: center; padding: 30px 20px;
+}
+h1 { font-size: 32px; letter-spacing: 6px; font-weight: 300; margin-bottom: 6px; color: #d4c5a9; }
+h2 { font-size: 13px; font-weight: 300; letter-spacing: 3px; color: #8a7f6e; margin-bottom: 6px; text-align: center; }
+h3.brand-line { font-size: 12px; font-weight: 300; letter-spacing: 2px; color: #b8a878; margin-bottom: 25px; text-align: center; font-style: italic; }
+.container { max-width: 1240px; width: 100%; }
+.section-title {
+  font-size: 13px; letter-spacing: 3px; color: #d4c5a9;
+  border-bottom: 1px solid #333; padding-bottom: 8px; margin: 34px 0 15px;
+  text-transform: uppercase;
+}
+.panel { background: #222; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 18px; font-size: 12px; color: #b8af9e; }
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.1); }
+.note { margin-top: 20px; padding: 16px 20px; background: #1e1e1e; border-left: 3px solid #d4c5a9; font-size: 13px; line-height: 1.7; color: #b8af9e; border-radius: 0 8px 8px 0; }
+.note strong { color: #e0d8cc; }
+.metrics { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+.metric { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 14px 18px; min-width: 150px; }
+.metric .val { font-size: 22px; color: #d4c5a9; }
+.metric .lbl { font-size: 11px; color: #8a7f6e; letter-spacing: 1px; margin-top: 4px; text-transform: uppercase; }
+.villa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+.villa-card {
+  background: #1e1e1e; border: 1px solid #333; border-left: 3px solid #d4c5a9;
+  border-radius: 8px; padding: 20px;
+}
+.villa-card .vhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.villa-card .vnum { font-size: 22px; color: #d4c5a9; letter-spacing: 3px; }
+.villa-card .vtag { font-size: 10px; color: #8a7f6e; letter-spacing: 2px; text-transform: uppercase; }
+.villa-card .vname { font-size: 20px; color: #e0d8cc; margin-bottom: 8px; letter-spacing: 1px; }
+.villa-card .vkhuc { font-size: 11px; color: #b8a878; margin-bottom: 12px; font-style: italic; letter-spacing: 1px; }
+.villa-card .vbody { font-size: 12px; color: #b8af9e; line-height: 1.7; }
+.villa-card .vbody strong { color: #e0d8cc; }
+.villa-card .vpatron {
+  margin-top: 12px; padding-top: 10px; border-top: 1px dashed #333;
+  font-size: 10px; color: #8a7f6e; letter-spacing: 1px;
+}
+.villa-card .vpatron span { color: #b8a878; }
+.brand-panel {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2418 100%);
+  border: 1px solid #4a4030; border-radius: 12px; padding: 30px; margin-bottom: 25px;
+}
+.brand-panel .brand-title { font-size: 14px; letter-spacing: 4px; color: #d4c5a9; margin-bottom: 15px; text-transform: uppercase; text-align: center; }
+.brand-panel .brand-body { font-size: 13px; color: #b8af9e; line-height: 1.8; text-align: center; max-width: 900px; margin: 0 auto; }
+.brand-panel .brand-body em { color: #d4c5a9; font-style: normal; }
+.wonders-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 14px; margin-top: 18px; font-size: 11px; color: #8a7f6e; letter-spacing: 1px; }
+.wonders-list .w { background: #1a1a1a; padding: 5px 12px; border: 1px solid #333; border-radius: 20px; }
+.wonders-list .w.halong { border-color: #d4c5a9; color: #d4c5a9; }
+.footer { text-align: center; font-size: 11px; color: #555; margin-top: 30px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LAM NGỌC</h1>
+  <h2>BẢY KHÚC THƠ HẠ LONG · 7-VILLA PRIVATE ESTATE · 3.3 HA</h2>
+  <h3 class="brand-line">"Hạ Long là 1 trong 7 kỳ quan thiên nhiên của thế giới. Lam Ngọc là 7 khúc thơ về kỳ quan đó."</h3>
+
+  <!-- ===================== BRAND POSITIONING ===================== -->
+  <div class="brand-panel">
+    <div class="brand-title">◇ Con số 7 · Cộng hưởng, không mượn hình ◇</div>
+    <div class="brand-body">
+      Trên trái đất có <em>7 kỳ quan thiên nhiên</em> được nhân loại bình chọn (New7Wonders, 2011). Sáu kỳ quan không thể sở hữu — Amazon, Iguazu, Komodo, Table Mountain, Puerto Princesa, Jeju. <em>Chỉ có kỳ quan thứ 7 — Vịnh Hạ Long — cho phép một bán đảo riêng.</em><br><br>
+      Lam Ngọc chọn con số <em>7</em> vì đó là con số đã được viết sẵn trong tấm giấy khai sinh của Hạ Long. Nhưng <em>không villa nào mượn hình dáng, vật liệu hay kiến trúc của 6 kỳ quan kia.</em> Cả 7 villa đều là <strong>Hạ Long thuần túy</strong> — đá vôi karst, gỗ tối, kính tối, nước biển ngọc. Kỳ quan chỉ hiện diện như <em>người bảo trợ cảm xúc (spiritual patron)</em> cho từng khúc thơ — không định hình một milimet vật liệu.
+    </div>
+    <div class="wonders-list">
+      <span class="w">1 · Amazon</span>
+      <span class="w">2 · Iguazu</span>
+      <span class="w">3 · Komodo</span>
+      <span class="w">4 · Table Mountain</span>
+      <span class="w">5 · Puerto Princesa</span>
+      <span class="w">6 · Jeju</span>
+      <span class="w halong">7 · HẠ LONG</span>
+    </div>
+  </div>
+
+  <!-- ===================== PLAN VIEW ===================== -->
+  <div class="section-title">⏺ Site Plan — 7 Villa Layout (North Up)</div>
+  <div class="panel">
+    <svg viewBox="0 0 1180 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bay" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2b4a52"/><stop offset="100%" stop-color="#1c333a"/>
+        </linearGradient>
+        <linearGradient id="channel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#24404a"/><stop offset="100%" stop-color="#2b4a52"/>
+        </linearGradient>
+        <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4a4436"/><stop offset="100%" stop-color="#3a3529"/>
+        </linearGradient>
+      </defs>
+
+      <!-- WATER -->
+      <rect x="0" y="0" width="1180" height="120" fill="url(#channel)"/>
+      <rect x="0" y="400" width="1180" height="120" fill="url(#bay)"/>
+
+      <!-- Karst islands -->
+      <ellipse cx="140" cy="55" rx="46" ry="26" fill="#33484a" opacity="0.7"/>
+      <ellipse cx="320" cy="40" rx="34" ry="20" fill="#33484a" opacity="0.6"/>
+      <ellipse cx="1010" cy="60" rx="52" ry="30" fill="#33484a" opacity="0.7"/>
+      <ellipse cx="880" cy="500" rx="60" ry="26" fill="#254048" opacity="0.5"/>
+      <ellipse cx="200" cy="490" rx="42" ry="18" fill="#254048" opacity="0.5"/>
+
+      <!-- LAND STRIP (peninsula) -->
+      <path d="M 20 130 L 1120 130 Q 1160 265 1120 400 L 20 400 Q 40 265 20 130 Z" fill="url(#land)" stroke="#5a5240" stroke-width="1.5"/>
+
+      <!-- Labels -->
+      <text x="30" y="30" fill="#7fa6ae" font-size="14" letter-spacing="2">NORTH — MARINA / CHANNEL  (noise source)</text>
+      <text x="30" y="490" fill="#7fa6ae" font-size="14" letter-spacing="2">SOUTH — OPEN BAY  ·  PRIVATE VILLA BEACHFRONT</text>
+      <text x="1050" y="270" fill="#8a7f6e" font-size="12" letter-spacing="2" transform="rotate(90 1050 270)">EAST TIP</text>
+      <text x="8" y="270" fill="#8a7f6e" font-size="12" letter-spacing="2" transform="rotate(-90 8 270)">WEST — LAND ACCESS</text>
+
+      <!-- ZONE A: Arrival + BOH (West) -->
+      <rect x="30" y="150" width="130" height="230" rx="6" fill="#3d3a4a" stroke="#5a5670" stroke-width="1"/>
+      <text x="95" y="255" fill="#c9c2d8" font-size="12" text-anchor="middle">ZONE A</text>
+      <text x="95" y="272" fill="#9a93ac" font-size="10" text-anchor="middle">Arrival</text>
+      <text x="95" y="286" fill="#9a93ac" font-size="10" text-anchor="middle">+ BOH / Staff</text>
+      <text x="95" y="300" fill="#9a93ac" font-size="10" text-anchor="middle">+ Buggy yard</text>
+
+      <!-- ZONE B: Amenity spine on NORTH -->
+      <rect x="175" y="150" width="660" height="105" rx="6" fill="#4a4030" stroke="#7a6a45" stroke-width="1"/>
+      <text x="505" y="180" fill="#e0cfa4" font-size="12" text-anchor="middle" letter-spacing="1">ZONE B — SHARED AMENITY (NORTH = SOUND BARRIER)</text>
+      <text x="245" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Clubhouse</text>
+      <text x="245" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">+ Beach Club</text>
+      <text x="245" y="239" fill="#9a8f6e" font-size="9" text-anchor="middle">(EstateMgmt basement)</text>
+      <text x="405" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Fine Dining</text>
+      <text x="535" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Casual / Bar</text>
+      <text x="685" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Infinity Pool</text>
+      <text x="685" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">(faces channel)</text>
+      <text x="790" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Spa Pavilion</text>
+      <text x="790" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">(shared, quiet)</text>
+
+      <!-- Marina pontoon (north edge) -->
+      <rect x="470" y="120" width="90" height="12" fill="#6a5c3a"/>
+      <line x1="515" y1="120" x2="515" y2="90" stroke="#6a5c3a" stroke-width="4"/>
+      <text x="600" y="112" fill="#9a8f6e" font-size="9">Marina / pontoon</text>
+
+      <!-- Central boardwalk spine -->
+      <rect x="175" y="262" width="925" height="10" rx="5" fill="#7a6a45"/>
+      <text x="635" y="258" fill="#b8a878" font-size="9" text-anchor="middle" letter-spacing="1">— central boardwalk spine · 330m —</text>
+
+      <!-- ============= ZONE C: 7 Villas ============= -->
+      <!-- V6 — Sương Sớm (west-most, morning mist) -->
+      <rect x="180" y="285" width="115" height="105" rx="6" fill="#3a4a52" stroke="#6a8a9a" stroke-width="1"/>
+      <text x="237" y="325" fill="#b8d0e0" font-size="12" text-anchor="middle">V6</text>
+      <text x="237" y="341" fill="#8ba7ba" font-size="9" text-anchor="middle">Sương Sớm</text>
+      <text x="237" y="356" fill="#6a8598" font-size="8" text-anchor="middle">morning mist</text>
+
+      <!-- V7 — Trăng Rằm (courtyard moon-well) -->
+      <rect x="308" y="285" width="115" height="105" rx="6" fill="#3a3a4a" stroke="#7a7a9a" stroke-width="1"/>
+      <text x="365" y="325" fill="#c8c8e0" font-size="12" text-anchor="middle">V7</text>
+      <text x="365" y="341" fill="#9a9aba" font-size="9" text-anchor="middle">Trăng Rằm</text>
+      <text x="365" y="356" fill="#7a7a9a" font-size="8" text-anchor="middle">moon courtyard</text>
+
+      <!-- V4 — Hoàng Hôn (west-facing sunset) -->
+      <rect x="436" y="285" width="115" height="105" rx="6" fill="#4a3a3a" stroke="#9a7a6a" stroke-width="1"/>
+      <text x="493" y="325" fill="#e0c8b8" font-size="12" text-anchor="middle">V4</text>
+      <text x="493" y="341" fill="#ba9a8b" font-size="9" text-anchor="middle">Hoàng Hôn</text>
+      <text x="493" y="356" fill="#9a7a6a" font-size="8" text-anchor="middle">sunset pontoon</text>
+
+      <!-- V3 — Tường Đá (cave, sound barrier) -->
+      <rect x="564" y="285" width="115" height="105" rx="6" fill="#2a2a2a" stroke="#5a5a5a" stroke-width="1"/>
+      <text x="621" y="325" fill="#c0c0c0" font-size="12" text-anchor="middle">V3</text>
+      <text x="621" y="341" fill="#909090" font-size="9" text-anchor="middle">Tường Đá</text>
+      <text x="621" y="356" fill="#6a6a6a" font-size="8" text-anchor="middle">cave villa</text>
+
+      <!-- V2 — Nam (karst dialog) -->
+      <rect x="692" y="285" width="115" height="105" rx="6" fill="#3a4a3a" stroke="#5f7a5f" stroke-width="1"/>
+      <text x="749" y="325" fill="#c2d8c2" font-size="12" text-anchor="middle">V2</text>
+      <text x="749" y="341" fill="#93ac93" font-size="9" text-anchor="middle">Nam</text>
+      <text x="749" y="356" fill="#5f7a5f" font-size="8" text-anchor="middle">karst dialog</text>
+
+      <!-- V5 — Bến Thuyền (boat-through) -->
+      <rect x="820" y="285" width="115" height="105" rx="6" fill="#3a4a4a" stroke="#5f7a7a" stroke-width="1"/>
+      <text x="877" y="325" fill="#c2d8d8" font-size="12" text-anchor="middle">V5</text>
+      <text x="877" y="341" fill="#93acac" font-size="9" text-anchor="middle">Bến Thuyền</text>
+      <text x="877" y="356" fill="#5f7a7a" font-size="8" text-anchor="middle">boat-through</text>
+
+      <!-- V1 crown (tip) -->
+      <path d="M 948 285 L 1100 285 Q 1140 337 1100 390 L 948 390 Z" fill="#4a4030" stroke="#d4c5a9" stroke-width="1.5"/>
+      <text x="1030" y="325" fill="#e6d6ab" font-size="14" text-anchor="middle" letter-spacing="1">V1 · CROWN</text>
+      <text x="1030" y="343" fill="#c9bb95" font-size="9" text-anchor="middle">~270° water · tip villa</text>
+      <text x="1030" y="358" fill="#8a7f6e" font-size="8" text-anchor="middle">flagship · anchor pricing</text>
+
+      <!-- private beach pockets (south of villas) -->
+      <rect x="180" y="393" width="920" height="7" fill="#c9b98f" opacity="0.55"/>
+      <text x="360" y="380" fill="#8a7f6e" font-size="9">↓ private beach frontage (villas only) ↓</text>
+    </svg>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch" style="background:#4a4030"></span>Shared amenity (North)</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#3a4a52"></span>V6 Sương Sớm</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#3a3a4a"></span>V7 Trăng Rằm</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#4a3a3a"></span>V4 Hoàng Hôn</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#2a2a2a"></span>V3 Tường Đá</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#3a4a3a"></span>V2 Nam</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#3a4a4a"></span>V5 Bến Thuyền</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#4a4030;border-color:#d4c5a9"></span>V1 Crown (flagship)</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#7a6a45"></span>Boardwalk spine</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:#c9b98f"></span>Private beach</div>
+    </div>
+
+    <div class="note">
+      <strong>Logic bố trí (7-villa update):</strong> Giữ nguyên 5 signature villa gốc (V1 Crown tip, V2 Nam karst dialog, V3 Tường Đá cave, V4 Hoàng Hôn west, V5 Bến Thuyền boat-through). Thêm <strong>2 khúc thơ mới thuần Hạ Long</strong> — V6 <em>Sương Sớm</em> (buổi ban mai, quay Đông Bắc đón sương phủ vịnh) và V7 <em>Trăng Rằm</em> (courtyard giếng trời + reflection pool ngắm trăng in trên vịnh đêm). Tất cả villa vẫn open <strong>South</strong> onto private beachfront. Amenity + Marina trên North làm sound barrier. Không villa nào overlook villa khác.
+    </div>
+  </div>
+
+  <!-- ===================== 7 KHÚC THƠ ===================== -->
+  <div class="section-title">◈ Bảy Khúc Thơ · Hạ Long DNA + Spiritual Patron</div>
+  <div class="panel">
+    <div class="villa-grid">
+
+      <!-- V1 Crown -->
+      <div class="villa-card" style="border-left-color:#d4c5a9">
+        <div class="vhead">
+          <div class="vnum">V1 · 🏆</div>
+          <div class="vtag">FLAGSHIP · ANCHOR</div>
+        </div>
+        <div class="vname">Crown</div>
+        <div class="vkhuc">Khúc Bình Minh · The dawn stanza</div>
+        <div class="vbody">
+          <strong>Signature (giữ nguyên):</strong> Sàn hiên mũi tip đầu bán đảo — điểm duy nhất trên toàn khu đất có <strong>nước bao 270°</strong>. Infinity pool hướng Đông đón bình minh. Great room panorama, mái đá nhô "cửa hang" nhẹ.<br><br>
+          <strong>Chất liệu:</strong> Đá vôi karst xám tro · gỗ tối · kính tối. Không mượn gì.<br><br>
+          <strong>Cảm xúc:</strong> Đỉnh cao. Nơi kết thúc bán đảo và bắt đầu vịnh.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> HẠ LONG — kỳ quan gốc. Villa flagship không mượn.
+        </div>
+      </div>
+
+      <!-- V2 Nam -->
+      <div class="villa-card" style="border-left-color:#93ac93">
+        <div class="vhead">
+          <div class="vnum">V2 · 🌊</div>
+          <div class="vtag">KARST DIALOG</div>
+        </div>
+        <div class="vname">Nam</div>
+        <div class="vkhuc">Khúc Chính Ngọ · The noon stanza</div>
+        <div class="vbody">
+          <strong>Signature (giữ nguyên):</strong> Horizontal architecture, glass wall suốt mặt Nam, ghế đá thấp ngay mép nước — ngồi <strong>đối diện trực diện dãy karst</strong>. Không có gì giữa anh và vịnh.<br><br>
+          <strong>Chất liệu:</strong> Đá vôi + kính tối. Hai chất liệu chính, giữ tối giản.<br><br>
+          <strong>Cảm xúc:</strong> Đối thoại bình đẳng với thiên nhiên — chiêm nghiệm.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> TABLE MOUNTAIN — "đứng ngang tầm cảnh, đối thoại bình đẳng".
+        </div>
+      </div>
+
+      <!-- V3 Tường Đá -->
+      <div class="villa-card" style="border-left-color:#909090">
+        <div class="vhead">
+          <div class="vnum">V3 · 🪨</div>
+          <div class="vtag">CAVE · UNIQUE</div>
+        </div>
+        <div class="vname">Tường Đá</div>
+        <div class="vkhuc">Khúc Hang Động · The awe-cave stanza</div>
+        <div class="vbody">
+          <strong>Signature (giữ nguyên):</strong> Villa <em>hang động</em> DUY NHẤT trong 7 villa. Mặt Bắc tường đá dày làm sound barrier. Hành lang tối hẹp → courtyard mở bất ngờ → rooftop lộ vịnh (khoảnh khắc "Sửng Sốt"). Water wall Bắc át tạp âm.<br><br>
+          <strong>Chất liệu:</strong> Đá thô karst xù xì · gỗ tối · nước. Không kính lớn.<br><br>
+          <strong>Cảm xúc:</strong> Khám phá — đi vào tối, bước ra sáng. Kịch tính duy nhất trong estate.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> KOMODO — "cảm giác gặp cổ tích · truyền thuyết Rồng Mẹ Hạ Long".
+        </div>
+      </div>
+
+      <!-- V4 Hoàng Hôn -->
+      <div class="villa-card" style="border-left-color:#ba9a8b">
+        <div class="vhead">
+          <div class="vnum">V4 · 🌄</div>
+          <div class="vtag">SUNSET</div>
+        </div>
+        <div class="vname">Hoàng Hôn</div>
+        <div class="vkhuc">Khúc Chiều Tà · The dusk stanza</div>
+        <div class="vbody">
+          <strong>Signature (giữ nguyên):</strong> Villa nhẹ, thoáng, mặt tiền hướng Tây. Pontoon gỗ thấp sát nước — <em>chỉ để ngồi + kayak</em>, không neo yacht. Sunset lounge một ly rượu.<br><br>
+          <strong>Chất liệu:</strong> Gỗ tối + đá xám. Ấm hơn các villa khác. Đèn vàng, ánh sáng nến.<br><br>
+          <strong>Cảm xúc:</strong> Chiều tà tĩnh lặng — nơi mặt trời lặn sau karst.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> JEJU — "buổi chiều tà nơi cực đông châu Á". <em>Không</em> import basalt đen.
+        </div>
+      </div>
+
+      <!-- V5 Bến Thuyền -->
+      <div class="villa-card" style="border-left-color:#93acac">
+        <div class="vhead">
+          <div class="vnum">V5 · 🚤</div>
+          <div class="vtag">BOAT-THROUGH · UNIQUE</div>
+        </div>
+        <div class="vname">Bến Thuyền</div>
+        <div class="vkhuc">Khúc Hải Trình · The voyage stanza</div>
+        <div class="vbody">
+          <strong>Signature (giữ nguyên):</strong> Villa DUY NHẤT có boat-through-house. Cổng đá mặt Bắc → thuyền đi qua khe nước hẹp → boathouse dưới phòng khách sàn kính. Ngồi uống rượu nhìn xuống thấy thuyền của mình neo dưới chân.<br><br>
+          <strong>Chất liệu:</strong> Đá xám (trụ) · gỗ tối (sàn) · kính (sàn + tường).<br><br>
+          <strong>Cảm xúc:</strong> Cánh cổng ra vịnh — nhà là chiếc cầu qua nước.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> PUERTO PRINCESA — "hải trình huyền bí qua bí ẩn của nước".
+        </div>
+      </div>
+
+      <!-- V6 Sương Sớm (NEW) -->
+      <div class="villa-card" style="border-left-color:#8ba7ba">
+        <div class="vhead">
+          <div class="vnum">V6 · 🌫️</div>
+          <div class="vtag">MORNING MIST · NEW</div>
+        </div>
+        <div class="vname">Sương Sớm</div>
+        <div class="vkhuc">Khúc Ban Mai · The mist stanza</div>
+        <div class="vbody">
+          <strong>Signature (mới):</strong> Villa buổi ban mai — quay Đông Bắc đón <em>sương phủ mặt vịnh</em> sáng sớm. Kiến trúc sunken một phần vào đất, cửa sổ ngang sát mặt nước — nằm giường thấy sương đi qua. Vườn cây bản địa (đa, si, cây ổi rừng) làm mù sương thấm vào không gian.<br><br>
+          <strong>Chất liệu:</strong> Đá vôi karst nhạt (như sương đá) · gỗ tối · kính low-iron. Chất Hạ Long thuần túy.<br><br>
+          <strong>Cảm xúc:</strong> Thức dậy trong sương. Vịnh còn ngái ngủ.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> AMAZON — "sanctuary xanh · retreat vào tự nhiên". <em>Không</em> import canopy nhiệt đới.
+        </div>
+      </div>
+
+      <!-- V7 Trăng Rằm (NEW) -->
+      <div class="villa-card" style="border-left-color:#9a9aba">
+        <div class="vhead">
+          <div class="vnum">V7 · 🌕</div>
+          <div class="vtag">MOON COURTYARD · NEW</div>
+        </div>
+        <div class="vname">Trăng Rằm</div>
+        <div class="vkhuc">Khúc Đêm Trăng · The moon stanza</div>
+        <div class="vbody">
+          <strong>Signature (mới):</strong> Villa của đêm. Courtyard trung tâm với <em>giếng trời tròn</em> + reflection pool tĩnh — <strong>trăng in trên nước, in trong nhà</strong>. Không dùng kính lớn nhìn vịnh trực tiếp; thay bằng <em>hang khô</em> nhỏ mở lên trời (borrow hang khô Hạ Long DNA). Nghe sóng vỗ karst xa.<br><br>
+          <strong>Chất liệu:</strong> Đá vôi karst · gỗ tối · nước tĩnh. Không nến (dùng ánh trăng thật).<br><br>
+          <strong>Cảm xúc:</strong> Đêm sâu. Vịnh ngủ. Chỉ có trăng và anh.
+        </div>
+        <div class="vpatron">
+          <span>Spiritual patron:</span> IGUAZU — "awe · sức mạnh nguyên sơ của nước" (chuyển hóa thành awe của <em>tĩnh</em>, không thác đổ).
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <strong>Quy tắc thiết kế (7-villa DNA discipline):</strong>
+      (1) Vật liệu chỉ 5 loại tối đa toàn estate: đá vôi karst · gỗ tối · kính tối · nước · thực vật bản địa Hạ Long. Không import ngoài (không basalt đen · không canopy nhiệt đới · không wall of water gimmick).
+      (2) Mỗi villa <strong>bắt buộc có 1 Hạ Long DNA element</strong>: hang nước · hang khô · đảo cô lập · mặt nước phẳng phản chiếu · karst đứng.
+      (3) Kỳ quan chỉ hiện diện như <em>spiritual patron</em> ở tầng cảm xúc/narrative, KHÔNG import vật liệu hay hình dáng.
+      (4) V1 flagship KHÔNG mượn kỳ quan nào — đây LÀ Hạ Long.
+    </div>
+  </div>
+
+  <!-- ===================== METRICS ===================== -->
+  <div class="section-title">Key Metrics · 7-Villa Scheme</div>
+  <div class="panel">
+    <div class="metrics">
+      <div class="metric"><div class="val">3.3 ha</div><div class="lbl">Site (33,000 m²)</div></div>
+      <div class="metric"><div class="val">7</div><div class="lbl">Villas (for-sale)</div></div>
+      <div class="metric"><div class="val">5–6</div><div class="lbl">Keys / villa (avg)</div></div>
+      <div class="metric"><div class="val">~4,000 m²</div><div class="lbl">Đất/villa (avg)</div></div>
+      <div class="metric"><div class="val">~5,000 m²</div><div class="lbl">Crown villa (V1)</div></div>
+      <div class="metric"><div class="val">~28%</div><div class="lbl">Site coverage</div></div>
+      <div class="metric"><div class="val">5</div><div class="lbl">Materials (max, no imports)</div></div>
+      <div class="metric"><div class="val">$28M</div><div class="lbl">Land cost (fixed)</div></div>
+      <div class="metric"><div class="val">$9.5M</div><div class="lbl">Break-even/villa</div></div>
+      <div class="metric"><div class="val">$11–13M</div><div class="lbl">Realistic price/villa</div></div>
+      <div class="metric"><div class="val">$77–91M</div><div class="lbl">Total revenue realistic</div></div>
+      <div class="metric"><div class="val">4 năm</div><div class="lbl">Time to complete</div></div>
+    </div>
+    <div class="note">
+      <strong>7-villa program:</strong> 5 signature villa gốc (V1 Crown · V2 Nam · V3 Tường Đá · V4 Hoàng Hôn · V5 Bến Thuyền) + 2 khúc thơ mới (V6 Sương Sớm · V7 Trăng Rằm). 1 Clubhouse/Beach-Club trên North · Fine-dining + casual/bar · Infinity pool · Marina/pontoon · <strong>Spa pavilion shared</strong> (updated: 7-villa cần shared spa để tối ưu land). Buggy/pedestrian only, no internal car roads. Signature "unique moves" chỉ có ở 3 villa: V1 (270° tip), V3 (cave), V5 (boat-through) — giữ hierarchy và scarcity nội bộ.
+    </div>
+  </div>
+
+  <!-- ===================== BRAND STORY CLOSING ===================== -->
+  <div class="brand-panel">
+    <div class="brand-title">◇ Vì sao 7 · Không mượn hình, mượn con số ◇</div>
+    <div class="brand-body">
+      <em>"Chúng tôi không đặt 5 villa để tối đa scarcity. Chúng tôi không đặt 10 để tối đa doanh thu.<br>
+      Chúng tôi đặt 7 — vì con số 7 đã được viết sẵn trong tấm giấy khai sinh của Hạ Long từ năm 2011."</em><br><br>
+      Mỗi villa là một <em>khúc thơ</em> về Hạ Long — bình minh, chính ngọ, hang động, chiều tà, hải trình, ban mai, đêm trăng.<br>
+      Mỗi khúc thơ có một <em>người bảo trợ tinh thần</em> từ 6 kỳ quan còn lại của thế giới — không phải để mượn hình, mà để nhắc rằng <em>Hạ Long thuộc về câu lạc bộ đó</em>.<br><br>
+      Danh sách chủ nhân chỉ có <em>7 dòng</em>. Và không bao giờ dài hơn.
+    </div>
+  </div>
+
+  <div class="footer">LAM NGỌC · 7-Villa Masterplan (Option A · Combined 5-Villa DNA + 7 Wonders Brand) · 31 Aug 2026 · Zera / RCC · Internal draft</div>
+</div>
+</body>
+</html>
