@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lam Ngọc — 5 Entrance Experiences</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3ef;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a2a3a 50%, #2d4a5f 100%);
+    color: #fff;
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 span { color: #c9a96e; }
+  .hero p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    max-width: 650px;
+    margin: 16px auto 0;
+    font-weight: 300;
+  }
+  .hero .sub {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 24px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  .intro-box {
+    max-width: 800px;
+    margin: -30px auto 50px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 44px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .intro-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #2d4a5f;
+  }
+  .intro-box p { font-size: 0.95rem; color: #555; line-height: 1.7; }
+
+  /* Villa Sections */
+  .villa-section {
+    margin: 60px 0;
+    position: relative;
+  }
+
+  .villa-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .villa-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #c9a96e;
+    line-height: 1;
+    min-width: 80px;
+  }
+  .villa-num .label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-top: 2px;
+  }
+  .villa-title-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #1a2a3a;
+  }
+  .villa-title-block h2 span { color: #c9a96e; }
+  .villa-title-block .strat-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .tag-v1 { background: #e8ecf0; color: #2d4a5f; }
+  .tag-v2 { background: #f5f0e8; color: #a07a3a; }
+  .tag-v3 { background: #e8f0e8; color: #4a7a5a; }
+  .tag-v4 { background: #f0e8e8; color: #c1694f; }
+  .tag-v5 { background: #e8e8f0; color: #5a5a7a; }
+
+  .villa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .entrance-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+  }
+  .entrance-card .card-header {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+  }
+  .entrance-card .phase-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+  }
+  .eh-v1 { background: linear-gradient(135deg, #1a2a3a, #3a4a5a); }
+  .eh-v2 { background: linear-gradient(135deg, #c9a96e, #d4b96a); }
+  .eh-v3 { background: linear-gradient(135deg, #7a8a5a, #9aaa7a); }
+  .eh-v4 { background: linear-gradient(135deg, #c1694f, #d4855e); }
+  .eh-v5 { background: linear-gradient(135deg, #5a6a7a, #7a8a9a); }
+
+  .entrance-card .card-body {
+    padding: 24px 28px;
+  }
+  .entrance-card .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #1a2a3a;
+  }
+  .entrance-card .card-body .phase-desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .entrance-card .card-body .emotion {
+    font-size: 0.85rem;
+    color: #c9a96e;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  .wow-box {
+    grid-column: 1 / -1;
+    background: #1a2a3a;
+    border-radius: 14px;
+    padding: 28px 36px;
+    color: #fff;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .wow-box .wow-icon { font-size: 2.5rem; flex-shrink: 0; margin-top: 4px; }
+  .wow-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: #c9a96e;
+    margin-bottom: 6px;
+  }
+  .wow-box p { font-size: 0.9rem; opacity: 0.85; line-height: 1.7; }
+
+  .precedent-tag {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .precedent-tag strong { color: #555; }
+
+  /* Comparative table */
+  .compare-section {
+    margin: 60px 0;
+  }
+  .compare-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #1a2a3a;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 14px 16px;
+    background: #1a2a3a;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .compare-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e0dcd4;
+    font-size: 0.9rem;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #faf8f5; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 0.8rem;
+    border-top: 1px solid #e0dcd4;
+    margin-top: 60px;
+  }
+
+  .transition-note {
+    max-width: 700px;
+    margin: 16px auto 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  @media (max-width: 720px) {
+    .hero h1 { font-size: 2rem; }
+    .villa-grid { grid-template-columns: 1fr; }
+    .villa-header { flex-direction: column; text-align: center; gap: 8px; }
+    .wow-box { flex-direction: column; text-align: center; }
+    .compare-table th, .compare-table td { padding: 8px 10px; font-size: 0.78rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>5 Entrances · <span>5 Wows</span></h1>
+  <p>Each villa at Lam Ngọc must announce itself before the guest steps inside. The arrival by water is the first architectural act — the moment that belongs only to this villa.</p>
+  <div class="sub">Boat Arrival · Flat Site · Hạ Long Bay</div>
+</div>
+
+<div class="container">
+
+<div class="intro-box">
+  <h2>♢ The Principle</h2>
+  <p>On a flat site, the arrival experience IS the topography. The villa itself cannot rely on natural drama — cliffs, hills, forest — so the entrance sequence must create artificial drama. Every step from boat to living room is designed as a deliberate choreography.</p>
+  <p style="margin-top:10px;font-size:0.95rem;color:#888"><strong>Common prelude:</strong> All guests depart from a shared Tuan Chau marina via private tender. The 5-15 minute journey through Hạ Long Bay's karst formations is itself the overture. What happens at each private dock is unique.</p>
+</div>
+
+<!-- === V1 === -->
+<div class="villa-section">
+  <div class="villa-header">
+    <div class="villa-num">I<span class="label">Villa</span></div>
+    <div class="villa-title-block">
+      <h2><span>The</span> Sunken Sanctuary</h2>
+      <span class="strat-tag tag-v1">Excavation · Sunken Courtyard</span>
+    </div>
+  </div>
+
+  <div class="villa-grid">
+
+    <div class="entrance-card">
+      <div class="card-header eh-v1">
+        <span style="font-size:4.5rem">🚤</span>
+        <span class="phase-tag">Phase 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Approach · The Invisible Villa</h3>
+        <div class="phase-desc">The boat rounds the final karst and enters a small bay. There is nothing visible on shore — no building, no roof, no structure. Just a gentle green meadow sloping down to a simple timber dock. The guest begins to wonder: <em>where is the villa?</em></div>
+        <div class="emotion">↳ Curiosity · Disorientation</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v1">
+        <span style="font-size:4.5rem">⬇️</span>
+        <span class="phase-tag">Phase 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Descent · The Cut</h3>
+        <div class="phase-desc">A narrow path cut into the green slope — barely wide enough for one person. Stone steps descend into the earth. The walls of the cut rise above head height. The sound of the bay fades. The only light is ahead and below. At the bottom of the stair, a turn.</div>
+        <div class="emotion">↳ Suspense · Compression</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v1">
+        <span style="font-size:4.5rem">🌊</span>
+        <span class="phase-tag">Phase 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Reveal · The Sunken Room</h3>
+        <div class="phase-desc">The path opens into a courtyard sunk 2.5m below grade. The villa is all glass on the bay side — water-level. The bay appears at eye height, as if the sea has risen to meet you. The courtyard's reflecting pool mirrors the sky. Above, only grass.</div>
+        <div class="emotion">↳ Surprise · Release</div>
+      </div>
+    </div>
+
+    <div class="wow-box">
+      <div class="wow-icon">🔥</div>
+      <div>
+        <h4>The Wow</h4>
+        <p>You were on the water looking for a building and found nothing. Then you descended into the earth. Then the Hạ Long Bay appears at your feet — framed like a painting in a subterranean gallery. The entire villa is invisible from the water. You arrived at a secret. At dusk, only the glow from the sunken courtyard betrays human presence.</p>
+        <div class="precedent-tag"><strong>References:</strong> Villa Vals (invisible green roof), Adjaye Sunken House (excavated courtyard), Desert Rock (compression/release)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- === V2 === -->
+<div class="villa-section">
+  <div class="villa-header">
+    <div class="villa-num">II<span class="label">Villa</span></div>
+    <div class="villa-title-block">
+      <h2><span>The</span> Floating Pavilion</h2>
+      <span class="strat-tag tag-v2">Elevated Volume · Water Mirror</span>
+    </div>
+  </div>
+
+  <div class="villa-grid">
+
+    <div class="entrance-card">
+      <div class="card-header eh-v2">
+        <span style="font-size:4.5rem">🚤</span>
+        <span class="phase-tag">Phase 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Approach · The Floating Form</h3>
+        <div class="phase-desc">The boat rounds the point and ahead, a single glass pavilion hovers above the waterline — suspended on slender columns over a vast reflecting pool. The structure appears to float: a thin wedge cantilevered toward the bay. The guest sees the villa from below before reaching it.</div>
+        <div class="emotion">↳ Anticipation · Scale</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v2">
+        <span style="font-size:4.5rem">🛗</span>
+        <span class="phase-tag">Phase 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Ascent · The Glass Lift</h3>
+        <div class="phase-desc">Dock at water level. Step into a glass elevator housed within one of the slender columns. As it rises, the bay expands behind you. At 6m above grade, the full panorama opens — karsts, water, horizon. The lift opens directly into the living pavilion.</div>
+        <div class="emotion">↳ Elevation · Expansion</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v2">
+        <span style="font-size:4.5rem">🌊</span>
+        <span class="phase-tag">Phase 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Arrival · On the Water Surface</h3>
+        <div class="phase-desc">Step out of the lift onto a seamless travertine floor. From this height, the reflecting pool below merges with the bay beyond — one continuous water surface. The glass walls retract completely. Inside and outside dissolve. You are standing on a platform above the sea.</div>
+        <div class="emotion">↳ Liberation · Weightlessness</div>
+      </div>
+    </div>
+
+    <div class="wow-box">
+      <div class="wow-icon">🔥</div>
+      <div>
+        <h4>The Wow</h4>
+        <p>You watched the villa grow larger from the boat. Then you entered a slender column and rose through it. The lift doors opened and the bay was suddenly everywhere — below, ahead, around. The building does not sit on the land; it floats above it. The reflecting pool is not a feature; it is the new ground plane.</p>
+        <div class="precedent-tag"><strong>References:</strong> NOT A HOTEL Setouchi (elevated pavilions), Amanzoe (reflecting pools merging with sea horizon), Svart (floating form on water)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- === V3 === -->
+<div class="villa-section">
+  <div class="villa-header">
+    <div class="villa-num">III<span class="label">Villa</span></div>
+    <div class="villa-title-block">
+      <h2><span>The</span> Scattered Courtyards</h2>
+      <span class="strat-tag tag-v3">Pavilion Scatter · Horizontal Spread</span>
+    </div>
+  </div>
+
+  <div class="villa-grid">
+
+    <div class="entrance-card">
+      <div class="card-header eh-v3">
+        <span style="font-size:4.5rem">🚤</span>
+        <span class="phase-tag">Phase 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Approach · The Green Wall</h3>
+        <div class="phase-desc">The boat enters a narrow channel lined with dense vegetation — mangroves and palms. No architecture visible. The only marker is a weathered timber jetty disappearing into the green. The water is calm, shaded. The silence is broken only by birds and the lap of water.</div>
+        <div class="emotion">↳ Immersion · Withdrawal</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v3">
+        <span style="font-size:4.5rem">🚶</span>
+        <span class="phase-tag">Phase 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Procession · The Garden Path</h3>
+        <div class="phase-desc">Step from the jetty onto a stone path. The path weaves through a garden. It passes a pavilion — an open structure with a daybed — then turns. Passes an outdoor shower hidden by bamboo. Turns again. Each turn reveals a new pavilion but the main living space remains hidden, beckoning.</div>
+        <div class="emotion">↳ Discovery · Sequencing</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v3">
+        <span style="font-size:4.5rem">🌊</span>
+        <span class="phase-tag">Phase 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Reveal · The Final Pavilion</h3>
+        <div class="phase-desc">The path opens onto the last and largest pavilion — the living pavilion. Green roof overhead. Three sides open to gardens. The fourth side: a full opening to the bay, framed by a cantilevered roof. The view arrives not as a panorama but as a theatre — a stage set of limestone karsts.</div>
+        <div class="emotion">↳ Reward · Culmination</div>
+      </div>
+    </div>
+
+    <div class="wow-box">
+      <div class="wow-icon">🔥</div>
+      <div>
+        <h4>The Wow</h4>
+        <p>You never saw the villa whole. You discovered it piece by piece — a pavilion here, a courtyard there, a pool glimpsed through bamboo. The arrival was not a destination but a journey. The final reveal — the full bay from the living pavilion — is earned. You arrived not at a building but at a sequence.</p>
+        <div class="precedent-tag"><strong>References:</strong> Alila Uluwatu (pavilion scatter, green roofs), North Island (handcrafted from local materials, journey through landscape), Juvet Landscape Hotel (each cabin site-specific, discovered through forest)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- === V4 === -->
+<div class="villa-section">
+  <div class="villa-header">
+    <div class="villa-num">IV<span class="label">Villa</span></div>
+    <div class="villa-title-block">
+      <h2><span>The</span> Lantern Mound</h2>
+      <span class="strat-tag tag-v4">Artificial Topography · Earth-Sheltered</span>
+    </div>
+  </div>
+
+  <div class="villa-grid">
+
+    <div class="entrance-card">
+      <div class="card-header eh-v4">
+        <span style="font-size:4.5rem">🚤</span>
+        <span class="phase-tag">Phase 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Approach · The Mound at Dusk</h3>
+        <div class="phase-desc">The boat approaches a sculpted green mound rising from the shoreline. It looks natural — a small hill formed by the earth itself. At its base, a dark aperture no wider than a door. No other sign of architecture. If arriving at night: the mound pulses with a single warm glow from its aperture, like a lantern.</div>
+        <div class="emotion">↳ Intrigue · Primal</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v4">
+        <span style="font-size:4.5rem">🕳️</span>
+        <span class="phase-tag">Phase 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Passage · Into the Earth</h3>
+        <div class="phase-desc">Step from the dock into the aperture. A long corridor lined with rammed earth — walls, floor, ceiling — earthy and warm. No right angles. The corridor curves, blocking the view of where you entered. Ahead, a single slit of light. The texture of the earth walls draws the hand to touch them.</div>
+        <div class="emotion">↳ Compression · Shelter</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v4">
+        <span style="font-size:4.5rem">🌊</span>
+        <span class="phase-tag">Phase 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Release · The Water-Frame</h3>
+        <div class="phase-desc">The corridor opens into the main living space — still within the mound. The ceiling vaults overhead. The entire front wall is glass, framing a single composition of water and karst. Outside, a natural-edged plunge pool extends toward the bay. The room is cool, solid, protected. The view is the only opening to the outside world.</div>
+        <div class="emotion">↳ Release · Intimacy</div>
+      </div>
+    </div>
+
+    <div class="wow-box">
+      <div class="wow-icon">🔥</div>
+      <div>
+        <h4>The Wow</h4>
+        <p>From the bay, you saw a hill and a small glowing mouth. You entered the earth. You walked through a warm, dark, curving passage. Then the space opened and the bay was right there — inches away through glass — but you were inside, protected by earth. By night, the mound glows from within. From across the bay, it is a single lantern on the shoreline. You live inside the light.</p>
+        <div class="precedent-tag"><strong>References:</strong> Desert Rock (lantern effect at night), Costa Rica Green Roof Villa (invisible from above), Villa Vals (earth-sheltered, tunnel entry)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- === V5 === -->
+<div class="villa-section">
+  <div class="villa-header">
+    <div class="villa-num">V<span class="label">Villa</span></div>
+    <div class="villa-title-block">
+      <h2><span>The</span> Bridge House</h2>
+      <span class="strat-tag tag-v5">Procession Axis · Span</span>
+    </div>
+  </div>
+
+  <div class="villa-grid">
+
+    <div class="entrance-card">
+      <div class="card-header eh-v5">
+        <span style="font-size:4.5rem">🚤</span>
+        <span class="phase-tag">Phase 1</span>
+      </div>
+      <div class="card-body">
+        <h3>Approach · Under the Span</h3>
+        <div class="phase-desc">The boat glides toward the shore. Ahead, a single horizontal volume spans between two artificial ponds — the villa as a bridge. The boat does not stop at the shore. It continues under the span into a shaded dock at the far end. The building passes overhead — a moment of passage.</div>
+        <div class="emotion">↳ Passage · Enclosure</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v5">
+        <span style="font-size:4.5rem">🌉</span>
+        <span class="phase-tag">Phase 2</span>
+      </div>
+      <div class="card-body">
+        <h3>Procession · The Bridge Walk</h3>
+        <div class="phase-desc">Step from the boat onto a timber walkway that extends from the dock, skimming the water surface. The walkway is narrow — water on both sides. Ahead: nothing but the far pond, the horizon, a lone karst framed by the bridge's opening. The body is suspended between two bodies of water.</div>
+        <div class="emotion">↳ Suspension · Anticipation</div>
+      </div>
+    </div>
+
+    <div class="entrance-card">
+      <div class="card-header eh-v5">
+        <span style="font-size:4.5rem">🌊</span>
+        <span class="phase-tag">Phase 3</span>
+      </div>
+      <div class="card-body">
+        <h3>Arrival · The Axis</h3>
+        <div class="phase-desc">The walkway arrives at a glass pavilion at the water's edge. Here, the guest turns — and the full axis of the villa reveals itself: the long horizontal volume spanning the pond, the walkway just crossed, the bay beyond. The entire composition is one long sightline. The building is both the destination and the frame.</div>
+        <div class="emotion">↳ Completion · Comprehension</div>
+      </div>
+    </div>
+
+    <div class="wow-box">
+      <div class="wow-icon">🔥</div>
+      <div>
+        <h4>The Wow</h4>
+        <p>You arrived not at a building but beneath it. You passed under the villa — the house above, the water below — a moment of passage that no other villa can replicate. Then you walked back across the water toward the bay, understanding for the first time that the architecture itself is the journey. The bridge is not a feature. The bridge IS the house.</p>
+        <div class="precedent-tag"><strong>References:</strong> Casa Wabi (long axis as organising device), NOT A HOTEL Rusutsu (linear volumes dipping at centre), Water Cherry Villa (journey of framed views)</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Comparative Table -->
+<div class="compare-section">
+  <h2>Comparative Overview</h2>
+
+  <table class="compare-table">
+    <tr>
+      <th style="width:10%">Villa</th>
+      <th style="width:22%">Entrance Choreography</th>
+      <th style="width:18%">The Wow Moment</th>
+      <th style="width:18%">Emotional Arc</th>
+      <th style="width:18%">Night Identity</th>
+      <th style="width:14%">Precedent</th>
+    </tr>
+    <tr>
+      <td><strong>I<br>Sunken Sanctuary</strong></td>
+      <td>See nothing → descend into earth → bay appears at water level</td>
+      <td>The room at waterline — bay framed like a subterranean painting</td>
+      <td>Curiosity → Suspense → Surprise</td>
+      <td>Warm glow from sunken courtyard — invisible from bay</td>
+      <td>Villa Vals</td>
+    </tr>
+    <tr>
+      <td><strong>II<br>Floating Pavilion</strong></td>
+      <td>See the floating form → ascend through column → arrive above water</td>
+      <td>Stepping out of lift onto a glass floor above the bay</td>
+      <td>Anticipation → Elevation → Liberation</td>
+      <td>Illuminated rectangle suspended over water</td>
+      <td>NOT A HOTEL Setouchi</td>
+    </tr>
+    <tr>
+      <td><strong>III<br>Scattered Courtyards</strong></td>
+      <td>Enter green channel → garden path → final pavilion reveal</td>
+      <td>The final pavilion opening — bay as theatre reveal, earned by the journey</td>
+      <td>Immersion → Discovery → Reward</td>
+      <td>Multiple lit pavilions scattered across the site — visible as constellation</td>
+      <td>Alila Uluwatu</td>
+    </tr>
+    <tr>
+      <td><strong>IV<br>Lantern Mound</strong></td>
+      <td>See only a mound → enter dark corridor → space opens to bay</td>
+      <td>Compression then release — earth interior opens to a single framed bay</td>
+      <td>Intrigue → Compression → Release</td>
+      <td>The mound itself glows — a single lantern on the shoreline</td>
+      <td>Desert Rock</td>
+    </tr>
+    <tr>
+      <td><strong>V<br>Bridge House</strong></td>
+      <td>Pass under villa → walk across water → turn to see the full axis</td>
+      <td>Passing beneath the building — the house passes overhead as you arrive</td>
+      <td>Passage → Suspension → Completion</td>
+      <td>One lit horizontal line spanning water</td>
+      <td>Casa Wabi</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Closing -->
+<div class="transition-note">
+  <p>Each entrance is a complete architectural experience in itself. The villa does not begin at the doorstep — it begins the moment the boat rounds the last karst. On a flat site, the entrance sequence IS the topography.</p>
+</div>
+
+</div>
+
+<div class="footer">
+  Lam Ngọc Villas — 5 Entrance Experiences · August 2026<br>
+  Prepared for Bach &amp; Quang — design review
+</div>
+
+</body>
+</html>
