@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lam Ngọc · 7 Villa Kỳ Quan · Pitch Deck</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0f0f0f; color: #e0d8cc; font-family: 'Georgia', 'Times New Roman', serif; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.slide {
+  width: 100%; max-width: 1100px; aspect-ratio: 16/9; background: #1a1a1a;
+  border: 1px solid #333; border-radius: 12px; padding: 60px 70px;
+  display: flex; flex-direction: column; justify-content: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6); position: relative;
+  overflow: hidden;
+}
+.slide-num { position: absolute; top: 20px; right: 30px; font-size: 11px; color: #444; letter-spacing: 3px; }
+.slide-tag { position: absolute; top: 20px; left: 30px; font-size: 10px; color: #8a7f6e; letter-spacing: 3px; text-transform: uppercase; }
+.slide h1 { font-size: 54px; font-weight: 300; letter-spacing: 8px; color: #d4c5a9; margin-bottom: 20px; }
+.slide h2 { font-size: 34px; font-weight: 300; letter-spacing: 3px; color: #d4c5a9; margin-bottom: 25px; line-height: 1.3; }
+.slide h3 { font-size: 22px; font-weight: 300; letter-spacing: 2px; color: #b8a878; margin-bottom: 18px; }
+.slide p { font-size: 18px; line-height: 1.7; color: #b8af9e; margin-bottom: 14px; }
+.slide p.large { font-size: 22px; }
+.slide p.small { font-size: 15px; color: #8a7f6e; }
+.slide em { color: #d4c5a9; font-style: italic; }
+.slide strong { color: #e0d8cc; font-weight: 400; }
+.slide .kicker { font-size: 12px; letter-spacing: 4px; color: #8a7f6e; text-transform: uppercase; margin-bottom: 20px; }
+.slide-cover { background: radial-gradient(ellipse at center, #2a2418 0%, #0f0f0f 80%); text-align: center; }
+.slide-cover h1 { font-size: 84px; letter-spacing: 20px; margin-bottom: 30px; }
+.slide-cover .tagline { font-size: 20px; letter-spacing: 6px; color: #b8a878; font-style: italic; margin-bottom: 40px; }
+.slide-closing { background: radial-gradient(ellipse at center, #2a2418 0%, #0f0f0f 80%); text-align: center; }
+
+.wonders-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 25px 0; }
+.wonder-chip { padding: 8px 16px; border: 1px solid #333; border-radius: 25px; font-size: 13px; color: #8a7f6e; background: #1a1a1a; }
+.wonder-chip.halong { border-color: #d4c5a9; color: #d4c5a9; background: #2a2418; }
+
+.villa-slide { padding: 50px 60px; }
+.villa-slide .villa-num-big { font-size: 130px; color: #d4c5a9; letter-spacing: 5px; opacity: 0.15; position: absolute; right: 60px; top: 30px; font-weight: 300; }
+.villa-slide .villa-title { display: flex; align-items: baseline; gap: 20px; margin-bottom: 20px; }
+.villa-slide .villa-title .n { font-size: 28px; color: #d4c5a9; letter-spacing: 4px; }
+.villa-slide .villa-title .name { font-size: 42px; color: #e0d8cc; letter-spacing: 3px; }
+.villa-slide .khuc { font-size: 16px; color: #b8a878; font-style: italic; margin-bottom: 25px; letter-spacing: 2px; }
+.villa-slide .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 15px; }
+.villa-slide .grid2 .col h4 { font-size: 12px; color: #8a7f6e; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+.villa-slide .grid2 .col p { font-size: 15px; line-height: 1.7; }
+.villa-slide .patron { margin-top: 20px; padding-top: 15px; border-top: 1px dashed #333; font-size: 13px; color: #8a7f6e; letter-spacing: 1px; }
+.villa-slide .patron .p-label { color: #b8a878; }
+
+.comparison-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+.comparison-table th, .comparison-table td { padding: 12px 16px; text-align: left; font-size: 15px; border-bottom: 1px solid #2a2a2a; }
+.comparison-table th { color: #d4c5a9; font-weight: 400; letter-spacing: 2px; font-size: 12px; text-transform: uppercase; }
+.comparison-table td.bim { color: #8a7f6e; }
+.comparison-table td.lamngoc { color: #d4c5a9; }
+
+.quote-slide { background: #1a1a1a; text-align: center; }
+.quote-slide blockquote { font-size: 32px; line-height: 1.5; color: #d4c5a9; font-style: italic; max-width: 850px; margin: 0 auto; letter-spacing: 1px; }
+.quote-slide .attribution { font-size: 13px; color: #8a7f6e; letter-spacing: 3px; margin-top: 30px; text-transform: uppercase; }
+
+.print-btn { position: fixed; top: 15px; right: 15px; background: #d4c5a9; color: #1a1a1a; padding: 10px 18px; border: none; border-radius: 6px; font-family: inherit; cursor: pointer; letter-spacing: 2px; font-size: 12px; }
+@media print {
+  body { padding: 0; gap: 0; background: white; }
+  .slide { page-break-after: always; margin: 0; box-shadow: none; border-radius: 0; }
+  .print-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⎙ PRINT PDF</button>
+
+<!-- SLIDE 1 · COVER -->
+<div class="slide slide-cover">
+  <div class="slide-num">01 / 10</div>
+  <div class="slide-tag">Confidential</div>
+  <h1>LAM NGỌC</h1>
+  <div class="tagline">— BẢY KHÚC THƠ HẠ LONG —</div>
+  <p class="large" style="color:#8a7f6e; letter-spacing:3px; margin-top:20px;">7 villa private estate · 3.3 ha · Tuần Châu Peninsula</p>
+  <p class="small" style="margin-top:40px;">Pitch to prospective UHNW owners · 2026</p>
+</div>
+
+<!-- SLIDE 2 · WHY 7 -->
+<div class="slide">
+  <div class="slide-num">02 / 10</div>
+  <div class="slide-tag">The Number</div>
+  <div class="kicker">◇ Vì sao 7 ◇</div>
+  <h2>Trên trái đất có <em>7 kỳ quan thiên nhiên</em>.<br>6 kỳ quan anh chỉ có thể đến thăm.</h2>
+  <div class="wonders-row">
+    <span class="wonder-chip">1 · Amazon</span>
+    <span class="wonder-chip">2 · Iguazu</span>
+    <span class="wonder-chip">3 · Komodo</span>
+    <span class="wonder-chip">4 · Table Mountain</span>
+    <span class="wonder-chip">5 · Puerto Princesa</span>
+    <span class="wonder-chip">6 · Jeju</span>
+    <span class="wonder-chip halong">7 · HẠ LONG</span>
+  </div>
+  <p class="large" style="margin-top:20px;"><em>Kỳ quan thứ 7 — Hạ Long — là kỳ quan duy nhất cho phép một bán đảo riêng.</em></p>
+  <p class="small">Nguồn: New7Wonders Foundation, 2011 · UNESCO World Heritage 1994 (mở rộng 2000, 2023)</p>
+</div>
+
+<!-- SLIDE 3 · THE SITE -->
+<div class="slide">
+  <div class="slide-num">03 / 10</div>
+  <div class="slide-tag">The Land</div>
+  <div class="kicker">◇ Bán đảo Tuần Châu ◇</div>
+  <h2>Một dải đất nhô thẳng ra vịnh Hạ Long.<br><em>Dài 330 m · Rộng 90 m · 3.3 hecta · nước bao 3 mặt.</em></h2>
+  <p class="large">Ở phía bên kia của Hạ Long — không phải Bãi Cháy.</p>
+  <p>Đây là mảnh đất cuối cùng ở Hạ Long cho phép một dự án residential riêng biệt trên bán đảo tự nhiên. Karst UNESCO trước mặt, không bị bất kỳ công trình nào chắn.</p>
+  <p class="small" style="margin-top:25px;">Nếu tính theo cách phát triển thông thường, khu đất này chứa được ~63 căn biệt thự.<br><em>Chúng tôi đặt 7.</em></p>
+</div>
+
+<!-- SLIDE 4 · POSITIONING VS BIM -->
+<div class="slide">
+  <div class="slide-num">04 / 10</div>
+  <div class="slide-tag">Category of One</div>
+  <div class="kicker">◇ Không so sánh được ◇</div>
+  <h3>Lam Ngọc <em>không phải</em> InterContinental BIM. Không phải Ritz Reserve. Không phải Aman.</h3>
+  <table class="comparison-table">
+    <tr><th></th><th>InterCon Residences BIM</th><th>Lam Ngọc</th></tr>
+    <tr><td>Site</td><td class="bim">5.2 ha · Bãi Cháy · KĐT hỗn hợp</td><td class="lamngoc">3.3 ha · Tuần Châu · bán đảo thuần túy</td></tr>
+    <tr><td>Số căn</td><td class="bim">101 (41 villa + 60 sky)</td><td class="lamngoc">7</td></tr>
+    <tr><td>Đất/căn</td><td class="bim">~500 m²</td><td class="lamngoc">~4,000–5,000 m² <em>(thưa hơn ~10×)</em></td></tr>
+    <tr><td>Vận hành</td><td class="bim">IHG hotel + rental pool 8%</td><td class="lamngoc">Private residential · không rental · không hotel</td></tr>
+    <tr><td>Khách</td><td class="bim">Du khách IHG check-in mỗi ngày</td><td class="lamngoc">Chỉ 7 chủ nhân + khách mời</td></tr>
+    <tr><td>View</td><td class="bim">Bãi Cháy đô thị hóa</td><td class="lamngoc">UNESCO karst 100% uninterrupted</td></tr>
+  </table>
+  <p class="large" style="margin-top:25px; text-align:center;"><em>"BIM bán biệt thự biển. Lam Ngọc bán một bán đảo."</em></p>
+</div>
+
+<!-- SLIDE 5 · 7 KHÚC THƠ HALF 1 -->
+<div class="slide">
+  <div class="slide-num">05 / 10</div>
+  <div class="slide-tag">The Seven Stanzas · 1–4</div>
+  <div class="kicker">◇ 7 khúc thơ Hạ Long ◇</div>
+  <h3>Mỗi villa là một khoảnh khắc khác nhau của vịnh.</h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px 40px; margin-top:15px;">
+    <div>
+      <p><strong>V1 · Crown 🏆</strong> — <em>Khúc Bình Minh</em></p>
+      <p class="small">Mũi tip · nước bao 270° · mặt trời mọc trước mặt. Villa flagship. LÀ Hạ Long.</p>
+    </div>
+    <div>
+      <p><strong>V2 · Nam 🌊</strong> — <em>Khúc Chính Ngọ</em></p>
+      <p class="small">Bờ Nam · glass wall · đối thoại trực diện với karst UNESCO.</p>
+    </div>
+    <div>
+      <p><strong>V3 · Tường Đá 🪨</strong> — <em>Khúc Hang Động</em></p>
+      <p class="small">Villa <em>cave duy nhất</em>. Hành lang tối → rooftop lộ vịnh: khoảnh khắc "Sửng Sốt".</p>
+    </div>
+    <div>
+      <p><strong>V4 · Hoàng Hôn 🌄</strong> — <em>Khúc Chiều Tà</em></p>
+      <p class="small">Mặt Tây · pontoon gỗ thấp · một ly rượu · mặt trời lặn sau karst.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 · 7 KHÚC THƠ HALF 2 -->
+<div class="slide">
+  <div class="slide-num">06 / 10</div>
+  <div class="slide-tag">The Seven Stanzas · 5–7</div>
+  <div class="kicker">◇ 7 khúc thơ Hạ Long (tiếp) ◇</div>
+  <h3>Ba khúc còn lại — hải trình, ban mai, và đêm trăng.</h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px 40px; margin-top:15px;">
+    <div>
+      <p><strong>V5 · Bến Thuyền 🚤</strong> — <em>Khúc Hải Trình</em></p>
+      <p class="small">Villa <em>boat-through duy nhất</em>. Thuyền của anh đi qua cổng đá, neo dưới phòng khách sàn kính.</p>
+    </div>
+    <div>
+      <p><strong>V6 · Sương Sớm 🌫️</strong> — <em>Khúc Ban Mai</em></p>
+      <p class="small">Đông Bắc · cửa sổ ngang sát nước · sương phủ vịnh sáng sớm đi qua phòng ngủ.</p>
+    </div>
+    <div style="grid-column: 1/-1; max-width: 50%;">
+      <p><strong>V7 · Trăng Rằm 🌕</strong> — <em>Khúc Đêm Trăng</em></p>
+      <p class="small">Courtyard giếng trời tròn · reflection pool · trăng in trên nước, in trong nhà. Hang khô nhỏ mở lên trời.</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:30px; text-align:center;"><em>Chỉ V1, V3, V5 có "signature move" độc nhất (270° · cave · boat-through). Bốn villa còn lại giữ dáng bay-facing thanh nhẹ — không cạnh tranh với 3 villa signature.</em></p>
+</div>
+
+<!-- SLIDE 7 · DESIGN DISCIPLINE -->
+<div class="slide">
+  <div class="slide-num">07 / 10</div>
+  <div class="slide-tag">Design Discipline</div>
+  <div class="kicker">◇ Hạ Long DNA discipline ◇</div>
+  <h2>Kỳ quan chỉ là <em>spiritual patron</em>.<br>Không milimet vật liệu nào được mượn từ bên ngoài.</h2>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px; margin-top:20px;">
+    <div>
+      <h4 style="color:#8a7f6e; letter-spacing:2px; font-size:12px; margin-bottom:10px;">CHẤT LIỆU (chỉ 5 loại)</h4>
+      <p class="small">▸ Đá vôi karst (xám tro, xám xanh)</p>
+      <p class="small">▸ Gỗ tối (bản địa Việt Nam)</p>
+      <p class="small">▸ Kính tối (low-iron)</p>
+      <p class="small">▸ Nước biển ngọc + nước tĩnh</p>
+      <p class="small">▸ Thực vật bản địa vùng vịnh</p>
+    </div>
+    <div>
+      <h4 style="color:#b06a5a; letter-spacing:2px; font-size:12px; margin-bottom:10px;">TUYỆT ĐỐI KHÔNG IMPORT</h4>
+      <p class="small">✗ Basalt đen Jeju</p>
+      <p class="small">✗ Wall of water thác Iguazu</p>
+      <p class="small">✗ Canopy nhiệt đới Amazon</p>
+      <p class="small">✗ Mặt bàn núi Table Mountain</p>
+      <p class="small">✗ Bất kỳ chất liệu ngoài Hạ Long DNA</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:25px; text-align:center; font-style: italic;">Mỗi villa bắt buộc có ít nhất 1 Hạ Long DNA element: hang nước · hang khô · đảo cô lập · mặt nước phẳng phản chiếu · karst đứng.</p>
+</div>
+
+<!-- SLIDE 8 · ECOSYSTEM -->
+<div class="slide">
+  <div class="slide-num">08 / 10</div>
+  <div class="slide-tag">Ecosystem</div>
+  <div class="kicker">◇ Curated experience ◇</div>
+  <h3>Không phải khách sạn. Không phải resort. <em>Một thế giới private cho 7 gia đình.</em></h3>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:25px 50px; margin-top:20px;">
+    <div>
+      <p><strong>◇ Bến & Hải Trình</strong></p>
+      <p class="small">Marina riêng · yacht concierge · curated Hạ Long journeys · kayak / paddle riêng cho V4</p>
+    </div>
+    <div>
+      <p><strong>◇ Ẩm Thực & Concierge</strong></p>
+      <p class="small">Fine dining chef in-residence · private dining tại villa · 24/7 concierge · nhân sự Aman-trained</p>
+    </div>
+    <div>
+      <p><strong>◇ Spa & Wellness</strong></p>
+      <p class="small">Shared spa pavilion (yên tĩnh, không đông) · treatment tại villa on-request</p>
+    </div>
+    <div>
+      <p><strong>◇ Beach & Private Access</strong></p>
+      <p class="small">Bãi Nam duy nhất cho 7 villa · cabana đặt trước · owner-only access controls</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:25px; text-align:center; font-style: italic;">"Anh không cần rời Lam Ngọc để có được Hạ Long. Hạ Long đến với anh."</p>
+</div>
+
+<!-- SLIDE 9 · OWNERSHIP -->
+<div class="slide">
+  <div class="slide-num">09 / 10</div>
+  <div class="slide-tag">The Ownership</div>
+  <div class="kicker">◇ 7 chủ nhân ◇</div>
+  <h2>Danh sách chủ nhân chỉ có <em>7 dòng</em>.<br>Và không bao giờ dài hơn.</h2>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px; margin-top:25px;">
+    <div>
+      <h4 style="color:#8a7f6e; letter-spacing:2px; font-size:12px; margin-bottom:12px;">PROPOSITION PILLARS</h4>
+      <p class="small">▸ <strong>Security</strong> — pháp lý rõ ràng · long-term ownership</p>
+      <p class="small">▸ <strong>Scarcity</strong> — 7 villa · không thể mở rộng</p>
+      <p class="small">▸ <strong>Identity</strong> — mỗi villa một khúc thơ khác</p>
+      <p class="small">▸ <strong>Experience</strong> — curated ecosystem trọn vẹn</p>
+      <p class="small">▸ <strong>Legacy</strong> — chuyển giao thế hệ · membership vĩnh viễn</p>
+    </div>
+    <div>
+      <h4 style="color:#8a7f6e; letter-spacing:2px; font-size:12px; margin-bottom:12px;">PRICING (indicative)</h4>
+      <p class="small">V1 Crown · flagship anchor</p>
+      <p class="small">V3 Tường Đá · cave unique</p>
+      <p class="small">V5 Bến Thuyền · boat-through unique</p>
+      <p class="small">V2, V4, V6, V7 · signature stanzas</p>
+      <p class="small" style="margin-top:12px; color:#d4c5a9;"><em>Contact for private discussion. Not publicly listed.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10 · CLOSING -->
+<div class="slide slide-closing">
+  <div class="slide-num">10 / 10</div>
+  <div class="slide-tag">Invitation</div>
+  <h2 style="margin-top:20px;">Anh không cần quyết định hôm nay.</h2>
+  <p class="large">Tôi mời anh một chuyến đi.</p>
+  <p style="max-width: 700px; margin: 20px auto; text-align:center;">Ra Hạ Long. Đi thuyền qua vịnh. Đứng ở mũi tip của bán đảo Tuần Châu. Cảm nhận nước bao 270°.</p>
+  <p class="large" style="color:#d4c5a9; margin-top:20px;"><em>90% người đã đứng ở đó rồi thì không muốn về nữa.</em></p>
+  <p class="small" style="margin-top:40px; letter-spacing:3px;">LAM NGỌC · Royal Canary Corporation · 2026</p>
+</div>
+
+</body>
+</html>
