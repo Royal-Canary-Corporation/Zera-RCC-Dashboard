@@ -10,9 +10,9 @@ body {
   background: #1a1a1a; color: #e0d8cc; font-family: 'Georgia', 'Times New Roman', serif;
   display: flex; flex-direction: column; align-items: center; padding: 30px 20px;
 }
-h1 { font-size: 32px; letter-spacing: 6px; font-weight: 300; margin-bottom: 6px; color: #d4c5a9; }
-h2 { font-size: 13px; font-weight: 300; letter-spacing: 3px; color: #8a7f6e; margin-bottom: 6px; text-align: center; }
-h3.brand-line { font-size: 12px; font-weight: 300; letter-spacing: 2px; color: #b8a878; margin-bottom: 25px; text-align: center; font-style: italic; }
+h1 { font-size: 36px; letter-spacing: 8px; font-weight: 300; margin-bottom: 12px; color: #d4c5a9; text-align: center; }
+h2 { font-size: 14px; font-weight: 300; letter-spacing: 3px; color: #a89e88; margin-bottom: 20px; text-align: center; }
+h3.brand-line { font-size: 14px; font-weight: 300; letter-spacing: 2px; color: #b8a878; margin-bottom: 35px; text-align: center; font-style: italic; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 .container { max-width: 1240px; width: 100%; }
 .section-title {
   font-size: 13px; letter-spacing: 3px; color: #d4c5a9;
@@ -24,7 +24,7 @@ svg { width: 100%; height: auto; display: block; }
 .legend { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 18px; font-size: 12px; color: #b8af9e; }
 .legend-item { display: flex; align-items: center; gap: 7px; }
 .legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.1); }
-.note { margin-top: 20px; padding: 16px 20px; background: #1e1e1e; border-left: 3px solid #d4c5a9; font-size: 13px; line-height: 1.7; color: #b8af9e; border-radius: 0 8px 8px 0; }
+.note { margin-top: 20px; padding: 18px 22px; background: #1e1e1e; border-left: 3px solid #d4c5a9; font-size: 14px; line-height: 1.8; color: #c8bfae; border-radius: 0 8px 8px 0; }
 .note strong { color: #e0d8cc; }
 .metrics { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
 .metric { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; padding: 14px 18px; min-width: 150px; }
@@ -33,18 +33,18 @@ svg { width: 100%; height: auto; display: block; }
 .villa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
 .villa-card {
   background: #1e1e1e; border: 1px solid #333; border-left: 3px solid #d4c5a9;
-  border-radius: 8px; padding: 20px;
+  border-radius: 8px; padding: 24px;
 }
-.villa-card .vhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-.villa-card .vnum { font-size: 22px; color: #d4c5a9; letter-spacing: 3px; }
-.villa-card .vtag { font-size: 10px; color: #8a7f6e; letter-spacing: 2px; text-transform: uppercase; }
-.villa-card .vname { font-size: 20px; color: #e0d8cc; margin-bottom: 8px; letter-spacing: 1px; }
-.villa-card .vkhuc { font-size: 11px; color: #b8a878; margin-bottom: 12px; font-style: italic; letter-spacing: 1px; }
-.villa-card .vbody { font-size: 12px; color: #b8af9e; line-height: 1.7; }
-.villa-card .vbody strong { color: #e0d8cc; }
+.villa-card .vhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; gap: 12px; flex-wrap: wrap; }
+.villa-card .vnum { font-size: 24px; color: #d4c5a9; letter-spacing: 3px; }
+.villa-card .vtag { font-size: 10px; color: #a89e88; letter-spacing: 2px; text-transform: uppercase; }
+.villa-card .vname { font-size: 22px; color: #e0d8cc; margin-bottom: 8px; letter-spacing: 1px; }
+.villa-card .vkhuc { font-size: 13px; color: #b8a878; margin-bottom: 16px; font-style: italic; letter-spacing: 1px; }
+.villa-card .vbody { font-size: 13px; color: #c8bfae; line-height: 1.75; }
+.villa-card .vbody strong { color: #e8dfc9; }
 .villa-card .vpatron {
-  margin-top: 12px; padding-top: 10px; border-top: 1px dashed #333;
-  font-size: 10px; color: #8a7f6e; letter-spacing: 1px;
+  margin-top: 16px; padding-top: 12px; border-top: 1px dashed #333;
+  font-size: 11px; color: #a89e88; letter-spacing: 1px; line-height: 1.5;
 }
 .villa-card .vpatron span { color: #b8a878; }
 .brand-panel {
@@ -52,7 +52,7 @@ svg { width: 100%; height: auto; display: block; }
   border: 1px solid #4a4030; border-radius: 12px; padding: 30px; margin-bottom: 25px;
 }
 .brand-panel .brand-title { font-size: 14px; letter-spacing: 4px; color: #d4c5a9; margin-bottom: 15px; text-transform: uppercase; text-align: center; }
-.brand-panel .brand-body { font-size: 13px; color: #b8af9e; line-height: 1.8; text-align: center; max-width: 900px; margin: 0 auto; }
+.brand-panel .brand-body { font-size: 14px; color: #c8bfae; line-height: 1.9; text-align: center; max-width: 900px; margin: 0 auto; }
 .brand-panel .brand-body em { color: #d4c5a9; font-style: normal; }
 .wonders-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 14px; margin-top: 18px; font-size: 11px; color: #8a7f6e; letter-spacing: 1px; }
 .wonders-list .w { background: #1a1a1a; padding: 5px 12px; border: 1px solid #333; border-radius: 20px; }
@@ -115,10 +115,10 @@ svg { width: 100%; height: auto; display: block; }
       <path d="M 20 130 L 1120 130 Q 1160 265 1120 400 L 20 400 Q 40 265 20 130 Z" fill="url(#land)" stroke="#5a5240" stroke-width="1.5"/>
 
       <!-- Labels -->
-      <text x="30" y="30" fill="#7fa6ae" font-size="14" letter-spacing="2">NORTH — MARINA / CHANNEL  (noise source)</text>
-      <text x="30" y="490" fill="#7fa6ae" font-size="14" letter-spacing="2">SOUTH — OPEN BAY  ·  PRIVATE VILLA BEACHFRONT</text>
-      <text x="1050" y="270" fill="#8a7f6e" font-size="12" letter-spacing="2" transform="rotate(90 1050 270)">EAST TIP</text>
-      <text x="8" y="270" fill="#8a7f6e" font-size="12" letter-spacing="2" transform="rotate(-90 8 270)">WEST — LAND ACCESS</text>
+      <text x="30" y="30" fill="#9fc6ce" font-size="15" letter-spacing="2" font-weight="bold">NORTH — MARINA / CHANNEL  (noise source)</text>
+      <text x="30" y="490" fill="#9fc6ce" font-size="15" letter-spacing="2" font-weight="bold">SOUTH — OPEN BAY  ·  PRIVATE VILLA BEACHFRONT</text>
+      <text x="1050" y="270" fill="#a89e78" font-size="13" letter-spacing="2" transform="rotate(90 1050 270)">EAST TIP</text>
+      <text x="8" y="270" fill="#a89e78" font-size="13" letter-spacing="2" transform="rotate(-90 8 270)">WEST — LAND ACCESS</text>
 
       <!-- ZONE A: Arrival + BOH (West) -->
       <rect x="30" y="150" width="130" height="230" rx="6" fill="#3d3a4a" stroke="#5a5670" stroke-width="1"/>
@@ -129,16 +129,15 @@ svg { width: 100%; height: auto; display: block; }
 
       <!-- ZONE B: Amenity spine on NORTH -->
       <rect x="175" y="150" width="660" height="105" rx="6" fill="#4a4030" stroke="#7a6a45" stroke-width="1"/>
-      <text x="505" y="180" fill="#e0cfa4" font-size="12" text-anchor="middle" letter-spacing="1">ZONE B — SHARED AMENITY (NORTH = SOUND BARRIER)</text>
-      <text x="245" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Clubhouse</text>
-      <text x="245" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">+ Beach Club</text>
-      <text x="245" y="239" fill="#9a8f6e" font-size="9" text-anchor="middle">(EstateMgmt basement)</text>
-      <text x="405" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Fine Dining</text>
-      <text x="535" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Casual / Bar</text>
-      <text x="685" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Infinity Pool</text>
-      <text x="685" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">(faces channel)</text>
-      <text x="790" y="212" fill="#c9bb95" font-size="10" text-anchor="middle">Spa Pavilion</text>
-      <text x="790" y="226" fill="#9a8f6e" font-size="9" text-anchor="middle">(shared, quiet)</text>
+      <text x="505" y="177" fill="#f0dcac" font-size="13" text-anchor="middle" letter-spacing="1" font-weight="bold">ZONE B — SHARED AMENITY (NORTH = SOUND BARRIER)</text>
+      <text x="245" y="212" fill="#e0d0a0" font-size="12" text-anchor="middle">Clubhouse</text>
+      <text x="245" y="228" fill="#b0a482" font-size="10" text-anchor="middle">+ Beach Club</text>
+      <text x="405" y="212" fill="#e0d0a0" font-size="12" text-anchor="middle">Fine Dining</text>
+      <text x="535" y="212" fill="#e0d0a0" font-size="12" text-anchor="middle">Casual / Bar</text>
+      <text x="685" y="212" fill="#e0d0a0" font-size="12" text-anchor="middle">Infinity Pool</text>
+      <text x="685" y="228" fill="#b0a482" font-size="10" text-anchor="middle">(faces channel)</text>
+      <text x="790" y="212" fill="#e0d0a0" font-size="12" text-anchor="middle">Spa Pavilion</text>
+      <text x="790" y="228" fill="#b0a482" font-size="10" text-anchor="middle">(shared)</text>
 
       <!-- Marina pontoon (north edge) -->
       <rect x="470" y="120" width="90" height="12" fill="#6a5c3a"/>
@@ -152,45 +151,45 @@ svg { width: 100%; height: auto; display: block; }
       <!-- ============= ZONE C: 7 Villas ============= -->
       <!-- V6 — Sương Sớm (west-most, morning mist) -->
       <rect x="180" y="285" width="115" height="105" rx="6" fill="#3a4a52" stroke="#6a8a9a" stroke-width="1"/>
-      <text x="237" y="325" fill="#b8d0e0" font-size="12" text-anchor="middle">V6</text>
-      <text x="237" y="341" fill="#8ba7ba" font-size="9" text-anchor="middle">Sương Sớm</text>
-      <text x="237" y="356" fill="#6a8598" font-size="8" text-anchor="middle">morning mist</text>
+      <text x="237" y="322" fill="#c8dce8" font-size="15" text-anchor="middle" font-weight="bold">V6</text>
+      <text x="237" y="344" fill="#a8c0d0" font-size="11" text-anchor="middle">Sương Sớm</text>
+      <text x="237" y="362" fill="#8ba7ba" font-size="9" text-anchor="middle">morning mist</text>
 
       <!-- V7 — Trăng Rằm (courtyard moon-well) -->
       <rect x="308" y="285" width="115" height="105" rx="6" fill="#3a3a4a" stroke="#7a7a9a" stroke-width="1"/>
-      <text x="365" y="325" fill="#c8c8e0" font-size="12" text-anchor="middle">V7</text>
-      <text x="365" y="341" fill="#9a9aba" font-size="9" text-anchor="middle">Trăng Rằm</text>
-      <text x="365" y="356" fill="#7a7a9a" font-size="8" text-anchor="middle">moon courtyard</text>
+      <text x="365" y="322" fill="#d8d8ea" font-size="15" text-anchor="middle" font-weight="bold">V7</text>
+      <text x="365" y="344" fill="#b0b0ca" font-size="11" text-anchor="middle">Trăng Rằm</text>
+      <text x="365" y="362" fill="#9a9aba" font-size="9" text-anchor="middle">moon courtyard</text>
 
       <!-- V4 — Hoàng Hôn (west-facing sunset) -->
       <rect x="436" y="285" width="115" height="105" rx="6" fill="#4a3a3a" stroke="#9a7a6a" stroke-width="1"/>
-      <text x="493" y="325" fill="#e0c8b8" font-size="12" text-anchor="middle">V4</text>
-      <text x="493" y="341" fill="#ba9a8b" font-size="9" text-anchor="middle">Hoàng Hôn</text>
-      <text x="493" y="356" fill="#9a7a6a" font-size="8" text-anchor="middle">sunset pontoon</text>
+      <text x="493" y="322" fill="#eed6c4" font-size="15" text-anchor="middle" font-weight="bold">V4</text>
+      <text x="493" y="344" fill="#d0aa98" font-size="11" text-anchor="middle">Hoàng Hôn</text>
+      <text x="493" y="362" fill="#b0907e" font-size="9" text-anchor="middle">sunset pontoon</text>
 
       <!-- V3 — Tường Đá (cave, sound barrier) -->
       <rect x="564" y="285" width="115" height="105" rx="6" fill="#2a2a2a" stroke="#5a5a5a" stroke-width="1"/>
-      <text x="621" y="325" fill="#c0c0c0" font-size="12" text-anchor="middle">V3</text>
-      <text x="621" y="341" fill="#909090" font-size="9" text-anchor="middle">Tường Đá</text>
-      <text x="621" y="356" fill="#6a6a6a" font-size="8" text-anchor="middle">cave villa</text>
+      <text x="621" y="322" fill="#d8d8d8" font-size="15" text-anchor="middle" font-weight="bold">V3</text>
+      <text x="621" y="344" fill="#b0b0b0" font-size="11" text-anchor="middle">Tường Đá</text>
+      <text x="621" y="362" fill="#8a8a8a" font-size="9" text-anchor="middle">cave villa</text>
 
       <!-- V2 — Nam (karst dialog) -->
       <rect x="692" y="285" width="115" height="105" rx="6" fill="#3a4a3a" stroke="#5f7a5f" stroke-width="1"/>
-      <text x="749" y="325" fill="#c2d8c2" font-size="12" text-anchor="middle">V2</text>
-      <text x="749" y="341" fill="#93ac93" font-size="9" text-anchor="middle">Nam</text>
-      <text x="749" y="356" fill="#5f7a5f" font-size="8" text-anchor="middle">karst dialog</text>
+      <text x="749" y="322" fill="#d0e4d0" font-size="15" text-anchor="middle" font-weight="bold">V2</text>
+      <text x="749" y="344" fill="#a8c0a8" font-size="11" text-anchor="middle">Nam</text>
+      <text x="749" y="362" fill="#7f9a7f" font-size="9" text-anchor="middle">karst dialog</text>
 
       <!-- V5 — Bến Thuyền (boat-through) -->
       <rect x="820" y="285" width="115" height="105" rx="6" fill="#3a4a4a" stroke="#5f7a7a" stroke-width="1"/>
-      <text x="877" y="325" fill="#c2d8d8" font-size="12" text-anchor="middle">V5</text>
-      <text x="877" y="341" fill="#93acac" font-size="9" text-anchor="middle">Bến Thuyền</text>
-      <text x="877" y="356" fill="#5f7a7a" font-size="8" text-anchor="middle">boat-through</text>
+      <text x="877" y="322" fill="#d0e4e4" font-size="15" text-anchor="middle" font-weight="bold">V5</text>
+      <text x="877" y="344" fill="#a8c0c0" font-size="11" text-anchor="middle">Bến Thuyền</text>
+      <text x="877" y="362" fill="#7f9a9a" font-size="9" text-anchor="middle">boat-through</text>
 
       <!-- V1 crown (tip) -->
       <path d="M 948 285 L 1100 285 Q 1140 337 1100 390 L 948 390 Z" fill="#4a4030" stroke="#d4c5a9" stroke-width="1.5"/>
-      <text x="1030" y="325" fill="#e6d6ab" font-size="14" text-anchor="middle" letter-spacing="1">V1 · CROWN</text>
-      <text x="1030" y="343" fill="#c9bb95" font-size="9" text-anchor="middle">~270° water · tip villa</text>
-      <text x="1030" y="358" fill="#8a7f6e" font-size="8" text-anchor="middle">flagship · anchor pricing</text>
+      <text x="1030" y="322" fill="#f0e0b8" font-size="17" text-anchor="middle" letter-spacing="1" font-weight="bold">V1 · CROWN</text>
+      <text x="1030" y="346" fill="#d9cba5" font-size="11" text-anchor="middle">~270° water · tip</text>
+      <text x="1030" y="364" fill="#a89e78" font-size="9" text-anchor="middle">flagship · anchor</text>
 
       <!-- private beach pockets (south of villas) -->
       <rect x="180" y="393" width="920" height="7" fill="#c9b98f" opacity="0.55"/>
