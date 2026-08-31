@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lam Ngọc — Seven Stanzas of Ha Long</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0f0f0f; --panel: #1a1a1a; --gold: #d4c5a9; --muted: #8a7f6e;
+  --text: #e0d8cc; --dim: #b8af9e; --accent: #b8a878;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Georgia', 'Times New Roman', serif; overflow-x: hidden; }
+
+/* ============ NAV ============ */
+nav { position: fixed; top: 0; width: 100%; padding: 20px 40px; z-index: 100; background: rgba(15,15,15,0.85); backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a1a; }
+nav .logo { font-size: 14px; letter-spacing: 6px; color: var(--gold); font-weight: 300; }
+nav .links { display: flex; gap: 32px; font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+nav .links a { color: inherit; text-decoration: none; transition: color 0.3s; }
+nav .links a:hover { color: var(--gold); }
+
+/* ============ HERO ============ */
+.hero {
+  height: 100vh; min-height: 700px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 0 20px;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 30%, #2a3a44 0%, transparent 70%),
+    radial-gradient(ellipse 80% 50% at 50% 80%, #1a2a34 0%, transparent 70%),
+    linear-gradient(180deg, #0a1a24 0%, #0f0f0f 100%);
+}
+.karst-silhouette {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; z-index: 1;
+  background:
+    radial-gradient(ellipse 15% 40% at 15% 100%, #1a2a34 0%, transparent 70%),
+    radial-gradient(ellipse 12% 55% at 30% 100%, #1a2a34 0%, transparent 70%),
+    radial-gradient(ellipse 18% 45% at 55% 100%, #1a2a34 0%, transparent 70%),
+    radial-gradient(ellipse 10% 60% at 75% 100%, #1a2a34 0%, transparent 70%),
+    radial-gradient(ellipse 14% 50% at 90% 100%, #1a2a34 0%, transparent 70%);
+  animation: mist 20s ease-in-out infinite;
+}
+@keyframes mist { 0%, 100% { opacity: 0.7; } 50% { opacity: 0.5; } }
+.water-shimmer {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 25%; z-index: 2;
+  background: linear-gradient(180deg, transparent 0%, rgba(20,40,50,0.3) 50%, rgba(15,15,15,0.9) 100%);
+}
+.stars { position: absolute; inset: 0; z-index: 1; opacity: 0.5; }
+.star { position: absolute; width: 2px; height: 2px; background: #d4c5a9; border-radius: 50%; box-shadow: 0 0 3px #d4c5a9; animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+.hero-content { position: relative; z-index: 10; }
+.hero-eyebrow { font-size: 12px; letter-spacing: 8px; color: var(--muted); margin-bottom: 30px; text-transform: uppercase; }
+.hero-title { font-size: 96px; letter-spacing: 20px; color: var(--gold); font-weight: 300; margin-bottom: 15px; text-shadow: 0 4px 30px rgba(0,0,0,0.6); }
+.hero-tagline { font-size: 20px; letter-spacing: 5px; color: var(--accent); font-style: italic; margin-bottom: 60px; }
+.hero-subline { font-size: 14px; letter-spacing: 3px; color: var(--muted); max-width: 700px; margin: 0 auto 40px; line-height: 1.8; }
+.hero-cta { display: inline-block; padding: 14px 36px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; transition: all 0.4s; }
+.hero-cta:hover { background: var(--gold); color: #0f0f0f; }
+.scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10; font-size: 10px; letter-spacing: 3px; color: var(--muted); animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+
+/* ============ SECTIONS ============ */
+section { padding: 120px 40px; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow { font-size: 11px; letter-spacing: 6px; color: var(--muted); text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+.section-title { font-size: 42px; letter-spacing: 3px; color: var(--gold); font-weight: 300; margin-bottom: 30px; text-align: center; line-height: 1.3; }
+.section-title em { color: var(--accent); font-style: italic; }
+.section-lead { font-size: 17px; color: var(--dim); line-height: 1.9; max-width: 780px; margin: 0 auto 40px; text-align: center; }
+
+/* ============ THE NUMBER ============ */
+.wonders-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 40px 0; }
+.wonder-chip { padding: 10px 18px; border: 1px solid #333; border-radius: 30px; font-size: 12px; color: var(--muted); background: var(--panel); letter-spacing: 1px; transition: all 0.4s; }
+.wonder-chip.halong { border-color: var(--gold); color: var(--gold); background: #2a2418; box-shadow: 0 0 20px rgba(212,197,169,0.15); }
+
+/* ============ 7 VILLAS ============ */
+.villas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-top: 60px; }
+.villa-card {
+  background: var(--panel); border: 1px solid #262626; border-left: 3px solid var(--gold);
+  padding: 32px 30px; position: relative; overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.villa-card:hover { transform: translateY(-6px); border-left-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+.villa-card .v-num { font-size: 90px; color: var(--gold); opacity: 0.06; position: absolute; right: 20px; top: 10px; font-weight: 300; letter-spacing: -3px; }
+.villa-card .v-label { font-size: 12px; letter-spacing: 4px; color: var(--muted); margin-bottom: 8px; }
+.villa-card .v-name { font-size: 28px; color: var(--text); letter-spacing: 3px; margin-bottom: 10px; }
+.villa-card .v-khuc { font-size: 12px; color: var(--accent); font-style: italic; margin-bottom: 20px; letter-spacing: 2px; }
+.villa-card .v-body { font-size: 13px; color: var(--dim); line-height: 1.7; }
+.villa-card .v-tag { display: inline-block; padding: 3px 10px; font-size: 9px; color: var(--gold); border: 1px solid var(--gold); border-radius: 12px; margin-top: 15px; letter-spacing: 2px; text-transform: uppercase; }
+.villa-card .v-patron { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #262626; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+.villa-card .v-patron .p-label { color: var(--accent); }
+
+/* ============ CATEGORY BLOCK ============ */
+.category-block { background: linear-gradient(135deg, #1a1a1a 0%, #221c14 100%); padding: 80px 60px; margin: 80px 0; border: 1px solid #262626; border-radius: 4px; }
+.comparison-table { width: 100%; margin: 30px auto 0; border-collapse: collapse; max-width: 900px; }
+.comparison-table th, .comparison-table td { padding: 14px 18px; font-size: 14px; border-bottom: 1px solid #262626; text-align: left; }
+.comparison-table th { color: var(--gold); letter-spacing: 3px; font-size: 11px; text-transform: uppercase; font-weight: 400; }
+.comparison-table td.bim { color: var(--muted); }
+.comparison-table td.us { color: var(--gold); }
+
+/* ============ QUOTE BLOCK ============ */
+.quote-block { text-align: center; padding: 100px 20px; max-width: 900px; margin: 0 auto; }
+.quote-block blockquote { font-size: 28px; line-height: 1.6; color: var(--gold); font-style: italic; letter-spacing: 1px; }
+
+/* ============ CTA BLOCK ============ */
+.cta-block { text-align: center; padding: 120px 20px; background: radial-gradient(ellipse at center, #221c14 0%, transparent 70%); }
+.cta-title { font-size: 46px; color: var(--gold); font-weight: 300; letter-spacing: 3px; margin-bottom: 25px; line-height: 1.4; }
+.cta-sub { font-size: 16px; color: var(--dim); max-width: 600px; margin: 0 auto 40px; line-height: 1.8; }
+.cta-button { display: inline-block; padding: 18px 44px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; transition: all 0.4s; }
+.cta-button:hover { background: var(--gold); color: #0f0f0f; letter-spacing: 6px; }
+
+/* ============ FOOTER ============ */
+footer { padding: 40px 40px; text-align: center; border-top: 1px solid #1a1a1a; }
+footer .f-logo { font-size: 12px; letter-spacing: 6px; color: var(--gold); margin-bottom: 15px; }
+footer .f-copy { font-size: 10px; letter-spacing: 2px; color: #444; }
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 50px; letter-spacing: 10px; }
+  .hero-tagline { font-size: 14px; letter-spacing: 3px; }
+  nav { padding: 15px 20px; }
+  nav .links { display: none; }
+  section { padding: 60px 20px; }
+  .section-title { font-size: 28px; letter-spacing: 2px; }
+  .villas-grid { grid-template-columns: 1fr; }
+  .category-block { padding: 40px 25px; }
+  .comparison-table th, .comparison-table td { padding: 10px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">LAM NGỌC</div>
+  <div class="links">
+    <a href="#why">The Number</a>
+    <a href="#villas">Seven Stanzas</a>
+    <a href="#compare">Positioning</a>
+    <a href="#contact">Enquire</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="stars">
+    <div class="star" style="top:15%; left:20%; animation-delay:0s;"></div>
+    <div class="star" style="top:25%; left:40%; animation-delay:0.5s;"></div>
+    <div class="star" style="top:10%; left:65%; animation-delay:1s;"></div>
+    <div class="star" style="top:30%; left:80%; animation-delay:1.5s;"></div>
+    <div class="star" style="top:20%; left:10%; animation-delay:2s;"></div>
+    <div class="star" style="top:35%; left:55%; animation-delay:2.5s;"></div>
+    <div class="star" style="top:12%; left:88%; animation-delay:0.3s;"></div>
+    <div class="star" style="top:28%; left:28%; animation-delay:1.2s;"></div>
+  </div>
+  <div class="karst-silhouette"></div>
+  <div class="water-shimmer"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">◆ Tuần Châu Peninsula · Hạ Long ◆</div>
+    <h1 class="hero-title">LAM NGỌC</h1>
+    <div class="hero-tagline">— Bảy Khúc Thơ Hạ Long —</div>
+    <p class="hero-subline">7 villa private residential estate trên bán đảo 3.3 hecta, ba mặt nước, trước mặt là kỳ quan thứ 7 của thế giới.</p>
+    <a href="#why" class="hero-cta">Discover</a>
+  </div>
+
+  <div class="scroll-down">▼ SCROLL</div>
+</div>
+
+<!-- SECTION 1 · THE NUMBER -->
+<section id="why">
+  <div class="section-eyebrow">◇ Con Số Bảy ◇</div>
+  <h2 class="section-title">Trên trái đất có <em>7 kỳ quan thiên nhiên</em>.<br>Sáu kỳ quan không thể sở hữu.</h2>
+  <p class="section-lead">Amazon, Iguazu, Komodo, Table Mountain, Puerto Princesa, Jeju — di sản chung của nhân loại, không ai được sở hữu. Kỳ quan thứ 7 — Hạ Long — là <em>kỳ quan duy nhất</em> cho phép một bán đảo riêng trên vùng nước UNESCO.</p>
+
+  <div class="wonders-row">
+    <span class="wonder-chip">1 · Amazon</span>
+    <span class="wonder-chip">2 · Iguazu</span>
+    <span class="wonder-chip">3 · Komodo</span>
+    <span class="wonder-chip">4 · Table Mountain</span>
+    <span class="wonder-chip">5 · Puerto Princesa</span>
+    <span class="wonder-chip">6 · Jeju</span>
+    <span class="wonder-chip halong">7 · HẠ LONG</span>
+  </div>
+
+  <p class="section-lead" style="margin-top: 40px;"><em>"Chúng tôi chọn con số 7 — vì con số 7 đã được viết sẵn trong tấm giấy khai sinh của Hạ Long từ năm 2011."</em></p>
+</section>
+
+<!-- SECTION 2 · SEVEN VILLAS -->
+<section id="villas">
+  <div class="section-eyebrow">◇ Seven Stanzas ◇</div>
+  <h2 class="section-title">Bảy khúc thơ về vịnh.<br><em>Mỗi villa là một khoảnh khắc khác nhau của Hạ Long.</em></h2>
+  <p class="section-lead">Chúng tôi không bán "view từ phòng khách". Chúng tôi bán <em>nơi anh đứng để thuộc về Hạ Long</em>. Mỗi villa là một khúc thơ — bình minh, chính ngọ, hang động, chiều tà, hải trình, ban mai, đêm trăng. Cả 7 villa đều là Hạ Long thuần túy — đá vôi karst, gỗ tối, kính tối, nước. Kỳ quan chỉ hiện diện như <em>người bảo trợ cảm xúc</em>, không định hình một milimet vật liệu.</p>
+
+  <div class="villas-grid">
+
+    <div class="villa-card">
+      <div class="v-num">1</div>
+      <div class="v-label">V1 · 🏆</div>
+      <div class="v-name">Crown</div>
+      <div class="v-khuc">Khúc Bình Minh · The dawn stanza</div>
+      <div class="v-body">Villa flagship. Đặt ở mũi tip đầu bán đảo — điểm duy nhất trên toàn khu đất có <strong>nước bao 270°</strong>. Infinity pool hướng Đông đón bình minh. Đây LÀ Hạ Long — không mượn kỳ quan nào.</div>
+      <span class="v-tag">Flagship · 270°</span>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> HẠ LONG (bản thân)</div>
+    </div>
+
+    <div class="villa-card">
+      <div class="v-num">2</div>
+      <div class="v-label">V2 · 🌊</div>
+      <div class="v-name">Nam</div>
+      <div class="v-khuc">Khúc Chính Ngọ · The noon stanza</div>
+      <div class="v-body">Bờ Nam, chính diện vịnh. Glass wall suốt mặt Nam. Ghế đá thấp ngay mép nước — ngồi đối thoại trực diện với dãy karst UNESCO. Không có gì giữa anh và vịnh.</div>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Table Mountain — đối thoại bình đẳng</div>
+    </div>
+
+    <div class="villa-card" style="border-left-color: #909090;">
+      <div class="v-num">3</div>
+      <div class="v-label">V3 · 🪨</div>
+      <div class="v-name">Tường Đá</div>
+      <div class="v-khuc">Khúc Hang Động · The awe-cave stanza</div>
+      <div class="v-body">Villa <strong>hang động duy nhất</strong>. Mặt Bắc tường đá dày làm sound barrier. Hành lang tối hẹp → courtyard mở bất ngờ → rooftop lộ vịnh. Khoảnh khắc "Sửng Sốt".</div>
+      <span class="v-tag">Cave · Unique</span>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Komodo — truyền thuyết Rồng Mẹ Hạ Long</div>
+    </div>
+
+    <div class="villa-card" style="border-left-color: #ba9a8b;">
+      <div class="v-num">4</div>
+      <div class="v-label">V4 · 🌄</div>
+      <div class="v-name">Hoàng Hôn</div>
+      <div class="v-khuc">Khúc Chiều Tà · The dusk stanza</div>
+      <div class="v-body">Mặt Tây. Villa nhẹ, thoáng, ấm hơn các villa khác. Pontoon gỗ thấp sát nước — chỉ để ngồi + kayak. Một ly rượu. Mặt trời lặn sau khối karst.</div>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Jeju — chiều tà cực đông châu Á</div>
+    </div>
+
+    <div class="villa-card" style="border-left-color: #93acac;">
+      <div class="v-num">5</div>
+      <div class="v-label">V5 · 🚤</div>
+      <div class="v-name">Bến Thuyền</div>
+      <div class="v-khuc">Khúc Hải Trình · The voyage stanza</div>
+      <div class="v-body">Villa <strong>boat-through duy nhất</strong>. Cổng đá mặt Bắc → thuyền đi qua khe nước hẹp → boathouse dưới phòng khách sàn kính. Nhìn xuống thấy thuyền của mình neo dưới chân.</div>
+      <span class="v-tag">Boat-through · Unique</span>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Puerto Princesa — hải trình bí ẩn</div>
+    </div>
+
+    <div class="villa-card" style="border-left-color: #8ba7ba;">
+      <div class="v-num">6</div>
+      <div class="v-label">V6 · 🌫️</div>
+      <div class="v-name">Sương Sớm</div>
+      <div class="v-khuc">Khúc Ban Mai · The mist stanza</div>
+      <div class="v-body">Villa của buổi ban mai. Quay Đông Bắc đón sương phủ vịnh sáng sớm. Sunken một phần vào đất, cửa sổ ngang sát mặt nước — nằm giường thấy sương đi qua phòng.</div>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Amazon — sanctuary xanh</div>
+    </div>
+
+    <div class="villa-card" style="border-left-color: #9a9aba;">
+      <div class="v-num">7</div>
+      <div class="v-label">V7 · 🌕</div>
+      <div class="v-name">Trăng Rằm</div>
+      <div class="v-khuc">Khúc Đêm Trăng · The moon stanza</div>
+      <div class="v-body">Villa của đêm. Courtyard trung tâm với giếng trời tròn + reflection pool tĩnh — trăng in trên nước, in trong nhà. Hang khô nhỏ mở lên trời. Đêm sâu. Vịnh ngủ.</div>
+      <div class="v-patron"><span class="p-label">Spiritual patron:</span> Iguazu — awe của tĩnh</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 3 · POSITIONING -->
+<section id="compare">
+  <div class="category-block">
+    <div class="section-eyebrow">◇ Category of One ◇</div>
+    <h2 class="section-title" style="margin-top: 15px;">Lam Ngọc <em>không phải</em> InterContinental BIM.<br>Không phải Ritz Reserve. Không phải Aman.</h2>
+    <p class="section-lead">Đây là <em>private residential world</em> — không có hotel, không có rental pool, không có du khách. Chỉ có 7 gia đình.</p>
+
+    <table class="comparison-table">
+      <tr>
+        <th></th>
+        <th>InterCon Residences BIM</th>
+        <th>Lam Ngọc</th>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Site</td>
+        <td class="bim">5.2 ha · Bãi Cháy · KĐT hỗn hợp</td>
+        <td class="us">3.3 ha · Tuần Châu · bán đảo thuần túy</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Số căn</td>
+        <td class="bim">101 (41 villa + 60 sky)</td>
+        <td class="us">7</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Đất/căn</td>
+        <td class="bim">~500 m²</td>
+        <td class="us">~4,000–5,000 m² <em>(thưa ~10×)</em></td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Vận hành</td>
+        <td class="bim">IHG hotel + rental pool</td>
+        <td class="us">Thuần residential · không rental</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Khách</td>
+        <td class="bim">Du khách IHG check-in mỗi ngày</td>
+        <td class="us">Chỉ 7 chủ nhân + khách mời</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">View</td>
+        <td class="bim">Bãi Cháy đô thị hóa</td>
+        <td class="us">UNESCO karst 100% uninterrupted</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- QUOTE BLOCK -->
+<div class="quote-block">
+  <blockquote>"BIM bán biệt thự biển. Lam Ngọc bán <em>một bán đảo</em>.<br>101 chủ căn hộ chia nhau 5.2 hecta. Bảy dòng họ chia nhau <em>cả một vịnh</em>."</blockquote>
+</div>
+
+<!-- CTA -->
+<div class="cta-block" id="contact">
+  <h2 class="cta-title">Danh sách chủ nhân chỉ có <em>bảy dòng</em>.<br>Và không bao giờ dài hơn.</h2>
+  <p class="cta-sub">Chúng tôi không quảng cáo Lam Ngọc. Chỉ có một cách để tìm hiểu — được giới thiệu, hoặc đến vịnh và đứng ở mũi tip Tuần Châu.</p>
+  <a href="mailto:enquire@lamngoc.vn" class="cta-button">Enquire Privately</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">LAM NGỌC</div>
+  <div class="f-copy">Royal Canary Corporation · Tuần Châu Peninsula, Hạ Long, Vietnam · 2026</div>
+  <div class="f-copy" style="margin-top:8px;">By invitation only. Not for public distribution.</div>
+</footer>
+
+</body>
+</html>
