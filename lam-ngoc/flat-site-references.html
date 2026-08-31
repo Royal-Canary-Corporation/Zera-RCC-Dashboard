@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lam Ngọc — Flat Site Design Precedents</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3ef;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a2a3a 0%, #2d4a5f 100%);
+    color: #fff;
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 span { color: #c9a96e; }
+  .hero p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 16px auto 0;
+    font-weight: 300;
+  }
+  .hero .badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 24px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Context Box */
+  .context-box {
+    max-width: 900px;
+    margin: -30px auto 40px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 40px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+  }
+  .context-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: #2d4a5f;
+  }
+  .context-box p { font-size: 0.95rem; color: #555; line-height: 1.7; }
+
+  /* Container */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* Section */
+  .section { margin: 48px 0; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #1a2a3a;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #c9a96e;
+    display: inline-block;
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 28px;
+  }
+
+  /* Strategy Cards */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .strategy-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #c9a96e;
+  }
+  .strategy-card .icon { font-size: 2rem; margin-bottom: 12px; }
+  .strategy-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #1a2a3a; }
+  .strategy-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+  /* Project Cards */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin: 24px 0;
+  }
+
+  .project-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+  }
+
+  .card-visual {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-visual .overlay-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .card-visual .tag-flat { background: rgba(201,169,110,0.9); color: #1a2a3a; }
+  .card-visual .tag-terrain { background: rgba(45,74,95,0.9); }
+
+  /* Color themes for card visuals */
+  .bg-gold { background: linear-gradient(135deg, #c9a96e, #d4b96a); }
+  .bg-navy { background: linear-gradient(135deg, #1a2a3a, #2d4a5f); }
+  .bg-terracotta { background: linear-gradient(135deg, #c1694f, #d4855e); }
+  .bg-olive { background: linear-gradient(135deg, #7a8a5a, #9aaa7a); }
+  .bg-slate { background: linear-gradient(135deg, #5a6a7a, #7a8a9a); }
+  .bg-sand { background: linear-gradient(135deg, #d4c9a9, #e4d9b9); }
+  .bg-teal { background: linear-gradient(135deg, #3a7a7a, #5a9a9a); }
+  .bg-charcoal { background: linear-gradient(135deg, #2a2a2a, #4a4a4a); }
+  .bg-ivory { background: linear-gradient(135deg, #f0ece4, #e8e4dc); }
+  .bg-forest { background: linear-gradient(135deg, #2a5a3a, #4a7a5a); }
+
+  .card-body {
+    padding: 22px 24px 24px;
+  }
+  .card-body .type-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .card-body .type-tag {
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-design { background: #e8f0e8; color: #4a7a5a; }
+  .tag-architect { background: #e8ecf0; color: #2d4a5f; }
+  .tag-strategy { background: #f5f0e8; color: #a07a3a; }
+  .tag-flat-site { background: #f0e8e8; color: #c1694f; }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+    color: #1a2a3a;
+  }
+  .card-body .architect {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .card-body .desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .card-body .apply {
+    font-size: 0.85rem;
+    color: #c9a96e;
+    font-weight: 500;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 6px;
+  }
+  .card-body .ref-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #2d4a5f;
+    text-decoration: none;
+    border-bottom: 1px dotted #2d4a5f;
+    transition: opacity 0.2s;
+  }
+  .card-body .ref-link:hover { opacity: 0.6; }
+
+  /* Flat-Site Framework */
+  .framework {
+    background: #1a2a3a;
+    border-radius: 14px;
+    padding: 36px 40px;
+    color: #fff;
+    margin: 32px 0;
+  }
+  .framework h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #c9a96e;
+  }
+  .framework-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .framework-item { padding: 16px; border-radius: 8px; background: rgba(255,255,255,0.06); }
+  .framework-item .num { font-size: 1.5rem; font-weight: 700; color: #c9a96e; }
+  .framework-item h4 { font-size: 0.95rem; margin: 4px 0; }
+  .framework-item p { font-size: 0.85rem; opacity: 0.7; line-height: 1.5; }
+
+  /* Moodboard section */
+  .moodboard { margin: 40px 0; }
+  .mood-label {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 0.8rem;
+    border-top: 1px solid #e0dcd4;
+    margin-top: 60px;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 2rem; }
+    .context-box { margin: -20px 16px 30px; padding: 24px; }
+    .framework { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Lam Ngọc · <span>Flat Site</span></h1>
+  <p>Design precedents for a flat site with views to Hạ Long Bay — architecture that creates its own landscape</p>
+  <div class="badge">5 Villas · Flat Terrain · No Existing Topography</div>
+</div>
+
+<!-- Context -->
+<div class="container">
+
+<div class="context-box">
+  <h2>♢ New Site Context: Flat Terrain</h2>
+  <p>The Lam Ngọc site is confirmed flat — no existing cliffs, hills, or rock formations to build around. The primary natural asset is the <strong>view to Hạ Long Bay's limestone karsts</strong>. This shifts the design challenge: <em>how does architecture create its own drama on flat land?</em></p>
+  <p style="margin-top:10px">Below are precedents organised by <strong>design strategy</strong> rather than by project. Each strategy offers a different answer to the flat-land question. All retain relevance to the "5 Villas, 5 Statements" framework.</p>
+</div>
+
+<!-- Section: Design Strategies for Flat Sites -->
+<section class="section">
+  <h2 class="section-title">Design Strategies for Flat Sites</h2>
+  <p class="section-sub">Six architectural approaches to creating drama and enclosure on flat terrain</p>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="icon">🏗️</div>
+      <h3>Excavation & Sunken Courtyards</h3>
+      <p>Dig down to create sectional drama. The building becomes the landscape — unseen from approach, revealed upon entry. Creates privacy, thermal mass, and a grounded experience.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🌊</div>
+      <h3>Water Mirror / Reflecting Pool</h3>
+      <p>Horizontal water surfaces become the ground plane — extending the bay onto the site. The villa floats on a sheet of reflection. Sky and water merge. Particularly powerful with Hạ Long Bay's karst backdrop.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🏛️</div>
+      <h3>Pavilion Scatter / Horizontal Spread</h3>
+      <p>Instead of one mass, fragment the villa into multiple pavilions across the site. Creates journey, discovery, and multiple view axes. Courtyards between pavilions become outdoor rooms.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🏔️</div>
+      <h3>Artificial Topography</h3>
+      <p>Sculpt the ground — berms, mounds, terraced earth. The site becomes a sculpted landscape. Buildings sit within, on top of, or at the base of created landforms.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🎬</div>
+      <h3>Long Axis / Procession Approach</h3>
+      <p>A controlled approach sequence — long walkway, water channel, or walled garden — builds anticipation before the bay reveal. The arrival IS the experience.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🖼️</div>
+      <h3>Elevated / Flying Volume</h3>
+      <p>Lift the main living volume above the flat ground plane. The view is amplified by height. Below becomes shaded outdoor space. The form becomes a visible marker.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Projects by Strategy -->
+<section class="section">
+  <h2 class="section-title">Reference Projects by Strategy</h2>
+  <p class="section-sub">Each project demonstrates a design approach applicable to a flat site with water views</p>
+
+  <!-- Strategy: Excavation / Sunken -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:32px 0 16px">⛰️ Excavation & Sunken Courtyard</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-charcoal">
+        <span style="font-size:5rem">🏠</span>
+        <span class="overlay-tag tag-flat">Sunken</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-design">Earth-sheltered</span>
+          <span class="type-tag tag-flat-site">Flat site</span>
+        </div>
+        <h3>Villa Vals</h3>
+        <div class="architect">SeARCH + CMA · Vals, Switzerland</div>
+        <div class="desc">A house completely concealed within a hillside — excavated into the slope with only a curved stone wall visible at ground level. Reached through a tunnel from a nearby barn. Protected by strict landscape preservation law, the architects buried the entire program. A dramatic oval opening brings light and views into the sunken courtyard.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> Excavate the villa into the flat ground. The roof becomes a green meadow, invisible from approach. A sunken courtyard at the centre provides privacy and framed views toward the bay. The "disappearing villa" — revealed only upon descent.</div>
+        <a class="ref-link" href="https://www.archdaily.com/43187/villa-vals-search-cma" target="_blank">View on ArchDaily →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-ivory">
+        <span style="font-size:5rem">🌿</span>
+        <span class="overlay-tag tag-flat">Sunken</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-design">Excavated</span>
+          <span class="type-tag tag-flat-site">Flat site</span>
+        </div>
+        <h3>Sunken House — Adjaye Associates</h3>
+        <div class="architect">Adjaye Associates · London, UK</div>
+        <div class="desc">An infill house standing in an excavated courtyard — not overlooked by adjacent buildings. The main living space sits at this lower level, with privacy created entirely by excavation. The surrounding garden at ground level becomes a secret green buffer.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> At Lam Ngọc, excavate the villa programme by 1.5-3 metres. Create a private realm at the lower level while the "roof" (at original grade) is a lush garden with open views to the bay. Privacy from neighbours without walls.</div>
+        <a class="ref-link" href="https://www.adjaye.com/work/sunken-house/" target="_blank">View reference →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Strategy: Water Mirror -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:40px 0 16px">🌊 Water Mirror / Reflecting Pool</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-sand">
+        <span style="font-size:5rem">🏛️</span>
+        <span class="overlay-tag tag-flat">Water as ground</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-strategy">Reflecting pool</span>
+          <span class="type-tag tag-design">Flat site icon</span>
+        </div>
+        <h3>Amanzoe</h3>
+        <div class="architect">Edward Tuttle / Designrealization · Porto Heli, Greece</div>
+        <div class="desc">A modern Acropolis on a hilltop — colonnades, pavilions, and long reflecting pools frame panoramic views of the Aegean. The architecture is classically Aman: strong horizontal lines, pale stone, symmetrical water features that mirror the sky. Long pools extend from pavilions toward the sea horizon, visually merging architecture with ocean.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> A long reflecting pool — 20-40m — extending from the villa's main pavilion toward the bay. The water surface captures Hạ Long Bay's karsts in reflection. At night, illuminated water creates a second sky. The building appears to float between two bodies of water.</div>
+        <a class="ref-link" href="https://www.archdaily.com/907182/amanzoe-luxury-hotel-and-villas-edward-tuttle-designrealization" target="_blank">View on ArchDaily →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-navy">
+        <span style="font-size:5rem">🔲</span>
+        <span class="overlay-tag tag-terrain">Water mirror</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">Snøhetta</span>
+          <span class="type-tag tag-strategy">Water integration</span>
+        </div>
+        <h3>Svart — Snøhetta</h3>
+        <div class="architect">Snøhetta · Svartisen, Norway</div>
+        <div class="desc">World's first self-powered hotel. A perfect circular form on stilts over an Arctic fjord. The ring shape provides panoramic views. The building touches the water lightly — on stilts, not foundations. Energy-positive (85% less energy). The form was inspired by local fish-drying racks.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> While Svart is over water, its lesson for Lam Ngọc is: a waterfront villa on a flat site can be lifted on slender columns above a reflecting pool. The water continues under the building. The villa floats. The circular/curved form becomes an instantly recognisable silhouette.</div>
+        <a class="ref-link" href="https://www.dezeen.com/2021/09/01/snohetta-svart-hotel-arctic-norway/" target="_blank">View reference →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Strategy: Pavilion Scatter -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:40px 0 16px">🏛️ Pavilion Scatter / Horizontal Spread</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-olive">
+        <span style="font-size:5rem">🌴</span>
+        <span class="overlay-tag tag-flat">Pavilions</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">WOHA</span>
+          <span class="type-tag tag-design">Camouflaged</span>
+        </div>
+        <h3>Alila Villas Uluwatu</h3>
+        <div class="architect">WOHA · Bali, Indonesia</div>
+        <div class="desc">A series of semi-transparent rectangular boxes perched on the edge of Bali's limestone cliffs. The design blends contemporary clean lines with traditional Balinese materials — local stone, recycled railway sleepers, open pavilions. "Camouflaged architecture" — buildings overtaken by landscaping. Green roofs. Indoor-outdoor boundaries dissolved.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> On flat land, WOHA's pavilion-scatter approach becomes even more relevant. Each villa as a cluster of pavilions — sleeping, living, dining, bathing — connected by garden paths. Courtyards between pavilions become outdoor rooms. Green roofs make the architecture disappear when viewed from above.</div>
+        <a class="ref-link" href="https://woha.net/project/alila-villas-uluwatu/" target="_blank">View on WOHA site →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-teal">
+        <span style="font-size:5rem">🏡</span>
+        <span class="overlay-tag tag-flat">Pavilions</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">Kengo Kuma</span>
+          <span class="type-tag tag-design">Negative arch.</span>
+        </div>
+        <h3>Red Sea Villas — Kengo Kuma</h3>
+        <div class="architect">Kengo Kuma · Saudi Arabia</div>
+        <div class="desc">7 villa typologies on a pristine island. Kuma's design approach was "informed by the rich variety of coral life covering the surrounding ocean floor." Overwater and land-based villas that reference marine forms. Designed to be low-impact on the fragile coastal ecosystem.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> Each villa type is different — designed for a specific site condition. On flat land, the differentiation comes from: orientation to bay, relationship to water (on water / on land / half-submerged), and roof form. Kuma's "negative architecture" — where the building yields to the landscape — is the right philosophy for a flat site where the VIEW is the asset.</div>
+        <a class="ref-link" href="https://www.kkaa.co.jp/en/works/" target="_blank">View on Kengo Kuma →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Strategy: Artificial Topography -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:40px 0 16px">🏔️ Artificial Topography</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-terracotta">
+        <span style="font-size:5rem">🪨</span>
+        <span class="overlay-tag tag-terrain">Carved into rock</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-design">Mountain integration</span>
+          <span class="type-tag tag-strategy">Lantern effect</span>
+        </div>
+        <h3>Desert Rock — Oppenheim Architecture</h3>
+        <div class="architect">Oppenheim Architecture · Hejaz Mountains, Saudi Arabia</div>
+        <div class="desc">Resort carved into granite mountains — cave suites integrated into natural rock outcrops. Buildings "camouflaged during the day, glowing like lanterns at night." Architecture forms found in cooler microclimates. Buildings seem to "detach from rock." Night lighting transforms structures into "small lanterns dotted across the massif."</div>
+        <div class="apply"><strong>→ Flat site application:</strong> On a flat site, the "lantern effect" translates to: each villa as a sculpted earth form — green mounds with glowing apertures at night. Artificial hills built above ground (berms) conceal the rooms below. At night, 5 lit forms across the site = 5 stars.</div>
+        <a class="ref-link" href="https://www.oppenheimarchitecture.com/desert-rock" target="_blank">View on Oppenheim →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-forest">
+        <span style="font-size:5rem">🌳</span>
+        <span class="overlay-tag tag-terrain">Earth-sheltered</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-design">Green roof</span>
+          <span class="type-tag tag-strategy">Invisible house</span>
+        </div>
+        <h3>Costa Rica Hillside — Green Roof Villa</h3>
+        <div class="architect">Undisclosed · Costa Rica</div>
+        <div class="desc">A luxury home that "blends with its wild environment thanks to a low profile and a green roof." Unassuming industrial facade encasing a serenely luxurious interior. The building is practically invisible from above — green roof merges with surrounding jungle.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> On a flat site, building earth-sheltered (partially below grade + green roof) achieves the disappearing act. From the bay approach, all you see is a grassy mound. Inside, the front wall opens completely to the view — the bay unfurls at eye level.</div>
+        <a class="ref-link" href="https://www.homedit.com/grand-ocean-view-and-a-green-roof/" target="_blank">View reference →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Strategy: Procession/Long Axis -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:40px 0 16px">🎬 Long Axis / Procession Approach</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-sand">
+        <span style="font-size:5rem">🏗️</span>
+        <span class="overlay-tag tag-flat">Procession</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">Tadao Ando</span>
+          <span class="type-tag tag-design">Concrete axis</span>
+        </div>
+        <h3>Casa Wabi — Tadao Ando</h3>
+        <div class="architect">Tadao Ando · Puerto Escondido, Mexico</div>
+        <div class="desc">A 312-metre-long concrete wall provides the framework for this artist retreat on the Mexican coast. The wall separates public from private, frames the view, and creates a powerful axial approach. Six small guest cabins sit to the west, each with a palapa roof and ocean view. The wall is both a gesture and a spine — organising space across a flat coastal site.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> A signature wall — long, horizontal, precise — as the organising device for one of the villas. The wall extends from the building toward the bay, framing the view. Guests walk along it, turn the corner, and the entire bay is revealed. A single gesture gives the flat site its drama.</div>
+        <a class="ref-link" href="https://www.dezeen.com/2016/01/14/tadao-ando-casa-wabi-artist-retreat-mexico-coast-concrete/" target="_blank">View on Dezeen →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-slate">
+        <span style="font-size:5rem">🔲</span>
+        <span class="overlay-tag tag-flat">Journey</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">Kengo Kuma</span>
+          <span class="type-tag tag-design">Water Cherry</span>
+        </div>
+        <h3>Water Cherry Villa — Kengo Kuma</h3>
+        <div class="architect">Kengo Kuma · Atami, Japan</div>
+        <div class="desc">A seaside villa that abstracts traditional Japanese form. Architecture "disappears" — yielding to cherry blossoms and the sea view. Extensive natural materials: wood, stone, glass. Negative architecture — the building frames rather than claims the landscape.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> For a flat site, Kuma's approach is: let the building be a sequence of framed views. A path that turns, a water feature that catches the light, a pavilion that opens to the bay. The villa is experienced as a journey — not a single object but a series of discoveries.</div>
+        <a class="ref-link" href="https://kkaa.co.jp/en/works/" target="_blank">View on Kengo Kuma →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Strategy: Elevated/Flying -->
+  <h3 style="font-family:'Playfair Display',serif;color:#2d4a5f;margin:40px 0 16px">🖼️ Elevated / Flying Volume</h3>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-visual bg-gold">
+        <span style="font-size:5rem">🏗️</span>
+        <span class="overlay-tag tag-flat">Cantilevered</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-architect">BIG</span>
+          <span class="type-tag tag-design">Setouchi</span>
+        </div>
+        <h3>NOT A HOTEL Setouchi — BIG</h3>
+        <div class="architect">BIG (Bjarke Ingels Group) · Sagishima, Japan</div>
+        <div class="desc">Three villas on a 30,000m² cape, each with a different orientation (180°/270°/360°). Rammed earth construction using local materials. Japanese + Scandinavian fusion. Villas follow the site's natural contours. Each villa designed as one large space with skylit pods for bathrooms and storage. Traditional Japanese baths, infinity pools.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> BIG's approach is to orient each villa uniquely. On a flat site at Lam Ngọc, the differentiation comes from: viewing axis (each villa aimed at a different karst), height (one elevated on columns, one at ground level, one partially submerged), and roof form (each with a distinct silhouette). The flat site forces design creativity — you can't rely on topography, only on architecture.</div>
+        <a class="ref-link" href="https://www.dezeen.com/2026/04/07/big-not-a-hotel-setouchi/" target="_blank">View on Dezeen →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-visual bg-navy">
+        <span style="font-size:5rem">🏗️</span>
+        <span class="overlay-tag tag-terrain">Elevated</span>
+      </div>
+      <div class="card-body">
+        <div class="type-row">
+          <span class="type-tag tag-design">Boat-only</span>
+          <span class="type-tag tag-strategy">Arrival</span>
+        </div>
+        <h3>NOT A HOTEL Rusutsu — Snøhetta</h3>
+        <div class="architect">Snøhetta · Hokkaidō, Japan</div>
+        <div class="desc">One mountaintop ski villa. Two gently curving linear volumes positioned perpendicularly, each dipping at the centre in homage to the surrounding mountains. The building's form is derived from the landscape, not imposed on it. A single Snøhetta-designed villa elevates an entire project.</div>
+        <div class="apply"><strong>→ Flat site application:</strong> A single elevated volume on slender columns — lifted just enough to catch the breeze and the view. Below: shaded outdoor living. Above: a floating glass pavilion with unimpeded 270° view. The lifting creates the drama that topography would otherwise provide.</div>
+        <a class="ref-link" href="https://notahotel.com/en/properties/rusutsu" target="_blank">View on NOT A HOTEL →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 3: The 5 Villa Typologies for Flat Site -->
+<section class="section">
+  <h2 class="class-title" style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#1a2a3a;display:inline-block;border-bottom:2px solid #c9a96e;padding-bottom:12px">5 Villas for Flat Terrain</h2>
+  <p class="section-sub" style="margin-top:12px">Revised typologies — each uses a different flat-site strategy</p>
+
+  <div class="framework">
+    <h2>♢ Revised "5 Villas, 5 Strategies"</h2>
+    <div class="framework-grid">
+      <div class="framework-item">
+        <div class="num">01</div>
+        <h4>The Sunken Sanctuary</h4>
+        <p>Excavated courtyard. Invisible from approach. Roof = green meadow. Only the view betrays its presence. Strategy: Excavation.</p>
+      </div>
+      <div class="framework-item">
+        <div class="num">02</div>
+        <h4>The Floating Pavilion</h4>
+        <p>Elevated on slender columns above a reflecting pool. Glass walls dissolve the boundary. Bay appears to enter the room. Strategy: Elevated + Water Mirror.</p>
+      </div>
+      <div class="framework-item">
+        <div class="num">03</div>
+        <h4>The Scattered Courtyards</h4>
+        <p>Five pavilions connected by garden paths. Each pavilion frames a different view of a single karst. Strategy: Horizontal spread.</p>
+      </div>
+      <div class="framework-item">
+        <div class="num">04</div>
+        <h4>The Lantern Mound</h4>
+        <p>Artificial hill with rooms carved inside. At night, light spills from a single aperture — like a lantern on the shoreline. Strategy: Artificial topography.</p>
+      </div>
+      <div class="framework-item">
+        <div class="num">05</div>
+        <h4>The Bridge House</h4>
+        <p>A single long volume spanning between two artificial ponds. Arrival via boat to a dock beneath the span. The building IS a gateway. Strategy: Procession + Axis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Key Design Notes -->
+<section class="section">
+  <h2 class="section-title">Design Notes for Flat Sites</h2>
+  <p class="section-sub">Observations distilled from all case studies</p>
+
+  <div class="strategy-grid">
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>① Flat ≠ Boring</h3>
+      <p>A flat site is a blank canvas. The most memorable projects in the world (Amanzoe, Casa Wabi, Amangiri) are on flat or gently sloping land. They create their own topography through architecture, water, and landscape design.</p>
+    </div>
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>② The View is the Only Given</h3>
+      <p>Without natural features to build around, the view to Hạ Long Bay becomes the single unifying orientation. Every villa must face the bay differently — not just rotated by degrees, but a fundamentally different relationship to the waterline.</p>
+    </div>
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>③ Water is the New Topography</h3>
+      <p>On a flat site, water — reflecting pools, canals, plunge pools, water gardens — becomes the primary landscape material. It creates a new ground plane that mirrors the sky and the karsts beyond.</p>
+    </div>
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>④ Silhouette Matters More</h3>
+      <p>With no cliffs or hills to frame it, each villa's silhouette must work against the Hạ Long Bay skyline. A flat site means the building's profile is visible from the bay. The 5 silhouettes become the project's identity.</p>
+    </div>
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>⑤ Arrival by Water Becomes the Drama</h3>
+      <p>The flat site offers no dramatic approach — except the water arrival. This elevates the boat journey (Tuan Chau → villa dock) to the most important architectural experience of the project. The channel, the dock, the reveal.</p>
+    </div>
+    <div class="strategy-card" style="border-left-color:#2d4a5f">
+      <h3>⑥ Night Lighting = The New Entry</h3>
+      <p>From the bay at night, the 5 villas will be seen as 5 lit signatures before the architecture is legible. The night lighting — lantern, glow, reflection — is the first impression for any arriving guest.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="footer">
+  Lam Ngọc Villas — Design Reference Document · August 2026<br>
+  Prepared for Bach & Quang — follow-up research: UNESCO feasibility, architect outreach, site visit
+</div>
+
+</body>
+</html>
